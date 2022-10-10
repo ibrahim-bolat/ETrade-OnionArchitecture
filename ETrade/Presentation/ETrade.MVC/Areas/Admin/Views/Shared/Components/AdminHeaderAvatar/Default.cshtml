@@ -1,0 +1,13 @@
+<div class="user-area dropdown" style="background-color:turquoise ;">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span  style="text-decoration:underline;line-height: 40px;">Merhaba @User.Identity?.Name</span>
+        <img class="user-avatar rounded-circle" src="@ViewBag.ProfilPhoto" alt="User Avatar">
+    </a>
+    <div class="user-menu dropdown-menu">
+        <a asp-area="Admin" asp-controller="Account" asp-action="Profile" asp-route-Id="@ViewBag.UserId" class="nav-link"><i class="fa fa-user"></i> Profil</a>
+        <a asp-area="Admin" asp-controller="Account" asp-action="EditProfile" asp-route-Id="@ViewBag.UserId" class="nav-link"><i class="fa fa-user"></i> Profil Güncelle</a>
+        <a asp-area="Admin" asp-controller="Account" asp-action="EditPassword" asp-route-Id="@ViewBag.UserId" class="nav-link"><i class="fa fa-pencil-square"></i> Şifre Güncelle</a>
+        <a class="nav-link" href="#"><i class="fa fa-user"></i> Bildirimler <span class="count">13</span></a>
+        <a asp-area="Admin" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="/Admin/Account/Login" class="nav-link"><i class="fa fa-power-off"></i> Çıkış Yap</a>
+    </div>
+</div>

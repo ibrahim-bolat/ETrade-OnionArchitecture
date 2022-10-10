@@ -1,0 +1,45 @@
+@model IList<UserImageDto>
+<div class="modal fade" id="userImageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="userImageModalLabel">Kullanıcı Fotoğrafları</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body" id="userImageModalFormModalBody">
+                <div asp-validation-summary="ModelOnly" class="text-danger ml-4"></div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row column4 graph">
+                            <!-- Gallery section -->
+                            <div class="col-md-12">
+                                <div class="white_shd full margin_bottom_30">
+                                    <div class="full gallery_section_inner padding_infor_info">
+                                        <div class="row">
+                                            @foreach (var image in Model)
+                                            {
+                                                <div class="col-6 margin_bottom_30">
+                                                    <div class="column">
+                                                        <a data-fancybox="gallery" href="@image.ImagePath">
+                                                            <img class="img-responsive" src="@image.ImagePath" alt="@image.ImageAltText" width="197px" height="150px"/>
+                                                        </a>
+                                                    </div>
+                                                    <div class="heading_section d-flex justify-content-center py-2">
+                                                        <button type="button" class="btn btn-outline-success mr-2 rounded userImageSetProfilButton" data-userid="@image.UserId" data-id="@image.Id">Profil Yap</button>
+                                                        <button type="button" class="btn btn-outline-danger mr-2 rounded userImageDeleteProfilButton" data-userid="@image.UserId" data-id="@image.Id">Sil</button>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>

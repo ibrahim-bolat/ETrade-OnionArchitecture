@@ -1,0 +1,23 @@
+@model EditPasswordDto
+@{
+    Layout = "Account/_AccountLayout";
+    ViewData["Title"] = "ConfirmEmail";
+}
+@if (ViewBag.State!=null)
+{
+
+    if (ViewBag.State)
+    {
+        <div class="alert-success my-2">Teşekkürler. Emailiniz doğrulanmıştır.Giriş Yapabilirsiniz.</div>
+        <div> <a asp-area="Admin" asp-controller="Account" asp-action="Login" class="btn btn-success"> Giriş</a></div>
+    }
+    else
+    {
+        <div class="alert-danger my-2">Bu emaile sahip herhangi bir kullanıcı mevcut değil</div>
+     }
+}
+else
+{
+    <div class="alert-danger my-2">Emailiniz dogrulanamadı</div>
+}
+    

@@ -1,0 +1,72 @@
+@model IEnumerable<AppRole>
+
+@{
+    Layout = "Admin/_AdminLayout";
+    ViewBag.Title = "Roller";
+}
+
+<div class="breadcrumbs">
+        <div class="col-sm-4">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>Dashboard</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right">
+                        <li class="active">Dashboard</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content mt-3">
+                <div class="col-sm-12">
+                    <div class="alert  alert-success alert-dismissible fade show" role="alert">
+                        <span class="badge badge-pill badge-success">Success</span> You successfully read this important alert message.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+
+        <div class="container">
+            <div class="col-sm-6">
+            <p class="mt-3">
+                <a asp-area="Admin" asp-action="CreateRole" asp-controller="Role" class="btn btn-outline-primary">Rol Ekle</a>
+            </p>
+
+                <div class="table table-responsive">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    <a asp-area="Admin" asp-controller="Role" asp-action="DeleteRole" asp-route-id="@item.Id" class="btn btn-outline-danger">Sil</a>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+        </div>
+
+    </div> <!-- .content -->
+

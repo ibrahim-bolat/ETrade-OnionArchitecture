@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - AdminPanel</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/admin/fonts/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/icons/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="~/icons/flag-icon/css/flag-icon.min.css">
+    <link rel="stylesheet" href="~/admin/css/admin.css"/>
+
+    <link rel="stylesheet" href="~/admin/fonts/googlefonts/css/googlefonts.css">
+    @await RenderSectionAsync("Style", required: false)
+
+</head>
+
+<body>
+<!-- Left Panel -->
+<partial name="Admin/_AdminLeftPanel"/>
+<!-- Left Panel -->
+
+<!-- Right Panel -->
+<aside id="right-panel" class="right-panel">
+
+    <!-- Header-->
+    <partial name="Admin/_AdminHeader"/>
+    <!-- Header-->
+
+    @RenderBody()
+
+</aside><!-- /#right-panel -->
+<!-- Right Panel -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+@{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+<script src="~/js/sweetalert2/sweetalert2.all.min.js"></script>
+<script src="~/admin/js/admin.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

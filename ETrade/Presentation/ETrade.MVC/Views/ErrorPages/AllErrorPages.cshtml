@@ -1,0 +1,26 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - ErrorPage</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/fonts/errorpage/css/googlefonts.css">
+    <link rel="stylesheet" href="~/css/errorpage.css">
+</head>
+<body>
+<div class="container">
+        <h2>@ViewBag.ErrorNumber</h2>
+        <h3>Oops, @ViewBag.ErrorMessage</h3>
+        <p><a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Index">Anasayfa</a></p>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

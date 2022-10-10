@@ -1,0 +1,53 @@
+﻿@model RegisterDto
+@{
+    Layout = "Account/_AccountLayout";
+    ViewBag.Title = "Register";
+}
+<div class="login-form">
+    <form asp-area="Admin" asp-controller="Account" asp-action="Register" method="post" class="border border-2 p-2">
+         <div asp-validation-summary="All" class="text-danger ml-4"></div>
+        <div class="form-group row">
+            <label asp-for="FirstName" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9">
+                <input asp-for="FirstName" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="LastName" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9">
+                <input asp-for="LastName" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="UserName" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9">
+                <input asp-for="UserName" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Email" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9">
+                <input type="email" asp-for="Email" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Password" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9">
+                <input type="password" asp-for="Password" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="RePassword" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9">
+                <input type="password" asp-for="RePassword" class="form-control"/>
+            </div>
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox"><a href="#" target="_blank">Kullanıcı sözleşmesini</a> okudum ve kabul ediyorum.</label>
+        </div>
+        <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Kaydol</button>
+        <div class="register-link m-t-15 text-center">
+            <p>Hesabın var mı? <a asp-area="Admin" asp-controller="Account" asp-action="Login"> Giriş Yap</a></p>
+        </div>
+    </form>
+</div>

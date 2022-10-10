@@ -1,0 +1,87 @@
+﻿@model LoginDto
+@{
+    Layout = "Account/_AccountLayout";
+    ViewBag.Title = "Giriş";
+}
+
+<div class="login-form">
+    <form asp-area="Admin" asp-controller="Account" asp-action="Login" method="post" class="border border-2 p-2">
+        <div asp-validation-summary="All" class="text-danger ml-4"></div>
+        <div class="form-group row">
+            <label asp-for="Email" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9">
+                <input type="email" asp-for="Email" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Password" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9">
+                <input type="password" asp-for="Password" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Persistent" class="col-3 form-check-label text-capitalize"></label>
+            <div class="col-9">
+                <input asp-for="Persistent" class=""/>
+                <label class="pull-right">
+                    <a asp-area="Admin" asp-controller="Account" asp-action="ForgetPass" class="ml-auto text-capitalize">Şifreni mi Unuttun?</a>
+                </label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Giriş Yap</button>
+        <div class="register-link m-t-15 text-center">
+            <p>Hesabın yok mu? <a asp-area="Admin" asp-controller="Account" asp-action="Register">Kaydol</a></p>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var loginMessage = '@TempData["LoginSuccess"]';
+        var updatePasswordMessage = '@TempData["UpdatePasswordStatus"]';
+        if (loginMessage)
+        {
+            const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                 toast.addEventListener('click', Swal.close)
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+            })
+
+            Toast.fire({
+            icon: 'success',
+            title: 'Tebrikler Kayıt Oldunuz',
+            text: 'Artık giriş yapabilirsiniz.',
+            })
+
+        }
+        if (updatePasswordMessage==="True")
+        {
+            const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('click', Swal.close)
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+            })
+
+            Toast.fire({
+            icon: 'success',
+            title: 'Tebrikler Şifre Güncellendi.',
+            text: 'Şifre Güncelleme İşlemi Başarıyla Gerçekleşmiştir.',
+            })
+        }
+});
+</script>
+}

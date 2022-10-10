@@ -1,0 +1,207 @@
+@model UserDetailDto
+@{
+    Layout = "Admin/_AdminLayout";
+    ViewData["Title"] = "Profil";
+}
+
+@section Style {
+    <style>
+      /*------------------------------------------------------------------
+          Fancybox Gallery Section   
+      -------------------------------------------------------------------*/
+      
+      .gallery_section_inner .column {
+          background: #fff;
+          box-shadow: 0 0 13px -10px #000;
+          overflow: hidden;
+      }
+      
+      .heading_section {
+          border-top: solid #1ed085 2px;
+          background: #15283c;
+      }
+      
+      .heading_section h4 {
+          color: #fff;
+          margin: 0;
+          font-weight: 200;
+          text-align: center;
+          padding: 16px 0 16px;
+          font-size: 15px;
+      }
+   </style>
+    <link href="~/lib/fancybox/css/jquery.fancybox.css" rel="stylesheet" />
+}
+
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Dashboard</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li class="active">Dashboard</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="col-sm-12">
+        <div class="alert  alert-success alert-dismissible fade show" role="alert">
+            <span class="badge badge-pill badge-success">Success</span> You successfully read this important alert message.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="container-fluid py-5" style="background-color: #eee;">
+        <div class="row">
+            <div class="col-lg-4">
+                    <!-- User Card Summary-->
+                    @await Component.InvokeAsync("UserSummaryCard",new { userId=Model.UserDto.Id })
+                    <!-- User Card Summary-->
+                    <!-- UserImage Card-->
+                    @await Component.InvokeAsync("UserImageCard",new { userId=Model.UserDto.Id })
+                    <!-- UserImage Card-->
+            </div>
+            <div class="col-lg-8">
+                         <div class="card">
+                             <div class="card-header">
+                                 <h3>Kullanıcı Bilgileri</h3>
+                                 </div>
+                            <div class="card-body">
+                               <div class="custom-tab">
+                                  <nav>
+                                     <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                                        <a class="nav-item nav-link active" id="custom-nav-home-tab" data-toggle="tab" href="#custom-nav-profile" role="tab" aria-controls="custom-nav-profile" aria-selected="true">Profil Bilgileri</a>
+                                         <a class="nav-item nav-link" id="custom-nav-contact-tab" data-toggle="tab" href="#custom-nav-address" role="tab" aria-controls="custom-nav-address" aria-selected="false">Adres Bilgileri</a>
+                                     </div>
+                                  </nav>
+                                  <div class="tab-content pl-3 pt-2 mt-3" id="nav-tabContent">
+                                     <div class="tab-pane fade show active" id="custom-nav-profile" role="tabpanel" aria-labelledby="custom-nav-home-tab">
+                                        <table class="table border-bottom">
+                                                            <thead>
+                                                            <tr>
+                                                                <th class="border-0" style="width: 30%;"></th>
+                                                                <th class="border-0" style="width: 70%;"></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td class="border-0">
+                                                                    <label asp-for="UserDto.FirstName"></label>
+                                                                </td>
+                                                                <td class="text-muted border-0">@Model.UserDto.FirstName</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label asp-for="UserDto.LastName"></label>
+                                                                </td>
+                                                                <td class="text-muted">@Model.UserDto.LastName</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label asp-for="UserDto.UserName"></label>
+                                                                </td>
+                                                                <td class="text-muted">@Model.UserDto.UserName</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label asp-for="UserDto.GenderType"></label>
+                                                                </td>
+                                                                <td class="text-muted">@Model.UserDto.GenderType.GetEnumDescription()</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label asp-for="UserDto.UserIdendityNo"></label>
+                                                                </td>
+                                                                <td class="text-muted">@Model.UserDto.UserIdendityNo</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label asp-for="UserDto.PhoneNumber"></label>
+                                                                </td>
+                                                                <td class="text-muted">@Model.UserDto.PhoneNumber</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label asp-for="UserDto.Email"></label>
+                                                                </td>
+                                                                <td class="text-muted">@Model.UserDto.Email</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label asp-for="UserDto.DateOfBirth"></label>
+                                                                </td>
+                                                                <td class="text-muted">@(Model.UserDto.DateOfBirth.HasValue ? Model.UserDto.DateOfBirth.Value.ToString("dd/MM/yyyy") : "") </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label asp-for="UserDto.Note"></label>
+                                                                    </td>
+                                                                <td class="text-muted">@Model.UserDto.Note</td>
+                                                                </tr>
+                                                            <tr>
+                                                                <td>Adres</td>
+                                                                <td class="text-muted">@Model.UserAddressSummaryDtos.FirstOrDefault(x=>x.DefaultAddress)?.AddressDetails</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                     </div>
+                                      <div class="tab-pane fade" id="custom-nav-address" role="tabpanel" aria-labelledby="custom-nav-address-tab">
+                                          <a asp-area="Admin" asp-controller="Address" asp-action="AddressAdd" asp-route-userId="@Model.UserDto.Id" class="btn btn-outline-primary mb-2">Adres Ekle</a>
+                                          <div class="row">
+                                              @foreach (var address in @Model.UserAddressSummaryDtos.OrderByDescending(a=>a.Id))
+                                              {
+                                                  <div class="col-md-6 col-lg-12 col-xl-6 mb-3">
+                                                      <div class="card" style="border-radius: 20px;">
+                                                          <div class="card-header">
+                                                              <h5 class="card-title">@address.AddressTitle</h5>
+                                                          </div>
+                                                          <div class="card-body">
+                                                              <div class="card-text" style="height: 200px">
+                                                                  <p class="font-weight-bold">@address.FullName</p>
+                                                                  @if (address.AddressDetails.Length < 150)
+                                                                           {
+                                                                               <p>
+                                                                                   @address.AddressDetails.Substring(0, address.AddressDetails.Length)
+                                                                               </p>
+                                                                           }
+                                                                           else
+                                                                           {
+                                                                               <p>
+                                                                                   @address.AddressDetails.Substring(0, address.AddressDetails.Substring(0,150).LastIndexOf(" ", StringComparison.Ordinal))...
+                                                                               </p>
+                                                                           }
+                                                                  <p class="text-muted">@address.PhoneNumber</p>
+                                                              </div>
+                                                              <div class="d-flex justify-content-end">
+                                                                  <a asp-area="Admin" asp-controller="Address" asp-action="AddressDetail" asp-route-addressId="@address.Id" class="btn btn-info btn-sm">Detay</a>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              }
+                                          </div>
+                                      </div>
+                                  </div>
+                               </div>
+                            </div>
+                         </div>
+                      </div>
+        </div>
+    </div>
+</div> <!-- .content -->
+    @section Scripts {
+        <script src="~/lib/fancybox/js/jquery.fancybox.min.js"></script>
+        <script src="~/admin/js/UserImage/userImage.js"></script>
+    }
+
