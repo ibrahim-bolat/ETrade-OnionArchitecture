@@ -1,8 +1,13 @@
 using AutoMapper;
-using ETrade.Application.Constants;
-using ETrade.Application.DTOs.AddressDtos;
+using ETrade.Application.Features.Addresses.Commands.CreateAddressCommand;
+using ETrade.Application.Features.Addresses.Commands.DeleteAddressCommand;
+using ETrade.Application.Features.Addresses.Commands.UpdateAddressCommand;
+using ETrade.Application.Features.Addresses.Constants;
+using ETrade.Application.Features.Addresses.DTOs;
+using ETrade.Application.Features.Addresses.Queries.GetByIdAddressQuery;
 using ETrade.Application.Services.Abstract;
 using ETrade.Domain.Enums;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ETrade.MVC.Areas.Admin.Controllers;
@@ -10,13 +15,13 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
 [Area("Admin")]
 public class AddressController : Controller
 {
-    private readonly IAddressService _addressService;
     private readonly IMapper _mapper;
+    private readonly IMediator _mediator;
 
-    public AddressController(IAddressService addressService, IMapper mapper)
+    public AddressController(IMapper mapper, IMediator mediator)
     {
-        _addressService = addressService;
         _mapper = mapper;
+        _mediator = mediator;
     }
 
     [HttpGet]
@@ -38,13 +43,17 @@ public class AddressController : Controller
     {
         if (ModelState.IsValid)
         {
-            var dresult= await _addressService.AddAsync(addressDto, User.Identity?.Name);
-            if (dresult.Message == Messages.AddressCountMoreThan10)
+            var dresult = await _mediator.Send(new CreateAddressCommandRequest
             {
-                ModelState.AddModelError("AddressCountMoreThan10", Messages.AddressCountMoreThan10);
+                AddressDto = addressDto, 
+                CreatedByName = User.Identity?.Name
+            });
+            if (dresult.Result.Message == Messages.AddressCountMoreThan4)
+            {
+                ModelState.AddModelError("AddressCountMoreThan10", Messages.AddressCountMoreThan4);
                 return View(addressDto);
             }
-            if (dresult.ResultStatus == ResultStatus.Success)
+            if (dresult.Result.ResultStatus == ResultStatus.Success)
             {
                 TempData["AddAddressSuccess"] = true;
                 return RedirectToAction("AddressAdd", "Address" ,new  {userId=addressDto.UserId});
@@ -58,10 +67,13 @@ public class AddressController : Controller
     {
         if (addressId > 0)
         {
-            var dresult = await _addressService.GetAsync(addressId);
-            if (dresult.ResultStatus==ResultStatus.Success)
+            var dresult = await _mediator.Send(new GetByIdAddressQueryRequest
             {
-                AddressDto addressDto = _mapper.Map<AddressDto>(dresult.Data);
+                Id = addressId
+            });
+            if (dresult.Result.ResultStatus==ResultStatus.Success)
+            {
+                AddressDto addressDto = _mapper.Map<AddressDto>(dresult.Result.Data);
                 return View(addressDto);
             }
             
@@ -74,8 +86,12 @@ public class AddressController : Controller
     {
         if (ModelState.IsValid)
         {
-            var dresult= await _addressService.UpdateAsync(addressDto, User.Identity?.Name);
-            if (dresult.ResultStatus == ResultStatus.Success)
+            var dresult = await _mediator.Send(new UpdateAddressCommandRequest
+            {
+                AddressDto = addressDto, 
+                ModifiedByName = User.Identity?.Name
+            });
+            if (dresult.Result.ResultStatus == ResultStatus.Success)
             {
                 TempData["UpdateAddressSuccess"] = true;
                 return RedirectToAction("AddressUpdate", "Address" ,new { addressId=addressDto.Id});
@@ -89,10 +105,13 @@ public class AddressController : Controller
     {
         if (addressId > 0)
         {
-            var dresult = await _addressService.GetAsync(addressId);
-            if (dresult.ResultStatus==ResultStatus.Success)
+            var dresult = await _mediator.Send(new GetByIdAddressQueryRequest
             {
-                AddressDto addressDto = _mapper.Map<AddressDto>(dresult.Data);
+                Id = addressId
+            });
+            if (dresult.Result.ResultStatus==ResultStatus.Success)
+            {
+                AddressDto addressDto = _mapper.Map<AddressDto>(dresult.Result.Data);
                 return View(addressDto);
             }
         }
@@ -104,10 +123,14 @@ public class AddressController : Controller
     {
         if (addressId > 0)
         {
-            var dresult = await _addressService.DeleteAsync(addressId,User.Identity?.Name);
-            if (dresult.ResultStatus==ResultStatus.Success)
+            var dresult = await _mediator.Send(new DeleteAddressCommandRequest
             {
-                var userId = dresult.Data.UserId;
+                Id = addressId, 
+                ModifiedByName = User.Identity?.Name
+            });
+            if (dresult.Result.ResultStatus==ResultStatus.Success)
+            {
+                var userId = dresult.Result.Data.UserId;
                 return Json(new { success = true, userId });
             }
             return Json(new { success = false});

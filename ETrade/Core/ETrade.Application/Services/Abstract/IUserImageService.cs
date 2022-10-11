@@ -1,4 +1,4 @@
-using ETrade.Application.DTOs.UserImageDtos;
+using ETrade.Application.Features.UserImages.DTOs;
 using ETrade.Application.Wrappers.Abstract;
 
 namespace ETrade.Application.Services.Abstract;

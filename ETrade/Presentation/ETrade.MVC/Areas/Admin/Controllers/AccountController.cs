@@ -1,6 +1,6 @@
 using System.Web;
 using AutoMapper;
-using ETrade.Application.DTOs.UserDtos;
+using ETrade.Application.Features.Accounts.DTOs.UserDtos;
 using ETrade.Application.Model;
 using ETrade.Application.Services.Abstract;
 using ETrade.Domain.Entities.Identity;

@@ -10,23 +10,23 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Exceptions" />
-      <Folder Include="Features\BusinessRules" />
-      <Folder Include="Features\Commands" />
-      <Folder Include="Features\DTOs" />
-      <Folder Include="Features\Models\ViewModels" />
-      <Folder Include="Features\Profiles" />
-      <Folder Include="Features\Queries" />
-      <Folder Include="Features\ValidationRules" />
+      <Folder Include="Features\Accounts\BusinessRules" />
+      <Folder Include="Features\Accounts\Commands" />
+      <Folder Include="Features\Accounts\Queries" />
+      <Folder Include="Features\Addresses\BusinessRules" />
+      <Folder Include="Features\Addresses\Models\ViewModels" />
+      <Folder Include="Features\UserImages\BusinessRules" />
+      <Folder Include="Features\UserImages\Models\ViewModels" />
       <Folder Include="Helpers" />
       <Folder Include="Model\ViewModels" />
-      <Folder Include="Validations" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="AutoMapper" Version="12.0.0" />
       <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
       <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
+      <PackageReference Include="MediatR" Version="11.0.0" />
+      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.7" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.DataAnnotations" Version="2.2.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />

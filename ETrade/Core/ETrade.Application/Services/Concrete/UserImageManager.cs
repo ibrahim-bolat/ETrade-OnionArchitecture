@@ -1,7 +1,6 @@
-
 using AutoMapper;
-using ETrade.Application.Constants;
-using ETrade.Application.DTOs.UserImageDtos;
+using ETrade.Application.Features.UserImages.Constants;
+using ETrade.Application.Features.UserImages.DTOs;
 using ETrade.Application.Repositories;
 using ETrade.Application.Services.Abstract;
 using ETrade.Application.Wrappers.Abstract;
@@ -124,7 +123,7 @@ public class UserImageManager:IUserImageService
                 return new DataResult<UserImageDto>(ResultStatus.Error, Messages.UserImageNotDeleted, null);
             }
         }
-        return new DataResult<UserImageDto>(ResultStatus.Error, Messages.NotFound, null);
+        return new DataResult<UserImageDto>(ResultStatus.Error, Messages.UserImageNotFound, null);
     }
 
     public async Task<IDataResult<UserImageDto>> GetProfilImageByUserIdAsync(int userId)
@@ -135,7 +134,7 @@ public class UserImageManager:IUserImageService
         {
             return new DataResult<UserImageDto>(ResultStatus.Success,userImageViewDto);
         }
-        return new DataResult<UserImageDto>(ResultStatus.Error, Messages.NotFound,userImageViewDto);
+        return new DataResult<UserImageDto>(ResultStatus.Error, Messages.UserImageNotFound,userImageViewDto);
     }
     
     public async Task<IDataResult<int>> GetUserImageCountByUserIdAsync(int userId)
@@ -152,7 +151,7 @@ public class UserImageManager:IUserImageService
         {
             return new DataResult<IList<UserImageDto>>(ResultStatus.Success,userImagesViewDtoList);
         }
-        return new DataResult<IList<UserImageDto>>(ResultStatus.Error, Messages.NotFound,null);
+        return new DataResult<IList<UserImageDto>>(ResultStatus.Error, Messages.UserImageNotFound,null);
     }
 
     public async Task<IResult> SetProfilImageAsync(int id,int userId,string modifiedByName)
@@ -184,6 +183,6 @@ public class UserImageManager:IUserImageService
             if (result > 0)
                 return new Result(ResultStatus.Success, Messages.UserImageSetProfil);
         }
-        return new Result(ResultStatus.Success, Messages.UserImageSetProfil);
+        return new Result(ResultStatus.Error, Messages.UserImageNotFound);
     }
 }

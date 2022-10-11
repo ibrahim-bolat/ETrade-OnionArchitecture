@@ -746,3 +746,6 @@
 /home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/obj/Debug/net6.0/ETrade.MVC.pdb
 /home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/obj/Debug/net6.0/ETrade.MVC.genruntimeconfig.cache
 /home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/obj/Debug/net6.0/ref/ETrade.MVC.dll
+/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/bin/Debug/net6.0/MediatR.dll
+/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/bin/Debug/net6.0/MediatR.Contracts.dll
+/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/bin/Debug/net6.0/MediatR.Extensions.Microsoft.DependencyInjection.dll

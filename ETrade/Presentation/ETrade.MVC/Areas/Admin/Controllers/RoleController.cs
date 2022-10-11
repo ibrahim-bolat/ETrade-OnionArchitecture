@@ -1,4 +1,4 @@
-using ETrade.Application.DTOs.RoleDtos;
+using ETrade.Application.Features.Accounts.DTOs.RoleDtos;
 using ETrade.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

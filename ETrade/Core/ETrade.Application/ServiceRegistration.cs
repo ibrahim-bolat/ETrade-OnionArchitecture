@@ -3,6 +3,7 @@ using ETrade.Application.Services.Abstract;
 using ETrade.Application.Services.Concrete;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,13 +17,15 @@ public static class ServiceRegistration
         //auto mapper
         serviceCollection.AddAutoMapper(Assembly.GetExecutingAssembly());
         
+        //mediatR
+        serviceCollection.AddMediatR(Assembly.GetExecutingAssembly());
+        
         //fluent validation
         serviceCollection.AddFluentValidationAutoValidation();
         serviceCollection.AddFluentValidationClientsideAdapters();
         serviceCollection.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         
         //services
-        serviceCollection.AddScoped<IAddressService, AddressManager>();
         serviceCollection.AddScoped<IUserImageService, UserImageManager>();
         serviceCollection.AddScoped<IUserService, UserManager>();
     }

@@ -1,7 +1,7 @@
 using AutoMapper;
-using ETrade.Application.Constants;
-using ETrade.Application.DTOs.AddressDtos;
-using ETrade.Application.DTOs.UserDtos;
+using ETrade.Application.Features.Accounts.Constants;
+using ETrade.Application.Features.Accounts.DTOs.UserDtos;
+using ETrade.Application.Features.Addresses.DTOs;
 using ETrade.Application.Repositories;
 using ETrade.Application.Services.Abstract;
 using ETrade.Application.Wrappers.Abstract;
@@ -39,6 +39,6 @@ public class UserManager:IUserService
                 return new DataResult<UserDetailDto>(ResultStatus.Success, userDetailDto);
             }
         }
-        return new DataResult<UserDetailDto>(ResultStatus.Error, Messages.NotFound,null);
+        return new DataResult<UserDetailDto>(ResultStatus.Error, Messages.UserNotFound,null);
     }
 }

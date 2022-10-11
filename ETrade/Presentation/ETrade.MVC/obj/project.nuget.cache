@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Ql36kH2+6mbak8UaL3C2NWF7+BaSYn9VvpR7KpiC54581wrtLh5DrQX68fLl1T6JgBNOEI7k2o2A1N/Y7dxvmQ==",
+  "dgSpecHash": "l6kScKokfItZHeiOB5mevqBWGPDgGHPq/M8Nbf457zOcVnxrtRRh0s2U3zcaQ7Y2I9x3oU1pOmM/CrSgG9MIug==",
   "success": true,
   "projectFilePath": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/ETrade.MVC.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,9 @@
     "/home/ibrahim.bolat/.nuget/packages/fluentvalidation.aspnetcore/11.2.2/fluentvalidation.aspnetcore.11.2.2.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/fluentvalidation.dependencyinjectionextensions/11.2.1/fluentvalidation.dependencyinjectionextensions.11.2.1.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
+    "/home/ibrahim.bolat/.nuget/packages/mediatr/11.0.0/mediatr.11.0.0.nupkg.sha512",
+    "/home/ibrahim.bolat/.nuget/packages/mediatr.contracts/1.0.1/mediatr.contracts.1.0.1.nupkg.sha512",
+    "/home/ibrahim.bolat/.nuget/packages/mediatr.extensions.microsoft.dependencyinjection/11.0.0/mediatr.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/microsoft.aspnetcore.authentication.abstractions/2.2.0/microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/microsoft.aspnetcore.authentication.core/2.2.0/microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/microsoft.aspnetcore.authorization/2.2.0/microsoft.aspnetcore.authorization.2.2.0.nupkg.sha512",

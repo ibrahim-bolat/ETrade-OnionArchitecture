@@ -1,7 +1,11 @@
-using ETrade.Application.Constants;
-using ETrade.Application.DTOs.UserImageDtos;
+using ETrade.Application.Features.UserImages.Commands.CreateUserImageCommand;
+using ETrade.Application.Features.UserImages.Commands.DeleteUserImageCommand;
+using ETrade.Application.Features.UserImages.Commands.SetProfilImageCommand;
+using ETrade.Application.Features.UserImages.Constants;
+using ETrade.Application.Features.UserImages.DTOs;
 using ETrade.Application.Services.Abstract;
 using ETrade.Domain.Enums;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ETrade.MVC.Areas.Admin.Controllers;
@@ -9,13 +13,13 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
 [Area("Admin")]
 public class UserImageController : Controller
 {
-    private readonly IUserImageService _userImageService;
+    private readonly IMediator _mediator;
 
-    public UserImageController(IUserImageService userImageService)
+    public UserImageController(IUserImageService userImageService, IMediator mediator)
     {
-        _userImageService = userImageService;
+        _mediator = mediator;
     }
-
+    
     [HttpGet]
     public IActionResult UserImageAdd(int userId)
     {
@@ -29,13 +33,17 @@ public class UserImageController : Controller
     {
         if (ModelState.IsValid)
         {
-            var dresult= await _userImageService.AddAsync(userImageAddDto, User.Identity?.Name);
-            if (dresult.Message == Messages.UserImageCountMoreThan4)
+            var dresult = await _mediator.Send(new CreateUserImageCommandRequest
+            {
+                UserImageAddDto = userImageAddDto, 
+                CreatedByName = User.Identity?.Name
+            });
+            if (dresult.Result.Message == Messages.UserImageCountMoreThan4)
             { 
                 ModelState.AddModelError("UserImageCountMoreThan4", Messages.UserImageCountMoreThan4);
                 return View(userImageAddDto);
             }
-            if (dresult.ResultStatus == ResultStatus.Success)
+            if (dresult.Result.ResultStatus == ResultStatus.Success)
             {
                 TempData["AddUserImageSuccess"] = true;
                 return RedirectToAction("UserImageAdd", "UserImage" ,new { area = "Admin" ,userId=userImageAddDto.UserId});
@@ -48,8 +56,13 @@ public class UserImageController : Controller
     {
         if (id>0)
         {
-            var dresult= await _userImageService.SetProfilImageAsync(id,userId, User.Identity?.Name);
-            if (dresult.ResultStatus==ResultStatus.Success)
+            var dresult = await _mediator.Send(new SetProfilImageCommandRequest
+            {
+                Id = id,
+                UserId = userId,
+                ModifiedByName = User.Identity?.Name
+            });
+            if (dresult.Result.ResultStatus==ResultStatus.Success)
             {
                 return Json(new { success = true});
             }
@@ -64,8 +77,12 @@ public class UserImageController : Controller
     {
         if (id > 0)
         {
-            var dresult= await _userImageService.DeleteAsync(id, User.Identity?.Name);
-            if (dresult.ResultStatus==ResultStatus.Success)
+            var dresult = await _mediator.Send(new DeleteUserImageCommandRequest
+            {
+                Id = id, 
+                ModifiedByName = User.Identity?.Name
+            });
+            if (dresult.Result.ResultStatus==ResultStatus.Success)
             {
                 return Json(new { success = true});
             }
