@@ -30,7 +30,7 @@ public class GetByUserIdProfilImageQueryHandler:IRequestHandler<GetByUserIdProfi
             };
         }
         return new GetByUserIdProfilImageQueryResponse{
-            Result = new DataResult<UserImageDto>(ResultStatus.Error, Messages.UserImageNotFound,userImageViewDto)
+            Result = new DataResult<UserImageDto>(ResultStatus.Error, Messages.UserImageNotFound,null)
         };
     }
 }

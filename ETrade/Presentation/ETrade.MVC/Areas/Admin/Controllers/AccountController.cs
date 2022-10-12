@@ -1,14 +1,22 @@
 using System.Web;
 using AutoMapper;
+using ETrade.Application.Features.Accounts.Commands.ConfirmEmailUserCommand;
+using ETrade.Application.Features.Accounts.Commands.ForgetPasswordUserCommand;
+using ETrade.Application.Features.Accounts.Commands.LoginUserCommand;
+using ETrade.Application.Features.Accounts.Commands.RegisterUserCommand;
+using ETrade.Application.Features.Accounts.Commands.UpdatePasswordUserCommand;
+using ETrade.Application.Features.Accounts.Commands.UpdateUserCommand;
+using ETrade.Application.Features.Accounts.Commands.VerifyTokenUserCommand;
+using ETrade.Application.Features.Accounts.Constants;
 using ETrade.Application.Features.Accounts.DTOs.UserDtos;
-using ETrade.Application.Model;
+using ETrade.Application.Features.Accounts.Queries.GetByIdUserQuery;
 using ETrade.Application.Services.Abstract;
 using ETrade.Domain.Entities.Identity;
 using ETrade.Domain.Enums;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace ETrade.MVC.Areas.Admin.Controllers;
 
@@ -17,24 +25,21 @@ public class AccountController : Controller
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _signInManager;
-    private readonly RoleManager<AppRole> _roleManager;
     private readonly IUserService _userService;
-    private readonly IEmailService _emailService;
     private readonly IMapper _mapper;
+    private readonly IMediator _mediator;
 
     public AccountController(UserManager<AppUser> userManager, 
-        SignInManager<AppUser> signInManager, 
-        RoleManager<AppRole> roleManager, 
-        IMapper mapper, 
-        IEmailService emailService,
-        IUserService userService)
+        SignInManager<AppUser> signInManager,
+        IMapper mapper,
+        IUserService userService,
+        IMediator mediator)
     {
         _userManager = userManager;
         _signInManager = signInManager;
-        _roleManager = roleManager;
         _mapper = mapper;
-        _emailService = emailService;
         _userService = userService;
+        _mediator = mediator;
     }
     
     [AllowAnonymous]
@@ -46,50 +51,49 @@ public class AccountController : Controller
 
     [AllowAnonymous]
     [HttpPost] 
-    public async Task<IActionResult> Register(RegisterDto model)
+    public async Task<IActionResult> Register(RegisterDto registerDto)
     {
         if (ModelState.IsValid)
         {
-            AppUser applicationUser = _mapper.Map<AppUser>(model);
-            AppRole role = await _roleManager.FindByNameAsync(RoleType.User.ToString());
-            if (role == null)
-                await _roleManager.CreateAsync(new AppRole { Name = RoleType.User.ToString() });
-            IdentityResult userResult = await _userManager.CreateAsync(applicationUser, model.Password);
-            IdentityResult roleResult;
-            if (userResult.Succeeded)
+            var dresult = await _mediator.Send(new RegisterUserCommandRequest()
             {
-                roleResult = await _userManager.AddToRoleAsync(applicationUser, RoleType.User.ToString());
-                if (roleResult.Succeeded)
-                {
-                    TempData["LoginSuccess"] = true;
-                    return RedirectToAction("Login", "Account", new { area = "Admin" });
-                }
-                roleResult.Errors.ToList().ForEach(e => ModelState.AddModelError(e.Code, e.Description));
-                return View(model);
+                RegisterDto = registerDto
+            });
+            if (dresult.Result.ResultStatus == ResultStatus.Success)
+            {
+                TempData["LoginSuccess"] = true;
+                return RedirectToAction("Login", "Account", new { area = "Admin" });
             }
-            userResult.Errors.ToList().ForEach(e => ModelState.AddModelError(e.Code, e.Description));
-            return View(model);
+            if (dresult.Result.ResultStatus == ResultStatus.Error)
+            {
+                dresult.Result.IdentityErrorList.ForEach(e => ModelState.AddModelError(e.Code, e.Description));
+                return View(registerDto);
+            }
         }
-        return View(model);
+        return View(registerDto);
     }
 
     [AllowAnonymous]
     [HttpGet("[action]/{email}/{token}")] 
     public async Task<IActionResult> ConfirmEmail(string email, string token)
     {
-        var user = await _userManager.FindByEmailAsync(email);
-        if (user == null)
+        var dresult = await _mediator.Send(new ConfirmEmailUserCommandRequest()
         {
-            ViewBag.State = false;
-            return View("ConfirmEmail");
-        }
-        var result = await _userManager.ConfirmEmailAsync(user, HttpUtility.UrlDecode(token));
-        if (result.Succeeded)
+            Email = email,
+            Token = token
+        });
+        if (dresult.Result.ResultStatus == ResultStatus.Success)
         {
             ViewBag.State = true;
             return View("ConfirmEmail");
         }
+        if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserNotFound))
+        {
+            ViewBag.State = false;
+            return View("ConfirmEmail");
+        }
         return View();
+
     }
 
     [AllowAnonymous]
@@ -102,57 +106,45 @@ public class AccountController : Controller
 
     [AllowAnonymous]
     [HttpPost] 
-    public async Task<IActionResult> Login(LoginDto model)
+    public async Task<IActionResult> Login(LoginDto loginDto)
     {
         if (ModelState.IsValid)
         {
-            AppUser user = await _userManager.FindByEmailAsync(model.Email);
-            if (user != null)
+            var dresult = await _mediator.Send(new LoginUserCommandRequest()
             {
-                if (user.IsActive)
-                {
-                    await _signInManager.SignOutAsync();
-                    SignInResult result =
-                        await _signInManager.PasswordSignInAsync(user, model.Password, model.Persistent, model.Lock);
-                    if (result.Succeeded)
-                    {
-                        await _userManager.ResetAccessFailedCountAsync(user);
-                        if (string.IsNullOrEmpty(TempData["returnUrl"] != null ? TempData["returnUrl"].ToString() : ""))
-                            return RedirectToAction("Index", "Home");
-                        if (TempData["returnUrl"]!.Equals("Index") || TempData["returnUrl"].Equals("/"))
-                            return RedirectToAction("Index", "Home");
-
-                        return Redirect(TempData["returnUrl"].ToString()!);
-                    }
-
-                    await _userManager.AccessFailedAsync(user);
-                    int failcount = await _userManager.GetAccessFailedCountAsync(user);
-                    if (failcount == 3)
-                    {
-                        await _userManager.SetLockoutEndDateAsync(user,
-                            new DateTimeOffset(DateTime.Now
-                                .AddMinutes(30)));
-                        ModelState.AddModelError("Locked",
-                            "Art arda 3 başarısız giriş denemesi yaptığınızdan dolayı hesabınız 30 dk kilitlenmiştir.");
-                        return View(model);
-                    }
-
-                    if (result.IsLockedOut)
-                    {
-                        ModelState.AddModelError("Locked",
-                            "Art arda 3 başarısız giriş denemesi yaptığınızdan dolayı hesabınız 30 dk kilitlenmiştir.");
-                        return View(model);
-                    }
-
-                    ModelState.AddModelError("IncorrectPassword", "Yanlış Şifre Girdiniz.");
-                    return View(model);
-                }
-                ModelState.AddModelError("UserDeleted", "Bu E-posta ya sahip kullanıcı silindiği için giriş yapamamaktadır.");
-                return View(model);
+                LoginDto = loginDto
+            });
+            if (dresult.Result.ResultStatus == ResultStatus.Success)
+            {
+                if (string.IsNullOrEmpty(TempData["returnUrl"] != null ? TempData["returnUrl"].ToString() : ""))
+                    return RedirectToAction("Index", "Home");
+                if (TempData["returnUrl"]!.Equals("Index") || TempData["returnUrl"].Equals("/"))
+                    return RedirectToAction("Index", "Home");
+                return Redirect(TempData["returnUrl"].ToString()!);
             }
-            ModelState.AddModelError("NoUser", "Böyle bir E-posta ya sahip kullanıcı bulunmamaktadır.");
+            if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserLocked))
+            {
+                ModelState.AddModelError("Locked",
+                    "Art arda 3 başarısız giriş denemesi yaptığınızdan dolayı hesabınız 30 dk kilitlenmiştir.");
+                return View(loginDto);
+            }
+            if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserIncorrectPassword))
+            {
+                ModelState.AddModelError("IncorrectPassword", "Yanlış Şifre Girdiniz.");
+                return View(loginDto);
+            }
+            if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserNotActive))
+            {
+                ModelState.AddModelError("UserDeleted", "Bu E-posta ya sahip kullanıcı silindiği için giriş yapamamaktadır.");
+                return View(loginDto);
+            }
+            if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserNotFound))
+            {
+                ModelState.AddModelError("NoUser", "Böyle bir E-posta ya sahip kullanıcı bulunmamaktadır.");
+                return View(loginDto);
+            }
         }
-        return View(model);
+        return View(loginDto);
     }
 
     [HttpGet] 
@@ -170,184 +162,140 @@ public class AccountController : Controller
 
     [AllowAnonymous]
     [HttpPost] 
-    public async Task<IActionResult> ForgetPass(ForgetPassDto model)
+    public async Task<IActionResult> ForgetPass(ForgetPassDto forgetPassDto)
     {
-        AppUser user = await _userManager.FindByEmailAsync(model.Email);
-        if (user != null)
+        var dresult = await _mediator.Send(new ForgetPasswordUserCommandRequest()
         {
-            if (user.IsActive)
-            {
-                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var confirmationLink = Url.Action("UpdatePassword", "Account",
-                    new { area = "Admin", userId = user.Id, token = HttpUtility.UrlEncode(token) }, Request.Scheme);
-                MailRequest mailRequest = new MailRequest
-                {
-                    ToMail = model.Email,
-                    DisplayName = "Bolat A.Ş.",
-                    ConfirmationLink = confirmationLink,
-                    MailSubject = "Şifre Güncelleme Talebi",
-                    IsBodyHtml = true,
-                    MailLinkTitle = "Yeni şifre talebi için tıklayınız"
-                };
-                bool emailResponse = _emailService.SendEmail(mailRequest);
-                if (emailResponse)
-                {
-                    TempData["EmailSendStatus"] = true;
-                    return View();
-                }
-                TempData["EmailSendStatus"] = false;
-                return View();
-            }
-            ModelState.AddModelError("UserDeleted", "Bu E-posta ya sahip kullanıcı silindiği için bu işlemi yapamaz.");
-            return View(model);
+            ForgetPassDto = forgetPassDto
+        });
+        if (dresult.Result.ResultStatus == ResultStatus.Success)
+        {
+            TempData["EmailSendStatus"] = true;
+            return View();
         }
-        ModelState.AddModelError("NoUser", "Böyle bir E-posta ya sahip kullanıcı bulunmamaktadır.");
-        return View(model);
+        if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserErrorSendEmail))
+        {
+            TempData["EmailSendStatus"] = false;
+            return View();
+        }
+        if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserNotActive))
+        {
+            ModelState.AddModelError("UserDeleted", "Bu E-posta ya sahip kullanıcı silindiği için bu işlemi yapamaz.");
+            return View(forgetPassDto);
+        }
+        if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserNotFound))
+        {
+            ModelState.AddModelError("NoUser", "Böyle bir E-posta ya sahip kullanıcı bulunmamaktadır.");
+            return View(forgetPassDto);
+        }
+        return View(forgetPassDto);
     }
 
     [AllowAnonymous]
     [HttpGet("[action]/{userId}/{token}")] 
     public async Task<IActionResult> UpdatePassword(string userId, string token)
     {
-        AppUser user = await _userManager.FindByIdAsync(userId);
-        if (user != null)
+        var dresult = await _mediator.Send(new VerifyTokenUserCommandRequest()
         {
-            string verifyToken = HttpUtility.UrlDecode(token);
-            bool result = await  _userManager.VerifyUserTokenAsync(user, _userManager.Options.Tokens.PasswordResetTokenProvider,
-                "ResetPassword", verifyToken);
-            if(result)
-                return View();
+            UserId=userId,
+            Token=token
+        });
+        if (dresult.Result.ResultStatus == ResultStatus.Success)
+        {
+            return View();
         }
         return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 400});
     }
 
     [AllowAnonymous]
     [HttpPost("[action]/{userId}/{token}")] 
-    public async Task<IActionResult> UpdatePassword(UpdatePasswordDto model, string userId, string token)
+    public async Task<IActionResult> UpdatePassword(UpdatePasswordDto updatePasswordDto, string userId, string token)
     {
-        AppUser user = await _userManager.FindByIdAsync(userId);
-        if (user != null)
+        var dresult = await _mediator.Send(new UpdatePasswordUserCommandRequest()
         {
-            if (user.IsActive)
-            {
-                IdentityResult result =
-                    await _userManager.ResetPasswordAsync(user, HttpUtility.UrlDecode(token), model.Password);
-                if (result.Succeeded)
-                {
-                    TempData["UpdatePasswordStatus"] = true;
-                    await _userManager.UpdateSecurityStampAsync(user);
-                    return RedirectToAction("Login", "Account" ,new { area = "Admin"});
-                }
-                TempData["UpdatePasswordStatus"] = false;
-                return View();
-            }
-            ModelState.AddModelError("UserDeleted", "Bu E-posta ya sahip kullanıcı silindiği için bu işlemi yapamaz.");
-            return View(model);
+            UpdatePasswordDto = updatePasswordDto,
+            UserId = userId,
+            Token = token
+        });
+        if (dresult.Result.ResultStatus == ResultStatus.Success)
+        {
+            TempData["UpdatePasswordStatus"] = true;
+            return RedirectToAction("Login", "Account" ,new { area = "Admin"});
         }
-        ModelState.AddModelError("NoUser", "Böyle bir E-posta ya sahip kullanıcı bulunmamaktadır.");
-        return View(model);
+        if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserErrorUpdatePassword))
+        {
+            TempData["UpdatePasswordStatus"] = false;
+            return View();
+        }
+        if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserNotActive))
+        {
+            ModelState.AddModelError("UserDeleted", "Bu E-posta ya sahip kullanıcı silindiği için bu işlemi yapamaz.");
+            return View(updatePasswordDto);
+        }
+        if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserNotFound))
+        {
+            ModelState.AddModelError("NoUser", "Böyle bir E-posta ya sahip kullanıcı bulunmamaktadır.");
+            return View(updatePasswordDto);
+        }
+        return View(updatePasswordDto);
     }
 
     [HttpGet]
     public async Task<IActionResult> EditProfile(int id)
     {
-            AppUser user = await _userManager.FindByIdAsync(id.ToString());
-            if (user != null)
-            {
-                if (user.IsActive)
-                {
-                    UserDto userDto = _mapper.Map<UserDto>(user);
-                    TempData["oldEmail"] = user.Email;
-                    return View(userDto);
-                }
-            }
-            return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 404});
+        var dresult = await _mediator.Send(new GetByIdUserQueryRequest()
+        {
+            Id=id.ToString()
+        });
+        if (dresult.Result.ResultStatus == ResultStatus.Success)
+        {
+            TempData["oldEmail"] = dresult.Result.Data.Email;
+            return View(dresult.Result.Data);
+        }
+        return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 404});
     }
 
-        [HttpPost]
-        public async Task<IActionResult> EditProfile(UserDto model)
+    [HttpPost]
+    public async Task<IActionResult> EditProfile(UserDto userDto)
+    {
+        if (ModelState.IsValid)
         {
-            if (ModelState.IsValid)
+            var dresult = await _mediator.Send(new UpdateUserCommandRequest()
             {
-                IdentityResult result;
-                AppUser user;
-                if (model.Email.Equals(TempData["oldEmail"]?.ToString()))
-                {
-                    user =  await _userManager.FindByEmailAsync(model.Email);
-                    if (user != null)
-                    {
-                        if (user.IsActive)
-                        {
-                            user = _mapper.Map(model, user);
-                        }
-                        else
-                        {
-                            ModelState.AddModelError("UserDeleted",
-                                "Bu E-posta ya sahip kullanıcı silindiği için bu işlemi yapamaz.");
-                            return View(model);
-                        }
-                    }
-                    else
-                    {
-                        return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 404});
-                    }
-                }
-                else
-                {
-                    user =  await _userManager.FindByEmailAsync(TempData["oldEmail"]?.ToString());
-                    if (user != null)
-                    {
-                        if (user.IsActive)
-                        {
-                            user = _mapper.Map(model, user);
-                            result = await _userManager.SetEmailAsync(user, model.Email);
-                            if (!result.Succeeded)
-                            {
-                                result.Errors.ToList().ForEach(e => ModelState.AddModelError(e.Code, e.Description));
-                                return View(model);
-                            }
-                        }
-                        else
-                        {
-                            ModelState.AddModelError("UserDeleted",
-                                "Bu E-posta ya sahip kullanıcı silindiği için bu işlemi yapamaz.");
-                            return View(model);
-                        }
-                    }
-                    else
-                    {
-                        return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 404});
-                    }
-                }
-                result = await _userManager.SetUserNameAsync(user, model.UserName);
-                if (!result.Succeeded)
-                {
-                    result.Errors.ToList().ForEach(e => ModelState.AddModelError(e.Code, e.Description));
-                    return View(model);
-                }
-                result = await _userManager.UpdateAsync(user);
-                if (!result.Succeeded)
-                {
-                    result.Errors.ToList().ForEach(e => ModelState.AddModelError(e.Code, e.Description));
-                    return View(model);
-                }
-                result = await _userManager.UpdateSecurityStampAsync(user);
-                if (!result.Succeeded)
-                {
-                    result.Errors.ToList().ForEach(e => ModelState.AddModelError(e.Code, e.Description));
-                    return View(model);
-                }
-                if (User.Identity?.Name==TempData["oldEmail"]?.ToString() && model.Email != TempData["oldEmail"]?.ToString())
-                {
-                    await _signInManager.SignOutAsync();
-                    await _signInManager.SignInAsync(user, true);
-                }
+                UserDto = userDto,
+                OldEmail = TempData["oldEmail"]?.ToString()
+
+            });
+            if (dresult.Result.ResultStatus == ResultStatus.Success)
+            {
                 TempData["EditProfileSuccess"] = true;
                 return RedirectToAction("Index", "UserOperation", new { area = "Admin" });
             }
-            return View(model);
+            
+            if (dresult.Result.ResultStatus == ResultStatus.Error &&
+                dresult.Result.Message.Equals(Messages.UserNotActive))
+            {
+                ModelState.AddModelError("UserDeleted",
+                    "Bu E-posta ya sahip kullanıcı silindiği için bu işlemi yapamaz.");
+                return View(userDto);
+            }
+            
+            if (dresult.Result.ResultStatus == ResultStatus.Error &&
+                dresult.Result.Message.Equals(Messages.UserNotFound))
+            {
+                ModelState.AddModelError("NoUser", "Böyle bir E-posta ya sahip kullanıcı bulunmamaktadır.");
+                return View(userDto);
+            }
+            
+            if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.IdentityErrorList!=null)
+            {
+                dresult.Result.IdentityErrorList.ForEach(e => ModelState.AddModelError(e.Code, e.Description));
+                return View(userDto);
+            }
         }
-    
+        return View(userDto);
+    }
+
     [HttpGet]
     public async Task<IActionResult> EditPassword(int id)
     {

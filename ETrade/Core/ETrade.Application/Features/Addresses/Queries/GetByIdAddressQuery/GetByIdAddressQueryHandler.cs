@@ -29,7 +29,7 @@ public class GetByIdAddressQueryHandler:IRequestHandler<GetByIdAddressQueryReque
             var addressDto = _mapper.Map<AddressDto>(address);
             return new GetByIdAddressQueryResponse
             {
-                Result = new DataResult<AddressDto>(ResultStatus.Success, Messages.AddressAdded, addressDto)
+                Result = new DataResult<AddressDto>(ResultStatus.Success, addressDto)
             };
         }
         return new GetByIdAddressQueryResponse

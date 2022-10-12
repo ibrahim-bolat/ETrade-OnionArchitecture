@@ -1,6 +1,7 @@
 ﻿
 using ETrade.Application.Wrappers.Abstract;
 using ETrade.Domain.Enums;
+using Microsoft.AspNetCore.Identity;
 
 namespace ETrade.Application.Wrappers.Concrete;
 
@@ -21,9 +22,17 @@ public class Result : IResult
             Message = message;
             Exception = exception;
         }
+        public Result(ResultStatus resultStatus, string message, List<IdentityError> identityErrorList)
+        {
+            ResultStatus = resultStatus;
+            Message = message;
+            IdentityErrorList = identityErrorList;
+        }
         public ResultStatus ResultStatus { get; }
 
         public string Message { get; }
 
         public Exception Exception { get; }
+        
+        public List<IdentityError> IdentityErrorList { get; }
     }

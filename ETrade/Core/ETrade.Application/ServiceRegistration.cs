@@ -4,6 +4,9 @@ using ETrade.Application.Services.Concrete;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,9 +27,15 @@ public static class ServiceRegistration
         serviceCollection.AddFluentValidationAutoValidation();
         serviceCollection.AddFluentValidationClientsideAdapters();
         serviceCollection.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-        
+
         //services
         serviceCollection.AddScoped<IUserImageService, UserImageManager>();
         serviceCollection.AddScoped<IUserService, UserManager>();
+        
+        //HttpContext and UrlHelper
+        serviceCollection.AddSingleton<IActionContextAccessor, ActionContextAccessor>()
+            .AddScoped(x =>
+                x.GetRequiredService<IUrlHelperFactory>()
+                    .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext!));
     }
 }

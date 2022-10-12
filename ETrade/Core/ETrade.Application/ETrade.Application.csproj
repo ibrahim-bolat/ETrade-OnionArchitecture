@@ -11,8 +11,6 @@
 
     <ItemGroup>
       <Folder Include="Features\Accounts\BusinessRules" />
-      <Folder Include="Features\Accounts\Commands" />
-      <Folder Include="Features\Accounts\Queries" />
       <Folder Include="Features\Addresses\BusinessRules" />
       <Folder Include="Features\Addresses\Models\ViewModels" />
       <Folder Include="Features\UserImages\BusinessRules" />
