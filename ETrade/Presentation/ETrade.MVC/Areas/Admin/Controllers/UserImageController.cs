@@ -3,7 +3,6 @@ using ETrade.Application.Features.UserImages.Commands.DeleteUserImageCommand;
 using ETrade.Application.Features.UserImages.Commands.SetProfilImageCommand;
 using ETrade.Application.Features.UserImages.Constants;
 using ETrade.Application.Features.UserImages.DTOs;
-using ETrade.Application.Services.Abstract;
 using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +14,7 @@ public class UserImageController : Controller
 {
     private readonly IMediator _mediator;
 
-    public UserImageController(IUserImageService userImageService, IMediator mediator)
+    public UserImageController(IMediator mediator)
     {
         _mediator = mediator;
     }

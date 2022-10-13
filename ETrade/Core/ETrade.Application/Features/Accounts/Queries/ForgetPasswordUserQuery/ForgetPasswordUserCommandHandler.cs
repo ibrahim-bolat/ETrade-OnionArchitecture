@@ -10,16 +10,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ETrade.Application.Features.Accounts.Commands.ForgetPasswordUserCommand;
+namespace ETrade.Application.Features.Accounts.Queries.ForgetPasswordUserQuery;
 
-public class ForgetPasswordUserCommandHandler:IRequestHandler<ForgetPasswordUserCommandRequest,ForgetPasswordUserCommandResponse>
+public class ForgetPasswordUserQueryHandler:IRequestHandler<ForgetPasswordUserQueryRequest,ForgetPasswordUserQueryResponse>
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly IEmailService _emailService;
     private readonly IUrlHelper _urlHelper;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public ForgetPasswordUserCommandHandler(UserManager<AppUser> userManager, IEmailService emailService, IUrlHelper urlHelper, IHttpContextAccessor httpContextAccessor)
+    public ForgetPasswordUserQueryHandler(UserManager<AppUser> userManager, IEmailService emailService, IUrlHelper urlHelper, IHttpContextAccessor httpContextAccessor)
     {
         _userManager = userManager;
         _emailService = emailService;
@@ -27,7 +27,7 @@ public class ForgetPasswordUserCommandHandler:IRequestHandler<ForgetPasswordUser
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public async Task<ForgetPasswordUserCommandResponse> Handle(ForgetPasswordUserCommandRequest request, CancellationToken cancellationToken)
+    public async Task<ForgetPasswordUserQueryResponse> Handle(ForgetPasswordUserQueryRequest request, CancellationToken cancellationToken)
     {
         AppUser user = await _userManager.FindByEmailAsync(request.ForgetPassDto.Email);
         if (user != null)
@@ -50,19 +50,19 @@ public class ForgetPasswordUserCommandHandler:IRequestHandler<ForgetPasswordUser
                 bool emailResponse = _emailService.SendEmail(mailRequest);
                 if (emailResponse)
                 {
-                    return new ForgetPasswordUserCommandResponse{
+                    return new ForgetPasswordUserQueryResponse{
                         Result = new Result(ResultStatus.Success, Messages.UserSuccessSendEmail)
                     };
                 }
-                return new ForgetPasswordUserCommandResponse{
+                return new ForgetPasswordUserQueryResponse{
                     Result = new Result(ResultStatus.Error, Messages.UserErrorSendEmail)
                 };
             }
-            return new ForgetPasswordUserCommandResponse{
+            return new ForgetPasswordUserQueryResponse{
                 Result = new Result(ResultStatus.Error, Messages.UserNotActive)
             };
         }
-        return new ForgetPasswordUserCommandResponse{
+        return new ForgetPasswordUserQueryResponse{
             Result = new Result(ResultStatus.Error, Messages.UserNotFound)
         };
     }

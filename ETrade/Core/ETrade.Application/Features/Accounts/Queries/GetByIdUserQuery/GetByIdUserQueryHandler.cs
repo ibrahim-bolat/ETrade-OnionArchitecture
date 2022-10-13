@@ -22,7 +22,7 @@ public class GetByIdUserQueryHandler:IRequestHandler<GetByIdUserQueryRequest,Get
 
     public async Task<GetByIdUserQueryResponse> Handle(GetByIdUserQueryRequest request, CancellationToken cancellationToken)
     {
-        AppUser user = await _userManager.FindByIdAsync(request.Id.ToString());
+        AppUser user = await _userManager.FindByIdAsync(request.Id);
         if (user != null)
         {
             if (user.IsActive)

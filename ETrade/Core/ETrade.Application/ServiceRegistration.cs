@@ -1,10 +1,8 @@
 using System.Reflection;
-using ETrade.Application.Services.Abstract;
-using ETrade.Application.Services.Concrete;
+using ETrade.Application.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Configuration;
@@ -30,8 +28,7 @@ public static class ServiceRegistration
 
         //services
         serviceCollection.AddScoped<IUserImageService, UserImageManager>();
-        serviceCollection.AddScoped<IUserService, UserManager>();
-        
+
         //HttpContext and UrlHelper
         serviceCollection.AddSingleton<IActionContextAccessor, ActionContextAccessor>()
             .AddScoped(x =>

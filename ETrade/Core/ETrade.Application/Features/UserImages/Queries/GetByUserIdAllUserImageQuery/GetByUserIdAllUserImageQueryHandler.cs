@@ -23,7 +23,7 @@ public class GetByUserIdAllUserImageQueryHandler:IRequestHandler<GetByUserIdAllU
     {
         var userImages = await _unitOfWork.UserImageRepository.GetAllAsync(ui=>ui.UserId==request.UserId && ui.IsActive);
         var userImagesViewDtoList = _mapper.Map<IList<UserImageDto>>(userImages);
-        if (userImages.Count > 0)
+        if (userImages.Count > -1)
         {
             return new GetByUserIdAllUserImageQueryResponse{
                 Result = new DataResult<IList<UserImageDto>>(ResultStatus.Success,userImagesViewDtoList)

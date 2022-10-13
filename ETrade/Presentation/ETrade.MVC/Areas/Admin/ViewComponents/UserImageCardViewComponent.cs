@@ -1,5 +1,7 @@
-﻿using ETrade.Application.Services.Abstract;
+﻿using ETrade.Application.Features.UserImages.Queries.GetByUserIdAllUserImageQuery;
+using ETrade.Application.Services.Abstract;
 using ETrade.Domain.Enums;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ETrade.MVC.Areas.Admin.ViewComponents;
@@ -7,22 +9,25 @@ namespace ETrade.MVC.Areas.Admin.ViewComponents;
 [ViewComponent]
 public class UserImageCardViewComponent : ViewComponent
     {
-        private readonly IUserImageService _userImageService;
+        private readonly IMediator _mediator;
 
-        public UserImageCardViewComponent(IUserImageService userImageService)
+        public UserImageCardViewComponent(IMediator mediator)
         {
-            _userImageService = userImageService;
+             _mediator = mediator;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(int userId)
         {
             if (userId > 0)
             {
-                var dresult = await _userImageService.GetAllByUserIdAsync(userId);
-                if (dresult.ResultStatus==ResultStatus.Success)
+                var dresult = await _mediator.Send(new GetByUserIdAllUserImageQueryRequest()
+                {
+                    UserId = userId,
+                });
+                if (dresult.Result.ResultStatus == ResultStatus.Success)
                 {
                     ViewBag.UserId = userId;
-                    return View(dresult.Data);
+                    return View(dresult.Result.Data);
                 }
             }
             return View();

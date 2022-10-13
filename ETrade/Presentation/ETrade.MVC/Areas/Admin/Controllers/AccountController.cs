@@ -1,15 +1,18 @@
-using System.Web;
 using AutoMapper;
 using ETrade.Application.Features.Accounts.Commands.ConfirmEmailUserCommand;
-using ETrade.Application.Features.Accounts.Commands.ForgetPasswordUserCommand;
+using ETrade.Application.Features.Accounts.Commands.EditPasswordUserCommand;
 using ETrade.Application.Features.Accounts.Commands.LoginUserCommand;
 using ETrade.Application.Features.Accounts.Commands.RegisterUserCommand;
 using ETrade.Application.Features.Accounts.Commands.UpdatePasswordUserCommand;
 using ETrade.Application.Features.Accounts.Commands.UpdateUserCommand;
-using ETrade.Application.Features.Accounts.Commands.VerifyTokenUserCommand;
 using ETrade.Application.Features.Accounts.Constants;
 using ETrade.Application.Features.Accounts.DTOs.UserDtos;
+using ETrade.Application.Features.Accounts.Queries.ForgetPasswordUserQuery;
+using ETrade.Application.Features.Accounts.Queries.GetByIdForDetailProfileUserQuery;
+using ETrade.Application.Features.Accounts.Queries.GetByIdForEditPasswordUserQuery;
 using ETrade.Application.Features.Accounts.Queries.GetByIdUserQuery;
+using ETrade.Application.Features.Accounts.Queries.LogoutUserQuery;
+using ETrade.Application.Features.Accounts.Queries.VerifyTokenUserQuery;
 using ETrade.Application.Services.Abstract;
 using ETrade.Domain.Entities.Identity;
 using ETrade.Domain.Enums;
@@ -23,22 +26,10 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
 [Area("Admin")]
 public class AccountController : Controller
 {
-    private readonly UserManager<AppUser> _userManager;
-    private readonly SignInManager<AppUser> _signInManager;
-    private readonly IUserService _userService;
-    private readonly IMapper _mapper;
     private readonly IMediator _mediator;
 
-    public AccountController(UserManager<AppUser> userManager, 
-        SignInManager<AppUser> signInManager,
-        IMapper mapper,
-        IUserService userService,
-        IMediator mediator)
+    public AccountController(IMediator mediator)
     {
-        _userManager = userManager;
-        _signInManager = signInManager;
-        _mapper = mapper;
-        _userService = userService;
         _mediator = mediator;
     }
     
@@ -150,9 +141,8 @@ public class AccountController : Controller
     [HttpGet] 
     public async Task Logout()
     {
-        await _signInManager.SignOutAsync();
+        await _mediator.Send(new LogoutUserQueryRequest());
     }
-
     [AllowAnonymous]
     [HttpGet] 
     public IActionResult ForgetPass()
@@ -164,7 +154,7 @@ public class AccountController : Controller
     [HttpPost] 
     public async Task<IActionResult> ForgetPass(ForgetPassDto forgetPassDto)
     {
-        var dresult = await _mediator.Send(new ForgetPasswordUserCommandRequest()
+        var dresult = await _mediator.Send(new ForgetPasswordUserQueryRequest()
         {
             ForgetPassDto = forgetPassDto
         });
@@ -195,7 +185,7 @@ public class AccountController : Controller
     [HttpGet("[action]/{userId}/{token}")] 
     public async Task<IActionResult> UpdatePassword(string userId, string token)
     {
-        var dresult = await _mediator.Send(new VerifyTokenUserCommandRequest()
+        var dresult = await _mediator.Send(new VerifyTokenUserQueryRequest()
         {
             UserId=userId,
             Token=token
@@ -299,70 +289,68 @@ public class AccountController : Controller
     [HttpGet]
     public async Task<IActionResult> EditPassword(int id)
     {
-            AppUser user = await _userManager.FindByIdAsync(id.ToString());
-            if (user != null)
-            {
-                if (user.IsActive)
-                {
-                    EditPasswordDto editPasswordDto = _mapper.Map<EditPasswordDto>(user);
-                    return View(editPasswordDto);
-                }
-            }
-            return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 404});
+        var dresult = await _mediator.Send(new GetByIdForEditPasswordUserQueryRequest()
+        {
+            Id=id.ToString()
+        });
+        if (dresult.Result.ResultStatus == ResultStatus.Success)
+        {
+            return View(dresult.Result.Data);
+        }
+        return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 404});
     }
     
     [HttpPost]
-    public async Task<IActionResult> EditPassword(EditPasswordDto model)
+    public async Task<IActionResult> EditPassword(EditPasswordDto editPasswordDto)
     {
         if (ModelState.IsValid)
         {
-            AppUser user = await _userManager.FindByIdAsync(model.Id.ToString());
-                if(user!=null)
-                {
-                    if (user.IsActive)
-                    {
-                        var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-                        var result = await _userManager.ResetPasswordAsync(user, token, model.NewPassword);
-                        if (!result.Succeeded)
-                        {
-                            result.Errors.ToList().ForEach(e => ModelState.AddModelError(e.Code, e.Description));
-                            return View(model);
-                        }
-                        result = await _userManager.UpdateSecurityStampAsync(user);
-                        if (!result.Succeeded)
-                        {
-                            result.Errors.ToList().ForEach(e => ModelState.AddModelError(e.Code, e.Description));
-                            return View(model);
-                        }
+            var dresult = await _mediator.Send(new EditPasswordUserCommandRequest()
+            {
+                EditPasswordDto = editPasswordDto,
 
-                        if (User.Identity?.Name == user.UserName)
-                        {
-                            await _signInManager.SignOutAsync();
-                            await _signInManager.SignInAsync(user, true);
-                        }
-                        TempData["EditPasswordSuccess"] = true;
-                        return RedirectToAction("Index", "UserOperation", new { area = "Admin" });
-                    }
-                    ModelState.AddModelError("UserDeleted",
-                        "Bu E-posta ya sahip kullanıcı silindiği için bu işlemi yapamaz.");
-                    return View(model);
-                }
-                return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 404});
+            });
+            if (dresult.Result.ResultStatus == ResultStatus.Success)
+            {
+                TempData["EditPasswordSuccess"] = true;
+                return RedirectToAction("Index", "UserOperation", new { area = "Admin" });
+            }
+            
+            if (dresult.Result.ResultStatus == ResultStatus.Error &&
+                dresult.Result.Message.Equals(Messages.UserNotActive))
+            {
+                ModelState.AddModelError("UserDeleted",
+                    "Bu E-posta ya sahip kullanıcı silindiği için bu işlemi yapamaz.");
+                return View(editPasswordDto);
+            }
+            
+            if (dresult.Result.ResultStatus == ResultStatus.Error &&
+                dresult.Result.Message.Equals(Messages.UserNotFound))
+            {
+                ModelState.AddModelError("NoUser", "Böyle bir E-posta ya sahip kullanıcı bulunmamaktadır.");
+                return View(editPasswordDto);
+            }
+            
+            if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.IdentityErrorList!=null)
+            {
+                dresult.Result.IdentityErrorList.ForEach(e => ModelState.AddModelError(e.Code, e.Description));
+                return View(editPasswordDto);
+            }
         }
-        return View(model);
+        return View(editPasswordDto);
     }
 
 
     [HttpGet]
     public async Task<IActionResult> Profile(int id)
     {
-        if (id > 0)
+        var dresult = await _mediator.Send(new GetByIdForDetailProfileUserQueryRequest()
         {
-            var dresult = await _userService.GetWithAddressAsync(id);
-            if (dresult.ResultStatus==ResultStatus.Success)
-            {
-                return View(dresult.Data);
-            }
+            Id=id
+        });
+        if (dresult.Result.ResultStatus == ResultStatus.Success)
+        {
+            return View(dresult.Result.Data);
         }
         return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 404});
     }

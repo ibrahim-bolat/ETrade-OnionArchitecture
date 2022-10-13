@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using ETrade.Application.Features.Accounts.DTOs.UserDtos;
-using ETrade.Application.Services.Abstract;
+using ETrade.Application.Services;
 using ETrade.Domain.Entities.Identity;
 using ETrade.Domain.Enums;
 using Microsoft.AspNetCore.Identity;

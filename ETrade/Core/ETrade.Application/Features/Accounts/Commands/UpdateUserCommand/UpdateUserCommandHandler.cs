@@ -29,43 +29,17 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommandRequest
     public async Task<UpdateUserCommandResponse> Handle(UpdateUserCommandRequest request,
         CancellationToken cancellationToken)
     {
-        IdentityResult result;
-        AppUser user;
-        string tempOldUserName = String.Empty;
-        if (request.UserDto.Email.Equals(request.OldEmail))
+        IdentityResult result = null;
+        AppUser user = await _userManager.FindByIdAsync(request.UserDto.Id.ToString());
+        if (user != null)
         {
-            user = await _userManager.FindByEmailAsync(request.UserDto.Email);
-            if (user != null)
+            string tempUserEmail = user.Email;
+            string tempUserName = user.UserName;
+            if (user.IsActive)
             {
-                if (user.IsActive)
+                user = _mapper.Map(request.UserDto, user);
+                if (!tempUserEmail.Equals(request.UserDto.Email))
                 {
-                    user = _mapper.Map(request.UserDto, user);
-                }
-                else
-                {
-                    return new UpdateUserCommandResponse
-                    {
-                        Result = new Result(ResultStatus.Error, Messages.UserNotActive)
-                    };
-                }
-            }
-            else
-            {
-                return new UpdateUserCommandResponse
-                {
-                    Result = new Result(ResultStatus.Error, Messages.UserNotFound)
-                };
-            }
-        }
-        else
-        {
-            user = await _userManager.FindByEmailAsync(request.OldEmail);
-            if (user != null)
-            {
-                if (user.IsActive)
-                {
-                    tempOldUserName = user.UserName;
-                    user = _mapper.Map(request.UserDto, user);
                     result = await _userManager.SetEmailAsync(user, request.UserDto.Email);
                     if (!result.Succeeded)
                     {
@@ -75,58 +49,54 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommandRequest
                         };
                     }
                 }
-                else
+
+                if (!tempUserName.Equals(request.UserDto.UserName))
+                {
+                    result = await _userManager.SetUserNameAsync(user, request.UserDto.UserName);
+                    if (!result.Succeeded)
+                    {
+                        return new UpdateUserCommandResponse
+                        {
+                            Result = new Result(ResultStatus.Error, Messages.UserNotUpdateUserName, result.Errors.ToList())
+                        };
+                    }
+                }
+                result = await _userManager.UpdateAsync(user);
+                if (!result.Succeeded)
                 {
                     return new UpdateUserCommandResponse
                     {
-                        Result = new Result(ResultStatus.Error, Messages.UserNotActive)
+                        Result = new Result(ResultStatus.Error, Messages.UserNotUpdated, result.Errors.ToList())
                     };
                 }
-            }
-            else
-            {
+                result = await _userManager.UpdateSecurityStampAsync(user);
+                if (!result.Succeeded)
+                {
+                    return new UpdateUserCommandResponse
+                    {
+                        Result = new Result(ResultStatus.Error, Messages.UserNotUpdateSecurityStamp, result.Errors.ToList())
+                    };
+                }
+                string userIdentityName = _httpContextAccessor.HttpContext?.User.Identity?.Name;
+                if (!String.IsNullOrEmpty(userIdentityName) && !String.IsNullOrEmpty(tempUserName) && userIdentityName.Equals(tempUserName) && (!tempUserName.Equals(request.UserDto.UserName) || !tempUserEmail.Equals(request.UserDto.Email)))
+                {
+                    await _signInManager.SignOutAsync();
+                    await _signInManager.SignInAsync(user, true);
+                }
                 return new UpdateUserCommandResponse
                 {
-                    Result = new Result(ResultStatus.Error, Messages.UserNotFound)
+                    Result = new DataResult<UserDto>(ResultStatus.Success, Messages.UserUpdated, request.UserDto)
                 };
+
             }
-        }
-
-        result = await _userManager.SetUserNameAsync(user, request.UserDto.UserName);
-        if (!result.Succeeded)
-        {
             return new UpdateUserCommandResponse
-            {
-                Result = new Result(ResultStatus.Error, Messages.UserNotUpdateUserName, result.Errors.ToList())
-            };
-        }
-
-        result = await _userManager.UpdateAsync(user);
-        if (!result.Succeeded)
-        {
-            return new UpdateUserCommandResponse
-            {
-                Result = new Result(ResultStatus.Error, Messages.UserNotUpdated, result.Errors.ToList())
-            };
-        }
-
-        result = await _userManager.UpdateSecurityStampAsync(user);
-        if (!result.Succeeded)
-        {
-            return new UpdateUserCommandResponse
-            {
-                Result = new Result(ResultStatus.Error, Messages.UserNotUpdateSecurityStamp, result.Errors.ToList())
-            };
-        }
-        string userIdentityName = _httpContextAccessor.HttpContext?.User.Identity?.Name;
-        if (!String.IsNullOrEmpty(userIdentityName) && !String.IsNullOrEmpty(tempOldUserName) && userIdentityName.Equals(tempOldUserName) && request.UserDto.Email != request.OldEmail)
-        {
-            await _signInManager.SignOutAsync();
-            await _signInManager.SignInAsync(user, true);
+                {
+                    Result = new Result(ResultStatus.Error, Messages.UserNotActive)
+                };
         }
         return new UpdateUserCommandResponse
-        {
-            Result = new DataResult<UserDto>(ResultStatus.Success, Messages.UserUpdated, request.UserDto)
-        };
+            {
+                Result = new Result(ResultStatus.Error, Messages.UserNotFound)
+            };
     }
 }

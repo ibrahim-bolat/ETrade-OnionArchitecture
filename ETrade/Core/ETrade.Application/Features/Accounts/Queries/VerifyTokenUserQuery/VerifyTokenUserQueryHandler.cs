@@ -6,19 +6,19 @@ using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace ETrade.Application.Features.Accounts.Commands.VerifyTokenUserCommand;
+namespace ETrade.Application.Features.Accounts.Queries.VerifyTokenUserQuery;
 
-public class VerifyTokenUserCommandHandler:IRequestHandler<VerifyTokenUserCommandRequest,VerifyTokenUserCommandResponse>
+public class VerifyTokenUserQueryHandler:IRequestHandler<VerifyTokenUserQueryRequest,VerifyTokenUserQueryResponse>
 {
     private readonly UserManager<AppUser> _userManager;
 
-    public VerifyTokenUserCommandHandler(UserManager<AppUser> userManager)
+    public VerifyTokenUserQueryHandler(UserManager<AppUser> userManager)
     {
         _userManager = userManager;
 
     }
 
-    public async Task<VerifyTokenUserCommandResponse> Handle(VerifyTokenUserCommandRequest request, CancellationToken cancellationToken)
+    public async Task<VerifyTokenUserQueryResponse> Handle(VerifyTokenUserQueryRequest request, CancellationToken cancellationToken)
     {
         AppUser user = await _userManager.FindByIdAsync(request.UserId);
         if (user != null)
@@ -28,16 +28,16 @@ public class VerifyTokenUserCommandHandler:IRequestHandler<VerifyTokenUserComman
                 "ResetPassword", verifyToken);
             if (result)
             {
-                return new VerifyTokenUserCommandResponse
+                return new VerifyTokenUserQueryResponse
                 {
                     Result = new Result(ResultStatus.Success, Messages.UserSuccessVerifyToken)
                 };
             }
-            return new VerifyTokenUserCommandResponse{
+            return new VerifyTokenUserQueryResponse{
                 Result = new Result(ResultStatus.Error, Messages.UserErrorVerifyToken)
             };
         }
-        return new VerifyTokenUserCommandResponse{
+        return new VerifyTokenUserQueryResponse{
             Result = new Result(ResultStatus.Error, Messages.UserNotFound)
         };
     }

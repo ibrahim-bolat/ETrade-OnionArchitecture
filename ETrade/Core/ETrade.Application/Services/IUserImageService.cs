@@ -1,7 +1,7 @@
 using ETrade.Application.Features.UserImages.DTOs;
 using ETrade.Application.Wrappers.Abstract;
 
-namespace ETrade.Application.Services.Abstract;
+namespace ETrade.Application.Services;
 
 public interface IUserImageService
 {

@@ -10,7 +10,7 @@ using ETrade.Domain.Enums;
 using Microsoft.AspNetCore.Hosting;
 
 
-namespace ETrade.Application.Services.Concrete;
+namespace ETrade.Application.Services;
 
 public class UserImageManager:IUserImageService
 {
