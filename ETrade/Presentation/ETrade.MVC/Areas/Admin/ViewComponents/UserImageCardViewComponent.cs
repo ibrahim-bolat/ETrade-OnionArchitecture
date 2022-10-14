@@ -27,7 +27,7 @@ public class UserImageCardViewComponent : ViewComponent
                 if (dresult.Result.ResultStatus == ResultStatus.Success)
                 {
                     ViewBag.UserId = userId;
-                    return View(dresult.Result.Data);
+                    return View(dresult.Result.Data.OrderBy(i=>i.Id).ToList());
                 }
             }
             return View();

@@ -1,4 +1,9 @@
+using ETrade.Application.Features.Accounts.Commands.SetActiveUserCommand;
+using ETrade.Application.Features.Accounts.Constants;
+using ETrade.Application.Features.Accounts.Queries.GetDeletedUserListQuery;
 using ETrade.Domain.Entities.Identity;
+using ETrade.Domain.Enums;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,11 +12,11 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
 [Area("Admin")]
 public class DeletedAccountController : Controller
 {
-    private readonly UserManager<AppUser> _userManager;
+    private readonly IMediator _mediator;
 
-    public DeletedAccountController(UserManager<AppUser> userManager)
+    public DeletedAccountController(IMediator mediator)
     {
-        _userManager = userManager;
+        _mediator = mediator;
     }
 
     [HttpGet]
@@ -21,11 +26,10 @@ public class DeletedAccountController : Controller
     }
 
     [HttpPost]
-    public IActionResult DeletedUsers()
+    public async Task<ActionResult> DeletedUsers()
     {
         try
         {
-            var userData = _userManager.Users.Where(u => u.IsDeleted == true).AsQueryable();
             var draw = Request.Form["draw"].FirstOrDefault();
             var start = Request.Form["start"].FirstOrDefault();
             var length = Request.Form["length"].FirstOrDefault();
@@ -33,40 +37,19 @@ public class DeletedAccountController : Controller
                 .Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
             var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
             var searchValue = Request.Form["search[value]"].FirstOrDefault();
-            int pageSize = length == "-1" ? userData.Count() : length != null ? Convert.ToInt32(length) : 0;
-            int skip = start != null ? Convert.ToInt32(start) : 0;
-            int recordsTotal;
-            if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+            var dresult = await _mediator.Send(new GetDeletedUserListQueryRequest()
             {
-                userData = userData.OrderBy(s => sortColumn + " " + sortColumnDirection);
-                Func<AppUser, string> orderingFunction = (c => sortColumn == "FirstName" ? c.FirstName :
-                    sortColumn == "LastName" ? c.LastName :
-                    sortColumn == "UserName" ? c.UserName :
-                    sortColumn == "Email" ? c.Email : c.FirstName);
-
-                if (sortColumnDirection == "desc")
-                {
-                    userData = userData.OrderByDescending(orderingFunction).AsQueryable();
-                }
-                else
-                {
-                    userData = userData.OrderBy(orderingFunction).AsQueryable();
-                }
-            }
-
-            if (!string.IsNullOrEmpty(searchValue))
-            {
-                userData = userData.Where(m => m.FirstName.ToLower().Contains(searchValue.ToLower())
-                                               || m.LastName.ToLower().Contains(searchValue.ToLower())
-                                               || m.UserName.ToLower().Contains(searchValue.ToLower())
-                                               || m.Email.ToLower().Contains(searchValue.ToLower()));
-            }
-
-            recordsTotal = userData.Count();
-            var data = userData.Skip(skip).Take(pageSize).ToList();
+                Draw = draw,
+                Start = start != null ? Convert.ToInt32(start) : 0,
+                Length = length == "-1" ? -1 : length != null ? Convert.ToInt32(length) : 0,
+                SortColumn = sortColumn,
+                SortColumnDirection = sortColumnDirection,
+                SearchValue = searchValue
+            });
             var jsonData = new
             {
-                draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data, isSusccess = true
+                draw = dresult.Result.Data, recordsFiltered = dresult.Result.Data.RecordsFiltered, recordsTotal = dresult.Result.Data.RecordsTotal, data = dresult.Result.Data.UserSummaryDtos, 
+                isSusccess = dresult.Result.Data.IsSuccess
             };
             return Ok(jsonData);
         }
@@ -80,32 +63,32 @@ public class DeletedAccountController : Controller
     [HttpPost]
     public async Task<IActionResult> SetActiveUser(int userId)
     {
-        AppUser user = await _userManager.FindByIdAsync(userId.ToString());
-        if (user != null)
+        var dresult = await _mediator.Send(new SetActiveUserCommandRequest()
         {
-            if (user.IsDeleted)
-            {
-                user.IsActive = true;
-                user.IsDeleted = false;
-                user.ModifiedTime = DateTime.Now;
-                user.ModifiedByName = User.Identity?.Name;
-                var result = await _userManager.UpdateAsync(user);
-                if (!result.Succeeded)
-                {
-                    result.Errors.ToList().ForEach(e => ModelState.AddModelError(e.Code, e.Description));
-                    return Json(new { success = false});
-                }
-                result = await _userManager.UpdateSecurityStampAsync(user);
-                if (!result.Succeeded)
-                {
-                    result.Errors.ToList().ForEach(e => ModelState.AddModelError(e.Code, e.Description));
-                    return Json(new { success = false});
-                }
-                if (result.Succeeded)
-                {
-                    return Json(new { success = true });
-                }
-            }
+            Id = userId.ToString()
+        });
+        if (dresult.Result.ResultStatus == ResultStatus.Success)
+        {
+            return Json(new { success = true });
+        }
+        if (dresult.Result.ResultStatus == ResultStatus.Error &&
+            dresult.Result.Message.Equals(Messages.UserActive))
+        {
+            ModelState.AddModelError("UserActive",
+                "Bu E-posta ya sahip kullanıcı zaten aktif bir kullancıdır.");
+            var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
+            return Json(new { success = false, errors = errors });
+        }
+        if (dresult.Result.ResultStatus == ResultStatus.Error &&
+            dresult.Result.Message.Equals(Messages.UserNotFound))
+        {
+            ModelState.AddModelError("NoUser", "Böyle bir E-posta ya sahip kullanıcı bulunmamaktadır.");
+            var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
+            return Json(new { success = false, errors = errors });
+        }
+        if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.IdentityErrorList!=null)
+        {
+            dresult.Result.IdentityErrorList.ForEach(e => ModelState.AddModelError(e.Code, e.Description));
             var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
             return Json(new { success = false, errors = errors });
         }

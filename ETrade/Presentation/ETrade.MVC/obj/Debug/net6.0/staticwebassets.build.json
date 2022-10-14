@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "q3b+peVyiLFzMZaWAcftthtnjXQ7mGNN5R7/WaFxGRk=",
+  "Hash": "56q8SflXPUbyFWJsanbfshbF9wPz32khFE/iB2iV170=",
   "Source": "ETrade.MVC",
   "BasePath": "_content/ETrade.MVC",
   "Mode": "Default",
@@ -1664,23 +1664,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/admin/images/twitter_corner_blue.png"
-    },
-    {
-      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/images/userimages/2/profil.jpg",
-      "SourceId": "ETrade.MVC",
-      "SourceType": "Discovered",
-      "ContentRoot": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/",
-      "BasePath": "_content/ETrade.MVC",
-      "RelativePath": "admin/images/userimages/2/profil.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/admin/images/userimages/2/profil.jpg"
     },
     {
       "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/admin.js",

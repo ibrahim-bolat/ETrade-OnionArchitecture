@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace ETrade.Application.Features.Accounts.Validations.UserValidations;
 
-public class UserCardSummaryDtoValidator:AbstractValidator<UserCardSummaryDto>
+public class UserCardSummaryDtoValidator:AbstractValidator<UserSummaryCardDto>
 {
     public UserCardSummaryDtoValidator()
     {

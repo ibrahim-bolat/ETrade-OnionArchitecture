@@ -10,6 +10,7 @@ public static class Messages
     public const string UserNotDeleted = "Kullanıcı silinemedi";
     public const string UserNotFound = "Kullanıcı bulunamadı!";
     public const string UserLocked = "Kullanıcı kilitli!";
+    public const string UserActive = "Kullanıcı zaten aktif!";
     public const string UserNotActive = "Kullanıcı aktif değildir!";
     public const string UserIncorrectPassword = "Kullanıcı şifresi hatalıdır!";
     public const string UserConfirmEmail = "Kullanıcı emaili doğrulandı";

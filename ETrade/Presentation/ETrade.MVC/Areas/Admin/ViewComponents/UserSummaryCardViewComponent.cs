@@ -1,9 +1,9 @@
-﻿using AutoMapper;
-using ETrade.Application.Features.Accounts.DTOs.UserDtos;
-using ETrade.Application.Services;
-using ETrade.Domain.Entities.Identity;
+﻿using ETrade.Application.Features.Accounts.Queries.GetByIdForUserSummaryCardQuery;
+using ETrade.Application.Features.UserImages.Queries.GetByUserIdAllUserImageQuery;
+using ETrade.Application.Features.UserImages.Queries.GetByUserIdProfilImageQuery;
+using ETrade.Application.Features.UserImages.Queries.GetByUserIdUserImageCountQuery;
 using ETrade.Domain.Enums;
-using Microsoft.AspNetCore.Identity;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -12,52 +12,62 @@ namespace ETrade.MVC.Areas.Admin.ViewComponents;
 [ViewComponent]
 public class UserSummaryCardViewComponent : ViewComponent
 {
-    private readonly UserManager<AppUser> _userManager;
-    private readonly IUserImageService _userImageService;
-    private readonly IMapper _mapper;
 
-    public UserSummaryCardViewComponent(UserManager<AppUser> userManager, IUserImageService userImageService,
-        IMapper mapper)
+    private readonly IMediator _mediator;
+
+    public UserSummaryCardViewComponent(IMediator mediator)
     {
-        _userManager = userManager;
-        _userImageService = userImageService;
-        _mapper = mapper;
+        _mediator = mediator;
     }
 
     public async Task<IViewComponentResult> InvokeAsync(int userId)
     {
-        AppUser user = await _userManager.FindByIdAsync(userId.ToString());
-        var countResult = await _userImageService.GetUserImageCountByUserIdAsync(userId);
-        if (countResult.ResultStatus == ResultStatus.Success)
-            ViewBag.UserImageCount = countResult.Data;
-
-        var profilResult = await _userImageService.GetProfilImageByUserIdAsync(userId);
-        if (profilResult.ResultStatus == ResultStatus.Success)
+        var countResult = await _mediator.Send(new GetByUserIdUserImageCountQueryRequest()
         {
-            if (profilResult.Data != null)
-                ViewBag.UserImageProfilImagePath = profilResult.Data.ImagePath;
+            UserId = userId
+        });
+        if (countResult.Result.ResultStatus == ResultStatus.Success)
+            ViewBag.UserImageCount = countResult.Result.Data;
+        
+        var profilResult = await _mediator.Send(new GetByUserIdProfilImageQueryRequest()
+        {
+            UserId = userId
+        });
+        if (profilResult.Result.ResultStatus == ResultStatus.Success)
+        {
+            if (profilResult.Result.Data != null)
+                ViewBag.UserImageProfilImagePath = profilResult.Result.Data.ImagePath;
 
-            if (countResult.Data > 0)
+            if (countResult.Result.Data > 0)
             {
-                var dresult = await _userImageService.GetAllByUserIdAsync(userId);
-                if (dresult.ResultStatus == ResultStatus.Success)
+                var allImageResult = await _mediator.Send(new GetByUserIdAllUserImageQueryRequest()
                 {
-                    ViewBag.UserImageList = dresult.Data;
+                    UserId = userId
+                });
+                if (allImageResult.Result.ResultStatus == ResultStatus.Success)
+                {
+                    ViewBag.UserImageList = allImageResult.Result.Data;
                 }
             }
         }
         else
         {
-            if (countResult.Data > 0)
+            if (countResult.Result.Data > 0)
             {
-                var dresult = await _userImageService.GetAllByUserIdAsync(userId);
-                if (dresult.ResultStatus == ResultStatus.Success)
+                var allImageResult = await _mediator.Send(new GetByUserIdAllUserImageQueryRequest()
                 {
-                    ViewBag.UserImageList = dresult.Data;
+                    UserId = userId
+                });
+                if (allImageResult.Result.ResultStatus == ResultStatus.Success)
+                {
+                    ViewBag.UserImageList = allImageResult.Result.Data;
                 }
             }
         }
-        UserCardSummaryDto userCardSummaryDto = _mapper.Map<UserCardSummaryDto>(user);
-        return View(userCardSummaryDto);
+        var userCardSummaryResult = await _mediator.Send(new GetByIdForUserSummaryCardQueryRequest()
+        {
+            Id = userId
+        });
+        return View(userCardSummaryResult.Result.Data);
     }
 }

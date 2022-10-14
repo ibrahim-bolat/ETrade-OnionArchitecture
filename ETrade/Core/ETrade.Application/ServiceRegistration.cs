@@ -25,9 +25,7 @@ public static class ServiceRegistration
         serviceCollection.AddFluentValidationAutoValidation();
         serviceCollection.AddFluentValidationClientsideAdapters();
         serviceCollection.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-
-        //services
-        serviceCollection.AddScoped<IUserImageService, UserImageManager>();
+        
 
         //HttpContext and UrlHelper
         serviceCollection.AddSingleton<IActionContextAccessor, ActionContextAccessor>()
