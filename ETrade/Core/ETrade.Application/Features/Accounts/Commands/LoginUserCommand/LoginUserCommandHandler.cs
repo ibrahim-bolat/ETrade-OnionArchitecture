@@ -12,16 +12,12 @@ namespace ETrade.Application.Features.Accounts.Commands.LoginUserCommand;
 public class LoginUserCommandHandler:IRequestHandler<LoginUserCommandRequest,LoginUserCommandResponse>
 {
     private readonly UserManager<AppUser> _userManager;
-    private readonly RoleManager<AppRole> _roleManager;
     private readonly SignInManager<AppUser> _signInManager;
-    private readonly IMapper _mapper;
 
-    public LoginUserCommandHandler(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, SignInManager<AppUser> signInManager, IMapper mapper)
+    public LoginUserCommandHandler(UserManager<AppUser> userManager,SignInManager<AppUser> signInManager)
     {
         _userManager = userManager;
-        _roleManager = roleManager;
         _signInManager = signInManager;
-        _mapper = mapper;
     }
 
     public async Task<LoginUserCommandResponse> Handle(LoginUserCommandRequest request, CancellationToken cancellationToken)

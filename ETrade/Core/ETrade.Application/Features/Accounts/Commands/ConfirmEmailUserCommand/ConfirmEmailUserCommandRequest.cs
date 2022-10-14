@@ -1,4 +1,3 @@
-using ETrade.Application.Features.Accounts.DTOs.UserDtos;
 using MediatR;
 
 namespace ETrade.Application.Features.Accounts.Commands.ConfirmEmailUserCommand;

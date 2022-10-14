@@ -1,4 +1,3 @@
-using AutoMapper;
 using ETrade.Application.Features.UserImages.Constants;
 using ETrade.Application.Repositories;
 using ETrade.Application.Wrappers.Concrete;

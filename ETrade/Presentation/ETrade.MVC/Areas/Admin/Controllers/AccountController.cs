@@ -1,4 +1,3 @@
-using AutoMapper;
 using ETrade.Application.Features.Accounts.Commands.ConfirmEmailUserCommand;
 using ETrade.Application.Features.Accounts.Commands.EditPasswordUserCommand;
 using ETrade.Application.Features.Accounts.Commands.LoginUserCommand;
@@ -13,12 +12,9 @@ using ETrade.Application.Features.Accounts.Queries.GetByIdForEditPasswordUserQue
 using ETrade.Application.Features.Accounts.Queries.GetByIdUserQuery;
 using ETrade.Application.Features.Accounts.Queries.LogoutUserQuery;
 using ETrade.Application.Features.Accounts.Queries.VerifyTokenUserQuery;
-using ETrade.Application.Services.Abstract;
-using ETrade.Domain.Entities.Identity;
 using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ETrade.MVC.Areas.Admin.Controllers;

@@ -1,14 +1,10 @@
-using System.Web;
 using ETrade.Application.Features.Accounts.Constants;
-using ETrade.Application.Model;
-using ETrade.Application.Services.Abstract;
 using ETrade.Application.Wrappers.Concrete;
 using ETrade.Domain.Entities.Identity;
 using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 
 namespace ETrade.Application.Features.Accounts.Commands.EditPasswordUserCommand;
 

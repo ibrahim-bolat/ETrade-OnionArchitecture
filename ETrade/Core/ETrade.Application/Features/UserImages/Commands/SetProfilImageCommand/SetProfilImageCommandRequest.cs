@@ -1,4 +1,3 @@
-using ETrade.Application.Features.UserImages.DTOs;
 using MediatR;
 
 namespace ETrade.Application.Features.UserImages.Commands.SetProfilImageCommand;

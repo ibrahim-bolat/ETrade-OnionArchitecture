@@ -1,4 +1,3 @@
-using ETrade.Application.Features.Addresses.DTOs;
 using MediatR;
 
 namespace ETrade.Application.Features.Addresses.Commands.DeleteAddressCommand;

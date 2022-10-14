@@ -13,16 +13,11 @@ namespace ETrade.Application.Features.Accounts.Commands.SetActiveUserCommand;
 public class SetActiveUserCommandHandler : IRequestHandler<SetActiveUserCommandRequest, SetActiveUserCommandResponse>
 {
     private readonly UserManager<AppUser> _userManager;
-    private readonly SignInManager<AppUser> _signInManager;
-    private readonly IMapper _mapper;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public SetActiveUserCommandHandler(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
-        IMapper mapper, IHttpContextAccessor httpContextAccessor)
+    public SetActiveUserCommandHandler(UserManager<AppUser> userManager, IHttpContextAccessor httpContextAccessor)
     {
         _userManager = userManager;
-        _signInManager = signInManager;
-        _mapper = mapper;
         _httpContextAccessor = httpContextAccessor;
     }
 

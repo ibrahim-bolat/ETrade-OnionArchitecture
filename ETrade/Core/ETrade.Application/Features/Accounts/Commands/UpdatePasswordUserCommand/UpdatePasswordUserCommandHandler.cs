@@ -1,30 +1,20 @@
 using System.Web;
 using ETrade.Application.Features.Accounts.Constants;
-using ETrade.Application.Model;
-using ETrade.Application.Services.Abstract;
 using ETrade.Application.Wrappers.Concrete;
 using ETrade.Domain.Entities.Identity;
 using ETrade.Domain.Enums;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 
 namespace ETrade.Application.Features.Accounts.Commands.UpdatePasswordUserCommand;
 
 public class UpdatePasswordUserCommandHandler:IRequestHandler<UpdatePasswordUserCommandRequest,UpdatePasswordUserCommandResponse>
 {
     private readonly UserManager<AppUser> _userManager;
-    private readonly IEmailService _emailService;
-    private readonly IUrlHelper _urlHelper;
-    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public UpdatePasswordUserCommandHandler(UserManager<AppUser> userManager, IEmailService emailService, IUrlHelper urlHelper, IHttpContextAccessor httpContextAccessor)
+    public UpdatePasswordUserCommandHandler(UserManager<AppUser> userManager)
     {
         _userManager = userManager;
-        _emailService = emailService;
-        _urlHelper = urlHelper;
-        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<UpdatePasswordUserCommandResponse> Handle(UpdatePasswordUserCommandRequest request, CancellationToken cancellationToken)

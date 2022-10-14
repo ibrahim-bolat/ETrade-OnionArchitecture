@@ -3,7 +3,6 @@ using ETrade.Application.Features.Addresses.Constants;
 using ETrade.Application.Features.Addresses.DTOs;
 using ETrade.Application.Repositories;
 using ETrade.Application.Wrappers.Concrete;
-using ETrade.Domain.Entities;
 using ETrade.Domain.Enums;
 using MediatR;
 

@@ -12,14 +12,10 @@ namespace ETrade.Application.Features.Accounts.Commands.ConfirmEmailUserCommand;
 public class ConfirmEmailUserCommandHandler:IRequestHandler<ConfirmEmailUserCommandRequest,ConfirmEmailUserCommandResponse>
 {
     private readonly UserManager<AppUser> _userManager;
-    private readonly RoleManager<AppRole> _roleManager;
-    private readonly IMapper _mapper;
 
-    public ConfirmEmailUserCommandHandler(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, IMapper mapper)
+    public ConfirmEmailUserCommandHandler(UserManager<AppUser> userManager)
     {
         _userManager = userManager;
-        _roleManager = roleManager;
-        _mapper = mapper;
     }
 
     public async Task<ConfirmEmailUserCommandResponse> Handle(ConfirmEmailUserCommandRequest request, CancellationToken cancellationToken)

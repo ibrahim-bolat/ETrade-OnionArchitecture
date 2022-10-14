@@ -1,11 +1,9 @@
-using AutoMapper;
 using ETrade.Application.Features.Addresses.Commands.CreateAddressCommand;
 using ETrade.Application.Features.Addresses.Commands.DeleteAddressCommand;
 using ETrade.Application.Features.Addresses.Commands.UpdateAddressCommand;
 using ETrade.Application.Features.Addresses.Constants;
 using ETrade.Application.Features.Addresses.DTOs;
 using ETrade.Application.Features.Addresses.Queries.GetByIdAddressQuery;
-using ETrade.Application.Services.Abstract;
 using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -15,12 +13,10 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
 [Area("Admin")]
 public class AddressController : Controller
 {
-    private readonly IMapper _mapper;
     private readonly IMediator _mediator;
 
-    public AddressController(IMapper mapper, IMediator mediator)
+    public AddressController(IMediator mediator)
     {
-        _mapper = mapper;
         _mediator = mediator;
     }
 
@@ -73,8 +69,7 @@ public class AddressController : Controller
             });
             if (dresult.Result.ResultStatus==ResultStatus.Success)
             {
-                AddressDto addressDto = _mapper.Map<AddressDto>(dresult.Result.Data);
-                return View(addressDto);
+                return View(dresult.Result.Data);
             }
             
         }
@@ -111,8 +106,7 @@ public class AddressController : Controller
             });
             if (dresult.Result.ResultStatus==ResultStatus.Success)
             {
-                AddressDto addressDto = _mapper.Map<AddressDto>(dresult.Result.Data);
-                return View(addressDto);
+                return View(dresult.Result.Data);
             }
         }
         return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 404});
