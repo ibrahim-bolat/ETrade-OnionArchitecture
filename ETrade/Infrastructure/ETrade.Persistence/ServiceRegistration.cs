@@ -22,18 +22,6 @@ public static class ServiceRegistration
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
         });
         
-        //identity 
-        serviceCollection.AddIdentity<AppUser, AppRole>(options =>
-            {
-                options.User.RequireUniqueEmail = true;
-                options.User.AllowedUserNameCharacters =
-                    "abcçdefghiıjklmnoöpqrsştuüvwxyzABCÇDEFGHIİJKLMNOÖPQRSŞTUÜVWXYZ0123456789-._@+";
-                options.SignIn.RequireConfirmedEmail = false; 
-                options.SignIn.RequireConfirmedPhoneNumber = false;
-            }).AddErrorDescriber<CustomIdentityErrorDescriber>()
-            .AddEntityFrameworkStores<DataContext>()
-            .AddDefaultTokenProviders();
-        
         //repositories
         serviceCollection.AddScoped<IAddressRepository,EfAddressRepository>();
         serviceCollection.AddScoped<IUserImageRepository,EfUserImageRepository>();

@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using ETrade.Application;
 using ETrade.Infrastructure;
 using ETrade.MVC;
@@ -37,6 +36,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
 
 app.UseAuthentication();
 app.UseAuthorization();

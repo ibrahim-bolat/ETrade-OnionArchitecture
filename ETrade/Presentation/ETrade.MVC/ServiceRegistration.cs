@@ -3,7 +3,7 @@ using ETrade.Application.Constants;
 using ETrade.Domain.Entities.Identity;
 using ETrade.Persistence.Contexts;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace ETrade.MVC;
@@ -22,6 +22,18 @@ public static class ServiceRegistration
             options.JsonSerializerOptions.WriteIndented = true;
         });
 
+        //identity 
+        serviceCollection.AddIdentity<AppUser, AppRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+                options.User.AllowedUserNameCharacters =
+                    "abcçdefghiıjklmnoöpqrsştuüvwxyzABCÇDEFGHIİJKLMNOÖPQRSŞTUÜVWXYZ0123456789-._@+";
+                options.SignIn.RequireConfirmedEmail = false; 
+                options.SignIn.RequireConfirmedPhoneNumber = false;
+            }).AddErrorDescriber<CustomIdentityErrorDescriber>()
+            .AddEntityFrameworkStores<DataContext>()
+            .AddDefaultTokenProviders();
+
         //cookie configuration
         serviceCollection.ConfigureApplicationCookie(cookieOptions =>
         {
@@ -36,7 +48,7 @@ public static class ServiceRegistration
             };
             cookieOptions.SlidingExpiration = true; 
             cookieOptions.ExpireTimeSpan =
-                TimeSpan.FromDays(150);
+                TimeSpan.FromDays(30);
             cookieOptions.AccessDeniedPath = new PathString("/ErrorPages/AccessDenied");
         });
         
