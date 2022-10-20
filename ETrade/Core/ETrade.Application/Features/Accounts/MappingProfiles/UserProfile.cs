@@ -1,5 +1,5 @@
 using AutoMapper;
-using ETrade.Application.Features.Accounts.DTOs.UserDtos;
+using ETrade.Application.Features.Accounts.DTOs;
 using ETrade.Domain.Entities.Identity;
 
 namespace ETrade.Application.Features.Accounts.MappingProfiles;

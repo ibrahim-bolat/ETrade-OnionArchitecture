@@ -1,97 +1,92 @@
-using ETrade.Application.Features.Accounts.DTOs.RoleDtos;
-using ETrade.Domain.Entities.Identity;
-using Microsoft.AspNetCore.Identity;
+using ETrade.Application.Features.RoleOperations.Commands.CreateRoleCommand;
+using ETrade.Application.Features.RoleOperations.Commands.SetDeletedRoleCommand;
+using ETrade.Application.Features.RoleOperations.Constants;
+using ETrade.Application.Features.RoleOperations.DTOs;
+using ETrade.Application.Features.RoleOperations.Queries.GetRoleListQuery;
+using ETrade.Domain.Enums;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ETrade.MVC.Areas.Admin.Controllers;
 
-[Area("Admin")]
+    [Area("Admin")]
     public class RoleController : Controller
     {
-        readonly RoleManager<AppRole> _roleManager;
-        readonly UserManager<AppUser> _userManager;
-        public RoleController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager)
-        {
-            _roleManager = roleManager;
-            _userManager = userManager;
-        }
-        
-        public IActionResult Index()
-        {
-            return View(_roleManager.Roles.ToList());
-        }
-        
-        public async Task<IActionResult> CreateRole(string id)
-        {
-            if (id != null)
-            {
-                AppRole role = await _roleManager.FindByIdAsync(id);
+        private readonly IMediator _mediator;
 
-                return View(new RoleDto()
+        public RoleController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+        public async Task<IActionResult>  Index()
+        {
+            var dresult = await _mediator.Send(new GetRoleListQueryRequest());
+            if (dresult.Result.ResultStatus == ResultStatus.Success)
+            {
+                return View(dresult.Result.Data);
+            }
+            return View();
+        }
+        
+        [HttpGet]
+        public  IActionResult CreateRole()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateRole(RoleDto roleDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var dresult = await _mediator.Send(new CreateRoleCommandRequest()
                 {
-                    Name = role.Name
+                    RoleDto = roleDto
                 });
+                if (dresult.Result.ResultStatus == ResultStatus.Success)
+                {
+                    return RedirectToAction("Index", "Role" ,new {area="Admin"});
+                }
+                if (dresult.Result.ResultStatus == ResultStatus.Error &&
+                    dresult.Result.Message.Equals(Messages.RoleActive))
+                {
+                    ModelState.AddModelError("RoleActive", "Böyle bir Role zaten tanımlı.");
+                    return View(roleDto);
+                }
+                if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.IdentityErrorList!=null)
+                {
+                    dresult.Result.IdentityErrorList.ForEach(e => ModelState.AddModelError(e.Code, e.Description));
+                    return View(roleDto);
+                }
             }
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> CreateRole(RoleDto model, string id)
-        {
-            IdentityResult result;
-            if (id != null)
-            {
-                AppRole role = await _roleManager.FindByIdAsync(id);
-                role.Name = model.Name;
-                result = await _roleManager.UpdateAsync(role);
-            }
-            else
-                result = await _roleManager.CreateAsync(new AppRole { Name = model.Name});
-
-            if (result.Succeeded)
-            {
-                return RedirectToAction("Index", "Role" ,new {area="Admin"});
-            }
-            return View();
-        }
-        
-        public async Task<IActionResult> RoleAssign(string id)
-        {
-            AppUser user = await _userManager.FindByIdAsync(id);
-            List<AppRole> allRoles = _roleManager.Roles.ToList();
-            List<string> userRoles = await _userManager.GetRolesAsync(user) as List<string>;
-            List<RoleAssignDto> assignRoles = new List<RoleAssignDto>();
-            allRoles.ForEach(role => assignRoles.Add(new RoleAssignDto
-            {
-                HasAssign = userRoles != null && userRoles.Contains(role.Name),
-                RoleId = role.Id,
-                RoleName = role.Name
-            }));
-
-            return View(assignRoles);
-        }
-        [HttpPost]
-        public async Task<ActionResult> RoleAssign(List<RoleAssignDto> modelList, string id)
-        {
-            AppUser user = await _userManager.FindByIdAsync(id);
-            foreach (RoleAssignDto role in modelList)
-            {
-                if (role.HasAssign)
-                    await _userManager.AddToRoleAsync(user, role.RoleName);
-                else
-                    await _userManager.RemoveFromRoleAsync(user, role.RoleName);
-            }
-            return RedirectToAction("Index", "Home" ,new {area="Admin"});
+            return View(roleDto);
         }
 
         public async Task<IActionResult> DeleteRole(string id)
         {
-            AppRole role = await _roleManager.FindByIdAsync(id);
-            IdentityResult result = await _roleManager.DeleteAsync(role);
-            if (result.Succeeded)
+            var dresult = await _mediator.Send(new SetDeletedRoleCommandRequest()
             {
-                //Başarılı...
+                Id = id
+            });
+
+            if (dresult.Result.ResultStatus == ResultStatus.Success)
+            {
+                return Json(new { success = true });
             }
-            return RedirectToAction("Index");
+            if (dresult.Result.ResultStatus == ResultStatus.Error &&
+                dresult.Result.Message.Equals(Messages.RoleNotFound))
+            {
+                ModelState.AddModelError("NoRole", "Böyle bir rol bulunmamaktadır.");
+                var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
+                return Json(new { success = false, errors = errors });
+            }
+            if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.IdentityErrorList!=null)
+            {
+                dresult.Result.IdentityErrorList.ForEach(e => ModelState.AddModelError(e.Code, e.Description));
+                var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
+                return Json(new { success = false, errors = errors });
+            }
+            return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 404});
         }
 
     }

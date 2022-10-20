@@ -5,7 +5,7 @@ using ETrade.Application.Features.Accounts.Commands.RegisterUserCommand;
 using ETrade.Application.Features.Accounts.Commands.UpdatePasswordUserCommand;
 using ETrade.Application.Features.Accounts.Commands.UpdateUserCommand;
 using ETrade.Application.Features.Accounts.Constants;
-using ETrade.Application.Features.Accounts.DTOs.UserDtos;
+using ETrade.Application.Features.Accounts.DTOs;
 using ETrade.Application.Features.Accounts.Queries.ForgetPasswordUserQuery;
 using ETrade.Application.Features.Accounts.Queries.GetByIdForDetailProfileUserQuery;
 using ETrade.Application.Features.Accounts.Queries.GetByIdForEditPasswordUserQuery;
@@ -134,10 +134,11 @@ public class AccountController : Controller
         return View(loginDto);
     }
 
-    [HttpGet] 
-    public async Task Logout()
+    [HttpPost] 
+    public async Task<IActionResult> Logout()
     {
         await _mediator.Send(new LogoutUserQueryRequest());
+        return Json(new { success = true });
     }
     [AllowAnonymous]
     [HttpGet] 

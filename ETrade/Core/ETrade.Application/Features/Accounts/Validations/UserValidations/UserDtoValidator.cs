@@ -1,5 +1,5 @@
 using System.Text.RegularExpressions;
-using ETrade.Application.Features.Accounts.DTOs.UserDtos;
+using ETrade.Application.Features.Accounts.DTOs;
 using FluentValidation;
 
 namespace ETrade.Application.Features.Accounts.Validations.UserValidations;

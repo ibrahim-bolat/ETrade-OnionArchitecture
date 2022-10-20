@@ -1,6 +1,6 @@
 using AutoMapper;
 using ETrade.Application.Features.Accounts.Constants;
-using ETrade.Application.Features.Accounts.DTOs.UserDtos;
+using ETrade.Application.Features.Accounts.DTOs;
 using ETrade.Application.Features.Addresses.DTOs;
 using ETrade.Application.Wrappers.Concrete;
 using ETrade.Domain.Entities.Identity;

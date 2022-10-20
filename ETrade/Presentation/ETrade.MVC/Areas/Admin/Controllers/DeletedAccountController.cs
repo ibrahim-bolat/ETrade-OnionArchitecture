@@ -1,6 +1,6 @@
-using ETrade.Application.Features.Accounts.Commands.SetActiveUserCommand;
 using ETrade.Application.Features.Accounts.Constants;
-using ETrade.Application.Features.Accounts.Queries.GetDeletedUserListQuery;
+using ETrade.Application.Features.UserOperations.Commands.SetActiveUserCommand;
+using ETrade.Application.Features.UserOperations.Queries.GetDeletedUserListQuery;
 using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

@@ -43,7 +43,7 @@ $(document).ready(function ($) {
                         '<a class="btn btn-info mr-2" href="Account/Profile/' + data + '"><i class="fa fa-info-circle">Detay</i></a>' +
                         '<a class="btn btn-secondary mr-2" href="Account/EditProfile/'+data+'"><i class="fa fa-pencil-square-o">Profil Güncelle</i></a>' +
                         '<a class="btn btn-warning mr-2" href="Account/EditPassword/'+data+'"><i class="fa fa-pencil-square-o">Şifre Güncelle</i></a>' +
-                        '<a class="btn btn-danger" onclick="getbyIdforDelete(' + data + ')"><i class="fa fa-trash-o">Sil</i></a>';
+                        '<a class="btn btn-danger" onclick="getByIdforDelete(' + data + ')"><i class="fa fa-trash-o">Sil</i></a>';
                 }
             }
         ],
@@ -232,11 +232,11 @@ function getRole(Id) {
 }
 
 //Get User By Id For Delete
-function getbyIdforDelete(Id) {
+function getByIdforDelete(Id) {
     clearDeleteModalTextBox();
     disabledDeleteModalTextBox(true);
     $.ajax({
-        url: '/Admin/UserOperation/getbyId/' + Id,
+        url: '/Admin/UserOperation/getById/' + Id,
         typr: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",

@@ -1,9 +1,13 @@
-using AutoMapper;
-using ETrade.Application.Features.Accounts.DTOs.RoleDtos;
-using ETrade.Application.Features.Accounts.DTOs.UserDtos;
-using ETrade.Domain.Entities.Identity;
+using ETrade.Application.Features.UserOperations.Commands.AssignUserRoleListCommand;
+using ETrade.Application.Features.UserOperations.Commands.CreateUserCommand;
+using ETrade.Application.Features.UserOperations.Commands.SetDeletedUserCommand;
+using ETrade.Application.Features.UserOperations.Constants;
+using ETrade.Application.Features.UserOperations.DTOs;
+using ETrade.Application.Features.UserOperations.Queries.GetActiveUserListQuery;
+using ETrade.Application.Features.UserOperations.Queries.GetByIdForUserSummaryQuery;
+using ETrade.Application.Features.UserOperations.Queries.GetByIdUserRoleListQuery;
 using ETrade.Domain.Enums;
-using Microsoft.AspNetCore.Identity;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -13,17 +17,12 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
 [Area("Admin")]
     public class UserOperationController : Controller
     {
-        private readonly RoleManager<AppRole> _roleManager;
-        private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
-        private readonly IMapper _mapper;
 
-        public UserOperationController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IMapper mapper)
+        private readonly IMediator _mediator;
+
+        public UserOperationController( IMediator mediator)
         {
-            _roleManager = roleManager;
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _mapper = mapper;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -33,11 +32,10 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
 
         [HttpPost]
-        public IActionResult Users()
+        public async Task<ActionResult>  Users()
         {
             try
             {
-                var userData = _userManager.Users.Where(u=>u.IsActive==true).AsQueryable();
                 var draw = Request.Form["draw"].FirstOrDefault();
                 var start = Request.Form["start"].FirstOrDefault();
                 var length = Request.Form["length"].FirstOrDefault();
@@ -45,41 +43,19 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
                     .Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
                 var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
                 var searchValue = Request.Form["search[value]"].FirstOrDefault();
-                int pageSize = length == "-1" ? userData.Count() : length != null ? Convert.ToInt32(length) : 0;
-                int skip = start != null ? Convert.ToInt32(start) : 0;
-                int recordsTotal;
-                if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                var dresult = await _mediator.Send(new GetActiveUserListQueryRequest()
                 {
-                    userData = userData.OrderBy(s => sortColumn + " " + sortColumnDirection);
-                    Func<AppUser, string> orderingFunction = (c => sortColumn == "FirstName" ? c.FirstName :
-                        sortColumn == "LastName" ? c.LastName :
-                        sortColumn == "UserName" ? c.UserName :
-                        sortColumn == "Email" ? c.Email : c.FirstName);
-
-                    if (sortColumnDirection == "desc")
-                    {
-                        userData = userData.OrderByDescending(orderingFunction).AsQueryable();
-                    }
-                    else
-                    {
-                        userData = userData.OrderBy(orderingFunction).AsQueryable();
-                    }
-                }
-
-                if (!string.IsNullOrEmpty(searchValue))
-                {
-                    userData = userData.Where(m => m.FirstName.ToLower().Contains(searchValue.ToLower())
-                                                   || m.LastName.ToLower().Contains(searchValue.ToLower())
-                                                   || m.UserName.ToLower().Contains(searchValue.ToLower())
-                                                   || m.Email.ToLower().Contains(searchValue.ToLower()));
-                }
-
-                recordsTotal = userData.Count();
-                var data = userData.Skip(skip).Take(pageSize).ToList();
+                    Draw = draw,
+                    Start = start != null ? Convert.ToInt32(start) : 0,
+                    Length = length == "-1" ? -1 : length != null ? Convert.ToInt32(length) : 0,
+                    SortColumn = sortColumn,
+                    SortColumnDirection = sortColumnDirection,
+                    SearchValue = searchValue
+                });
                 var jsonData = new
                 {
-                    draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data, 
-                    isSusccess = true
+                    draw = dresult.Result.Data, recordsFiltered = dresult.Result.Data.RecordsFiltered, recordsTotal = dresult.Result.Data.RecordsTotal, data = dresult.Result.Data.UserSummaryDtos, 
+                    isSusccess = dresult.Result.Data.IsSuccess
                 };
                 return Ok(jsonData);
             }
@@ -91,105 +67,102 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(RegisterDto registerDto)
+        public async Task<IActionResult> Add(CreateUserDto createUserDto)
         {
             if (!ModelState.IsValid)
             {
-                return PartialView("PartialViews/_UserCreateModalPartial", registerDto);
+                return PartialView("PartialViews/_UserCreateModalPartial", createUserDto);
             }
-            IdentityResult createResult, confirmResult, roleResult;
-            AppUser newUsers = _mapper.Map<AppUser>(registerDto);
-            AppRole role = await _roleManager.FindByNameAsync(RoleType.User.ToString());
-            if (role == null)
-                await _roleManager.CreateAsync(new AppRole { Name = RoleType.User.ToString() });
-            createResult = await _userManager.CreateAsync(newUsers, registerDto.Password);
-            if (createResult.Succeeded)
+            var dresult = await _mediator.Send(new CreateUserCommandRequest()
             {
-                var token = await _userManager.GenerateEmailConfirmationTokenAsync(newUsers);
-                confirmResult = await _userManager.ConfirmEmailAsync(newUsers, token);
-                if (confirmResult.Succeeded)
-                {
-                    roleResult = await _userManager.AddToRoleAsync(newUsers, RoleType.User.ToString());
-                    if (roleResult.Succeeded)
-                    {
-                        return Json(new { success = true });
-                    }
-                    roleResult.Errors.ToList().ForEach(e => ModelState.AddModelError(e.Code, e.Description));   
-                    return PartialView("PartialViews/_UserCreateModalPartial", registerDto);   
-                }
-                confirmResult.Errors.ToList().ForEach(e => ModelState.AddModelError(e.Code, e.Description));
-                return PartialView("PartialViews/_UserCreateModalPartial", registerDto);
+                CreateUserDto = createUserDto
+            });
+            if (dresult.Result.ResultStatus == ResultStatus.Success)
+            {
+                return Json(new { success = true });
             }
-            createResult.Errors.ToList().ForEach(e => ModelState.AddModelError(e.Code, e.Description));
-            return PartialView("PartialViews/_UserCreateModalPartial", registerDto);
+            if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.IdentityErrorList!=null)
+            {
+                dresult.Result.IdentityErrorList.ForEach(e => ModelState.AddModelError(e.Code, e.Description));
+                return PartialView("PartialViews/_UserCreateModalPartial", createUserDto);   
+            }
+            return Json(new { success = false });
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetbyId(string id)
+        public async Task<IActionResult> GetById(string id)
         {
-            AppUser appUser = await _userManager.FindByIdAsync(id);
-            if (appUser != null)
+            var dresult = await _mediator.Send(new GetByIdForUserSummaryQueryRequest()
             {
-                UserSummaryDto model = _mapper.Map<UserSummaryDto>(appUser);
-                return Json(new { success = true, user = model });
+                Id = id
+            });
+            if (dresult.Result.ResultStatus == ResultStatus.Success)
+            {
+                return Json(new { success = true, user = dresult.Result.Data });
             }
-            ModelState.AddModelError("NoUser", "Bu bilgilere sahip bir kullanıcı bulunamadı.");
-            var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
-            return Json(new { success = false, errors = errors });
+            if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserNotActive))
+            {
+                ModelState.AddModelError("UserDeleted", "Bu E-posta ya sahip kullanıcı silindiği için bu işlemi yapamaz.");
+                var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
+                return Json(new { success = false, errors = errors });
+            }
+            if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserNotFound))
+            {
+                ModelState.AddModelError("NoUser", "Böyle bir E-posta ya sahip kullanıcı bulunmamaktadır.");
+                var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
+                return Json(new { success = false, errors = errors });
+            }
+            return Json(new { success = false });
         }
 
 
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
-            IdentityResult result;
-            AppUser deletedUser = await _userManager.FindByIdAsync(id);
-            if (deletedUser != null)
+            var dresult = await _mediator.Send(new SetDeletedUserCommandRequest()
             {
-                deletedUser.IsActive = false;
-                deletedUser.IsDeleted = true;
-                deletedUser.ModifiedTime = DateTime.Now;
-                deletedUser.ModifiedByName = User.Identity?.Name;
-                result = await _userManager.UpdateAsync(deletedUser);
-                if (!result.Succeeded)
-                {
-                    result.Errors.ToList().ForEach(e => ModelState.AddModelError(e.Code, e.Description));
-                    return Json(new { success = false});
-                }
-                result = await _userManager.UpdateSecurityStampAsync(deletedUser);
-                if (!result.Succeeded)
-                {
-                    result.Errors.ToList().ForEach(e => ModelState.AddModelError(e.Code, e.Description));
-                    return Json(new { success = false});
-                }
-                if (result.Succeeded)
-                {
-                    return Json(new { success = true });
-                }
+                Id = id
+            });
+            if (dresult.Result.ResultStatus == ResultStatus.Success)
+            {
+                return Json(new { success = true });
             }
-            //result.Errors.ToList().ForEach(e => ModelState.AddModelError(e.Code, e.Description));
-            var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
-            return Json(new { success = false, errors = errors });
+            if (dresult.Result.ResultStatus == ResultStatus.Error &&
+                dresult.Result.Message.Equals(Messages.UserNotActive))
+            {
+                ModelState.AddModelError("UserNotActive",
+                    "Bu E-posta ya sahip kullanıcı zaten aktif bir kullancı değildir.");
+                var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
+                return Json(new { success = false, errors = errors });
+            }
+            if (dresult.Result.ResultStatus == ResultStatus.Error &&
+                dresult.Result.Message.Equals(Messages.UserNotFound))
+            {
+                ModelState.AddModelError("NoUser", "Böyle bir E-posta ya sahip kullanıcı bulunmamaktadır.");
+                var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
+                return Json(new { success = false, errors = errors });
+            }
+            if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.IdentityErrorList!=null)
+            {
+                dresult.Result.IdentityErrorList.ForEach(e => ModelState.AddModelError(e.Code, e.Description));
+                var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
+                return Json(new { success = false, errors = errors });
+            }
+            return Json(new { success = false});
         }
 
         [HttpGet]
         public async Task<IActionResult> GetRole(string id)
         {
-            AppUser user = await _userManager.FindByIdAsync(id);
-            if (user != null)
+            var dresult = await _mediator.Send(new GetByIdUserRoleListQueryRequest()
             {
-                List<AppRole> allRoles = _roleManager.Roles.ToList();
-                List<string> userRoles = await _userManager.GetRolesAsync(user) as List<string>;
-                List<RoleOperationDto> assignRoles = new List<RoleOperationDto>();
-                allRoles.ForEach(role => assignRoles.Add(new RoleOperationDto
-                {
-                    Id = role.Id,
-                    Name = role.Name,
-                    HasAssign = userRoles != null && userRoles.Contains(role.Name)
-                }));
-                return Json(new { success = true, roles = assignRoles });
+                Id=id,
+            });
+            if (dresult.Result.ResultStatus == ResultStatus.Success)
+            {
+                return Json(new { success = true, roles = dresult.Result.Data });
             }
-            return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 404});
+            return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 400});
         }
 
         [HttpPost]
@@ -197,44 +170,13 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         {
             if (!string.IsNullOrEmpty(id) && roles != null)
             {
-                AppUser user = await _userManager.FindByIdAsync(id);
-                if (user != null)
+                var dresult = await _mediator.Send(new AssignUserRoleListCommandRequest()
                 {
-                    List<AppRole> allRoles = _roleManager.Roles.ToList();
-                    List<RoleOperationDto> newAssignRoles = new List<RoleOperationDto>();
-                    List<string> userNewRoles = new List<string>();
-                    AppRole appR;
-                    foreach (var role in roles)
-                    {
-                        appR = await _roleManager.FindByIdAsync(role);
-                        userNewRoles.Add(appR.Name);
-                    }
-                    allRoles.ForEach(role => newAssignRoles.Add(new RoleOperationDto
-                    {
-                        HasAssign = userNewRoles.Contains(role.Name),
-                        Id = role.Id,
-                        Name = role.Name
-                    }));
-                    foreach (RoleOperationDto role in newAssignRoles)
-                    {
-                        if (role.HasAssign)
-                        {
-                            if (!await _userManager.IsInRoleAsync(user, role.Name))
-                                await _userManager.AddToRoleAsync(user, role.Name);
-                        }
-                        else
-                        {
-                            if (await _userManager.IsInRoleAsync(user, role.Name))
-                                await _userManager.RemoveFromRoleAsync(user, role.Name);
-                        }
-                    }
-                    await _userManager.UpdateSecurityStampAsync(user);
-                    var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-                    if (currentUser.Id == user.Id)
-                    {
-                        await _signInManager.SignOutAsync();
-                        await _signInManager.SignInAsync(user, true);
-                    }
+                    Id=id,
+                    Roles = roles
+                });
+                if (dresult.Result.ResultStatus == ResultStatus.Success)
+                {
                     return Json(new { success = true });
                 }
                 return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 404});
