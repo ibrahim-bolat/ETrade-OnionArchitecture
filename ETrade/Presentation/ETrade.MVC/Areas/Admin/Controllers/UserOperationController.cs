@@ -102,13 +102,13 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
             }
             if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserNotActive))
             {
-                ModelState.AddModelError("UserDeleted", "Bu E-posta ya sahip kullanıcı silindiği için bu işlemi yapamaz.");
+                ModelState.AddModelError("UserNotActive", Messages.UserNotActive);
                 var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
                 return Json(new { success = false, errors = errors });
             }
             if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserNotFound))
             {
-                ModelState.AddModelError("NoUser", "Böyle bir E-posta ya sahip kullanıcı bulunmamaktadır.");
+                ModelState.AddModelError("UserNotFound", Messages.UserNotFound);
                 var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
                 return Json(new { success = false, errors = errors });
             }
@@ -131,14 +131,14 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
                 dresult.Result.Message.Equals(Messages.UserNotActive))
             {
                 ModelState.AddModelError("UserNotActive",
-                    "Bu E-posta ya sahip kullanıcı zaten aktif bir kullancı değildir.");
+                    Messages.UserNotActive);
                 var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
                 return Json(new { success = false, errors = errors });
             }
             if (dresult.Result.ResultStatus == ResultStatus.Error &&
                 dresult.Result.Message.Equals(Messages.UserNotFound))
             {
-                ModelState.AddModelError("NoUser", "Böyle bir E-posta ya sahip kullanıcı bulunmamaktadır.");
+                ModelState.AddModelError("UserNotFound", Messages.UserNotFound);
                 var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
                 return Json(new { success = false, errors = errors });
             }

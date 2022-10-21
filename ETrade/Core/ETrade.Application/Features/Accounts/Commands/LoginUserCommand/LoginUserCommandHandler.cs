@@ -42,13 +42,13 @@ public class LoginUserCommandHandler:IRequestHandler<LoginUserCommandRequest,Log
                     {
                         await _userManager.SetLockoutEndDateAsync(user, new DateTimeOffset(DateTime.Now.AddMinutes(30)));
                         return new LoginUserCommandResponse{
-                            Result = new Result(ResultStatus.Error, Messages.UserLocked)
+                            Result = new Result(ResultStatus.Error, Messages.UserAccountLocked)
                         };
                     }
                     if (result.IsLockedOut)
                     {
                         return new LoginUserCommandResponse{
-                            Result = new Result(ResultStatus.Error, Messages.UserLocked)
+                            Result = new Result(ResultStatus.Error, Messages.UserAccountLocked)
                         };
                     }
                     return new LoginUserCommandResponse{

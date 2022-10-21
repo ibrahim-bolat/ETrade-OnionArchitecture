@@ -1,7 +1,7 @@
-using ETrade.Application.Features.Addresses.DTOs;
+using ETrade.Application.Features.Accounts.DTOs;
 using FluentValidation;
 
-namespace ETrade.Application.Features.Addresses.Validations;
+namespace ETrade.Application.Features.Accounts.Validations;
 
 public class AddressSummaryDtoValidator:AbstractValidator<AddressSummaryDto>
 {

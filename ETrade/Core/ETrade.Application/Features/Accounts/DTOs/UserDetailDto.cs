@@ -1,5 +1,4 @@
 using ETrade.Application.DTOs.Base;
-using ETrade.Application.Features.UserOperations.DTOs;
 using ETrade.Application.Features.Addresses.DTOs;
 
 namespace ETrade.Application.Features.Accounts.DTOs;

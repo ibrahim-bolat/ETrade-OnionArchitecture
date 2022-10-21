@@ -110,25 +110,24 @@ public class AccountController : Controller
                     return RedirectToAction("Index", "Home");
                 return Redirect(TempData["returnUrl"].ToString()!);
             }
-            if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserLocked))
+            if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserAccountLocked))
             {
-                ModelState.AddModelError("Locked",
-                    "Art arda 3 başarısız giriş denemesi yaptığınızdan dolayı hesabınız 30 dk kilitlenmiştir.");
+                ModelState.AddModelError("UserAccountLocked", Messages.UserAccountLocked);
                 return View(loginDto);
             }
             if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserIncorrectPassword))
             {
-                ModelState.AddModelError("IncorrectPassword", "Yanlış Şifre Girdiniz.");
+                ModelState.AddModelError("UserIncorrectPassword", Messages.UserIncorrectPassword);
                 return View(loginDto);
             }
             if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserNotActive))
             {
-                ModelState.AddModelError("UserDeleted", "Bu E-posta ya sahip kullanıcı silindiği için giriş yapamamaktadır.");
+                ModelState.AddModelError("UserNotActive", Messages.UserNotActive);
                 return View(loginDto);
             }
             if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserNotFound))
             {
-                ModelState.AddModelError("NoUser", "Böyle bir E-posta ya sahip kullanıcı bulunmamaktadır.");
+                ModelState.AddModelError("UserNotFound", Messages.UserNotFound);
                 return View(loginDto);
             }
         }
@@ -168,12 +167,12 @@ public class AccountController : Controller
         }
         if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserNotActive))
         {
-            ModelState.AddModelError("UserDeleted", "Bu E-posta ya sahip kullanıcı silindiği için bu işlemi yapamaz.");
+            ModelState.AddModelError("UserNotActive", Messages.UserNotActive);
             return View(forgetPassDto);
         }
         if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserNotFound))
         {
-            ModelState.AddModelError("NoUser", "Böyle bir E-posta ya sahip kullanıcı bulunmamaktadır.");
+            ModelState.AddModelError("UserNotFound", Messages.UserNotFound);
             return View(forgetPassDto);
         }
         return View(forgetPassDto);
@@ -217,12 +216,12 @@ public class AccountController : Controller
         }
         if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserNotActive))
         {
-            ModelState.AddModelError("UserDeleted", "Bu E-posta ya sahip kullanıcı silindiği için bu işlemi yapamaz.");
+            ModelState.AddModelError("UserNotActive", Messages.UserNotActive);
             return View(updatePasswordDto);
         }
         if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.UserNotFound))
         {
-            ModelState.AddModelError("NoUser", "Böyle bir E-posta ya sahip kullanıcı bulunmamaktadır.");
+            ModelState.AddModelError("UserNotFound", Messages.UserNotFound);
             return View(updatePasswordDto);
         }
         return View(updatePasswordDto);
@@ -237,7 +236,6 @@ public class AccountController : Controller
         });
         if (dresult.Result.ResultStatus == ResultStatus.Success)
         {
-            TempData["oldEmail"] = dresult.Result.Data.Email;
             return View(dresult.Result.Data);
         }
         return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 404});
@@ -250,9 +248,7 @@ public class AccountController : Controller
         {
             var dresult = await _mediator.Send(new UpdateUserCommandRequest()
             {
-                UserDto = userDto,
-                OldEmail = TempData["oldEmail"]?.ToString()
-
+                UserDto = userDto
             });
             if (dresult.Result.ResultStatus == ResultStatus.Success)
             {
@@ -263,15 +259,14 @@ public class AccountController : Controller
             if (dresult.Result.ResultStatus == ResultStatus.Error &&
                 dresult.Result.Message.Equals(Messages.UserNotActive))
             {
-                ModelState.AddModelError("UserDeleted",
-                    "Bu E-posta ya sahip kullanıcı silindiği için bu işlemi yapamaz.");
+                ModelState.AddModelError("UserNotActive", Messages.UserNotActive);
                 return View(userDto);
             }
             
             if (dresult.Result.ResultStatus == ResultStatus.Error &&
                 dresult.Result.Message.Equals(Messages.UserNotFound))
             {
-                ModelState.AddModelError("NoUser", "Böyle bir E-posta ya sahip kullanıcı bulunmamaktadır.");
+                ModelState.AddModelError("UserNotFound", Messages.UserNotFound);
                 return View(userDto);
             }
             
@@ -317,15 +312,14 @@ public class AccountController : Controller
             if (dresult.Result.ResultStatus == ResultStatus.Error &&
                 dresult.Result.Message.Equals(Messages.UserNotActive))
             {
-                ModelState.AddModelError("UserDeleted",
-                    "Bu E-posta ya sahip kullanıcı silindiği için bu işlemi yapamaz.");
+                ModelState.AddModelError("UserNotActive", Messages.UserNotActive);
                 return View(editPasswordDto);
             }
             
             if (dresult.Result.ResultStatus == ResultStatus.Error &&
                 dresult.Result.Message.Equals(Messages.UserNotFound))
             {
-                ModelState.AddModelError("NoUser", "Böyle bir E-posta ya sahip kullanıcı bulunmamaktadır.");
+                ModelState.AddModelError("UserNotFound", Messages.UserNotFound);
                 return View(editPasswordDto);
             }
             

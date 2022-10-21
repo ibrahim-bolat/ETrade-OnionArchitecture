@@ -72,15 +72,14 @@ public class DeletedAccountController : Controller
         if (dresult.Result.ResultStatus == ResultStatus.Error &&
             dresult.Result.Message.Equals(Messages.UserActive))
         {
-            ModelState.AddModelError("UserActive",
-                "Bu E-posta ya sahip kullanıcı zaten aktif bir kullancıdır.");
+            ModelState.AddModelError("UserActive",Messages.UserActive);
             var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
             return Json(new { success = false, errors = errors });
         }
         if (dresult.Result.ResultStatus == ResultStatus.Error &&
             dresult.Result.Message.Equals(Messages.UserNotFound))
         {
-            ModelState.AddModelError("NoUser", "Böyle bir E-posta ya sahip kullanıcı bulunmamaktadır.");
+            ModelState.AddModelError("UserNotFound", Messages.UserNotFound);
             var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
             return Json(new { success = false, errors = errors });
         }

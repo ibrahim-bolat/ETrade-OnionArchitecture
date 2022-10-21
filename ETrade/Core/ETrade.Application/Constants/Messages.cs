@@ -9,9 +9,9 @@ public static class Messages
     public const string UserNotUpdated = "Kullanıcı güncellenemedi";
     public const string UserNotDeleted = "Kullanıcı silinemedi";
     public const string UserNotFound = "Kullanıcı bulunamadı!";
-    public const string UserLocked = "Kullanıcı kilitli!";
-    public const string UserActive = "Kullanıcı zaten aktif!";
-    public const string UserNotActive = "Kullanıcı aktif değildir!";
+    public const string UserAccountLocked = "Art arda 3 başarısız giriş denemesi yaptığınızdan dolayı hesabınız 30 dk kilitlenmiştir!";
+    public const string UserActive = "Kullanıcı hesabı zaten aktif!";
+    public const string UserNotActive = "Kullanıcı hesabı aktif değildir!";
     public const string UserIncorrectPassword = "Kullanıcı şifresi hatalıdır!";
     public const string UserConfirmEmail = "Kullanıcı emaili doğrulandı";
     public const string UserNotConfirmEmail = "Kullanıcı emaili doğrulanmadı!";
@@ -26,7 +26,7 @@ public static class Messages
     public const string UserNotUpdateSecurityStamp = "Kullanıcı securitystamp değeri değiştirilemedi!";
     public const string UserSuccessConfirm = "Kullanıcı başarıyla onaylandı";
     public const string UserErrorConfirm = "Kullanıcı dorğulanmadı!";
-
+    
     public const string RoleAdded = "Rol başarıyla eklendi";
     public const string RoleNotAdded = "Rol eklenemedi";
     public const string RoleDeleted = "Rol başarıyla silindi";

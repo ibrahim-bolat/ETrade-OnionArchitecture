@@ -46,7 +46,7 @@ public class AddressController : Controller
             });
             if (dresult.Result.Message == Messages.AddressCountMoreThan4)
             {
-                ModelState.AddModelError("AddressCountMoreThan10", Messages.AddressCountMoreThan4);
+                ModelState.AddModelError("AddressCountMoreThan4", Messages.AddressCountMoreThan4);
                 return View(addressDto);
             }
             if (dresult.Result.ResultStatus == ResultStatus.Success)
