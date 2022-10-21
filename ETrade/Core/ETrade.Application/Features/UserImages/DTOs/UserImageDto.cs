@@ -1,6 +1,6 @@
 
 using System.ComponentModel.DataAnnotations;
-using ETrade.Application.DTOs.Common;
+using ETrade.Application.DTOs.Base;
 
 namespace ETrade.Application.Features.UserImages.DTOs;
 

@@ -1,7 +1,7 @@
 ﻿
 using ETrade.Domain.Enums;
 
-namespace ETrade.Application.DTOs.Common;
+namespace ETrade.Application.DTOs.Base;
 public abstract class BaseDto
     {
         public virtual ResultStatus ResultStatus { get; set; }

@@ -48,7 +48,7 @@
             timer: 5000,
             timerProgressBar: true,
             didOpen: (toast) => {
-                 toast.addEventListener('click', Swal.close)
+                toast.addEventListener('click', Swal.close)
                 toast.addEventListener('mouseenter', Swal.stopTimer)
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }

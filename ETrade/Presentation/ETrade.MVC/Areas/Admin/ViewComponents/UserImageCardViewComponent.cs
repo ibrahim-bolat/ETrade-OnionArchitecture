@@ -1,5 +1,4 @@
 ﻿using ETrade.Application.Features.UserImages.Queries.GetByUserIdAllUserImageQuery;
-using ETrade.Application.Services.Abstract;
 using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

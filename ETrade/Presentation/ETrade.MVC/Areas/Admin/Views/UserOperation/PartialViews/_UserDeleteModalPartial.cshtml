@@ -1,4 +1,4 @@
-@model ETrade.Application.Features.UserOperations.DTOs.UserSummaryDto
+@model UserSummaryDto
 <div class="modal fade" id="userDeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <form id="deleteModalForm">
@@ -10,23 +10,23 @@
                 <div class="modal-body">
                     <div asp-validation-summary="All" class="text-danger ml-4"></div>
                     <div class="form-group">
-                        <input asp-for="@Model.Id" id="deleteID" class="form-control" type="hidden"/>
+                        <input asp-for="Id" id="deleteID" class="form-control" type="hidden"/>
                     </div>
                     <div class="form-group">
-                        <label asp-for="@Model.FirstName" class="control-label"></label>
-                        <input asp-for="@Model.FirstName" id="deleteFirstName" class="form-control"/>
+                        <label asp-for="FirstName" class="control-label"></label>
+                        <input asp-for="FirstName" id="deleteFirstName" class="form-control"/>
                     </div>
                     <div class="form-group">
-                        <label asp-for="@Model.LastName" class="control-label"></label>
-                        <input asp-for="@Model.LastName" id="deleteLastName" class="form-control"/>
+                        <label asp-for="LastName" class="control-label"></label>
+                        <input asp-for="LastName" id="deleteLastName" class="form-control"/>
                     </div>
                     <div class="form-group">
-                        <label asp-for="@Model.UserName" class="control-label"></label>
-                        <input asp-for="@Model.UserName" id="deleteUserName" class="form-control"/>
+                        <label asp-for="UserName" class="control-label"></label>
+                        <input asp-for="UserName" id="deleteUserName" class="form-control"/>
                     </div>
                     <div class="form-group">
-                        <label asp-for="@Model.Email" class="control-label"></label>
-                        <input asp-for="@Model.Email" type="email" id="deleteEmail" class="form-control"/>
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" type="email" id="deleteEmail" class="form-control"/>
                     </div>
                 </div>
                 <div class="modal-footer">

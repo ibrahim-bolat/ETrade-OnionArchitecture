@@ -1,6 +1,5 @@
-
 using ETrade.Application.Wrappers.Abstract;
-using UserSummaryDto = ETrade.Application.Features.UserOperations.DTOs.UserSummaryDto;
+using ETrade.Application.DTOs.Common;
 
 namespace ETrade.Application.Features.UserOperations.Queries.GetByIdForUserSummaryQuery;
 

@@ -1,7 +1,7 @@
-using ETrade.Application.Features.RoleOperations.DTOs;
+using ETrade.Application.DTOs.Common;
 using FluentValidation;
 
-namespace ETrade.Application.Features.RoleOperations.Validations;
+namespace ETrade.Application.Validations;
 
 public class RoleAssignDtoValidator:AbstractValidator<RoleAssignDto>
 {

@@ -1,12 +1,11 @@
 using AutoMapper;
-using ETrade.Application.Features.Accounts.Constants;
-using ETrade.Application.Features.UserOperations.DTOs;
+using ETrade.Application.Constants;
+using ETrade.Application.DTOs.Common;
 using ETrade.Application.Wrappers.Concrete;
 using ETrade.Domain.Entities.Identity;
 using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace ETrade.Application.Features.UserOperations.Queries.GetByIdForUserSummaryQuery;
 

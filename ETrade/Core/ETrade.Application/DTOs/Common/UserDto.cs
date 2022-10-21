@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using ETrade.Application.DTOs.Common;
-using ETrade.Application.Features.Accounts.Validations.CustomValidations;
+using ETrade.Application.DTOs.Base;
+using ETrade.Application.Validations.CustomValidations;
 using ETrade.Domain.Enums;
 
-namespace ETrade.Application.Features.Accounts.DTOs;
+namespace ETrade.Application.DTOs.Common;
 
 public class UserDto:BaseDto,IDto
     {

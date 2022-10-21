@@ -1,4 +1,4 @@
-namespace ETrade.Application.Features.UserOperations.DTOs;
+using ETrade.Application.DTOs.Common;
 
 public class UserListDto
 {

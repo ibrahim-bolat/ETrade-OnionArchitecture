@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using ETrade.Application.DTOs.Common;
+using ETrade.Application.DTOs.Base;
 
-namespace ETrade.Application.Features.UserOperations.DTOs;
+namespace ETrade.Application.DTOs.Common;
 
 
 public class UserSummaryDto:BaseDto,IDto

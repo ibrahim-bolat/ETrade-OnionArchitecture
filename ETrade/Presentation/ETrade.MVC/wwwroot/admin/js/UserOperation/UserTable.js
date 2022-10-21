@@ -177,13 +177,13 @@ $(document).ready(function ($) {
             success: function (result) {
                 if (result.success) {
                     $("#roleModal").modal("hide");
-                    toastMessage(5000, "success", "Kayıt Başarıyla Eklendi")
+                    toastMessage(5000, "success", "İşlem Başarıyla Gerçekleşti")
                 } else {
-                    toastMessage(3000, "error", "Kayıt Eklenemedi")
+                    toastMessage(3000, "error", "İşlem Yapılamadı!")
                 }
             },
             error: function (errormessage) {
-                toastMessage(3000, "error", "Kayıt Eklenemedi")
+                toastMessage(3000, "error", "İşlem Yapılamadı!")
             }
         });
         return false;
@@ -357,6 +357,7 @@ function toastMessage(time, icon, message) {
         timer: time,
         timerProgressBar: true,
         didOpen: (toast) => {
+            toast.addEventListener('click', Swal.close)
             toast.addEventListener('mouseenter', Swal.stopTimer)
             toast.addEventListener('mouseleave', Swal.resumeTimer)
         }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "56q8SflXPUbyFWJsanbfshbF9wPz32khFE/iB2iV170=",
+  "Hash": "3vlmJxsC/Up89IN36MScZT47kk3GEQZkSS0dud+ptsk=",
   "Source": "ETrade.MVC",
   "BasePath": "_content/ETrade.MVC",
   "Mode": "Default",
@@ -1018,23 +1018,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/admin/images/earabapazarilogo.jpg"
-    },
-    {
-      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/images/layout_img/.DS_Store",
-      "SourceId": "ETrade.MVC",
-      "SourceType": "Discovered",
-      "ContentRoot": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/",
-      "BasePath": "_content/ETrade.MVC",
-      "RelativePath": "admin/images/layout_img/.DS_Store",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/admin/images/layout_img/.DS_Store"
     },
     {
       "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/images/layout_img/american-express.png",

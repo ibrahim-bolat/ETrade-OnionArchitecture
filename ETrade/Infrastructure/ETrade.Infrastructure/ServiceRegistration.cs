@@ -1,5 +1,5 @@
 using ETrade.Application.Model;
-using ETrade.Application.Services.Abstract;
+using ETrade.Application.Services;
 using ETrade.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

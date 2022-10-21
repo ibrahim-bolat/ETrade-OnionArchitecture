@@ -37,7 +37,6 @@
           "ETrade.Application": "1.0.0",
           "ETrade.Infrastructure": "1.0.0",
           "ETrade.Persistence": "1.0.0",
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.7",
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "6.0.7",
           "Microsoft.EntityFrameworkCore.Design": "6.0.7",
           "Microsoft.Extensions.DependencyInjection": "6.0.0",

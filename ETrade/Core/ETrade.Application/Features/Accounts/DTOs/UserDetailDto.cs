@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotations;
+using ETrade.Application.DTOs.Base;
 using ETrade.Application.DTOs.Common;
 using ETrade.Application.Features.Addresses.DTOs;
 

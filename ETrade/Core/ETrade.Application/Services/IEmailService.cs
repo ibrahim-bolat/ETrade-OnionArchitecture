@@ -1,6 +1,6 @@
 using ETrade.Application.Model;
 
-namespace ETrade.Application.Services.Abstract;
+namespace ETrade.Application.Services;
 
 public interface IEmailService
 {

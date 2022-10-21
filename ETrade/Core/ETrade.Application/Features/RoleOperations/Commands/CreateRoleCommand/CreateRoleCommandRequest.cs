@@ -1,4 +1,4 @@
-using ETrade.Application.Features.RoleOperations.DTOs;
+using ETrade.Application.DTOs.Common;
 using MediatR;
 
 namespace ETrade.Application.Features.RoleOperations.Commands.CreateRoleCommand;

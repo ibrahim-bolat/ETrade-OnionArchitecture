@@ -1,4 +1,4 @@
-using ETrade.Application.Features.Accounts.Constants;
+using ETrade.Application.Constants;
 using ETrade.Application.Features.UserOperations.Commands.SetActiveUserCommand;
 using ETrade.Application.Features.UserOperations.Queries.GetDeletedUserListQuery;
 using ETrade.Domain.Enums;

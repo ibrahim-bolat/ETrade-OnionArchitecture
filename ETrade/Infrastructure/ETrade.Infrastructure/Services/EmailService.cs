@@ -1,7 +1,7 @@
 using System.Net;
 using System.Net.Mail;
 using ETrade.Application.Model;
-using ETrade.Application.Services.Abstract;
+using ETrade.Application.Services;
 using Microsoft.Extensions.Options;
 
 namespace ETrade.Infrastructure.Services;

@@ -1,7 +1,7 @@
 using System.Web;
-using ETrade.Application.Features.Accounts.Constants;
+using ETrade.Application.Constants;
 using ETrade.Application.Model;
-using ETrade.Application.Services.Abstract;
+using ETrade.Application.Services;
 using ETrade.Application.Wrappers.Concrete;
 using ETrade.Domain.Entities.Identity;
 using ETrade.Domain.Enums;

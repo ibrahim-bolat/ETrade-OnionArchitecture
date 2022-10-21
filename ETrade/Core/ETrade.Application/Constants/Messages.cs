@@ -1,4 +1,4 @@
-namespace ETrade.Application.Features.RoleOperations.Constants;
+namespace ETrade.Application.Constants;
 
 public static class Messages
 {
@@ -26,7 +26,7 @@ public static class Messages
     public const string UserNotUpdateSecurityStamp = "Kullanıcı securitystamp değeri değiştirilemedi!";
     public const string UserSuccessConfirm = "Kullanıcı başarıyla onaylandı";
     public const string UserErrorConfirm = "Kullanıcı dorğulanmadı!";
-    
+
     public const string RoleAdded = "Rol başarıyla eklendi";
     public const string RoleNotAdded = "Rol eklenemedi";
     public const string RoleDeleted = "Rol başarıyla silindi";

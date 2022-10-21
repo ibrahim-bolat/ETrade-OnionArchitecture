@@ -1,11 +1,11 @@
-using ETrade.Application.Features.Accounts.DTOs;
+using ETrade.Application.DTOs.Common;
 using FluentValidation;
 
-namespace ETrade.Application.Features.Accounts.Validations.UserValidations;
+namespace ETrade.Application.Validations;
 
-public class UserCardSummaryDtoValidator:AbstractValidator<UserSummaryCardDto>
+public class UserSummaryDtoValidator:AbstractValidator<UserSummaryDto>
 {
-    public UserCardSummaryDtoValidator()
+    public UserSummaryDtoValidator()
     {
         RuleFor(x => x.FirstName)
             .NotNull()
@@ -38,14 +38,6 @@ public class UserCardSummaryDtoValidator:AbstractValidator<UserSummaryCardDto>
             .WithMessage("Lütfen emaili boş geçmeyiniz...")
             .EmailAddress()
             .WithMessage("Lütfen uygun formatta e-mail adresi giriniz.");
-        
-        RuleFor(address => address.DefaultAddressDetail)
-            .NotNull()
-            .WithMessage("Lütden detaylı adresi boş geçmeyiniz....")
-            .NotEmpty()
-            .WithMessage("Lütden detaylı adresi boş geçmeyiniz....")
-            .MaximumLength(500)
-            .WithMessage("En fazla 500 karakter girebilirsiniz...");
         
     }
 }

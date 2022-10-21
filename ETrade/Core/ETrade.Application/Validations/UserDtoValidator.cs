@@ -1,8 +1,8 @@
 using System.Text.RegularExpressions;
-using ETrade.Application.Features.Accounts.DTOs;
+using ETrade.Application.DTOs.Common;
 using FluentValidation;
 
-namespace ETrade.Application.Features.Accounts.Validations.UserValidations;
+namespace ETrade.Application.Validations;
 
 public class UserDtoValidator:AbstractValidator<UserDto>
 {

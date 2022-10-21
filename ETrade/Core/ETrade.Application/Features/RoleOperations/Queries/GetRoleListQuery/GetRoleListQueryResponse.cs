@@ -1,5 +1,4 @@
-
-using ETrade.Application.Features.RoleOperations.DTOs;
+using ETrade.Application.DTOs.Common;
 using ETrade.Application.Wrappers.Abstract;
 
 namespace ETrade.Application.Features.RoleOperations.Queries.GetRoleListQuery;
