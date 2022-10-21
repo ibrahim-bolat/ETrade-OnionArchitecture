@@ -1,12 +1,11 @@
-using System.Text.RegularExpressions;
-using ETrade.Application.DTOs.Common;
+using ETrade.Application.Features.UserOperations.DTOs;
 using FluentValidation;
 
-namespace ETrade.Application.Validations;
+namespace ETrade.Application.Features.UserOperations.Validations;
 
-public class UserDtoValidator:AbstractValidator<UserDto>
+public class UserSummaryDtoValidator:AbstractValidator<UserSummaryDto>
 {
-    public UserDtoValidator()
+    public UserSummaryDtoValidator()
     {
         RuleFor(x => x.FirstName)
             .NotNull()
@@ -23,7 +22,7 @@ public class UserDtoValidator:AbstractValidator<UserDto>
             .WithMessage("Lütfen soyadınızı boş geçmeyiniz...")
             .MaximumLength(100)
             .WithMessage("En fazla 100 karakter girebilirsiniz...");
-
+        
         RuleFor(x => x.UserName)
             .NotNull()
             .WithMessage("Lütfen emaili boş geçmeyiniz...")
@@ -40,8 +39,5 @@ public class UserDtoValidator:AbstractValidator<UserDto>
             .EmailAddress()
             .WithMessage("Lütfen uygun formatta e-mail adresi giriniz.");
         
-        RuleFor(x => x.PhoneNumber)
-            .Matches(new Regex(@"^((\+90))\(?([0-9]{3})\)?([0-9]{3})[-]?([0-9]{2})[-]?([0-9]{2})$"))
-            .WithMessage("Lütfen uygun formatta telefon giriniz.");
     }
 }

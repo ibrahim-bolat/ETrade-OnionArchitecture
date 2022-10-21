@@ -1,4 +1,4 @@
-using ETrade.Application.DTOs.Common;
+using ETrade.Application.Features.Accounts.DTOs;
 using MediatR;
 
 namespace ETrade.Application.Features.Accounts.Commands.UpdateUserCommand;

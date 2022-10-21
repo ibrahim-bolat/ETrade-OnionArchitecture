@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ETrade.Application.Validations.CustomValidations;
+namespace ETrade.Application.Features.Accounts.Validations.CustomValidations;
 
 public class CustomDateAttribute:ValidationAttribute
 {

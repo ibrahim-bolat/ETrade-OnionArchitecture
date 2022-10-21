@@ -1,5 +1,5 @@
 using AutoMapper;
-using ETrade.Application.DTOs.Common;
+using ETrade.Application.Features.UserOperations.DTOs;
 using ETrade.Application.Constants;
 using ETrade.Application.Features.Accounts.DTOs;
 using ETrade.Application.Features.Addresses.DTOs;

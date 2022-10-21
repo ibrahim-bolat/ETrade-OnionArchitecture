@@ -1,7 +1,7 @@
 using ETrade.Application.Features.RoleOperations.Commands.CreateRoleCommand;
 using ETrade.Application.Features.RoleOperations.Commands.SetDeletedRoleCommand;
 using ETrade.Application.Constants;
-using ETrade.Application.DTOs.Common;
+using ETrade.Application.Features.RoleOperations.DTOs;
 using ETrade.Application.Features.RoleOperations.Queries.GetRoleListQuery;
 using ETrade.Domain.Enums;
 using MediatR;

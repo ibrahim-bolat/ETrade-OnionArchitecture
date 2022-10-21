@@ -10,20 +10,20 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="DTOs\Common" />
       <Folder Include="Features\Accounts\BusinessRules" />
       <Folder Include="Features\Accounts\Constants" />
       <Folder Include="Features\Addresses\BusinessRules" />
       <Folder Include="Features\Addresses\Models\ViewModels" />
       <Folder Include="Features\RoleOperations\BusinessRules" />
       <Folder Include="Features\RoleOperations\Constants" />
-      <Folder Include="Features\RoleOperations\DTOs" />
-      <Folder Include="Features\RoleOperations\Validations" />
       <Folder Include="Features\UserImages\BusinessRules" />
       <Folder Include="Features\UserImages\Models\ViewModels" />
       <Folder Include="Features\UserOperations\BusinessRules" />
       <Folder Include="Features\UserOperations\Constants" />
       <Folder Include="Helpers" />
       <Folder Include="Model\ViewModels" />
+      <Folder Include="Validations" />
     </ItemGroup>
 
     <ItemGroup>

@@ -5,7 +5,7 @@ using ETrade.Application.Features.Accounts.Commands.RegisterUserCommand;
 using ETrade.Application.Features.Accounts.Commands.UpdatePasswordUserCommand;
 using ETrade.Application.Features.Accounts.Commands.UpdateUserCommand;
 using ETrade.Application.Constants;
-using ETrade.Application.DTOs.Common;
+using ETrade.Application.Features.UserOperations.DTOs;
 using ETrade.Application.Features.Accounts.DTOs;
 using ETrade.Application.Features.Accounts.Queries.ForgetPasswordUserQuery;
 using ETrade.Application.Features.Accounts.Queries.GetByIdForDetailProfileUserQuery;
