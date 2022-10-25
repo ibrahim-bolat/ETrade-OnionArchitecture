@@ -33,9 +33,9 @@ $(document).ready(function ($) {
             }],
         "columns": [
             {"data": "id", "name": "Id", "autoWidth": true},
-            {"data": "firstName", "name": "Name", "autoWidth": true},
-            {"data": "lastName", "name": "SurName", "autoWidth": true},
-            {"data": "userName", "name": "UserName", "autoWidth": true},
+            {"data": "firstName", "name": "Ad", "autoWidth": true},
+            {"data": "lastName", "name": "Soyad", "autoWidth": true},
+            {"data": "userName", "name": "Kullanıcı Adı", "autoWidth": true},
             {"data": "email", "name": "Email", "autoWidth": true},
             {
                 "data": "id", "width": "50px", "render": function (data) {

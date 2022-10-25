@@ -21,18 +21,20 @@ public class GetDeletedUserListQueryHandler:IRequestHandler<GetDeletedUserListQu
 
     public Task<GetDeletedUserListQueryResponse> Handle(GetDeletedUserListQueryRequest request, CancellationToken cancellationToken)
     {
-        var userData = _userManager.Users.Where(u => u.IsDeleted == true).AsQueryable();
-        int pageSize = request.Length == -1 ? userData.Count() : request.Length;
-        int skip = request.Start;
-        if (!(string.IsNullOrEmpty(request.SortColumn) && string.IsNullOrEmpty(request.SortColumnDirection)))
+        var userData = _userManager.Users.Where(u=>u.IsDeleted==true).AsQueryable();
+        int pageSize = request.DatatableRequestDto.Length == -1 ? userData.Count() :  request.DatatableRequestDto.Length;
+        int skip =  request.DatatableRequestDto.Start;
+        var sortColumn = request.DatatableRequestDto.Columns[request.DatatableRequestDto.Order[0].Column].Data;
+        var sortColumnDirection = request.DatatableRequestDto.Order[0].Dir.ToString().ToLower();
+        if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
         {
-            userData = userData.OrderBy(s => request.SortColumn + " " + request.SortColumnDirection);
-            Func<AppUser, string> orderingFunction = (c => request.SortColumn == "FirstName" ? c.FirstName :
-                request.SortColumn  == "LastName" ? c.LastName :
-                request.SortColumn  == "UserName" ? c.UserName :
-                request.SortColumn  == "Email" ? c.Email : c.FirstName);
+            userData = userData.OrderBy(s => sortColumn + " " + sortColumnDirection);
+            Func<AppUser, string> orderingFunction = (c => sortColumn == "firstName" ? c.FirstName :
+                sortColumn  == "lastName" ? c.LastName :
+                sortColumn  == "userName" ? c.UserName :
+                sortColumn  == "email" ? c.Email : c.Id.ToString());
 
-            if (request.SortColumnDirection == "desc")
+            if (sortColumnDirection == "desc")
             {
                 userData = userData.OrderByDescending(orderingFunction).AsQueryable();
             }
@@ -42,26 +44,25 @@ public class GetDeletedUserListQueryHandler:IRequestHandler<GetDeletedUserListQu
             }
         }
 
-        if (!string.IsNullOrEmpty(request.SearchValue))
+        if (!string.IsNullOrEmpty(request.DatatableRequestDto.Search.Value))
         {
-            userData = userData.Where(m => m.FirstName.ToLower().Contains(request.SearchValue.ToLower())
-                                           || m.LastName.ToLower().Contains(request.SearchValue.ToLower())
-                                           || m.UserName.ToLower().Contains(request.SearchValue.ToLower())
-                                           || m.Email.ToLower().Contains(request.SearchValue.ToLower()));
+            userData = userData.Where(m => m.FirstName.ToLower().Contains(request.DatatableRequestDto.Search.Value.ToLower())
+                                           || m.LastName.ToLower().Contains(request.DatatableRequestDto.Search.Value.ToLower())
+                                           || m.UserName.ToLower().Contains(request.DatatableRequestDto.Search.Value.ToLower())
+                                           || m.Email.ToLower().Contains(request.DatatableRequestDto.Search.Value.ToLower()));
         }
         int recordsTotal = userData.Count();
         var data = userData.Skip(skip).Take(pageSize).ToList();
-        List<UserSummaryDto> userSummaryDtos = _mapper.Map<List<UserSummaryDto>>(data);
-        UserListDto userListDto = new UserListDto
+        List<UserSummaryDto> deletedUser = _mapper.Map<List<UserSummaryDto>>(data);
+        var response = new DatatableResponseDto<UserSummaryDto>
         {
-            Draw = request.Draw,
-            RecordsFiltered = recordsTotal,
+            Draw = request.DatatableRequestDto.Draw,
             RecordsTotal = recordsTotal,
-            UserSummaryDtos = userSummaryDtos,
-            IsSuccess = true
+            RecordsFiltered = recordsTotal,
+            Data = deletedUser
         };
         return Task.FromResult(new GetDeletedUserListQueryResponse{
-            Result = new DataResult<UserListDto>(ResultStatus.Success, userListDto)
+            Result = new DataResult<DatatableResponseDto<UserSummaryDto>>(ResultStatus.Success, response)
         });
     }
 }

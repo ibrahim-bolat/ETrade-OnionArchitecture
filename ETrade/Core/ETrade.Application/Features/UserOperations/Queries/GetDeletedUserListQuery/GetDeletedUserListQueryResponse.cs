@@ -6,5 +6,5 @@ namespace ETrade.Application.Features.UserOperations.Queries.GetDeletedUserListQ
 
 public class GetDeletedUserListQueryResponse
 {
-    public IDataResult<UserListDto> Result { get; set; }
+    public IDataResult<DatatableResponseDto<UserSummaryDto>> Result { get; set; }
 }

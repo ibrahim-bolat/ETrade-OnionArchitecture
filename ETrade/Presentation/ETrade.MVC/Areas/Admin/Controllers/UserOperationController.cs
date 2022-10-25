@@ -32,38 +32,20 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
 
         [HttpPost]
-        public async Task<ActionResult>  Users()
+        public async Task<ActionResult>  Users(DatatableRequestDto datatableRequestDto)
         {
-            try
+ 
+            var dresult = await _mediator.Send(new GetActiveUserListQueryRequest()
             {
-                var draw = Request.Form["draw"].FirstOrDefault();
-                var start = Request.Form["start"].FirstOrDefault();
-                var length = Request.Form["length"].FirstOrDefault();
-                var sortColumn = Request
-                    .Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
-                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
-                var searchValue = Request.Form["search[value]"].FirstOrDefault();
-                var dresult = await _mediator.Send(new GetActiveUserListQueryRequest()
-                {
-                    Draw = draw,
-                    Start = start != null ? Convert.ToInt32(start) : 0,
-                    Length = length == "-1" ? -1 : length != null ? Convert.ToInt32(length) : 0,
-                    SortColumn = sortColumn,
-                    SortColumnDirection = sortColumnDirection,
-                    SearchValue = searchValue
-                });
-                var jsonData = new
-                {
-                    draw = dresult.Result.Data, recordsFiltered = dresult.Result.Data.RecordsFiltered, recordsTotal = dresult.Result.Data.RecordsTotal, data = dresult.Result.Data.UserSummaryDtos, 
-                    isSusccess = dresult.Result.Data.IsSuccess
-                };
-                return Ok(jsonData);
-            }
-            catch (Exception ex)
+                DatatableRequestDto = datatableRequestDto
+            });
+            var jsonData = new
             {
-                Console.WriteLine(ex);
-                return Json(new { success = false });
-            }
+                draw = dresult.Result.Data.Draw, recordsFiltered = dresult.Result.Data.RecordsFiltered, 
+                recordsTotal = dresult.Result.Data.RecordsTotal, data = dresult.Result.Data.Data, isSusccess = true
+            };
+            return Ok(jsonData);
+
         }
 
         [HttpPost]

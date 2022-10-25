@@ -5,5 +5,5 @@ namespace ETrade.Application.Features.UserOperations.Queries.GetActiveUserListQu
 
 public class GetActiveUserListQueryResponse
 {
-    public IDataResult<UserListDto> Result { get; set; }
+    public IDataResult<DatatableResponseDto<UserSummaryDto>> Result { get; set; }
 }
