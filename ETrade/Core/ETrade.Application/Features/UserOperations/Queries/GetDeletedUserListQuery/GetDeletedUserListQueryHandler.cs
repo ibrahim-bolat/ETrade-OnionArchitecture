@@ -25,16 +25,22 @@ public class GetDeletedUserListQueryHandler:IRequestHandler<GetDeletedUserListQu
         int pageSize = request.DatatableRequestDto.Length == -1 ? userData.Count() :  request.DatatableRequestDto.Length;
         int skip =  request.DatatableRequestDto.Start;
         var sortColumn = request.DatatableRequestDto.Columns[request.DatatableRequestDto.Order[0].Column].Data;
-        var sortColumnDirection = request.DatatableRequestDto.Order[0].Dir.ToString().ToLower();
+        var sortColumnDirection = request.DatatableRequestDto.Order[0].Dir.ToString();
+        if (!string.IsNullOrEmpty(request.DatatableRequestDto.Search.Value))
+        {
+            userData = userData.Where(m => m.FirstName.ToLower().Contains(request.DatatableRequestDto.Search.Value.ToLower())
+                                           || m.LastName.ToLower().Contains(request.DatatableRequestDto.Search.Value.ToLower())
+                                           || m.UserName.ToLower().Contains(request.DatatableRequestDto.Search.Value.ToLower())
+                                           || m.Email.ToLower().Contains(request.DatatableRequestDto.Search.Value.ToLower()));
+        }
         if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
         {
-            userData = userData.OrderBy(s => sortColumn + " " + sortColumnDirection);
-            Func<AppUser, string> orderingFunction = (c => sortColumn == "firstName" ? c.FirstName :
-                sortColumn  == "lastName" ? c.LastName :
-                sortColumn  == "userName" ? c.UserName :
-                sortColumn  == "email" ? c.Email : c.Id.ToString());
+            Func<AppUser, string> orderingFunction = (c => sortColumn == c.FirstName ? c.FirstName :
+                sortColumn  == c.LastName ? c.LastName :
+                sortColumn  == c.UserName ? c.UserName :
+                sortColumn  == c.Email ? c.Email : c.Id.ToString());
 
-            if (sortColumnDirection == "desc")
+            if (sortColumnDirection == OrderDirType.Desc.ToString())
             {
                 userData = userData.OrderByDescending(orderingFunction).AsQueryable();
             }
@@ -42,14 +48,6 @@ public class GetDeletedUserListQueryHandler:IRequestHandler<GetDeletedUserListQu
             {
                 userData = userData.OrderBy(orderingFunction).AsQueryable();
             }
-        }
-
-        if (!string.IsNullOrEmpty(request.DatatableRequestDto.Search.Value))
-        {
-            userData = userData.Where(m => m.FirstName.ToLower().Contains(request.DatatableRequestDto.Search.Value.ToLower())
-                                           || m.LastName.ToLower().Contains(request.DatatableRequestDto.Search.Value.ToLower())
-                                           || m.UserName.ToLower().Contains(request.DatatableRequestDto.Search.Value.ToLower())
-                                           || m.Email.ToLower().Contains(request.DatatableRequestDto.Search.Value.ToLower()));
         }
         int recordsTotal = userData.Count();
         var data = userData.Skip(skip).Take(pageSize).ToList();

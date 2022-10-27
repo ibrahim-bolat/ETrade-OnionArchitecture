@@ -20,6 +20,7 @@ public static class ServiceRegistration
         { 
             options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
             options.JsonSerializerOptions.WriteIndented = true;
+            options.JsonSerializerOptions.PropertyNamingPolicy = null;//ilk karakter büyük olsun
         });
 
         //cookie configuration

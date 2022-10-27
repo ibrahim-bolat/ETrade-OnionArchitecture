@@ -32,13 +32,13 @@ $(document).ready(function ($) {
                 "orderable": false
             }],
         "columns": [
-            {"data": "id", "name": "Id", "autoWidth": true},
-            {"data": "firstName", "name": "Ad", "autoWidth": true},
-            {"data": "lastName", "name": "Soyad", "autoWidth": true},
-            {"data": "userName", "name": "Kullanıcı Adı", "autoWidth": true},
-            {"data": "email", "name": "Email", "autoWidth": true},
+            {"data": "Id", "name": "Id", "autoWidth": true},
+            {"data": "FirstName", "name": "Ad", "autoWidth": true},
+            {"data": "LastName", "name": "Soyad", "autoWidth": true},
+            {"data": "UserName", "name": "Kullanıcı Adı", "autoWidth": true},
+            {"data": "Email", "name": "Email", "autoWidth": true},
             {
-                "data": "id", "width": "50px", "render": function (data) {
+                "data": "Id", "width": "50px", "render": function (data) {
                     return '<a class="btn btn-success mr-2" onclick="return getRole(' + data + ')"><i class="fa fa-tasks">Rol Atama</i></a>' +
                         '<a class="btn btn-info mr-2" href="Account/Profile/' + data + '"><i class="fa fa-info-circle">Detay</i></a>' +
                         '<a class="btn btn-secondary mr-2" href="Account/EditProfile/'+data+'"><i class="fa fa-pencil-square-o">Profil Güncelle</i></a>' +
@@ -162,14 +162,14 @@ $(document).ready(function ($) {
     //RoleModal Save
     $('#roleModalSave').click( function (e) {
         var roles = [];
-        var user_id = $('#roleModalForm .modal-body input[type="checkbox"]').attr("data-id");
+        var Id = $('#roleModalForm .modal-body input[type="checkbox"]').attr("data-id");
         $.each($('#roleModalForm .modal-body input[type="checkbox"]:checked'), function() {
             var role_id = $(this).attr("name");
             roles.push(role_id);
         })
         var postData = { roles: roles };
         $.ajax({
-            url: '/Admin/UserOperation/SaveRole/' + user_id,
+            url: '/Admin/UserOperation/SaveRole/' + Id,
             type: "POST",
             data: postData,
             dataType: "json",
@@ -210,11 +210,11 @@ function getRole(Id) {
             if (result.success) {
                 $.each(result.roles, function(index, value) {
                     var isChecked = "";
-                    if(value.hasAssign == true)
+                    if(value.HasAssign == true)
                         isChecked="checked";
                     html+=`<div class="custom-control custom-switch custom-control-inline">
-                          <input class="custom-control-input" type="checkbox" data-id="${Id}" name="${value.id}" id="roleHasAssign${value.id}" ${isChecked}>
-                          <label class="custom-control-label" for="roleHasAssign${value.id}">${value.name}</label>
+                          <input class="custom-control-input" type="checkbox" data-id="${Id}" name="${value.Id}" id="roleHasAssign${value.Id}" ${isChecked}>
+                          <label class="custom-control-label" for="roleHasAssign${value.Id}">${value.Name}</label>
                           </div>`
                 });
                 $('#roleModal .modal-body').html(html);
@@ -242,11 +242,11 @@ function getByIdforDelete(Id) {
         dataType: "json",
         success: function (result) {
             if (result.success) {
-                $('#deleteID').val(result.user.id);
-                $('#deleteFirstName').val(result.user.firstName);
-                $('#deleteLastName').val(result.user.lastName);
-                $('#deleteUserName').val(result.user.userName);
-                $('#deleteEmail').val(result.user.email);
+                $('#deleteID').val(result.user.Id);
+                $('#deleteFirstName').val(result.user.FirstName);
+                $('#deleteLastName').val(result.user.LastName);
+                $('#deleteUserName').val(result.user.UserName);
+                $('#deleteEmail').val(result.user.Email);
                 $('#userDeleteModal').modal('show');
             } else {
                 toastMessage(3000, "error", "Kayıt Getirilemedi")

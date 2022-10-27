@@ -32,13 +32,13 @@ $(document).ready(function ($) {
                 "orderable": false
             }],
         "columns": [
-            {"data": "id", "name": "Id", "autoWidth": true},
-            {"data": "firstName", "name": "Ad", "autoWidth": true},
-            {"data": "lastName", "name": "Soyad", "autoWidth": true},
-            {"data": "userName", "name": "Kullanıcı Adı", "autoWidth": true},
-            {"data": "email", "name": "Email", "autoWidth": true},
+            {"data": "Id", "name": "Id", "autoWidth": true},
+            {"data": "FirstName", "name": "Ad", "autoWidth": true},
+            {"data": "LastName", "name": "Soyad", "autoWidth": true},
+            {"data": "UserName", "name": "Kullanıcı Adı", "autoWidth": true},
+            {"data": "Email", "name": "Email", "autoWidth": true},
             {
-                "data": "id", "width": "50px", "render": function (data) {
+                "data": "Id", "width": "50px", "render": function (data) {
                     return  '<a class="btn btn-danger" onclick="SetUserActive(' + data + ')"><i class="fa fa-trash-o">Aktif Et</i></a>';
                 }
             }
