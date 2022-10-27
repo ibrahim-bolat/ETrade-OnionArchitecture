@@ -17,7 +17,7 @@ public class AppRoleMap : IEntityTypeConfiguration<AppRole>
             {
                 Id = 1,
                 Name = RoleType.Admin.ToString(),
-                NormalizedName = "ADMIN"
+                NormalizedName = RoleType.Admin.ToString().ToUpperInvariant()
             });
     }
     }

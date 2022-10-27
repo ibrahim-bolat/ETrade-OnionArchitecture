@@ -1,4 +1,5 @@
 using ETrade.Application.Constants;
+using ETrade.Application.Helpers.SeoHelper;
 using ETrade.Application.Wrappers.Concrete;
 using ETrade.Domain.Entities.Identity;
 using ETrade.Domain.Enums;
@@ -23,7 +24,8 @@ public class CreateRoleCommandHandler : IRequestHandler<CreateRoleCommandRequest
         CancellationToken cancellationToken)
     {
         IdentityResult roleResult;
-        string roleName = char.ToUpper(request.RoleDto.Name[0]) + request.RoleDto.Name.Substring(1).ToLower();
+        string fixedRoleName = SeoHelper.ToSeoUrl(request.RoleDto.Name);
+        string roleName = char.ToUpperInvariant(fixedRoleName[0]) + fixedRoleName.Substring(1);
         AppRole role = await _roleManager.FindByNameAsync(roleName);
         if (role != null)
         {
