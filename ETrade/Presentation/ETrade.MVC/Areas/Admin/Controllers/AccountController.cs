@@ -5,7 +5,7 @@ using ETrade.Application.Features.Accounts.Commands.RegisterUserCommand;
 using ETrade.Application.Features.Accounts.Commands.UpdatePasswordUserCommand;
 using ETrade.Application.Features.Accounts.Commands.UpdateUserCommand;
 using ETrade.Application.Constants;
-using ETrade.Application.Features.UserOperations.DTOs;
+using ETrade.Application.CustomAttributes;
 using ETrade.Application.Features.Accounts.DTOs;
 using ETrade.Application.Features.Accounts.Queries.ForgetPasswordUserQuery;
 using ETrade.Application.Features.Accounts.Queries.GetByIdForDetailProfileUserQuery;
@@ -134,7 +134,7 @@ public class AccountController : Controller
         return View(loginDto);
     }
 
-    [HttpPost] 
+    [HttpPost]
     public async Task<IActionResult> Logout()
     {
         await _mediator.Send(new LogoutUserQueryRequest());
@@ -228,6 +228,7 @@ public class AccountController : Controller
     }
 
     [HttpGet]
+    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Account, ActionType = ActionType.Reading, Definition = "Get By Id User for Edit Profile")]
     public async Task<IActionResult> EditProfile(int id)
     {
         var dresult = await _mediator.Send(new GetByIdUserQueryRequest()
@@ -242,6 +243,7 @@ public class AccountController : Controller
     }
 
     [HttpPost]
+    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Account, ActionType = ActionType.Updating, Definition = "Edit Profile")]
     public async Task<IActionResult> EditProfile(UserDto userDto)
     {
         if (ModelState.IsValid)
@@ -280,6 +282,7 @@ public class AccountController : Controller
     }
 
     [HttpGet]
+    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Account, ActionType = ActionType.Reading, Definition = "Get By Id User for Edit Password")]
     public async Task<IActionResult> EditPassword(int id)
     {
         var dresult = await _mediator.Send(new GetByIdForEditPasswordUserQueryRequest()
@@ -294,6 +297,7 @@ public class AccountController : Controller
     }
     
     [HttpPost]
+    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Account, ActionType = ActionType.Updating, Definition = "Edit Password")]
     public async Task<IActionResult> EditPassword(EditPasswordDto editPasswordDto)
     {
         if (ModelState.IsValid)
@@ -334,6 +338,7 @@ public class AccountController : Controller
 
 
     [HttpGet]
+    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Account, ActionType = ActionType.Reading, Definition = "Get By Id User for Profile Details")]
     public async Task<IActionResult> Profile(int id)
     {
         var dresult = await _mediator.Send(new GetByIdForDetailProfileUserQueryRequest()

@@ -5,9 +5,8 @@
 
 
 @section Style {
+    <link href="~/css/gijgo/gijgo.min.css" rel="stylesheet" type="text/css" />
     <style>
-
-       
     </style>
 }
 
@@ -40,12 +39,32 @@
             </div>
         </div>
         <div class="container-fluid">
-        Yetkilendirme İşlemleri
-            
-            
+                <div class="row">
+                    <button id="btnSave" class="btn btn-default">Save Checked Nodes</button>
+                </div>
+            <div class="row">
+                <div id="tree"></div>
+            </div>
         </div>
     </div> <!-- .content -->
 @section Scripts {
-
+    <script src="~/js/gijgo/gijgo.min.js"></script>
+    <script type="text/javascript">
+                $(document).ready(function () {
+                    var tree = $('#tree').tree({
+                        primaryKey: 'id',
+                        uiLibrary: 'bootstrap4',
+                        dataSource: '/Admin/RoleOperation/GetPermission',
+                        checkboxes: true
+                    });
+                    $('#btnSave').on('click', function () {
+                        var checkedIds = tree.getCheckedNodes();
+                        $.ajax({ url: '/Admin/RoleOperation/SavePermission', data: { checkedIds: checkedIds }, method: 'POST' })
+                            .fail(function () {
+                                alert('Failed to save.');
+                            });
+                    });
+                });
+    </script>
 }
 

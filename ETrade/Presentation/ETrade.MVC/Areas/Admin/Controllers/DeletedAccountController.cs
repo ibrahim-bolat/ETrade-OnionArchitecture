@@ -1,4 +1,5 @@
 using ETrade.Application.Constants;
+using ETrade.Application.CustomAttributes;
 using ETrade.Application.DTOs.Common;
 using ETrade.Application.Features.UserOperations.Commands.SetActiveUserCommand;
 using ETrade.Application.Features.UserOperations.Queries.GetDeletedUserListQuery;
@@ -19,6 +20,7 @@ public class DeletedAccountController : Controller
     }
 
     [HttpGet]
+    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.DeletedAccount, ActionType = ActionType.Reading, Definition = "Get DeletedAccount Index Page")]
     public IActionResult Index()
     {
         return View();

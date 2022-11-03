@@ -38,4 +38,5 @@ public static class Messages
     public const string RoleNotFound = "Rol bulunamadı!";
     public const string RoleActive = "Rol zaten aktif!";
     public const string RoleNotActive = "Rol aktif değildir!";
+    public const string NotFoundAuthorizeDefinitionEndpoints= "Yetkilendirme İçin Tanımlı EndPoint Yok!";
 }

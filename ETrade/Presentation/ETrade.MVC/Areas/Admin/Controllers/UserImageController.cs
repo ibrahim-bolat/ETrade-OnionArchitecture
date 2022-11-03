@@ -1,11 +1,13 @@
+using ETrade.Application.Constants;
+using ETrade.Application.CustomAttributes;
 using ETrade.Application.Features.UserImages.Commands.CreateUserImageCommand;
 using ETrade.Application.Features.UserImages.Commands.DeleteUserImageCommand;
 using ETrade.Application.Features.UserImages.Commands.SetProfilImageCommand;
-using ETrade.Application.Features.UserImages.Constants;
 using ETrade.Application.Features.UserImages.DTOs;
 using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Messages = ETrade.Application.Features.UserImages.Constants.Messages;
 
 namespace ETrade.MVC.Areas.Admin.Controllers;
 
@@ -20,6 +22,7 @@ public class UserImageController : Controller
     }
     
     [HttpGet]
+    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.UserImage, ActionType = ActionType.Reading, Definition = "Get By Id User for Create UserImage")]
     public IActionResult UserImageAdd(int userId)
     {
         UserImageAddDto userImageAddDto = new UserImageAddDto();
@@ -28,6 +31,7 @@ public class UserImageController : Controller
     }
     
     [HttpPost]
+    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.UserImage, ActionType = ActionType.Writing, Definition = "Create UserImage")]
     public async Task<IActionResult> UserImageAdd(UserImageAddDto userImageAddDto)
     {
         if (ModelState.IsValid)
@@ -72,6 +76,7 @@ public class UserImageController : Controller
     
         
     [HttpPost]
+    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.UserImage, ActionType = ActionType.Deleting, Definition = "Delete UserImage")]
     public async Task<IActionResult> UserImageDelete(int id)
     {
         if (id > 0)

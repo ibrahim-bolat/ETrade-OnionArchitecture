@@ -14,5 +14,6 @@ public static class ServiceRegistration
         serviceCollection.Configure<MailSettings>(configuration.GetSection("MailSettings"));
         //services
         serviceCollection.AddTransient<IEmailService, EmailService>();
+        serviceCollection.AddTransient<IAuthorizeDefinationService, AuthorizeDefinationService>();
     }
 }
