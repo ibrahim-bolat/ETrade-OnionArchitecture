@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace ETrade.Application.Features.UserOperations.DTOs;
+namespace ETrade.Application.DTOs.Common;
 
 public class DatatableResponseDto<T>
 {

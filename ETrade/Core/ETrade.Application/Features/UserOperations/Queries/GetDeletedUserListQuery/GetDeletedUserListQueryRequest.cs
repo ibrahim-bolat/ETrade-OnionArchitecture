@@ -1,4 +1,4 @@
-using ETrade.Application.Features.UserOperations.DTOs;
+using ETrade.Application.DTOs.Common;
 using MediatR;
 
 namespace ETrade.Application.Features.UserOperations.Queries.GetDeletedUserListQuery;

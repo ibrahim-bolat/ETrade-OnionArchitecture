@@ -2,6 +2,7 @@ using ETrade.Application.Features.UserOperations.Commands.AssignUserRoleListComm
 using ETrade.Application.Features.UserOperations.Commands.CreateUserCommand;
 using ETrade.Application.Features.UserOperations.Commands.SetDeletedUserCommand;
 using ETrade.Application.Constants;
+using ETrade.Application.DTOs.Common;
 using ETrade.Application.Features.UserOperations.DTOs;
 using ETrade.Application.Features.UserOperations.Queries.GetActiveUserListQuery;
 using ETrade.Application.Features.UserOperations.Queries.GetByIdForUserSummaryQuery;

@@ -1,3 +1,4 @@
+using ETrade.Application.DTOs.Common;
 using ETrade.Application.Features.UserOperations.DTOs;
 using ETrade.Application.Wrappers.Abstract;
 

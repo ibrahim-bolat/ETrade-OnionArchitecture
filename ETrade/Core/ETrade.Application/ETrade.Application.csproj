@@ -10,7 +10,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="DTOs\Common" />
       <Folder Include="Features\Accounts\BusinessRules" />
       <Folder Include="Features\Accounts\Constants" />
       <Folder Include="Features\Addresses\BusinessRules" />

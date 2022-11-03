@@ -1,6 +1,6 @@
 using ETrade.Application.Constants;
+using ETrade.Application.DTOs.Common;
 using ETrade.Application.Features.UserOperations.Commands.SetActiveUserCommand;
-using ETrade.Application.Features.UserOperations.DTOs;
 using ETrade.Application.Features.UserOperations.Queries.GetDeletedUserListQuery;
 using ETrade.Domain.Enums;
 using MediatR;

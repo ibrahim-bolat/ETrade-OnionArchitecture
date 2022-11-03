@@ -1,0 +1,26 @@
+@model RoleDto
+<div class="modal fade" id="roleCreateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="createModalForm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myCreateModalLabel">Rol Ekle</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body" id="createModalFormModalBody">
+                    <div asp-validation-summary="All" class="text-danger ml-4"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" id="createName" class="form-control"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="btnAdd">Ekle</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

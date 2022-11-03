@@ -1,4 +1,5 @@
 using AutoMapper;
+using ETrade.Application.DTOs.Common;
 using ETrade.Application.Features.UserOperations.DTOs;
 using ETrade.Application.Wrappers.Concrete;
 using ETrade.Domain.Entities.Identity;
@@ -35,10 +36,10 @@ public class GetDeletedUserListQueryHandler:IRequestHandler<GetDeletedUserListQu
         }
         if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
         {
-            Func<AppUser, string> orderingFunction = (c => sortColumn == c.FirstName ? c.FirstName :
-                sortColumn  == c.LastName ? c.LastName :
-                sortColumn  == c.UserName ? c.UserName :
-                sortColumn  == c.Email ? c.Email : c.Id.ToString());
+            Func<AppUser, string> orderingFunction = (c => sortColumn == nameof(c.FirstName) ? c.FirstName :
+                sortColumn  == nameof(c.LastName) ? c.LastName :
+                sortColumn  == nameof(c.UserName) ? c.UserName :
+                sortColumn  == nameof(c.Email) ? c.Email : c.Id.ToString());
 
             if (sortColumnDirection == OrderDirType.Desc.ToString())
             {

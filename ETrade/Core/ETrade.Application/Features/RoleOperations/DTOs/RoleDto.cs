@@ -9,4 +9,6 @@ public class RoleDto:BaseDto,IDto
         
         [Display(Name = "Rol Adı")]
         public string Name { get; set; }
+        
+        public bool Status { get; set; }
     }

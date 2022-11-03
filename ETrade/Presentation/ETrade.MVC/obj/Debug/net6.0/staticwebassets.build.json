@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "a466DD65+J2Klpk3zAgDgbJk2NChgHluifWFgYFvpKI=",
+  "Hash": "RQNdbp2E7dHO6K+vIozwjxIBDIaY5rEMyE2FWV8U8jg=",
   "Source": "ETrade.MVC",
   "BasePath": "_content/ETrade.MVC",
   "Mode": "Default",
@@ -1698,6 +1698,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/admin/js/DeletedAccount/DeletedUserTable.js"
+    },
+    {
+      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/RoleOperation/RoleTable.js",
+      "SourceId": "ETrade.MVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/",
+      "BasePath": "_content/ETrade.MVC",
+      "RelativePath": "admin/js/RoleOperation/RoleTable.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/admin/js/RoleOperation/RoleTable.js"
+    },
+    {
+      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/RoleOperation/UsersOfTheRoleTable.js",
+      "SourceId": "ETrade.MVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/",
+      "BasePath": "_content/ETrade.MVC",
+      "RelativePath": "admin/js/RoleOperation/UsersOfTheRoleTable.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/admin/js/RoleOperation/UsersOfTheRoleTable.js"
     },
     {
       "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/UserImage/userImage.js",

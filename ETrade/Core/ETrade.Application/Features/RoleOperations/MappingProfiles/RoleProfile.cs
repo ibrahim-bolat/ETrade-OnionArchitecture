@@ -8,6 +8,8 @@ public class RoleProfile:Profile
 {
     public RoleProfile()
     {
-        CreateMap<AppRole, RoleDto>().ReverseMap();
+        CreateMap<AppRole, RoleDto>().ForMember(dest=>dest.Status,
+                opt=>opt.MapFrom(src => src.IsActive))
+            .ReverseMap();
     }
 }
