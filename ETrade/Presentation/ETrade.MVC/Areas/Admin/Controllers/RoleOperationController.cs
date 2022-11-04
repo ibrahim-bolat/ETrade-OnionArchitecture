@@ -77,13 +77,13 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
 
         [HttpPost]
-        public  async Task<IActionResult>  SavePermission(List<int> checkedIds)
+        public  async Task<IActionResult>  SavePermission(List<int> checkedActionIds)
         {
             var dresult = await _mediator.Send(new SaveAuthorizeDefinitionEndpointsCommandRequest()
             {
-                CheckedIds = checkedIds
+                CheckedIds = checkedActionIds
             });
-            return Json(true);
+            return Ok(true);
         }
         
         [HttpGet]

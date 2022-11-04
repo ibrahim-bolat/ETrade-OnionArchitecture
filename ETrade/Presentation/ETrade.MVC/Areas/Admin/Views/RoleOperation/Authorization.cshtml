@@ -85,9 +85,62 @@
  
                     $('#btnSave').on('click', function () {
                         var checkedIds = tree.getCheckedNodes();
-                        $.ajax({ url: '/Admin/RoleOperation/SavePermission', data: { checkedIds: checkedIds }, method: 'POST' })
+                        var checkedActionIds = [];
+                        $.each(checkedIds, function( index, Id ) {
+                            if (Id[0]!="0") {
+                                if (!checkedActionIds.includes(Id)) {
+                                    checkedActionIds.push(Id);
+                                }
+                            }
+                        });
+                        $.ajax(
+                                {
+                                     url: '/Admin/RoleOperation/SavePermission', 
+                                     data:
+                                     {
+                                        checkedActionIds: checkedActionIds
+                                     }, 
+                                     method: 'POST'
+                                })
+                            .done(function () {
+                                var Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 5000,
+                                    timerProgressBar: true,
+                                    didOpen: (toast) => {
+                                        toast.addEventListener('click', Swal.close)
+                                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                    }
+                                })
+
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: 'Başarılı.',
+                                    text: 'Yetkiler Başarıyla Kaydedildi.',
+                                })
+                            })
                             .fail(function () {
-                                alert('Failed to save.');
+                                var Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 5000,
+                                    timerProgressBar: true,
+                                    didOpen: (toast) => {
+                                        toast.addEventListener('click', Swal.close)
+                                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                    }
+                                })
+
+                                Toast.fire({
+                                    icon: 'error',
+                                    title: 'Hata.',
+                                    text: 'Yetkiler Kaydedilemedi.',
+                                })
                             });
                     });
                     tree.on('dataBound', function() {

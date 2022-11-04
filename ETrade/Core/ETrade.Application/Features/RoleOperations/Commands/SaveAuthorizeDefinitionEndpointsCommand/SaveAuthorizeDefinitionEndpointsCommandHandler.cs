@@ -21,16 +21,31 @@ public class SaveAuthorizeDefinitionEndpointsCommandHandler : IRequestHandler<Sa
         var menus = await _unitOfWork.MenuRepository.GetAllAsync(m => m.IsActive, m => m.Actions);
         if (menus != null)
         {
-            if (request.CheckedIds == null)
-            {
-                request.CheckedIds  = new List<int>();
-            }
             foreach (var menu in menus)
             {
-                menu.Checked = request.CheckedIds.Contains(menu.Id);
-                await _unitOfWork.MenuRepository.AddAsync(menu);
+                int allCheched = 0;
+                if (menu.Actions != null)
+                {
+                    foreach (var action in menu.Actions)
+                    {
+                        action.Checked = request.CheckedIds.Contains(action.Id);
+                        if (action.Checked)
+                        {
+                            allCheched += 1;
+                        }
+                    }
+                    if (menu.Actions.Count==allCheched)
+                    {
+                        menu.Checked = true;
+                    }
+                    else
+                    {
+                        menu.Checked = false;
+                    }
+                }
+                await _unitOfWork.MenuRepository.UpdateAsync(menu);
             }
-            await _unitOfWork.SaveAsync();
+            int result = await _unitOfWork.SaveAsync();
             return new SaveAuthorizeDefinitionEndpointsCommandResponse
             {
                 Result = new Result(ResultStatus.Success, Messages.RoleAdded)

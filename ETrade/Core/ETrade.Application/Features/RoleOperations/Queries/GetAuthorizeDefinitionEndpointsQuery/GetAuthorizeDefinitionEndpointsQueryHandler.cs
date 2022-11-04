@@ -2,6 +2,7 @@ using ETrade.Application.Services;
 using ETrade.Application.Wrappers.Concrete;
 using ETrade.Application.Constants;
 using ETrade.Application.DTOs.Common;
+using ETrade.Application.Model;
 using ETrade.Application.Repositories;
 using ETrade.Domain.Enums;
 using MediatR;
@@ -34,7 +35,7 @@ public class GetAuthorizeDefinitionEndpointsQueryHandler:IRequestHandler<GetAuth
                     treeViewDtos.Add(
                         new TreeViewDto()
                         {
-                            id = menu.Id,
+                            id = "0"+ menu.Id.ToString(),
                             text = menu.Name,
                             @checked = menu.Checked,
                             children = GetActions(menu.Actions)
@@ -46,7 +47,7 @@ public class GetAuthorizeDefinitionEndpointsQueryHandler:IRequestHandler<GetAuth
                     treeViewDtos.Add(
                         new TreeViewDto()
                         {
-                            id = menu.Id,
+                            id = menu.Id.ToString(),
                             text = menu.Name,
                             @checked = true,
                             children = null
@@ -71,7 +72,7 @@ public class GetAuthorizeDefinitionEndpointsQueryHandler:IRequestHandler<GetAuth
         {
             treeViewDtos.Add(new TreeViewDto()
             {
-                id= action.Id,
+                id= action.Id.ToString(),
                 text = action.Definition,
                 @checked = action.Checked,
                 children = null
