@@ -9,16 +9,18 @@ public class UnitOfWork:IUnitOfWork
     private readonly DataContext _dataContext;
     public IAddressRepository AddressRepository { get; }
     public IUserImageRepository UserImageRepository { get; }
-    public IUserRepository UserRepository { get; }
+    public IMenuRepository MenuRepository { get; }
+    public IActionRepository ActionRepository { get; }
 
-    public UnitOfWork(DataContext dataContext,IAddressRepository addressRepository,IUserImageRepository userImageRepository,IUserRepository userRepository)
+    public UnitOfWork(DataContext dataContext, IAddressRepository addressRepository, IUserImageRepository userImageRepository, IMenuRepository menuRepository, IActionRepository actionRepository)
     {
         _dataContext = dataContext;
         AddressRepository = addressRepository;
         UserImageRepository = userImageRepository;
-        UserRepository = userRepository;
+        MenuRepository = menuRepository;
+        ActionRepository = actionRepository;
     }
-    
+
     public async ValueTask DisposeAsync()
     {
         await _dataContext.DisposeAsync();

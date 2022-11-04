@@ -22,6 +22,127 @@ namespace ETrade.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("ETrade.Domain.Entities.Action", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ActionType")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Checked")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CreatedByName")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Definition")
+                        .HasColumnType("text");
+
+                    b.Property<string>("HttpType")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("MenuId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ModifiedByName")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("ModifiedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Note")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MenuId");
+
+                    b.ToTable("Actions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ActionType = "Updating",
+                            Checked = false,
+                            Code = "123",
+                            CreatedByName = "Admin",
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 12, DateTimeKind.Local).AddTicks(2830),
+                            Definition = "Edit Password",
+                            HttpType = "HttpPost",
+                            IsActive = true,
+                            IsDeleted = false,
+                            MenuId = 1,
+                            ModifiedByName = "Admin",
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 12, DateTimeKind.Local).AddTicks(2835)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ActionType = "Updating",
+                            Checked = false,
+                            Code = "1234",
+                            CreatedByName = "Admin",
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 12, DateTimeKind.Local).AddTicks(2843),
+                            Definition = "Edit Profile",
+                            HttpType = "HttpPost",
+                            IsActive = true,
+                            IsDeleted = false,
+                            MenuId = 1,
+                            ModifiedByName = "Admin",
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 12, DateTimeKind.Local).AddTicks(2844)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ActionType = "Writing",
+                            Checked = false,
+                            Code = "12345",
+                            CreatedByName = "Admin",
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 12, DateTimeKind.Local).AddTicks(2847),
+                            Definition = "Create Address",
+                            HttpType = "HttpPost",
+                            IsActive = true,
+                            IsDeleted = false,
+                            MenuId = 2,
+                            ModifiedByName = "Admin",
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 12, DateTimeKind.Local).AddTicks(2848)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ActionType = "Reading",
+                            Checked = false,
+                            Code = "123456",
+                            CreatedByName = "Admin",
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 12, DateTimeKind.Local).AddTicks(2850),
+                            Definition = "Get By Id",
+                            HttpType = "HttpGet",
+                            IsActive = true,
+                            IsDeleted = false,
+                            MenuId = 2,
+                            ModifiedByName = "Admin",
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 12, DateTimeKind.Local).AddTicks(2851)
+                        });
+                });
+
             modelBuilder.Entity("ETrade.Domain.Entities.Ad", b =>
                 {
                     b.Property<int>("Id")
@@ -96,7 +217,7 @@ namespace ETrade.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            AdDate = new DateTime(2022, 10, 27, 15, 32, 0, 463, DateTimeKind.Local).AddTicks(9827),
+                            AdDate = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(487),
                             AdDetail = "ÇOK GÜZEL ARABA",
                             AdFromWho = "ByOwner",
                             AdNo = "123456789",
@@ -105,17 +226,17 @@ namespace ETrade.Persistence.Migrations
                             AdVehiclePrice = 350000.50m,
                             AdVehicleStatus = "FirstHand",
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 463, DateTimeKind.Local).AddTicks(9809),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(469),
                             DamageStatus = "Unspecified",
                             IsActive = false,
                             IsDeleted = false,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 463, DateTimeKind.Local).AddTicks(9818)
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(476)
                         },
                         new
                         {
                             Id = 2,
-                            AdDate = new DateTime(2022, 10, 27, 15, 32, 0, 463, DateTimeKind.Local).AddTicks(9835),
+                            AdDate = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(554),
                             AdDetail = "ÇOK GÜZEL ARABA",
                             AdFromWho = "ByOwner",
                             AdNo = "234567891",
@@ -124,17 +245,17 @@ namespace ETrade.Persistence.Migrations
                             AdVehiclePrice = 150000.7840m,
                             AdVehicleStatus = "SecondHand",
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 463, DateTimeKind.Local).AddTicks(9832),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(550),
                             DamageStatus = "HeavilyDamaged",
                             IsActive = false,
                             IsDeleted = false,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 463, DateTimeKind.Local).AddTicks(9833)
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(551)
                         },
                         new
                         {
                             Id = 3,
-                            AdDate = new DateTime(2022, 10, 27, 15, 32, 0, 463, DateTimeKind.Local).AddTicks(9840),
+                            AdDate = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(560),
                             AdDetail = "ÇOK GÜZEL ARABA",
                             AdFromWho = "FromAuthorizedDealer",
                             AdNo = "345678912",
@@ -143,17 +264,17 @@ namespace ETrade.Persistence.Migrations
                             AdVehiclePrice = 1000000.50m,
                             AdVehicleStatus = "ImportedFirstHand",
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 463, DateTimeKind.Local).AddTicks(9837),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(556),
                             DamageStatus = "Unspecified",
                             IsActive = false,
                             IsDeleted = false,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 463, DateTimeKind.Local).AddTicks(9838)
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(557)
                         },
                         new
                         {
                             Id = 4,
-                            AdDate = new DateTime(2022, 10, 27, 15, 32, 0, 463, DateTimeKind.Local).AddTicks(9845),
+                            AdDate = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(564),
                             AdDetail = "ÇOK GÜZEL ARABA",
                             AdFromWho = "FromTheGalery",
                             AdNo = "456789123",
@@ -162,12 +283,12 @@ namespace ETrade.Persistence.Migrations
                             AdVehiclePrice = 2500000.80m,
                             AdVehicleStatus = "FirstHand",
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 463, DateTimeKind.Local).AddTicks(9842),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(561),
                             DamageStatus = "WithoutDamageRegistration",
                             IsActive = false,
                             IsDeleted = false,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 463, DateTimeKind.Local).AddTicks(9843)
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(562)
                         });
                 });
 
@@ -275,7 +396,7 @@ namespace ETrade.Persistence.Migrations
                             AddressType = "Home",
                             City = "Ankara",
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 461, DateTimeKind.Local).AddTicks(7488),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 8, DateTimeKind.Local).AddTicks(8952),
                             DefaultAddress = false,
                             District = "Yenimahalle",
                             Email = "bolatcan@email.com",
@@ -284,7 +405,7 @@ namespace ETrade.Persistence.Migrations
                             IsDeleted = false,
                             LastName = "BOL",
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 461, DateTimeKind.Local).AddTicks(7506),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 8, DateTimeKind.Local).AddTicks(8959),
                             NeighborhoodOrVillage = "Naci Bekir",
                             PhoneNumber = "+90(532)5757966",
                             PostalCode = "06500",
@@ -298,7 +419,7 @@ namespace ETrade.Persistence.Migrations
                             AddressType = "Work",
                             City = "Ankara",
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 461, DateTimeKind.Local).AddTicks(7531),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 8, DateTimeKind.Local).AddTicks(8974),
                             DefaultAddress = true,
                             District = "Çankaya",
                             Email = "bolatcan@email.com",
@@ -307,7 +428,7 @@ namespace ETrade.Persistence.Migrations
                             IsDeleted = false,
                             LastName = "BOLAT",
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 461, DateTimeKind.Local).AddTicks(7532),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 8, DateTimeKind.Local).AddTicks(8975),
                             NeighborhoodOrVillage = "Mustafa Kemal",
                             PhoneNumber = "+90(532)5757966",
                             PostalCode = "06100",
@@ -364,11 +485,11 @@ namespace ETrade.Persistence.Migrations
                         {
                             Id = 1,
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(2283),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(2952),
                             IsActive = false,
                             IsDeleted = false,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(2289),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(2958),
                             Name = "Wolkswagen",
                             SubCategoryId = 1
                         },
@@ -376,11 +497,11 @@ namespace ETrade.Persistence.Migrations
                         {
                             Id = 2,
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(2298),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(2967),
                             IsActive = false,
                             IsDeleted = false,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(2299),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(2968),
                             Name = "Honda",
                             SubCategoryId = 2
                         },
@@ -388,11 +509,11 @@ namespace ETrade.Persistence.Migrations
                         {
                             Id = 3,
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(2301),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(2970),
                             IsActive = false,
                             IsDeleted = false,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(2302),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(2971),
                             Name = "Fiat",
                             SubCategoryId = 3
                         },
@@ -400,11 +521,11 @@ namespace ETrade.Persistence.Migrations
                         {
                             Id = 4,
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(2304),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(2973),
                             IsActive = false,
                             IsDeleted = false,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(2305),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(2974),
                             Name = "Nissan",
                             SubCategoryId = 4
                         });
@@ -464,13 +585,13 @@ namespace ETrade.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "5bcb4497-59a1-4a3f-98bc-46ecfd3f26cf",
+                            ConcurrencyStamp = "651b9348-d07b-40ff-8133-2515d4f1cfff",
                             CreatedByName = "Owner",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 454, DateTimeKind.Local).AddTicks(2343),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 3, DateTimeKind.Local).AddTicks(3016),
                             IsActive = true,
                             IsDeleted = false,
                             ModifiedByName = "Owner",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 454, DateTimeKind.Local).AddTicks(2366),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 3, DateTimeKind.Local).AddTicks(3042),
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -590,9 +711,9 @@ namespace ETrade.Persistence.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bb89e01c-903f-4e8c-a999-a3ff7727e153",
+                            ConcurrencyStamp = "fefa8a2a-ae9c-40e1-bd30-cfefb779d9cf",
                             CreatedByName = "Owner",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 454, DateTimeKind.Local).AddTicks(7806),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 3, DateTimeKind.Local).AddTicks(8484),
                             Email = "bolat6606@hotmail.com",
                             EmailConfirmed = true,
                             FirstName = "İbrahim",
@@ -602,10 +723,10 @@ namespace ETrade.Persistence.Migrations
                             LastName = "Bolat",
                             LockoutEnabled = false,
                             ModifiedByName = "Owner",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 454, DateTimeKind.Local).AddTicks(7812),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 3, DateTimeKind.Local).AddTicks(8490),
                             NormalizedEmail = "BOLAT6606@HOTMAIL.COM",
                             NormalizedUserName = "BOLAT6606",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHXB5j0MiXr1xDD5vcZX5T10jqCmmpf8ndfk1OugSDcB9igvTLs5b8ovc1gJe12UDw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGMizreuul3BdWdSyNUkqsmaim6HyPqBduLYE3732NzdBEqtVeFhUU2msPss9eHdCA==",
                             PhoneNumber = "+90(532)575-79-66",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "VVPCRDAS3MJWQD5CSW2GWPRADBXEZINA",
@@ -658,23 +779,90 @@ namespace ETrade.Persistence.Migrations
                         {
                             Id = 1,
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(3713),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(4412),
                             IsActive = false,
                             IsDeleted = false,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(3719),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(4418),
                             Name = "Araçlar"
                         },
                         new
                         {
                             Id = 2,
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(3728),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(4426),
                             IsActive = false,
                             IsDeleted = false,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(3729),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(4427),
                             Name = "Yedek Parçalar"
+                        });
+                });
+
+            modelBuilder.Entity("ETrade.Domain.Entities.Menu", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Checked")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("CreatedByName")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("ModifiedByName")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("ModifiedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Note")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Menus");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Checked = false,
+                            CreatedByName = "Admin",
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 12, DateTimeKind.Local).AddTicks(2067),
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifiedByName = "Admin",
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 12, DateTimeKind.Local).AddTicks(2073),
+                            Name = "Account"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Checked = false,
+                            CreatedByName = "Admin",
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 12, DateTimeKind.Local).AddTicks(2082),
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifiedByName = "Admin",
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 12, DateTimeKind.Local).AddTicks(2083),
+                            Name = "Address"
                         });
                 });
 
@@ -781,7 +969,7 @@ namespace ETrade.Persistence.Migrations
                             BodyType = "Hatchback5Door",
                             BrandId = 1,
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(7963),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(8551),
                             EngineCapacity = "Cm13011600",
                             EnginePower = "Hp101125",
                             EngineType = "1.6 TDI",
@@ -795,7 +983,7 @@ namespace ETrade.Persistence.Migrations
                             ModelColour = "White",
                             ModelYear = 2015,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(7968),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(8558),
                             Name = "Golf",
                             PlateNationality = "TurkeyPlate",
                             TractionType = "FrontDrive"
@@ -806,7 +994,7 @@ namespace ETrade.Persistence.Migrations
                             BodyType = "Hatchback5Door",
                             BrandId = 2,
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(7984),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(8574),
                             EngineCapacity = "Cm13011600",
                             EnginePower = "Hp101125",
                             EngineType = "1.4 TSI",
@@ -820,7 +1008,7 @@ namespace ETrade.Persistence.Migrations
                             ModelColour = "White",
                             ModelYear = 2015,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(7985),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(8575),
                             Name = "City",
                             PlateNationality = "TurkeyPlate",
                             TractionType = "FrontDrive"
@@ -831,7 +1019,7 @@ namespace ETrade.Persistence.Migrations
                             BodyType = "Hatchback5Door",
                             BrandId = 3,
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(7990),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(8580),
                             EngineCapacity = "Cm13011600",
                             EnginePower = "Hp101125",
                             EngineType = "1.6 TDI",
@@ -845,7 +1033,7 @@ namespace ETrade.Persistence.Migrations
                             ModelColour = "White",
                             ModelYear = 2015,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(7991),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(8581),
                             Name = "Egea",
                             PlateNationality = "TurkeyPlate",
                             TractionType = "FrontDrive"
@@ -856,7 +1044,7 @@ namespace ETrade.Persistence.Migrations
                             BodyType = "Hatchback5Door",
                             BrandId = 4,
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(7995),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(8585),
                             EngineCapacity = "Cm13011600",
                             EnginePower = "Hp101125",
                             EngineType = "1.6 Düz",
@@ -870,7 +1058,7 @@ namespace ETrade.Persistence.Migrations
                             ModelColour = "White",
                             ModelYear = 2015,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(7996),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(8586),
                             Name = "Qashqai",
                             PlateNationality = "TurkeyPlate",
                             TractionType = "FrontDrive"
@@ -926,48 +1114,48 @@ namespace ETrade.Persistence.Migrations
                         {
                             Id = 1,
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(4983),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(5576),
                             IsActive = false,
                             IsDeleted = false,
                             MainCategoryId = 1,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(4988),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(5581),
                             Name = "Otomobil"
                         },
                         new
                         {
                             Id = 2,
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(4996),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(5589),
                             IsActive = false,
                             IsDeleted = false,
                             MainCategoryId = 1,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(4997),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(5590),
                             Name = "Motorsiklet"
                         },
                         new
                         {
                             Id = 3,
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(5000),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(5592),
                             IsActive = false,
                             IsDeleted = false,
                             MainCategoryId = 1,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(5001),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(5593),
                             Name = "Minivan & Panelvan"
                         },
                         new
                         {
                             Id = 4,
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(5003),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(5595),
                             IsActive = false,
                             IsDeleted = false,
                             MainCategoryId = 1,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(5004),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(5596),
                             Name = "Arazi, SUV & Pickup"
                         });
                 });
@@ -1033,14 +1221,14 @@ namespace ETrade.Persistence.Migrations
                         {
                             Id = 1,
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 461, DateTimeKind.Local).AddTicks(8658),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 8, DateTimeKind.Local).AddTicks(9945),
                             ImageAltText = "Profil",
                             ImagePath = "/admin/images/userimages/1/profil.jpg",
                             ImageTitle = "ProfilResmi",
                             IsActive = true,
                             IsDeleted = false,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 461, DateTimeKind.Local).AddTicks(8664),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 8, DateTimeKind.Local).AddTicks(9951),
                             Profil = true,
                             UserId = 1
                         });
@@ -1115,12 +1303,12 @@ namespace ETrade.Persistence.Migrations
                             AddressTitle = "Evim",
                             City = "Ankara",
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(9147),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(9759),
                             District = "Yenimahalle",
                             IsActive = false,
                             IsDeleted = false,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(9153),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(9764),
                             NeighborhoodOrVillage = "Naci Bekir",
                             PostalCode = "06500"
                         },
@@ -1131,12 +1319,12 @@ namespace ETrade.Persistence.Migrations
                             AddressTitle = "Evim",
                             City = "Ankara",
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(9161),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(9772),
                             District = "Yenimahalle",
                             IsActive = false,
                             IsDeleted = false,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(9162),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(9773),
                             NeighborhoodOrVillage = "Naci Bekir",
                             PostalCode = "06500"
                         },
@@ -1147,12 +1335,12 @@ namespace ETrade.Persistence.Migrations
                             AddressTitle = "Evim",
                             City = "Ankara",
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(9165),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(9776),
                             District = "Yenimahalle",
                             IsActive = false,
                             IsDeleted = false,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(9166),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(9777),
                             NeighborhoodOrVillage = "Naci Bekir",
                             PostalCode = "06500"
                         },
@@ -1163,12 +1351,12 @@ namespace ETrade.Persistence.Migrations
                             AddressTitle = "Evim",
                             City = "Ankara",
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(9169),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(9779),
                             District = "Yenimahalle",
                             IsActive = false,
                             IsDeleted = false,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 464, DateTimeKind.Local).AddTicks(9170),
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 11, DateTimeKind.Local).AddTicks(9780),
                             NeighborhoodOrVillage = "Naci Bekir",
                             PostalCode = "06500"
                         });
@@ -1233,56 +1421,56 @@ namespace ETrade.Persistence.Migrations
                             Id = 1,
                             AdId = 1,
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 465, DateTimeKind.Local).AddTicks(184),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 12, DateTimeKind.Local).AddTicks(777),
                             ImageAltText = "Profil",
                             ImagePath = "/admin/images/userimages/profil.png",
                             ImageTitle = "ProfilResmi",
                             IsActive = false,
                             IsDeleted = false,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 465, DateTimeKind.Local).AddTicks(189)
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 12, DateTimeKind.Local).AddTicks(783)
                         },
                         new
                         {
                             Id = 2,
                             AdId = 2,
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 465, DateTimeKind.Local).AddTicks(197),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 12, DateTimeKind.Local).AddTicks(791),
                             ImageAltText = "Profil",
                             ImagePath = "/admin/images/userimages/profil.png",
                             ImageTitle = "ProfilResmi",
                             IsActive = false,
                             IsDeleted = false,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 465, DateTimeKind.Local).AddTicks(198)
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 12, DateTimeKind.Local).AddTicks(792)
                         },
                         new
                         {
                             Id = 3,
                             AdId = 3,
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 465, DateTimeKind.Local).AddTicks(201),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 12, DateTimeKind.Local).AddTicks(794),
                             ImageAltText = "Profil",
                             ImagePath = "/admin/images/userimages/profil.png",
                             ImageTitle = "ProfilResmi",
                             IsActive = false,
                             IsDeleted = false,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 465, DateTimeKind.Local).AddTicks(202)
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 12, DateTimeKind.Local).AddTicks(795)
                         },
                         new
                         {
                             Id = 4,
                             AdId = 4,
                             CreatedByName = "Admin",
-                            CreatedTime = new DateTime(2022, 10, 27, 15, 32, 0, 465, DateTimeKind.Local).AddTicks(204),
+                            CreatedTime = new DateTime(2022, 11, 4, 17, 25, 48, 12, DateTimeKind.Local).AddTicks(798),
                             ImageAltText = "Profil",
                             ImagePath = "/admin/images/userimages/profil.png",
                             ImageTitle = "ProfilResmi",
                             IsActive = false,
                             IsDeleted = false,
                             ModifiedByName = "Admin",
-                            ModifiedTime = new DateTime(2022, 10, 27, 15, 32, 0, 465, DateTimeKind.Local).AddTicks(205)
+                            ModifiedTime = new DateTime(2022, 11, 4, 17, 25, 48, 12, DateTimeKind.Local).AddTicks(799)
                         });
                 });
 
@@ -1394,6 +1582,17 @@ namespace ETrade.Persistence.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("ETrade.Domain.Entities.Action", b =>
+                {
+                    b.HasOne("ETrade.Domain.Entities.Menu", "Menu")
+                        .WithMany("Actions")
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Menu");
                 });
 
             modelBuilder.Entity("ETrade.Domain.Entities.Address", b =>
@@ -1556,6 +1755,11 @@ namespace ETrade.Persistence.Migrations
             modelBuilder.Entity("ETrade.Domain.Entities.MainCategory", b =>
                 {
                     b.Navigation("SubCategories");
+                });
+
+            modelBuilder.Entity("ETrade.Domain.Entities.Menu", b =>
+                {
+                    b.Navigation("Actions");
                 });
 
             modelBuilder.Entity("ETrade.Domain.Entities.SubCategory", b =>

@@ -39,7 +39,8 @@ public static class ServiceRegistration
         //repositories
         serviceCollection.AddScoped<IAddressRepository,EfAddressRepository>();
         serviceCollection.AddScoped<IUserImageRepository,EfUserImageRepository>();
-        serviceCollection.AddScoped<IUserRepository,EfUserRepository>();
+        serviceCollection.AddScoped<IMenuRepository,EfMenuRepository>();
+        serviceCollection.AddScoped<IActionRepository,EfActionRepository>();
         serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
         
     }

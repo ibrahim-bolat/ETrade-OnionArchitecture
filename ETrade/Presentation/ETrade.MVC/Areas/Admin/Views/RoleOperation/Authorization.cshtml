@@ -7,6 +7,13 @@
 @section Style {
     <link href="~/css/gijgo/gijgo.min.css" rel="stylesheet" type="text/css" />
     <style>
+        .row {
+            margin: 10px;
+        }
+        span .gj-icon {
+            color: #536DFE;
+            font-weight: bold;
+         }
     </style>
 }
 
@@ -29,34 +36,53 @@
         </div>
     </div>
 
-    <div class="content mt-3">
-        <div class="col-sm-12">
-            <div class="alert  alert-success alert-dismissible fade show" role="alert">
-                <span class="badge badge-pill badge-success">Success</span> You successfully read this important alert message.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
-        <div class="container-fluid">
-                <div class="row">
-                    <button id="btnSave" class="btn btn-default">Save Checked Nodes</button>
+<div class="content mt-3">
+            <div class="col-sm-12">
+                <div class="alert  alert-success alert-dismissible fade show" role="alert">
+                    <span class="badge badge-pill badge-success">Success</span> You successfully read this important alert message.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            <div class="row">
-                <div id="tree"></div>
             </div>
-        </div>
-    </div> <!-- .content -->
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Yetkilendirme İşlemleri</h2>
+                    </div>
+                    <div class="card-body">
+                         <button id="expandAll" class="btn btn-primary">Hepsini Genişlet</button>
+                        <button id="collapseAll" class="btn btn-secondary">Hepsini Daralt</button>
+                        <button id="checkAll" class="btn btn-info">Hepsini Seç</button>
+                        <button id="uncheckAll" class="btn btn-danger">Hiç Seçme</button>
+                        <br/>
+                        <div class="row">
+                            <div id="tree"></div>
+                        </div>
+                        <div class="row">
+                            <button id="btnSave" class="btn btn-success">Yetkileri Kaydet</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div> <!-- .content -->
 @section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/gijgo/gijgo.min.js"></script>
-    <script type="text/javascript">
-                $(document).ready(function () {
-                    var tree = $('#tree').tree({
+    <script>
+               (function($) {
+                   var tree = $('#tree').tree({
                         primaryKey: 'id',
                         uiLibrary: 'bootstrap4',
                         dataSource: '/Admin/RoleOperation/GetPermission',
-                        checkboxes: true
+                        checkboxes: true,
+                        width: 800,
+                        icons: {
+                             expand: '<i class="gj-icon chevron-right"></i>',
+                             collapse: '<i class="gj-icon chevron-down"></i>'
+                         }         
                     });
+ 
                     $('#btnSave').on('click', function () {
                         var checkedIds = tree.getCheckedNodes();
                         $.ajax({ url: '/Admin/RoleOperation/SavePermission', data: { checkedIds: checkedIds }, method: 'POST' })
@@ -64,7 +90,27 @@
                                 alert('Failed to save.');
                             });
                     });
-                });
+                    tree.on('dataBound', function() {
+                       tree.expandAll();
+                    });
+                    $('#expandAll').on('click', function () {
+                       tree.expandAll();
+                    });
+                     $('#collapseAll').on('click', function () {
+                       tree.collapseAll();
+                     });
+                     $('#checkAll').on('click', function () {
+                         tree.checkAll();
+                         tree.expandAll();
+                     });
+          
+                     $('#uncheckAll').on('click', function () {
+                        tree.uncheckAll();
+                        tree.expandAll();
+                     });
+                                        
+                                      
+                   })(jQuery);
     </script>
 }
 

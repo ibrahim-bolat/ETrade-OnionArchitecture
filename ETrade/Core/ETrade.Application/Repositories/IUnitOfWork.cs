@@ -4,6 +4,7 @@ public interface IUnitOfWork:IAsyncDisposable
 {
     IAddressRepository AddressRepository { get; }
     IUserImageRepository UserImageRepository { get; }
-    IUserRepository UserRepository { get; }
+    IMenuRepository MenuRepository { get; }
+    IActionRepository ActionRepository { get; }
     Task<int> SaveAsync();
 }

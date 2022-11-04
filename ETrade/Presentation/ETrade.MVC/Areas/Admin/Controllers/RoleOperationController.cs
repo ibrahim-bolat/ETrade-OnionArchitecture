@@ -3,6 +3,7 @@ using ETrade.Application.CustomAttributes;
 using ETrade.Application.DTOs.Common;
 using ETrade.Application.Features.RoleOperations.Commands.CreateRoleCommand;
 using ETrade.Application.Features.RoleOperations.Commands.RemoveUserFromRoleCommand;
+using ETrade.Application.Features.RoleOperations.Commands.SaveAuthorizeDefinitionEndpointsCommand;
 using ETrade.Application.Features.RoleOperations.Commands.SetRoleActiveCommand;
 using ETrade.Application.Features.RoleOperations.Commands.SetRolePassiveCommand;
 using ETrade.Application.Features.RoleOperations.Commands.UpdateRoleCommand;
@@ -14,6 +15,9 @@ using ETrade.Application.Features.RoleOperations.Queries.GetUsersOfTheRoleQuery;
 using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 
 namespace ETrade.MVC.Areas.Admin.Controllers;
@@ -63,109 +67,24 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         [HttpGet]
         public  async Task<IActionResult>  GetPermission(string query)
         {
+         
             var dresult = await _mediator.Send(new GetAuthorizeDefinitionEndpointsQueryRequest()
             {
-                Type = typeof(Program)
+                Type = typeof(Program),
+                Query = query
             });
-            
-            var jsonData = dresult.Result.Data;
-
-                if (!string.IsNullOrWhiteSpace(query))
-                {
-                    jsonData = jsonData.Where(q => q.Name.Contains(query)).ToList();
-                }
-                
-                return  Json(jsonData);
+            return Ok(dresult.Result.Data);
         }
-        /*
-    private List<Menu> GetActions(List<Menu> menus, int parentId)
-    {
-        return menus.Where(l => l.ParentID == parentId).OrderBy(l => l.OrderNumber)
-            .Select(l => new Models.DTO.Location
-            {
-                id = l.ID,
-                text = l.Name,
-                population = l.Population,
-                flagUrl = l.FlagUrl,
-                @checked = l.Checked,
-                children = GetChildren(locations, l.ID)
-            }).ToList();
-    }
 
-    public JsonResult LazyGet(int? parentId)
-    {
-        List<Location> locations;
-        List<Models.DTO.Location> records;
-        using (ApplicationDbContext context = new ApplicationDbContext())
+        [HttpPost]
+        public  async Task<IActionResult>  SavePermission(List<int> checkedIds)
         {
-            locations = context.Locations.ToList();
-
-            records = locations.Where(l => l.ParentID == parentId).OrderBy(l => l.OrderNumber)
-                .Select(l => new Models.DTO.Location
-                {
-                    id = l.ID,
-                    text = l.Name,
-                    @checked = l.Checked,
-                    population = l.Population,
-                    flagUrl = l.FlagUrl,
-                    hasChildren = locations.Any(l2 => l2.ParentID == l.ID)
-                }).ToList();
-        }
-
-        return this.Json(records, JsonRequestBehavior.AllowGet);
-    }
-    
-
-    
-    [HttpPost]
-    public  IActionResult SavePermission(List<int> checkedIds)
-    {
-        if (checkedIds == null)
-        {
-            checkedIds = new List<int>();
-        }
-        using (ApplicationDbContext context = new ApplicationDbContext())
-        {
-            var locations = context.Locations.ToList();
-            foreach (var location in locations)
+            var dresult = await _mediator.Send(new SaveAuthorizeDefinitionEndpointsCommandRequest()
             {
-                location.Checked = checkedIds.Contains(location.ID);
-            }
-            context.SaveChanges();
+                CheckedIds = checkedIds
+            });
+            return Json(true);
         }
-
-        return Json(true);
-    }
-    
-    [HttpPost]
-    public JsonResult ChangeNodePosition(int id, int parentId, int orderNumber)
-    {
-        using (ApplicationDbContext context = new ApplicationDbContext())
-        {
-            var location = context.Locations.First(l => l.ID == id);
-
-            var newSiblingsBelow = context.Locations.Where(l => l.ParentID == parentId && l.OrderNumber >= orderNumber);
-            foreach (var sibling in newSiblingsBelow)
-            {
-                sibling.OrderNumber = sibling.OrderNumber + 1;
-            }
-
-            var oldSiblingsBelow = context.Locations.Where(l => l.ParentID == location.ParentID && l.OrderNumber > location.OrderNumber);
-            foreach (var sibling in oldSiblingsBelow)
-            {
-                sibling.OrderNumber = sibling.OrderNumber - 1;
-            }
-
-
-            location.ParentID = parentId;
-            location.OrderNumber = orderNumber;
-
-            context.SaveChanges();
-        }
-
-        return this.Json(true);
-    }
-    */
         
         [HttpGet]
         [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.RoleOperation, ActionType = ActionType.Reading, Definition = "Get Users Of TheRole Index Page")]

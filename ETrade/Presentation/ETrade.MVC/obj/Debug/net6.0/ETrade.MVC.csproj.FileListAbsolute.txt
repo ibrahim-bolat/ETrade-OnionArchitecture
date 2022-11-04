@@ -749,3 +749,4 @@
 /home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/bin/Debug/net6.0/MediatR.dll
 /home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/bin/Debug/net6.0/MediatR.Contracts.dll
 /home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/bin/Debug/net6.0/MediatR.Extensions.Microsoft.DependencyInjection.dll
+/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/bin/Debug/net6.0/Newtonsoft.Json.dll

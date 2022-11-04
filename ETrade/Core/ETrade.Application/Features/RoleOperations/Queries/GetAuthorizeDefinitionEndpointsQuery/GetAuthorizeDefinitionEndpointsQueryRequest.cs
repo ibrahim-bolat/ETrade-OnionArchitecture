@@ -6,4 +6,5 @@ namespace ETrade.Application.Features.RoleOperations.Queries.GetAuthorizeDefinit
 public class GetAuthorizeDefinitionEndpointsQueryRequest:IRequest<GetAuthorizeDefinitionEndpointsQueryResponse>
 {
     public Type Type { get; set; }
+    public string Query { get; set; }
 }
