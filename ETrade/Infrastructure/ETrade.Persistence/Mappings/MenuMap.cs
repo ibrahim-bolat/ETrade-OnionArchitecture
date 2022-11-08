@@ -14,6 +14,7 @@ namespace ETrade.Persistence.Mappings;
             builder.Property(mainCategory => mainCategory.Note).HasMaxLength(500);
             builder.HasMany(menu => menu.Actions).WithOne(action => action.Menu)
                 .HasForeignKey(action => action.MenuId).OnDelete(DeleteBehavior.Cascade);
+            /*
             builder.HasData(new Menu()
             {
                 Id = 1, 
@@ -27,5 +28,6 @@ namespace ETrade.Persistence.Mappings;
                 Checked = false,
                 IsActive = true
             });
+            */
         }
     }

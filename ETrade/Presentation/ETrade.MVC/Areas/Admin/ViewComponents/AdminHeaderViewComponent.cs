@@ -1,4 +1,5 @@
 ﻿using ETrade.Application.Features.Accounts.Queries.GetByUserNameUserImageQuery;
+using ETrade.Application.Features.UserOperations.Queries.GetByIdForUserSummaryQuery;
 using ETrade.Domain.Entities.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -19,15 +20,20 @@ public class AdminHeaderAvatarViewComponent : ViewComponent
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var dresult = await _mediator.Send(new GetByUserNameUserImageQueryRequest()
+            var imageResult = await _mediator.Send(new GetByUserNameUserImageQueryRequest()
             {
                 UserName = User.Identity?.Name,
             });
-            ViewBag.UserId = dresult.Result.Data.Select(i => i.UserId).FirstOrDefault();
+            ViewBag.UserId = imageResult.Result.Data.Select(i => i.UserId).FirstOrDefault();
             ViewBag.ProfilPhoto = "/admin/images/avatar/unspecifieduseravatar.png";
-            if (dresult.Result.Data.Count > 0)
+            var userResult = await _mediator.Send(new GetByIdForUserSummaryQueryRequest()
             {
-                foreach (var userImage in dresult.Result.Data)
+                Id = ViewBag.UserId.ToString()
+            });
+            ViewBag.FullName = userResult.Result.Data.FirstName + " " + userResult.Result.Data.LastName;
+            if (imageResult.Result.Data.Count > 0)
+            {
+                foreach (var userImage in imageResult.Result.Data)
                 {
                     if (userImage.Profil)
                         ViewBag.ProfilPhoto = userImage.ImagePath;

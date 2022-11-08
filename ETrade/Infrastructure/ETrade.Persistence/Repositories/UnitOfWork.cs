@@ -11,6 +11,7 @@ public class UnitOfWork:IUnitOfWork
     public IUserImageRepository UserImageRepository { get; }
     public IMenuRepository MenuRepository { get; }
     public IActionRepository ActionRepository { get; }
+    
 
     public UnitOfWork(DataContext dataContext, IAddressRepository addressRepository, IUserImageRepository userImageRepository, IMenuRepository menuRepository, IActionRepository actionRepository)
     {

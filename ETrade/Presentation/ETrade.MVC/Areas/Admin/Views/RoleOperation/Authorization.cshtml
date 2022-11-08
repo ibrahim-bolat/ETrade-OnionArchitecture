@@ -67,103 +67,100 @@
             </div>
 </div> <!-- .content -->
 @section Scripts {
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/gijgo/gijgo.min.js"></script>
     <script>
-               (function($) {
-                   var tree = $('#tree').tree({
-                        primaryKey: 'id',
-                        uiLibrary: 'bootstrap4',
-                        dataSource: '/Admin/RoleOperation/GetPermission',
-                        checkboxes: true,
-                        width: 800,
-                        icons: {
-                             expand: '<i class="gj-icon chevron-right"></i>',
-                             collapse: '<i class="gj-icon chevron-down"></i>'
-                         }         
-                    });
- 
-                    $('#btnSave').on('click', function () {
-                        var checkedIds = tree.getCheckedNodes();
-                        var checkedActionIds = [];
-                        $.each(checkedIds, function( index, Id ) {
-                            if (Id[0]!="0") {
-                                if (!checkedActionIds.includes(Id)) {
-                                    checkedActionIds.push(Id);
-                                }
-                            }
-                        });
-                        $.ajax(
-                                {
-                                     url: '/Admin/RoleOperation/SavePermission', 
-                                     data:
-                                     {
-                                        checkedActionIds: checkedActionIds
-                                     }, 
-                                     method: 'POST'
-                                })
-                            .done(function () {
-                                var Toast = Swal.mixin({
-                                    toast: true,
-                                    position: 'top-end',
-                                    showConfirmButton: false,
-                                    timer: 5000,
-                                    timerProgressBar: true,
-                                    didOpen: (toast) => {
-                                        toast.addEventListener('click', Swal.close)
-                                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                                    }
-                                })
-
-                                Toast.fire({
-                                    icon: 'success',
-                                    title: 'Başarılı.',
-                                    text: 'Yetkiler Başarıyla Kaydedildi.',
-                                })
-                            })
-                            .fail(function () {
-                                var Toast = Swal.mixin({
-                                    toast: true,
-                                    position: 'top-end',
-                                    showConfirmButton: false,
-                                    timer: 5000,
-                                    timerProgressBar: true,
-                                    didOpen: (toast) => {
-                                        toast.addEventListener('click', Swal.close)
-                                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                                    }
-                                })
-
-                                Toast.fire({
-                                    icon: 'error',
-                                    title: 'Hata.',
-                                    text: 'Yetkiler Kaydedilemedi.',
-                                })
-                            });
-                    });
-                    tree.on('dataBound', function() {
-                       tree.expandAll();
-                    });
-                    $('#expandAll').on('click', function () {
-                       tree.expandAll();
-                    });
-                     $('#collapseAll').on('click', function () {
-                       tree.collapseAll();
-                     });
-                     $('#checkAll').on('click', function () {
-                         tree.checkAll();
-                         tree.expandAll();
-                     });
-          
-                     $('#uncheckAll').on('click', function () {
-                        tree.uncheckAll();
-                        tree.expandAll();
-                     });
-                                        
-                                      
-                   })(jQuery);
+    var $ = jQuery.noConflict();
+    $(document).ready(function ($) {
+       var tree = $('#tree').tree({
+          primaryKey: 'id',
+          uiLibrary: 'bootstrap4',
+          dataSource: '/Admin/RoleOperation/GetPermission',
+          checkboxes: true,
+          width: 800,
+          icons: {
+             expand: '<i class="gj-icon chevron-right"></i>',
+             collapse: '<i class="gj-icon chevron-down"></i>'
+          }
+       });
+    
+       $('#btnSave').on('click', function () {
+          var checkedIds = tree.getCheckedNodes();
+          var checkedActionIds = [];
+          $.each(checkedIds, function (index, Id) {
+             if (Id[0] !== "0") {
+                if (!checkedActionIds.includes(Id)) {
+                   checkedActionIds.push(Id);
+                }
+             }
+          });
+          $.ajax({
+                url: '/Admin/RoleOperation/SavePermission',
+                data: {
+                   checkedActionIds: checkedActionIds
+                },
+                method: 'POST'
+             })
+             .done(function () {
+                var Toast = Swal.mixin({
+                   toast: true,
+                   position: 'top-end',
+                   showConfirmButton: false,
+                   timer: 5000,
+                   timerProgressBar: true,
+                   didOpen: (toast) => {
+                      toast.addEventListener('click', Swal.close)
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                   }
+                })
+    
+                Toast.fire({
+                   icon: 'success',
+                   title: 'Başarılı.',
+                   text: 'Yetkiler Başarıyla Kaydedildi.',
+                })
+             })
+             .fail(function () {
+                var Toast = Swal.mixin({
+                   toast: true,
+                   position: 'top-end',
+                   showConfirmButton: false,
+                   timer: 5000,
+                   timerProgressBar: true,
+                   didOpen: (toast) => {
+                      toast.addEventListener('click', Swal.close)
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                   }
+                })
+    
+                Toast.fire({
+                   icon: 'error',
+                   title: 'Hata.',
+                   text: 'Yetkiler Kaydedilemedi.',
+                })
+             });
+       });
+       
+       tree.on('dataBound', function () {
+          tree.expandAll();
+       });
+       $('#expandAll').on('click', function () {
+          tree.expandAll();
+       });
+       $('#collapseAll').on('click', function () {
+          tree.collapseAll();
+       });
+       $('#checkAll').on('click', function () {
+          tree.checkAll();
+          tree.expandAll();
+       });
+    
+       $('#uncheckAll').on('click', function () {
+          tree.uncheckAll();
+          tree.expandAll();
+       });
+    });
     </script>
 }
 

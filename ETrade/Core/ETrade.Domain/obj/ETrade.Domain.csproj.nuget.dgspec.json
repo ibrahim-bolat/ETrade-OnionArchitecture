@@ -1,32 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Yazılımlar\\VisualStudioProjects\\ETrade-OnionArchitecture\\ETrade\\Core\\ETrade.Domain\\ETrade.Domain.csproj": {}
+    "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Core/ETrade.Domain/ETrade.Domain.csproj": {}
   },
   "projects": {
-    "D:\\Yazılımlar\\VisualStudioProjects\\ETrade-OnionArchitecture\\ETrade\\Core\\ETrade.Domain\\ETrade.Domain.csproj": {
+    "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Core/ETrade.Domain/ETrade.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Yazılımlar\\VisualStudioProjects\\ETrade-OnionArchitecture\\ETrade\\Core\\ETrade.Domain\\ETrade.Domain.csproj",
+        "projectUniqueName": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Core/ETrade.Domain/ETrade.Domain.csproj",
         "projectName": "ETrade.Domain",
-        "projectPath": "D:\\Yazılımlar\\VisualStudioProjects\\ETrade-OnionArchitecture\\ETrade\\Core\\ETrade.Domain\\ETrade.Domain.csproj",
-        "packagesPath": "C:\\Users\\bolat\\.nuget\\packages\\",
-        "outputPath": "D:\\Yazılımlar\\VisualStudioProjects\\ETrade-OnionArchitecture\\ETrade\\Core\\ETrade.Domain\\obj\\",
+        "projectPath": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Core/ETrade.Domain/ETrade.Domain.csproj",
+        "packagesPath": "/home/ibrahim.bolat/.nuget/packages/",
+        "outputPath": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Core/ETrade.Domain/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\bolat\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/ibrahim.bolat/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -74,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.402/RuntimeIdentifierGraph.json"
         }
       }
     }

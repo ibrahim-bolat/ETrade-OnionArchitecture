@@ -1,9 +1,9 @@
 using ETrade.Application;
+using ETrade.Application.Extensions;
 using ETrade.Infrastructure;
 using ETrade.MVC;
 using ETrade.Persistence;
-using ETrade.Persistence.Contexts;
-using Microsoft.EntityFrameworkCore;
+using ETrade.Persistence.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,12 +17,7 @@ builder.Services.AddPresentationServices(builder.Configuration);
 
 var app = builder.Build();
 
-// Auto update migration
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-await using var scope = app.Services.CreateAsyncScope();
-using var db = scope.ServiceProvider.GetService<DataContext>();
-if (db != null) 
-    await db.Database.MigrateAsync();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -51,4 +46,9 @@ app.UseEndpoints(endpoints =>
         pattern: "{controller=Home}/{action=Index}/{id?}");
 });
 
+// Auto update migration
+await app.MigrateDatabaseAsync();
+// Auto seed authorize endpoints data
+
+await app.AuthorizeEndpointsMigrateAsync(typeof(Program));
 app.Run();
