@@ -13,4 +13,6 @@ public class AppRole:IdentityRole<int>,IIdentityEntity
         public  string CreatedByName { get; set; } = "Owner";
         public  string ModifiedByName { get; set; } = "Owner";
         public  string Note { get; set; }
+        
+        public  List<Action> Actions{ get; set; }
     }
