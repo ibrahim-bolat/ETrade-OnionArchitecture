@@ -9,25 +9,11 @@ namespace ETrade.Persistence.Mappings;
     {
         public void Configure(EntityTypeBuilder<Menu> builder)
         {
-            builder.HasKey(mainCategory => mainCategory.Id);
-            builder.Property(mainCategory => mainCategory.Id).ValueGeneratedOnAdd();
-            builder.Property(mainCategory => mainCategory.Note).HasMaxLength(500);
+            builder.HasKey(menu => menu.Id);
+            builder.Property(menu => menu.Id).ValueGeneratedOnAdd();
+            builder.Property(menu => menu.Name).HasMaxLength(100).IsRequired();
+            builder.Property(menu => menu.Note).HasMaxLength(500);
             builder.HasMany(menu => menu.Actions).WithOne(action => action.Menu)
                 .HasForeignKey(action => action.MenuId).OnDelete(DeleteBehavior.Cascade);
-            /*
-            builder.HasData(new Menu()
-            {
-                Id = 1, 
-                Name = "Account",
-                Checked = false,
-                IsActive = true
-            }, new Menu()
-            {
-                Id = 2, 
-                Name = "Address",
-                Checked = false,
-                IsActive = true
-            });
-            */
         }
     }

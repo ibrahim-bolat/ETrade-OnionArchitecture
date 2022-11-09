@@ -10,9 +10,13 @@ namespace ETrade.Persistence.Mappings;
     {
         public void Configure(EntityTypeBuilder<Action> builder)
         {
-            builder.HasKey(subCategory => subCategory.Id);
-            builder.Property(subCategory => subCategory.Id).ValueGeneratedOnAdd();
-            builder.Property(subCategory => subCategory.Note).HasMaxLength(500);
+            builder.HasKey(action => action.Id);
+            builder.Property(action => action.Id).ValueGeneratedOnAdd();
+            builder.Property(action => action.Code).HasMaxLength(150).IsRequired();
+            builder.Property(action => action.Definition).HasMaxLength(150).IsRequired();
+            builder.Property(action => action.HttpType).HasMaxLength(100).IsRequired();
+            builder.Property(action => action.ActionType).HasMaxLength(100).IsRequired();
+            builder.Property(action => action.Note).HasMaxLength(500);
             builder.HasOne(action => action.Menu).WithMany(menu => menu.Actions)
                 .HasForeignKey(action => action.MenuId).OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(action => action.AppRoles).WithMany(appRole => appRole.Actions)
