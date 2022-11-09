@@ -29,12 +29,41 @@ public class EfGenericRepository<TEntity>:IGenericRepository<TEntity> where TEnt
         return entity;
     }
 
-    public async Task DeleteAsync(TEntity entity)
+    public async Task RemoveAsync(TEntity entity)
     {
         await Task.Run(() =>
         {
             _context.Set<TEntity>().Remove(entity);
         });
+    }
+
+    public async Task<bool> AddRangeAsync(List<TEntity> entityList)
+    {
+        await _context.Set<TEntity>().AddRangeAsync(entityList);
+        return true;
+    }
+
+    public async Task<bool> UpdateRangeAsync(List<TEntity> entityList)
+    {
+        await Task.Run(() =>
+        {
+            _context.Set<TEntity>().UpdateRange(entityList);
+        });
+        return true;
+    }
+
+    public async Task<bool> RemoveRangeAsync(List<TEntity> entityList)
+    {
+        await Task.Run(() =>
+        {
+            _context.Set<TEntity>().RemoveRange(entityList);
+        });
+        return true;
+    }
+
+    public async Task<TEntity> GetByIdAsync(int id)
+    {
+        return await _context.Set<TEntity>().FindAsync(id);
     }
 
     public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties)

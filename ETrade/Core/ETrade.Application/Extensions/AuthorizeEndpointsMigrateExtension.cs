@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using ETrade.Application.CustomAttributes;
 using ETrade.Application.Repositories;
@@ -28,7 +29,7 @@ public static class AuthorizeEndpointsMigrateExtension
                         var controllers = assembly!.GetTypes().Where(t => t.IsAssignableTo(typeof(Controller)));
                         foreach (var controller in controllers)
                         {
-                            Menu menu = new Menu();
+                            Menu menu = null;
                             var actions = controller.GetMethods()
                                 .Where(m => m.IsDefined(typeof(AuthorizeDefinitionAttribute)));
 
@@ -43,12 +44,15 @@ public static class AuthorizeEndpointsMigrateExtension
 
                                 if (authorizeDefinitionAttribute != null)
                                 {
-                                    if (menu.Name == null)
+                                    if (menu == null)
                                     {
-                                        menu.Name = authorizeDefinitionAttribute.Menu;
+                                        menu = new Menu()
+                                        {
+                                            Name = authorizeDefinitionAttribute.Menu
+                                        };
                                         if (await unitOfWork.MenuRepository.AnyAsync(m => m.Name == menu.Name))
                                         {
-                                            menu = await unitOfWork.MenuRepository.GetAsync(m => m.Name == menu.Name);
+                                            menu = await unitOfWork.MenuRepository.GetAsync(m => m.Name == menu.Name,m=>m.Actions);
                                         }
                                     }
 
@@ -70,26 +74,24 @@ public static class AuthorizeEndpointsMigrateExtension
                                     newAction.Code =
                                         $"{newAction.HttpType}.{newAction.ActionType}.{newAction.Definition.Replace(" ", "")}";
 
-                                    if (!await unitOfWork.ActionRepository.AnyAsync(a =>
-                                            a.Code == newAction.Code))
+                                    if (!menu.Actions.Any(a => a.Code == newAction.Code))
                                     {
                                         menu.Actions.Add(newAction);
                                     }
                                 }
                             }
 
-                            if (!await unitOfWork.MenuRepository.AnyAsync(m => m.Name == menu.Name) &&
-                                menu.Name != null)
+                            if ( menu != null && !await unitOfWork.MenuRepository.AnyAsync(m => m.Name == menu.Name))
                             {
+     
                                 await unitOfWork.MenuRepository.AddAsync(menu);
                             }
 
-                            if (await unitOfWork.MenuRepository.AnyAsync(m => m.Name == menu.Name) && menu.Name != null)
+                            if (menu != null && await unitOfWork.MenuRepository.AnyAsync(m => m.Name == menu.Name))
                             {
                                 await unitOfWork.MenuRepository.UpdateAsync(menu);
                             }
                         }
-
                         await unitOfWork.SaveAsync();
                     }
                     finally

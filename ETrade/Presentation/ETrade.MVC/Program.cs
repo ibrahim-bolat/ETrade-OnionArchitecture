@@ -48,7 +48,7 @@ app.UseEndpoints(endpoints =>
 
 // Auto update migration
 await app.MigrateDatabaseAsync();
-// Auto seed authorize endpoints data
 
+// Auto seed authorize endpoints data
 await app.AuthorizeEndpointsMigrateAsync(typeof(Program));
 app.Run();
