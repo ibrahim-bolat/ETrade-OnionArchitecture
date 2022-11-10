@@ -28,7 +28,7 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
 
         [HttpGet]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.UserOperation, ActionType = ActionType.Reading, Definition = "Get UserOperation Index Page")]
+        [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.UserOperation, ActionType = ActionType.Reading, Definition = "Get UserOperation Index Page")]
         public IActionResult Index()
         {
             return View();
@@ -52,7 +52,7 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
 
         [HttpPost]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.UserOperation, ActionType = ActionType.Writing, Definition = "Create User")]
+        [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.UserOperation, ActionType = ActionType.Writing, Definition = "Create User")]
         public async Task<IActionResult> Add(CreateUserDto createUserDto)
         {
             if (!ModelState.IsValid)
@@ -76,7 +76,7 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
 
         [HttpGet]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.UserOperation, ActionType = ActionType.Reading, Definition = "Get By Id User Summary")]
+        [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.UserOperation, ActionType = ActionType.Reading, Definition = "Get By Id User Summary")]
         public async Task<IActionResult> GetById(string id)
         {
             var dresult = await _mediator.Send(new GetByIdForUserSummaryQueryRequest()
@@ -104,7 +104,7 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
 
 
         [HttpPost]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.UserOperation, ActionType = ActionType.Deleting, Definition = "Delete User")]
+        [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.UserOperation, ActionType = ActionType.Deleting, Definition = "Delete User")]
         public async Task<IActionResult> Delete(string id)
         {
             var dresult = await _mediator.Send(new SetDeletedUserCommandRequest()
@@ -140,7 +140,7 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
 
         [HttpGet]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.UserOperation, ActionType = ActionType.Reading, Definition = "Get By Id User Role List")]
+        [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.UserOperation, ActionType = ActionType.Reading, Definition = "Get By Id User Role List")]
         public async Task<IActionResult> GetRole(string id)
         {
             var dresult = await _mediator.Send(new GetByIdUserRoleListQueryRequest()
@@ -155,15 +155,15 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
 
         [HttpPost]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.UserOperation, ActionType = ActionType.Updating, Definition = "Change Role to User")]
-        public async Task<IActionResult> SaveRole(string id, List<String> roles)
+        [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.UserOperation, ActionType = ActionType.Updating, Definition = "Change Role to User")]
+        public async Task<IActionResult> SaveRole(string id, List<int> roleIds)
         {
-            if (!string.IsNullOrEmpty(id) && roles != null)
+            if (!string.IsNullOrEmpty(id) && roleIds != null)
             {
                 var dresult = await _mediator.Send(new AssignUserRoleListCommandRequest()
                 {
                     Id=id,
-                    Roles = roles
+                    RoleIds = roleIds
                 });
                 if (dresult.Result.ResultStatus == ResultStatus.Success)
                 {

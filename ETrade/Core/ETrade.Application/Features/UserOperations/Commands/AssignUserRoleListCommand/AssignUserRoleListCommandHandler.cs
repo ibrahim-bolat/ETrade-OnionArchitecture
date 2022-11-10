@@ -31,24 +31,10 @@ public class AssignUserRoleListCommandHandler:IRequestHandler<AssignUserRoleList
         {
             if (user.IsActive)
             {
-                List<AppRole> allRoles = _roleManager.Roles.ToList();
-                List<RoleAssignDto> newAssignRoles = new List<RoleAssignDto>();
-                List<string> userNewRoles = new List<string>();
-                AppRole appR;
-                foreach (var role in request.Roles)
+                List<AppRole> allRoles = _roleManager.Roles.Where(r=>r.IsActive).ToList();
+                foreach (var role in allRoles)
                 {
-                    appR = await _roleManager.FindByIdAsync(role);
-                    userNewRoles.Add(appR.Name);
-                }
-                allRoles.ForEach(role => newAssignRoles.Add(new RoleAssignDto
-                {
-                    HasAssign = userNewRoles.Contains(role.Name),
-                    Id = role.Id,
-                    Name = role.Name
-                }));
-                foreach (RoleAssignDto role in newAssignRoles)
-                {
-                    if (role.HasAssign)
+                    if (request.RoleIds.Contains(role.Id))
                     {
                         if (!await _userManager.IsInRoleAsync(user, role.Name))
                             await _userManager.AddToRoleAsync(user, role.Name);

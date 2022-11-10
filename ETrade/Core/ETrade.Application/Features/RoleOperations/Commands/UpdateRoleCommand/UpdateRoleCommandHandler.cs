@@ -25,30 +25,40 @@ public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommandRequest
         CancellationToken cancellationToken)
     {
         IdentityResult roleResult;
-        AppRole role = await _roleManager.FindByIdAsync(request.RoleDto.Id.ToString());
-        if (role != null)
+        List<int> defaultRoleIds = new List<int>() { 1, 2, 3 };
+        if (!defaultRoleIds.Contains(request.RoleDto.Id))
         {
-            string fixedRoleName = SeoHelper.ToSeoUrl(request.RoleDto.Name);
-            string roleName = char.ToUpperInvariant(fixedRoleName[0]) + fixedRoleName.Substring(1);
-            role.ModifiedTime = DateTime.Now;
-            role.ModifiedByName = _httpContextAccessor.HttpContext?.User.Identity?.Name;
-            role.Name = roleName;
-            roleResult = await _roleManager.UpdateAsync(role);
-            if (roleResult.Succeeded)
+            AppRole role = await _roleManager.FindByIdAsync(request.RoleDto.Id.ToString());
+            if (role != null)
             {
-                return new UpdateRoleCommandResponse
+       
+                string fixedRoleName = SeoHelper.ToSeoUrl(request.RoleDto.Name);
+                string roleName = char.ToUpperInvariant(fixedRoleName[0]) + fixedRoleName.Substring(1);
+                role.ModifiedTime = DateTime.Now;
+                role.ModifiedByName = _httpContextAccessor.HttpContext?.User.Identity?.Name;
+                role.Name = roleName;
+                roleResult = await _roleManager.UpdateAsync(role);
+                if (roleResult.Succeeded)
+                {
+                    return new UpdateRoleCommandResponse
                     {
                         Result = new Result(ResultStatus.Success, Messages.RoleUpdated)
                     };
+                }
+                return new UpdateRoleCommandResponse
+                {
+                    Result = new Result(ResultStatus.Error, Messages.RoleNotAdded,roleResult.Errors.ToList())
+                };
+            
             }
             return new UpdateRoleCommandResponse
             {
-                Result = new Result(ResultStatus.Error, Messages.RoleNotAdded,roleResult.Errors.ToList())
+                Result = new Result(ResultStatus.Error, Messages.RoleNotFound)
             };
         }
         return new UpdateRoleCommandResponse
         {
-            Result = new Result(ResultStatus.Error, Messages.RoleNotFound)
+            Result = new Result(ResultStatus.Error, Messages.RoleDefaultRole)
         };
     }
 }

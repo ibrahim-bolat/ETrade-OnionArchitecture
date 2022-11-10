@@ -23,14 +23,14 @@ public class AddressController : Controller
     }
 
     [HttpGet]
-    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Address, ActionType = ActionType.Reading, Definition = "Get Address Index Page")]
+    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Reading, Definition = "Get Address Index Page")]
     public IActionResult Index()
     {
         return View();
     }
 
     [HttpGet]
-    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Address, ActionType = ActionType.Reading, Definition = "Get By Id Address for Create Address")]
+    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Reading, Definition = "Get By Id Address for Create Address")]
     public IActionResult AddressAdd(int userId)
     {
         AddressDto addressDto = new AddressDto();
@@ -39,7 +39,7 @@ public class AddressController : Controller
     }
 
     [HttpPost]
-    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Address, ActionType = ActionType.Writing, Definition = "Create Address")]
+    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Writing, Definition = "Create Address")]
     public async Task<IActionResult> AddressAdd(AddressDto addressDto)
     {
         if (ModelState.IsValid)
@@ -64,7 +64,7 @@ public class AddressController : Controller
     }
 
     [HttpGet]
-    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Address, ActionType = ActionType.Reading, Definition = "Get By Id Address for Update Address")]
+    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Reading, Definition = "Get By Id Address for Update Address")]
     public async Task<IActionResult> AddressUpdate(int addressId)
     {
         if (addressId > 0)
@@ -83,7 +83,7 @@ public class AddressController : Controller
     }
 
     [HttpPost]
-    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Address, ActionType = ActionType.Updating, Definition = "Update Address")]
+    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Updating, Definition = "Update Address")]
     public async Task<IActionResult> AddressUpdate(AddressDto addressDto)
     {
         if (ModelState.IsValid)
@@ -103,7 +103,7 @@ public class AddressController : Controller
     }
 
     [HttpGet]
-    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Address, ActionType = ActionType.Reading, Definition = "Get By Id Address for Address Details")]
+    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Reading, Definition = "Get By Id Address for Address Details")]
     public async Task<IActionResult>  AddressDetail(int addressId)
     {
         if (addressId > 0)
@@ -121,7 +121,7 @@ public class AddressController : Controller
     }
     
     [HttpPost]
-    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Address, ActionType = ActionType.Deleting, Definition = "Delete Address")]
+    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Deleting, Definition = "Delete Address")]
     public async Task<IActionResult> AddressDelete(int addressId)
     {
         if (addressId > 0)

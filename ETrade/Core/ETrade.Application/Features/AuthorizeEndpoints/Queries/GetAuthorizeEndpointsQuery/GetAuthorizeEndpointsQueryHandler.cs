@@ -1,28 +1,26 @@
-using ETrade.Application.Services;
 using ETrade.Application.Wrappers.Concrete;
 using ETrade.Application.Constants;
 using ETrade.Application.DTOs.Common;
-using ETrade.Application.Model;
 using ETrade.Application.Repositories;
 using ETrade.Domain.Enums;
 using MediatR;
 using Action = ETrade.Domain.Entities.Action;
 
-namespace ETrade.Application.Features.RoleOperations.Queries.GetAuthorizeDefinitionEndpointsQuery;
+namespace ETrade.Application.Features.AuthorizeEndpoints.Queries.GetAuthorizeEndpointsQuery;
 
-public class GetAuthorizeDefinitionEndpointsQueryHandler:IRequestHandler<GetAuthorizeDefinitionEndpointsQueryRequest,GetAuthorizeDefinitionEndpointsQueryResponse>
+public class
+    GetAuthorizeEndpointsQueryHandler : IRequestHandler<GetAuthorizeEndpointsQueryRequest,
+        GetAuthorizeEndpointsQueryResponse>
 {
-    private readonly IAuthorizeDefinationService _authorizeDefinationService;
     private readonly IUnitOfWork _unitOfWork;
 
-    public GetAuthorizeDefinitionEndpointsQueryHandler(IAuthorizeDefinationService authorizeDefinationService, IUnitOfWork unitOfWork)
+    public GetAuthorizeEndpointsQueryHandler(IUnitOfWork unitOfWork)
     {
-        _authorizeDefinationService = authorizeDefinationService;
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<GetAuthorizeDefinitionEndpointsQueryResponse> Handle(
-        GetAuthorizeDefinitionEndpointsQueryRequest request, CancellationToken cancellationToken)
+    public async Task<GetAuthorizeEndpointsQueryResponse> Handle(
+        GetAuthorizeEndpointsQueryRequest request, CancellationToken cancellationToken)
     {
         var menus = await _unitOfWork.MenuRepository.GetAllAsync(m => m.IsActive, m => m.Actions);
         if (menus != null)
@@ -35,9 +33,8 @@ public class GetAuthorizeDefinitionEndpointsQueryHandler:IRequestHandler<GetAuth
                     treeViewDtos.Add(
                         new TreeViewDto()
                         {
-                            id = "0"+ menu.Id.ToString(),
+                            id = menu.Id,
                             text = menu.Name,
-                            @checked = menu.Checked,
                             children = GetActions(menu.Actions)
                         }
                     );
@@ -47,24 +44,26 @@ public class GetAuthorizeDefinitionEndpointsQueryHandler:IRequestHandler<GetAuth
                     treeViewDtos.Add(
                         new TreeViewDto()
                         {
-                            id = menu.Id.ToString(),
+                            id = menu.Id,
                             text = menu.Name,
-                            @checked = true,
                             children = null
                         });
                 }
             }
-            return new GetAuthorizeDefinitionEndpointsQueryResponse
+
+            return new GetAuthorizeEndpointsQueryResponse
             {
                 Result = new DataResult<List<TreeViewDto>>(ResultStatus.Success, treeViewDtos)
             };
         }
-        return new GetAuthorizeDefinitionEndpointsQueryResponse
+
+        return new GetAuthorizeEndpointsQueryResponse
         {
             Result = new DataResult<List<TreeViewDto>>(ResultStatus.Error,
-                Messages.NotFoundAuthorizeDefinitionEndpoints, null)
+                Messages.NotFoundAuthorizeEndpoints, null)
         };
     }
+
     private List<TreeViewDto> GetActions(List<Action> actions)
     {
         List<TreeViewDto> treeViewDtos = new List<TreeViewDto>();
@@ -72,12 +71,13 @@ public class GetAuthorizeDefinitionEndpointsQueryHandler:IRequestHandler<GetAuth
         {
             treeViewDtos.Add(new TreeViewDto()
             {
-                id= action.Id.ToString(),
-                text = action.Definition,
-                @checked = action.Checked,
+                id = action.Id,
+                text = $"<a class='btn btn-info mr-2' onclick='return getRole({action.Id.ToString()})'>" +
+                       $"<i class='fa fa-tasks'>Rol Ata</i></a> {action.Definition}",
                 children = null
             });
         }
+
         return treeViewDtos;
     }
 }

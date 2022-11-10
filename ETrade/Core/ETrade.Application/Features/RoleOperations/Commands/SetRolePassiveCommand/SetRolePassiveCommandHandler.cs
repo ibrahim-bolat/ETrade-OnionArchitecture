@@ -25,41 +25,53 @@ public class SetRolePassiveCommandHandler : IRequestHandler<SetRolePassiveComman
         CancellationToken cancellationToken)
     {
         IdentityResult roleResult;
-        AppRole role = await _roleManager.FindByIdAsync(request.Id);
-        if (role != null)
+        List<int> defaultRoleIds = new List<int>() { 1, 2, 3 };
+        if (!defaultRoleIds.Contains(request.Id))
         {
-            if (role.IsActive)
+            AppRole role = await _roleManager.FindByIdAsync(request.Id.ToString());
+            if (role != null)
             {
-                role.IsActive = false;
-                role.IsDeleted = true;
-                role.ModifiedTime = DateTime.Now;
-                role.ModifiedByName = _httpContextAccessor.HttpContext?.User.Identity?.Name;
-                roleResult = await _roleManager.UpdateAsync(role);
-                var usersInRole = await _userManager.GetUsersInRoleAsync(role.Name);
-                foreach (var user in usersInRole)
+                if (role.IsActive)
                 {
-                    await _userManager.RemoveFromRoleAsync(user, role.Name);
-                }
-                if (roleResult.Succeeded)
-                {
-                    return new SetRolePassiveCommandResponse
+                    if (!defaultRoleIds.Contains(role.Id))
                     {
-                        Result = new Result(ResultStatus.Success, Messages.RoleUpdated)
-                    };
+                        role.IsActive = false;
+                        role.IsDeleted = true;
+                        role.ModifiedTime = DateTime.Now;
+                        role.ModifiedByName = _httpContextAccessor.HttpContext?.User.Identity?.Name;
+                        roleResult = await _roleManager.UpdateAsync(role);
+                        var usersInRole = await _userManager.GetUsersInRoleAsync(role.Name);
+                        foreach (var user in usersInRole)
+                        {
+                            await _userManager.RemoveFromRoleAsync(user, role.Name);
+                        }
+                        if (roleResult.Succeeded)
+                        {
+                            return new SetRolePassiveCommandResponse
+                            {
+                                Result = new Result(ResultStatus.Success, Messages.RoleUpdated)
+                            };
+                        }
+                        return new SetRolePassiveCommandResponse
+                        {
+                            Result = new Result(ResultStatus.Error, Messages.RoleNotDeleted,roleResult.Errors.ToList())
+                        }; 
+                    }
                 }
                 return new SetRolePassiveCommandResponse
                 {
-                    Result = new Result(ResultStatus.Error, Messages.RoleNotDeleted,roleResult.Errors.ToList())
-                }; 
+                    Result = new Result(ResultStatus.Error, Messages.RoleNotActive)
+                };
             }
             return new SetRolePassiveCommandResponse
             {
-                Result = new Result(ResultStatus.Error, Messages.RoleNotActive)
+                Result = new Result(ResultStatus.Error, Messages.RoleNotFound)
             };
         }
         return new SetRolePassiveCommandResponse
         {
-            Result = new Result(ResultStatus.Error, Messages.RoleNotFound)
+            Result = new Result(ResultStatus.Error, Messages.RoleDefaultRole)
         };
+        
     }
 }

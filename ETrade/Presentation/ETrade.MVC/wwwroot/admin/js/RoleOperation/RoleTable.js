@@ -41,16 +41,26 @@ $(document).ready(function ($) {
             },
             {
                 "data": "Id","className": "text-center","width": "50px", "render": function (data, type, row, meta) {
-                    return row.Status ? 
-                        '<a class="btn btn-primary mr-2" href="RoleOperation/Authorization"><i class="fa fa-tasks">Yetkilendirme</i></a>' +
-                        '<a class="btn btn-info mr-2" href="RoleOperation/UsersOfTheRole/' + data + '"><i class="fa fa-info-circle">Rolün Kullanıcıları</i></a>' +
-                        '<a class="btn btn-secondary mr-2" onclick="getByIdforUpdate(' + data + ')"><i class="fa fa-pencil-square-o">Rol Güncelle</i></a>' +
-                        '<a class="btn btn-danger" onclick="SetRolePassive(' + data + ')"><i class="fa fa-solid fa-times">Pasif Yap</i></a>'
-                        :
-                        '<a class="btn btn-primary mr-2" href="RoleOperation/Authorization"><i class="fa fa-tasks">Yetkilendirme</i></a>' +
+                    if(row.Status){
+                        if(data === 1 || data === 2 || data === 3){
+                            return'<a class="btn btn-primary mr-2" href="AuthorizeEndpoints/Index"><i class="fa fa-tasks">Yetkilendirme</i></a>' +
+                                '<a class="btn btn-info mr-2" href="RoleOperation/UsersOfTheRole/' + data + '"><i class="fa fa-info-circle">Rolün Kullanıcıları</i></a>' +
+                                '<a class="btn btn-warning mr-2 disabled">Default Rol</a>' +
+                                '<a class="btn btn-warning disabled">Default Rol</a>';
+                        }
+                        else{
+                            return'<a class="btn btn-primary mr-2" href="AuthorizeEndpoints/Index"><i class="fa fa-tasks">Yetkilendirme</i></a>' +
+                                '<a class="btn btn-info mr-2" href="RoleOperation/UsersOfTheRole/' + data + '"><i class="fa fa-info-circle">Rolün Kullanıcıları</i></a>' +
+                                '<a class="btn btn-secondary mr-2" onclick="getByIdforUpdate(' + data + ')"><i class="fa fa-pencil-square-o">Rol Güncelle</i></a>' +
+                                '<a class="btn btn-danger" onclick="SetRolePassive(' + data + ')"><i class="fa fa-solid fa-times">Pasif Yap</i></a>';
+                        }
+                    }
+                    else{
+                        return '<a class="btn btn-primary mr-2" href="RoleOperation/Authorization"><i class="fa fa-tasks">Yetkilendirme</i></a>' +
                         '<a class="btn btn-info mr-2" href="RoleOperation/UsersOfTheRole/' + data + '"><i class="fa fa-info-circle">Rolün Kullanıcıları</i></a>' +
                         '<a class="btn btn-secondary mr-2" onclick="getByIdforUpdate(' + data + ')"><i class="fa fa-pencil-square-o">Rol Güncelle</i></a>' +
                         '<a class="btn btn-success" onclick="SetRoleActive(' + data + ')"><i class="fa fa-solid fa-check">Aktif Yap</i></a>';
+                    }
                 }
             }
         ],
@@ -59,7 +69,7 @@ $(document).ready(function ($) {
             "pageLength",
         ]
     });
-
+//<h3><span class="badge badge-danger" >Default Rol</span></h3>'
     $(tables.table().body())
         .addClass('tbody');
 

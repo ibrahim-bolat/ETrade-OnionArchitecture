@@ -26,10 +26,13 @@
                                 <i class="fa fa-user"></i><a asp-area="Admin" asp-controller="UserOperation"  asp-action="Index"  class="nav-link" >Aktif Kullanıcılar</a>
                             </li>
                             <li>
-                                <i class="fa fa-user"></i><a asp-area="Admin" asp-controller="DeletedAccount"  asp-action="Index"  class="nav-link" >Silinmiş Kullanıcılar</a>
+                                <i class="fa fa-ban"></i><a asp-area="Admin" asp-controller="DeletedAccount"  asp-action="Index"  class="nav-link" >Silinmiş Kullanıcılar</a>
                             </li>
                             <li>
                                 <i class="fa fa-cogs"></i><a asp-area="Admin" asp-controller="RoleOperation"  asp-action="Index" class="nav-link" >Rol İşlemleri</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-toggle-on"></i><a asp-area="Admin" asp-controller="AuthorizeEndpoints"  asp-action="Index" class="nav-link" >Yetkilemdirme İşlemleri</a>
                             </li>
                         </ul>
                     </li>

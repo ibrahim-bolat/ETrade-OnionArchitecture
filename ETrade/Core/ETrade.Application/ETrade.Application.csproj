@@ -14,6 +14,11 @@
       <Folder Include="Features\Accounts\Constants" />
       <Folder Include="Features\Addresses\BusinessRules" />
       <Folder Include="Features\Addresses\Models\ViewModels" />
+      <Folder Include="Features\AuthorizeEndpoints\BusinessRules" />
+      <Folder Include="Features\AuthorizeEndpoints\Constants" />
+      <Folder Include="Features\AuthorizeEndpoints\DTOs" />
+      <Folder Include="Features\AuthorizeEndpoints\MappingProfiles" />
+      <Folder Include="Features\AuthorizeEndpoints\Validations" />
       <Folder Include="Features\RoleOperations\BusinessRules" />
       <Folder Include="Features\RoleOperations\Constants" />
       <Folder Include="Features\UserImages\BusinessRules" />

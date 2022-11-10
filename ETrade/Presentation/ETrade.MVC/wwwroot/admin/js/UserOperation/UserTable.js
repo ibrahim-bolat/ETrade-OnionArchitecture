@@ -39,7 +39,7 @@ $(document).ready(function ($) {
             {"data": "Email", "name": "Email", "autoWidth": true},
             {
                 "data": "Id", "width": "50px", "render": function (data) {
-                    return '<a class="btn btn-success mr-2" onclick="return getRole(' + data + ')"><i class="fa fa-tasks">Rol Atama</i></a>' +
+                    return '<a class="btn btn-success mr-2" onclick="return getRole(' + data + ')"><i class="fa fa-tasks">Rol Ata</i></a>' +
                         '<a class="btn btn-info mr-2" href="Account/Profile/' + data + '"><i class="fa fa-info-circle">Detay</i></a>' +
                         '<a class="btn btn-secondary mr-2" href="Account/EditProfile/'+data+'"><i class="fa fa-pencil-square-o">Profil Güncelle</i></a>' +
                         '<a class="btn btn-warning mr-2" href="Account/EditPassword/'+data+'"><i class="fa fa-pencil-square-o">Şifre Güncelle</i></a>' +
@@ -161,13 +161,13 @@ $(document).ready(function ($) {
 
     //RoleModal Save
     $('#roleModalSave').click( function (e) {
-        var roles = [];
+        var roleIds = [];
         var Id = $('#roleModalForm .modal-body input[type="checkbox"]').attr("data-id");
         $.each($('#roleModalForm .modal-body input[type="checkbox"]:checked'), function() {
             var role_id = $(this).attr("name");
-            roles.push(role_id);
+            roleIds.push(role_id);
         })
-        var postData = { roles: roles };
+        var postData = { roleIds: roleIds };
         $.ajax({
             url: '/Admin/UserOperation/SaveRole/' + Id,
             type: "POST",
@@ -177,13 +177,13 @@ $(document).ready(function ($) {
             success: function (result) {
                 if (result.success) {
                     $("#roleModal").modal("hide");
-                    toastMessage(5000, "success", "İşlem Başarıyla Gerçekleşti")
+                    toastMessage(5000, "success", "Rol Atama Başarıyla Gerçekleşti")
                 } else {
-                    toastMessage(3000, "error", "İşlem Yapılamadı!")
+                    toastMessage(3000, "error", "Rol Atama İşlemi Yapılamadı!")
                 }
             },
             error: function (errormessage) {
-                toastMessage(3000, "error", "İşlem Yapılamadı!")
+                toastMessage(3000, "error", "Rol Atama İşlemi Yapılamadı!")
             }
         });
         return false;
@@ -210,7 +210,7 @@ function getRole(Id) {
             if (result.success) {
                 $.each(result.roles, function(index, value) {
                     var isChecked = "";
-                    if(value.HasAssign == true)
+                    if(value.HasAssign === true)
                         isChecked="checked";
                     html+=`<div class="custom-control custom-switch custom-control-inline">
                           <input class="custom-control-input" type="checkbox" data-id="${Id}" name="${value.Id}" id="roleHasAssign${value.Id}" ${isChecked}>
@@ -220,12 +220,12 @@ function getRole(Id) {
                 $('#roleModal .modal-body').html(html);
                 $('#roleModal').modal('show');
             } else {
-                toastMessage(3000, "error", "Kayıt Getirilemedi")
+                toastMessage(3000, "error", "Roller Getirilemedi")
             }
 
         },
         error: function (errormessage) {
-            toastMessage(3000, "error", "Kayıt Getirilemedi")
+            toastMessage(3000, "error", "Roller Getirilemedi")
         }
     });
     return false;

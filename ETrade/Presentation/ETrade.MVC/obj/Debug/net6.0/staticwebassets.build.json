@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "xWu6Si1zKjGXyqGb9sTJAaUPmgpOH3znEAe5LpiOJ/U=",
+  "Hash": "FbArmepOYl60r8RRxnWSgBiZBA/n/rpvA+l8981WdJo=",
   "Source": "ETrade.MVC",
   "BasePath": "_content/ETrade.MVC",
   "Mode": "Default",
@@ -1681,6 +1681,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/admin/js/admin.js"
+    },
+    {
+      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/AuthorizeEndpoints/AuthorizeEndpoints.js",
+      "SourceId": "ETrade.MVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/",
+      "BasePath": "_content/ETrade.MVC",
+      "RelativePath": "admin/js/AuthorizeEndpoints/AuthorizeEndpoints.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/admin/js/AuthorizeEndpoints/AuthorizeEndpoints.js"
     },
     {
       "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/DeletedAccount/DeletedUserTable.js",

@@ -4,5 +4,5 @@ namespace ETrade.Application.Features.RoleOperations.Commands.SetRoleActiveComma
 
 public class SetRoleActiveCommandRequest:IRequest<SetRoleActiveCommandResponse>
 {
-    public string Id { get; set; }
+    public int Id { get; set; }
 }

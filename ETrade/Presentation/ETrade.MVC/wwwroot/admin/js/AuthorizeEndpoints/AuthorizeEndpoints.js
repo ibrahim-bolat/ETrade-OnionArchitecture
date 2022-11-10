@@ -1,0 +1,110 @@
+﻿var $ = jQuery.noConflict();
+$(document).ready(function ($) {
+    var tree = $('#tree').tree({
+        primaryKey: 'id',
+        uiLibrary: 'bootstrap4',
+        dataSource: '/Admin/AuthorizeEndpoints/GetAuthorizeEndpoints',
+        width: 800,
+        icons: {
+            expand: '<i class="gj-icon chevron-right"></i>',
+            collapse: '<i class="gj-icon chevron-down"></i>'
+        }
+    });
+
+    tree.on('dataBound', function () {
+        tree.expandAll();
+    });
+    $('#expandAll').on('click', function () {
+        tree.expandAll();
+    });
+    $('#collapseAll').on('click', function () {
+        tree.collapseAll();
+    });
+
+    //RoleModal Save
+    $('#endpointRoleModalSave').click(function (e) {
+        var roleIds = [];
+        var Id = $('#endpointRoleModalForm .modal-body input[type="checkbox"]').attr("data-id");
+        $.each($('#endpointRoleModalForm .modal-body input[type="checkbox"]:checked'), function () {
+            var role_id = $(this).attr("name");
+            roleIds.push(role_id);
+        })
+        var postData = {
+            roleIds: roleIds
+        };
+        $.ajax({
+            url: '/Admin/AuthorizeEndpoints/AssignRoleListAuthorizeEndpoints/' + Id,
+            type: "POST",
+            data: postData,
+            dataType: "json",
+            traditional: true,
+            success: function (result) {
+                if (result.success) {
+                    $("#endpointRoleModal").modal("hide");
+                    toastMessage(5000, "success", "Rol Atama Başarıyla Gerçekleşti")
+                } else {
+                    toastMessage(3000, "error", "Rol Atama İşlemi Yapılamadı!")
+                }
+            },
+            error: function (errormessage) {
+                toastMessage(3000, "error", "Rol Atama İşlemi Yapılamadı!")
+            }
+        });
+        return false;
+    });
+});
+
+//Get Role By Id For Rol Save
+function getRole(Id) {
+    console.log(Id);
+    var html = "";
+    $.ajax({
+        url: '/Admin/AuthorizeEndpoints/GetRole/' + Id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            if (result.success) {
+                $.each(result.roles, function (index, value) {
+                    var isChecked = "";
+                    if (value.HasAssign === true)
+                        isChecked = "checked";
+                    html += `<div class="custom-control custom-switch custom-control-inline">
+                                     <input class="custom-control-input" type="checkbox" data-id="${Id}" name="${value.Id}" id="roleHasAssign${value.Id}" ${isChecked}>
+                                     <label class="custom-control-label" for="roleHasAssign${value.Id}">${value.Name}</label>
+                                     </div>`
+                });
+                $('#endpointRoleModal .modal-body').html(html);
+                $('#endpointRoleModal').modal('show');
+            } else {
+                toastMessage(3000, "error", "Roller Getirilemedi")
+            }
+
+        },
+        error: function (errormessage) {
+            toastMessage(3000, "error", "Roller Getirilemedi")
+        }
+    });
+    return false;
+}
+
+//Action Message
+function toastMessage(time, icon, message) {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: time,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('click', Swal.close)
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
+    Toast.fire({
+        icon: icon,
+        title: message,
+    })
+}

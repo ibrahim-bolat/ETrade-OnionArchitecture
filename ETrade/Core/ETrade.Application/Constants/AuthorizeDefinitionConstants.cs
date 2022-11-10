@@ -1,6 +1,6 @@
 namespace ETrade.Application.Constants;
 
-public static class AuthorizeDefinitionConstants
+public static class AuthorizeEndpointConstants
 {
     public const string Account = "Account";
     public const string Address = "Address";

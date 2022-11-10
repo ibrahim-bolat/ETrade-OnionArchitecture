@@ -18,8 +18,20 @@ public class AppRoleMap : IEntityTypeConfiguration<AppRole>
             builder.HasData(new AppRole
             {
                 Id = 1,
+                Name = RoleType.Owner.ToString(),
+                NormalizedName = RoleType.Owner.ToString().ToUpperInvariant()
+            },
+            new AppRole
+            {
+                Id = 2,
                 Name = RoleType.Admin.ToString(),
                 NormalizedName = RoleType.Admin.ToString().ToUpperInvariant()
+            },
+            new AppRole
+            {
+                Id = 3,
+                Name = RoleType.User.ToString(),
+                NormalizedName = RoleType.User.ToString().ToUpperInvariant()
             });
-    }
+         }
     }

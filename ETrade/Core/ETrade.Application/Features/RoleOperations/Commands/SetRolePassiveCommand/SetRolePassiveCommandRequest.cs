@@ -4,5 +4,5 @@ namespace ETrade.Application.Features.RoleOperations.Commands.SetRolePassiveComm
 
 public class SetRolePassiveCommandRequest:IRequest<SetRolePassiveCommandResponse>
 {
-    public string Id { get; set; }
+    public int Id { get; set; }
 }

@@ -23,36 +23,48 @@ public class SetRoleActiveCommandCommandHandler : IRequestHandler<SetRoleActiveC
         CancellationToken cancellationToken)
     {
         IdentityResult roleResult;
-        AppRole role = await _roleManager.FindByIdAsync(request.Id);
-        if (role != null)
+        List<int> defaultRoleIds = new List<int>() { 1, 2, 3 };
+        if (!defaultRoleIds.Contains(request.Id))
         {
-            if (role.IsDeleted)
+            AppRole role = await _roleManager.FindByIdAsync(request.Id.ToString());
+            if (role != null)
             {
-                role.IsActive = true;
-                role.IsDeleted = false;
-                role.ModifiedTime = DateTime.Now;
-                role.ModifiedByName = _httpContextAccessor.HttpContext?.User.Identity?.Name;
-                roleResult = await _roleManager.UpdateAsync(role);
-                if (roleResult.Succeeded)
+                if (role.IsDeleted)
                 {
-                    return new SetRoleActiveCommandResponse
+                    if (!defaultRoleIds.Contains(role.Id))
                     {
-                        Result = new Result(ResultStatus.Success, Messages.RoleUpdated)
-                    };
+                        role.IsActive = true;
+                        role.IsDeleted = false;
+                        role.ModifiedTime = DateTime.Now;
+                        role.ModifiedByName = _httpContextAccessor.HttpContext?.User.Identity?.Name;
+                        roleResult = await _roleManager.UpdateAsync(role);
+                        if (roleResult.Succeeded)
+                        {
+                            return new SetRoleActiveCommandResponse
+                            {
+                                Result = new Result(ResultStatus.Success, Messages.RoleUpdated)
+                            };
+                        }
+                        return new SetRoleActiveCommandResponse
+                        {
+                            Result = new Result(ResultStatus.Error, Messages.RoleNotDeleted,roleResult.Errors.ToList())
+                        };
+                    }
+
                 }
                 return new SetRoleActiveCommandResponse
                 {
-                    Result = new Result(ResultStatus.Error, Messages.RoleNotDeleted,roleResult.Errors.ToList())
-                }; 
+                    Result = new Result(ResultStatus.Error, Messages.RoleActive)
+                };
             }
             return new SetRoleActiveCommandResponse
             {
-                Result = new Result(ResultStatus.Error, Messages.RoleActive)
+                Result = new Result(ResultStatus.Error, Messages.RoleNotFound)
             };
         }
         return new SetRoleActiveCommandResponse
         {
-            Result = new Result(ResultStatus.Error, Messages.RoleNotFound)
+            Result = new Result(ResultStatus.Error, Messages.RoleDefaultRole)
         };
     }
 }

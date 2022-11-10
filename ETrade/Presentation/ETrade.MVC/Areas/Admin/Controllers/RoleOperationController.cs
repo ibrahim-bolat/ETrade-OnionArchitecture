@@ -3,21 +3,16 @@ using ETrade.Application.CustomAttributes;
 using ETrade.Application.DTOs.Common;
 using ETrade.Application.Features.RoleOperations.Commands.CreateRoleCommand;
 using ETrade.Application.Features.RoleOperations.Commands.RemoveUserFromRoleCommand;
-using ETrade.Application.Features.RoleOperations.Commands.SaveAuthorizeDefinitionEndpointsCommand;
 using ETrade.Application.Features.RoleOperations.Commands.SetRoleActiveCommand;
 using ETrade.Application.Features.RoleOperations.Commands.SetRolePassiveCommand;
 using ETrade.Application.Features.RoleOperations.Commands.UpdateRoleCommand;
 using ETrade.Application.Features.RoleOperations.DTOs;
-using ETrade.Application.Features.RoleOperations.Queries.GetAuthorizeDefinitionEndpointsQuery;
 using ETrade.Application.Features.RoleOperations.Queries.GetByIdRoleQuery;
 using ETrade.Application.Features.RoleOperations.Queries.GetRoleListQuery;
 using ETrade.Application.Features.RoleOperations.Queries.GetUsersOfTheRoleQuery;
 using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 
 namespace ETrade.MVC.Areas.Admin.Controllers;
@@ -34,7 +29,7 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
 
         [HttpGet]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.RoleOperation, ActionType = ActionType.Reading, Definition = "Get RoleOperation Index Page")]
+        [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.RoleOperation, ActionType = ActionType.Reading, Definition = "Get RoleOperation Index Page")]
         public IActionResult  Index()
         {
             return View();
@@ -56,38 +51,9 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
             };
             return Ok(jsonData);
         }
-        
-        [HttpGet]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.RoleOperation, ActionType = ActionType.Reading, Definition = "Get Authorization Index Page")]
-        public  IActionResult Authorization()
-        {
-            return View();
-        }
-        
-        [HttpGet]
-        public  async Task<IActionResult>  GetPermission(string query)
-        {
-         
-            var dresult = await _mediator.Send(new GetAuthorizeDefinitionEndpointsQueryRequest()
-            {
-                Type = typeof(Program),
-                Query = query
-            });
-            return Ok(dresult.Result.Data);
-        }
 
-        [HttpPost]
-        public  async Task<IActionResult>  SavePermission(List<int> checkedActionIds)
-        {
-            var dresult = await _mediator.Send(new SaveAuthorizeDefinitionEndpointsCommandRequest()
-            {
-                CheckedIds = checkedActionIds
-            });
-            return Ok(true);
-        }
-        
         [HttpGet]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.RoleOperation, ActionType = ActionType.Reading, Definition = "Get Users Of TheRole Index Page")]
+        [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.RoleOperation, ActionType = ActionType.Reading, Definition = "Get Users Of TheRole Index Page")]
         public  async Task<IActionResult> UsersOfTheRole(int id)
         {
             var dresult = await _mediator.Send(new GetByIdRoleQueryRequest()
@@ -155,7 +121,7 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
 
         [HttpPost]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.RoleOperation, ActionType = ActionType.Writing, Definition = "Create Role")]
+        [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.RoleOperation, ActionType = ActionType.Writing, Definition = "Create Role")]
         public async Task<IActionResult> CreateRole(RoleDto roleDto)
         {
             if (!ModelState.IsValid)
@@ -179,7 +145,7 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
 
         [HttpPost]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.RoleOperation, ActionType = ActionType.Updating, Definition = "Update Role")]
+        [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.RoleOperation, ActionType = ActionType.Updating, Definition = "Update Role")]
         public async Task<IActionResult> UpdateRole(RoleDto roleDto)
         {
             if (!ModelState.IsValid)
@@ -200,6 +166,11 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
                 ModelState.AddModelError("RoleActive", Messages.RoleNotFound);
                 return PartialView("PartialViews/_RoleUpdateModalPartial", roleDto);   
             }
+            if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.Message.Equals(Messages.RoleDefaultRole))
+            {
+                ModelState.AddModelError("RoleDefaultRole", Messages.RoleDefaultRole);
+                return PartialView("PartialViews/_RoleUpdateModalPartial", roleDto);   
+            }
             if (dresult.Result.ResultStatus == ResultStatus.Success)
             {
                 return Json(new { success = true });
@@ -208,7 +179,7 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
         
         [HttpPost]
-        public async Task<IActionResult> SetRoleActive(string id)
+        public async Task<IActionResult> SetRoleActive(int id)
         {
             var dresult = await _mediator.Send(new SetRoleActiveCommandRequest()
             {
@@ -223,6 +194,13 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
                 dresult.Result.Message.Equals(Messages.RoleNotFound))
             {
                 ModelState.AddModelError("RoleNotFound", Messages.RoleNotFound);
+                var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
+                return Json(new { success = false, errors = errors });
+            }
+            if (dresult.Result.ResultStatus == ResultStatus.Error &&
+                dresult.Result.Message.Equals(Messages.RoleDefaultRole))
+            {
+                ModelState.AddModelError("RoleDefaultRole", Messages.RoleDefaultRole);
                 var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
                 return Json(new { success = false, errors = errors });
             }
@@ -243,7 +221,7 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
         
         [HttpPost]
-        public async Task<IActionResult> SetRolePassive(string id)
+        public async Task<IActionResult> SetRolePassive(int id)
         {
             var dresult = await _mediator.Send(new SetRolePassiveCommandRequest()
             {
@@ -258,6 +236,13 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
                 dresult.Result.Message.Equals(Messages.RoleNotFound))
             {
                 ModelState.AddModelError("RoleNotFound", Messages.RoleNotFound);
+                var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
+                return Json(new { success = false, errors = errors });
+            }
+            if (dresult.Result.ResultStatus == ResultStatus.Error &&
+                dresult.Result.Message.Equals(Messages.RoleDefaultRole))
+            {
+                ModelState.AddModelError("RoleDefaultRole", Messages.RoleDefaultRole);
                 var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
                 return Json(new { success = false, errors = errors });
             }
@@ -278,7 +263,7 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
         
         [HttpGet]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.RoleOperation, ActionType = ActionType.Reading, Definition = "Get By Id Role Details")]
+        [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.RoleOperation, ActionType = ActionType.Reading, Definition = "Get By Id Role Details")]
         public async Task<IActionResult> GetRole(string id)
         {
             var dresult = await _mediator.Send(new GetByIdRoleQueryRequest()

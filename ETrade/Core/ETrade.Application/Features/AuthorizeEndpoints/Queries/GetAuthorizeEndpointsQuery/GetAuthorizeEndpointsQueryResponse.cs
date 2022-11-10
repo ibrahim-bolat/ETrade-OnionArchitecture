@@ -3,9 +3,9 @@ using ETrade.Application.DTOs.Common;
 using ETrade.Application.Model;
 using ETrade.Application.Wrappers.Abstract;
 
-namespace ETrade.Application.Features.RoleOperations.Queries.GetAuthorizeDefinitionEndpointsQuery;
+namespace ETrade.Application.Features.AuthorizeEndpoints.Queries.GetAuthorizeEndpointsQuery;
 
-public class GetAuthorizeDefinitionEndpointsQueryResponse
+public class GetAuthorizeEndpointsQueryResponse
 {
     public IDataResult<List<TreeViewDto>> Result { get; set; }
 }

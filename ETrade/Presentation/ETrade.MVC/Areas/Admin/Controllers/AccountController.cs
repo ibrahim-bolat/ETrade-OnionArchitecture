@@ -228,7 +228,7 @@ public class AccountController : Controller
     }
 
     [HttpGet]
-    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Account, ActionType = ActionType.Reading, Definition = "Get By Id User for Edit Profile")]
+    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.Account, ActionType = ActionType.Reading, Definition = "Get By Id User for Edit Profile")]
     public async Task<IActionResult> EditProfile(int id)
     {
         var dresult = await _mediator.Send(new GetByIdUserQueryRequest()
@@ -243,7 +243,7 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Account, ActionType = ActionType.Updating, Definition = "Edit Profile")]
+    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.Account, ActionType = ActionType.Updating, Definition = "Edit Profile")]
     public async Task<IActionResult> EditProfile(UserDto userDto)
     {
         if (ModelState.IsValid)
@@ -282,7 +282,7 @@ public class AccountController : Controller
     }
 
     [HttpGet]
-    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Account, ActionType = ActionType.Reading, Definition = "Get By Id User for Edit Password")]
+    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.Account, ActionType = ActionType.Reading, Definition = "Get By Id User for Edit Password")]
     public async Task<IActionResult> EditPassword(int id)
     {
         var dresult = await _mediator.Send(new GetByIdForEditPasswordUserQueryRequest()
@@ -297,7 +297,7 @@ public class AccountController : Controller
     }
     
     [HttpPost]
-    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Account, ActionType = ActionType.Updating, Definition = "Edit Password")]
+    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.Account, ActionType = ActionType.Updating, Definition = "Edit Password")]
     public async Task<IActionResult> EditPassword(EditPasswordDto editPasswordDto)
     {
         if (ModelState.IsValid)
@@ -338,7 +338,7 @@ public class AccountController : Controller
 
 
     [HttpGet]
-    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Account, ActionType = ActionType.Reading, Definition = "Get By Id User for Profile Details")]
+    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.Account, ActionType = ActionType.Reading, Definition = "Get By Id User for Profile Details")]
     public async Task<IActionResult> Profile(int id)
     {
         var dresult = await _mediator.Send(new GetByIdForDetailProfileUserQueryRequest()
