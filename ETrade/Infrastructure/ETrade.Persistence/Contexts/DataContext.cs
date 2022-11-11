@@ -21,6 +21,7 @@ namespace ETrade.Persistence.Contexts;
         public DbSet<VehicleImage> VehicleImages  { get; set; }
         public DbSet<Menu> Menus  { get; set; }
         public DbSet<Action> Actions  { get; set; }
+        public DbSet<RequestInfoLog> RequestInfoLogs  { get; set; }
 
 
         public DataContext(DbContextOptions<DataContext> dbContext) : base(dbContext)
@@ -45,5 +46,6 @@ namespace ETrade.Persistence.Contexts;
             builder.ApplyConfiguration(new VehicleImageMap());
             builder.ApplyConfiguration(new MenuMap());
             builder.ApplyConfiguration(new ActionMap());
+            builder.ApplyConfiguration(new RequestInfoLogMap());
         }
     }

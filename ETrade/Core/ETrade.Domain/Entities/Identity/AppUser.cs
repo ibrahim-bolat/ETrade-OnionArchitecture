@@ -24,5 +24,7 @@ public class AppUser:IdentityUser<int>,IIdentityEntity
         public  string Note { get; set; }
         public  List<Address> Addresses{ get; set; }
         public  List<UserImage> UserImages{ get; set; }
+        
+        public  List<RequestInfoLog> RequestInfoLogs{ get; set; }
     }
     
