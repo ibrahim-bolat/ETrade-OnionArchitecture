@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ETrade.Application.Constants;
+using ETrade.Application.CustomAttributes;
+using ETrade.Domain.Enums;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
 namespace ETrade.MVC.Controllers;
@@ -17,5 +20,4 @@ public class HomeController : Controller
     {
         return View();
     }
-
 }

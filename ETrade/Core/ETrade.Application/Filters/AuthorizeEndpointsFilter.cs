@@ -11,16 +11,11 @@ namespace ETrade.Application.Filters;
 public class AuthorizeEndpointsFilter : IAsyncActionFilter
 {
     private readonly UserManager<AppUser> _userManager;
-    private readonly RoleManager<AppRole> _roleManager;
-    private readonly SignInManager<AppUser> _signInManager;
     private readonly IUnitOfWork _unitOfWork;
 
-    public AuthorizeEndpointsFilter(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager,
-        SignInManager<AppUser> signInManager, IUnitOfWork unitOfWork)
+    public AuthorizeEndpointsFilter(UserManager<AppUser> userManager, IUnitOfWork unitOfWork)
     {
         _userManager = userManager;
-        _roleManager = roleManager;
-        _signInManager = signInManager;
         _unitOfWork = unitOfWork;
     }
 
@@ -30,15 +25,20 @@ public class AuthorizeEndpointsFilter : IAsyncActionFilter
         string controllerName = context.HttpContext.Request.RouteValues["controller"] as string;
         string actionName = context.HttpContext.Request.RouteValues["action"] as string;
         //string Id = context.ActionArguments["id"] as string;
-
-        Action action = await _unitOfWork.ActionRepository.GetAsync(
-            a => a.ActionName == actionName && a.ControllerName == controllerName && a.IsActive, 
-            a => a.AppRoles);
-        if (areaName == null || action == null)
+        Action action;
+        if (areaName != null)
         {
-            await next();
+            action = await _unitOfWork.ActionRepository.GetAsync(
+                a => a.ActionName == actionName && a.ControllerName == controllerName  && 
+                     a.AreaName == areaName && a.IsActive, a => a.AppRoles);
         }
         else
+        {
+            action = await _unitOfWork.ActionRepository.GetAsync(
+                a => a.ActionName == actionName && a.ControllerName == controllerName  && 
+                     a.AreaName == null && a.IsActive, a => a.AppRoles);
+        }
+        if (action != null)
         {
             if (context.HttpContext.User.Identity != null && context.HttpContext.User.Identity.Name != null)
             {
@@ -49,15 +49,18 @@ public class AuthorizeEndpointsFilter : IAsyncActionFilter
                     await next();
                 }
             }
+            context.Result = new RedirectToRouteResult(
+                new RouteValueDictionary()
+                {
+                    { "action", "AllErrorPages" },
+                    { "controller", "ErrorPages" },
+                    { "area", "" },
+                    { "statusCode", 401 },
+                });
         }
-        
-        context.Result = new RedirectToRouteResult(
-            new RouteValueDictionary()
-            {
-                { "action", "AllErrorPages" },
-                { "controller", "ErrorPages" },
-                { "area", "" },
-                { "statusCode", 401 },
-            });
+        else
+        {
+            await next();
+        }
     }
 }
