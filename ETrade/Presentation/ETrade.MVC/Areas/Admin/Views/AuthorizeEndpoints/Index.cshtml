@@ -7,13 +7,31 @@
 @section Style {
     <link href="~/css/gijgo/gijgo.min.css" rel="stylesheet" type="text/css" />
     <style>
-        .row {
-            margin: 10px;
-        }
         span .gj-icon {
             color: #536DFE;
             font-weight: bold;
          }
+        /* roleModal Checkbox Switch Change Color */
+         .custom-control-input:focus ~ .custom-control-label::before {
+             border-color: #28a745 !important;
+             box-shadow: #28a745 !important;
+        }
+         .custom-control-input:checked ~ .custom-control-label::before {
+             border-color: #28a745 !important;
+             background-color: #28a745 !important;
+        }
+         .custom-control-input:active ~ .custom-control-label::before {
+             background-color: #28a745 !important;
+             border-color: #28a745 !important;
+        }
+         .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+             border-color: #28a745 !important;
+        }
+         .custom-control-input-green:not(:disabled):active ~ .custom-control-label::before {
+             background-color: #28a745 !important;
+             border-color: #28a745 !important;
+        }
+
     </style>
 }
 

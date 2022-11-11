@@ -41,23 +41,37 @@ public static class AuthorizeEndpointsMigrateExtension
                                     attributes.FirstOrDefault(a =>
                                             a.GetType() == typeof(AuthorizeDefinitionAttribute)) as
                                         AuthorizeDefinitionAttribute;
-
+                                
+                                
+                                var controllerAttributes = controller.GetCustomAttributes(true);
+                                var areaAttribute =
+                                    controllerAttributes.FirstOrDefault(a =>
+                                            a.GetType() == typeof(AreaAttribute)) as
+                                        AreaAttribute;
+                                var areaAttributeName = areaAttribute?.RouteValue;
+                                
                                 if (authorizeDefinitionAttribute != null)
                                 {
                                     if (menu == null)
                                     {
+                                        
                                         menu = new Menu()
                                         {
-                                            Name = authorizeDefinitionAttribute.Menu
+                                            ControllerName  = controller.Name.Split("Controller").FirstOrDefault(),
+                                            AreaName = areaAttributeName,
+                                            Definition = authorizeDefinitionAttribute.Menu
                                         };
-                                        if (await unitOfWork.MenuRepository.AnyAsync(m => m.Name == menu.Name))
+                                        if (await unitOfWork.MenuRepository.AnyAsync(m => m.ControllerName == menu.ControllerName))
                                         {
-                                            menu = await unitOfWork.MenuRepository.GetAsync(m => m.Name == menu.Name,m=>m.Actions);
+                                            menu = await unitOfWork.MenuRepository.GetAsync(m => m.ControllerName == menu.ControllerName,m=>m.Actions);
                                         }
                                     }
 
                                     Action newAction = new()
                                     {
+                                        ActionName = action.Name,
+                                        ControllerName = controller.Name.Split("Controller").FirstOrDefault(),
+                                        AreaName = areaAttributeName,
                                         ActionType = Enum.GetName(typeof(ActionType),
                                             authorizeDefinitionAttribute.ActionType),
                                         Definition = authorizeDefinitionAttribute.Definition
@@ -81,13 +95,13 @@ public static class AuthorizeEndpointsMigrateExtension
                                 }
                             }
 
-                            if ( menu != null && !await unitOfWork.MenuRepository.AnyAsync(m => m.Name == menu.Name))
+                            if ( menu != null && !await unitOfWork.MenuRepository.AnyAsync(m => m.ControllerName == menu.ControllerName))
                             {
      
                                 await unitOfWork.MenuRepository.AddAsync(menu);
                             }
 
-                            if (menu != null && await unitOfWork.MenuRepository.AnyAsync(m => m.Name == menu.Name))
+                            if (menu != null && await unitOfWork.MenuRepository.AnyAsync(m => m.ControllerName == menu.ControllerName))
                             {
                                 await unitOfWork.MenuRepository.UpdateAsync(menu);
                             }

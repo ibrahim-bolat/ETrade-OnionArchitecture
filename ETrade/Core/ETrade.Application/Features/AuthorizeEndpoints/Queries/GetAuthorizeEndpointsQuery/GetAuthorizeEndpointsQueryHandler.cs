@@ -34,7 +34,7 @@ public class
                         new TreeViewDto()
                         {
                             id = menu.Id,
-                            text = menu.Name,
+                            text = menu.ControllerName,
                             children = GetActions(menu.Actions)
                         }
                     );
@@ -45,7 +45,7 @@ public class
                         new TreeViewDto()
                         {
                             id = menu.Id,
-                            text = menu.Name,
+                            text = menu.ControllerName,
                             children = null
                         });
                 }

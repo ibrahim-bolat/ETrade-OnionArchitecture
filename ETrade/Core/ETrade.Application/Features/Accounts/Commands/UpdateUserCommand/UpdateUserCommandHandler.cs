@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using AutoMapper;
 using ETrade.Application.Features.Accounts.DTOs;
 using ETrade.Application.Constants;
@@ -80,8 +81,7 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommandRequest
                 string userIdentityName = _httpContextAccessor.HttpContext?.User.Identity?.Name;
                 if (!String.IsNullOrEmpty(userIdentityName) && !String.IsNullOrEmpty(tempUserName) && userIdentityName.Equals(tempUserName) && (!tempUserName.Equals(request.UserDto.UserName) || !tempUserEmail.Equals(request.UserDto.Email)))
                 {
-                    await _signInManager.SignOutAsync();
-                    await _signInManager.SignInAsync(user, true);
+                    await _signInManager.RefreshSignInAsync(user);
                 }
                 return new UpdateUserCommandResponse
                 {

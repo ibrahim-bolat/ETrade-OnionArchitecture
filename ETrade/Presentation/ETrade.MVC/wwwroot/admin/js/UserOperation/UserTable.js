@@ -212,10 +212,18 @@ function getRole(Id) {
                     var isChecked = "";
                     if(value.HasAssign === true)
                         isChecked="checked";
-                    html+=`<div class="custom-control custom-switch custom-control-inline">
+                    if(index%2===0){
+                        html+=`<div class="row mb-2">`
+                    }
+                    html+=`<div class="col-6">
+                          <div class="custom-control custom-switch custom-control-inline">
                           <input class="custom-control-input" type="checkbox" data-id="${Id}" name="${value.Id}" id="roleHasAssign${value.Id}" ${isChecked}>
                           <label class="custom-control-label" for="roleHasAssign${value.Id}">${value.Name}</label>
+                          </div>
                           </div>`
+                    if(index%2===1){
+                        html+=`</div>`
+                    }
                 });
                 $('#roleModal .modal-body').html(html);
                 $('#roleModal').modal('show');

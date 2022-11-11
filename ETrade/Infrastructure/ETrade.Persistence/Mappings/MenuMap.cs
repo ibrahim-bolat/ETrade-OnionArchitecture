@@ -11,7 +11,9 @@ namespace ETrade.Persistence.Mappings;
         {
             builder.HasKey(menu => menu.Id);
             builder.Property(menu => menu.Id).ValueGeneratedOnAdd();
-            builder.Property(menu => menu.Name).HasMaxLength(100).IsRequired();
+            builder.Property(menu => menu.ControllerName).HasMaxLength(100).IsRequired();
+            builder.Property(menu => menu.Definition).HasMaxLength(150).IsRequired();
+            builder.Property(menu => menu.AreaName).HasMaxLength(100);
             builder.Property(menu => menu.Note).HasMaxLength(500);
             builder.HasMany(menu => menu.Actions).WithOne(action => action.Menu)
                 .HasForeignKey(action => action.MenuId).OnDelete(DeleteBehavior.Cascade);

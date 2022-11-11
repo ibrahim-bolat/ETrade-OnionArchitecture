@@ -1,7 +1,5 @@
 using System.Text.Json.Serialization;
-using ETrade.Application.Constants;
-using ETrade.Domain.Entities.Identity;
-using ETrade.Persistence.Contexts;
+using ETrade.Application.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
@@ -22,7 +20,7 @@ public static class ServiceRegistration
             options.JsonSerializerOptions.WriteIndented = true;
             options.JsonSerializerOptions.PropertyNamingPolicy = null;//ilk karakter büyük olsun
         });
-
+        
         //cookie configuration
         serviceCollection.ConfigureApplicationCookie(cookieOptions =>
         {
@@ -36,9 +34,15 @@ public static class ServiceRegistration
                 SecurePolicy = CookieSecurePolicy.Always 
             };
             cookieOptions.SlidingExpiration = true; 
-            cookieOptions.ExpireTimeSpan =
-                TimeSpan.FromDays(30);
+            cookieOptions.ExpireTimeSpan = TimeSpan.FromDays(30);
             cookieOptions.AccessDeniedPath = new PathString("/ErrorPages/AccessDenied");
+        });
+        
+        //user security stamp validate time
+        serviceCollection.Configure<SecurityStampValidatorOptions>(options =>
+        {
+            options.ValidationInterval = TimeSpan.FromMinutes(10);
+                
         });
         
         //all project authorize

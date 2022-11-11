@@ -49,8 +49,7 @@ public class AssignUserRoleListCommandHandler:IRequestHandler<AssignUserRoleList
                 var currentUser = await _userManager.GetUserAsync(_httpContextAccessor.HttpContext?.User);
                 if (currentUser.Id == user.Id)
                 {
-                    await _signInManager.SignOutAsync();
-                    await _signInManager.SignInAsync(user, true);
+                    await _signInManager.RefreshSignInAsync(user);
                 }
                 return new AssignUserRoleListCommandResponse{
                     Result = new Result(ResultStatus.Success, Messages.RoleAdded)

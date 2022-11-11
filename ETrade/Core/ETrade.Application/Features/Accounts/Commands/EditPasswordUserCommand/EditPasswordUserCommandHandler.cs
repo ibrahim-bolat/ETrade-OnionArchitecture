@@ -46,8 +46,7 @@ public class UpdatePasswordUserCommandHandler:IRequestHandler<EditPasswordUserCo
                 string userIdentityName = _httpContextAccessor.HttpContext?.User.Identity?.Name;
                 if (!string.IsNullOrEmpty(userIdentityName) && user.UserName.Equals(userIdentityName))
                 {
-                    await _signInManager.SignOutAsync();
-                    await _signInManager.SignInAsync(user, true);
+                    await _signInManager.RefreshSignInAsync(user);
                 }
                 return new EditPasswordUserCommandResponse{
                     Result = new Result(ResultStatus.Success, Messages.UserSuccessUpdatePassword)

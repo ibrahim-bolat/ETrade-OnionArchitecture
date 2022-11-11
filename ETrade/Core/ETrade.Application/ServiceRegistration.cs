@@ -1,5 +1,5 @@
 using System.Reflection;
-using ETrade.Application.Services;
+using ETrade.Application.Filters;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -32,5 +32,9 @@ public static class ServiceRegistration
             .AddScoped(x =>
                 x.GetRequiredService<IUrlHelperFactory>()
                     .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext!));
+        
+        //for Authorize Filters
+        serviceCollection.AddControllers(options => 
+            options.Filters.Add<AuthorizeEndpointsFilter>());
     }
 }
