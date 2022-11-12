@@ -1,7 +1,9 @@
 using System.Linq.Expressions;
 using ETrade.Application.Repositories;
+using ETrade.Domain.Entities;
 using ETrade.Domain.Entities.Common;
 using Microsoft.EntityFrameworkCore;
+using Action = ETrade.Domain.Entities.Action;
 
 namespace ETrade.Persistence.Repositories;
 
@@ -81,7 +83,6 @@ public class EfGenericRepository<TEntity>:IGenericRepository<TEntity> where TEnt
                 query = query.Include(item);
             }
         }
-
         return await query.FirstOrDefaultAsync();
     }
 

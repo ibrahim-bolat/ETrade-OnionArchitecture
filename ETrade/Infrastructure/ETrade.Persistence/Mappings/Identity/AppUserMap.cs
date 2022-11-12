@@ -24,7 +24,7 @@ namespace ETrade.Persistence.Mappings.Identity;
             builder.HasMany(user => user.UserImages).WithOne(userImage => userImage.AppUser)
                 .HasForeignKey(userImage => userImage.UserId).OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(user => user.RequestInfoLogs).WithOne(requestInfoLog => requestInfoLog.AppUser)
-                .HasForeignKey(requestInfoLog => requestInfoLog.UserId).OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(requestInfoLog => requestInfoLog.UserId).IsRequired(false).OnDelete(DeleteBehavior.Cascade);
 
 
             var hasher = new PasswordHasher<AppUser>();

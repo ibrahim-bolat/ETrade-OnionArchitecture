@@ -25,6 +25,7 @@ public class AuthorizeEndpointsFilter : IAsyncActionFilter
         string areaName = context.HttpContext.Request.RouteValues["area"] as string;
         string controllerName = context.HttpContext.Request.RouteValues["controller"] as string;
         string actionName = context.HttpContext.Request.RouteValues["action"] as string;
+        string requestMethodType = context.HttpContext.Request.Method;
         string localIpAddress = context.HttpContext.Connection.LocalIpAddress?.ToString();        
         string remoteIpAddress = context.HttpContext.Connection.RemoteIpAddress?.ToString();
         int localPort = context.HttpContext.Connection.LocalPort;
@@ -38,30 +39,31 @@ public class AuthorizeEndpointsFilter : IAsyncActionFilter
 
         Action action = await _unitOfWork.ActionRepository.GetAsync(
                 a => a.ActionName == actionName && a.ControllerName == controllerName  && 
-                     a.AreaName == areaName && a.IsActive, a => a.AppRoles);
+                     a.AreaName == areaName && a.HttpType == requestMethodType && a.IsActive, a => a.AppRoles);
 
-        
-        if (context.HttpContext.User.Identity != null && context.HttpContext.User.Identity.Name != null)
+        AppUser user = null;
+        if (context.HttpContext.User.Identity.Name != null)
+            user = await _userManager.FindByNameAsync(context.HttpContext.User.Identity.Name);
+        await _unitOfWork.RequestInfoLogRepository.AddAsync(new RequestInfoLog()
         {
-            AppUser user = await _userManager.FindByNameAsync(context.HttpContext.User.Identity.Name);
-            await _unitOfWork.RequestInfoLogRepository.AddAsync(new RequestInfoLog()
+            AreaName = areaName,
+            ControllerName = controllerName,
+            ActionName = actionName,
+            RequestMethodType = requestMethodType,
+            ActionArguments = actionArguments,
+            DateTime = DateTime.Now,
+            LocalIpAddress = localIpAddress,
+            RemoteIpAddress = remoteIpAddress,
+            LocalPort = localPort,
+            RemotePort = remotePort,
+            UserId = user?.Id
+        });
+        await _unitOfWork.SaveAsync();
+        if (action != null)
+        {
+            if (context.HttpContext.User.Identity!=null && context.HttpContext.User.Identity.Name != null)
             {
-                AreaName = areaName,
-                ControllerName = controllerName,
-                ActionName = actionName,
-                ActionArguments = actionArguments,
-                DateTime = DateTime.Now,
-                LocalIpAddress = localIpAddress,
-                RemoteIpAddress = remoteIpAddress,
-                LocalPort = localPort,
-                RemotePort = remotePort,
-                UserId = user.Id
-            });
-            await _unitOfWork.SaveAsync();
-            
-            var appRoles = await _userManager.GetRolesAsync(user);
-            if (action != null)
-            {
+                var appRoles = await _userManager.GetRolesAsync(user);
                 if (appRoles.Contains("Owner") || action.AppRoles.Any(r => appRoles.Contains(r.Name)))
                 {
                     await next();
