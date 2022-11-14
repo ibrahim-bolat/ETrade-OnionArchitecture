@@ -34,16 +34,16 @@ public class AuthorizeEndpointsFilter : IAsyncActionFilter
         
         //string Id = context.ActionArguments["id"] as string;
         List<string> actionArguments = new List<string>();
-        actionArguments.AddRange(context.ActionArguments.Select(a=>a.Key.ToString() + "=" + 
-                                                                   a.Value?.ToString()));
+        actionArguments.AddRange(context.ActionArguments.Select(a=>a.ToString()));
 
         Action action = await _unitOfWork.ActionRepository.GetAsync(
                 a => a.ActionName == actionName && a.ControllerName == controllerName  && 
                      a.AreaName == areaName && a.HttpType == requestMethodType && a.IsActive, a => a.AppRoles);
 
         AppUser user = null;
-        if (context.HttpContext.User.Identity.Name != null)
-            user = await _userManager.FindByNameAsync(context.HttpContext.User.Identity.Name);
+        var userName = context.HttpContext.User.Identity?.Name;
+        if ( userName!= null)
+            user = await _userManager.FindByNameAsync(userName);
         await _unitOfWork.RequestInfoLogRepository.AddAsync(new RequestInfoLog()
         {
             AreaName = areaName,

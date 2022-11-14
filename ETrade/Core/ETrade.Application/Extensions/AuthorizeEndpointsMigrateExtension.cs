@@ -15,7 +15,7 @@ namespace ETrade.Application.Extensions;
 
 public static class AuthorizeEndpointsMigrateExtension
 {
-    public static async Task<WebApplication> AuthorizeEndpointsMigrateAsync(this WebApplication app, Type type)
+    public static async Task AuthorizeEndpointsMigrateAsync(this WebApplication app, Type type)
     {
         await using (var scope = app.Services.CreateAsyncScope())
         {
@@ -115,7 +115,5 @@ public static class AuthorizeEndpointsMigrateExtension
                 }
             }
         }
-
-        return app;
     }
 }

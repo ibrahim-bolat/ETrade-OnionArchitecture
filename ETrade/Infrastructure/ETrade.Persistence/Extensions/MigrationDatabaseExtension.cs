@@ -7,7 +7,7 @@ namespace ETrade.Persistence.Extensions;
 
 public static class MigrationDatabaseExtension
 {
-    public static async Task<WebApplication> MigrateDatabaseAsync(this WebApplication app)
+    public static async Task MigrateDatabaseAsync(this WebApplication app)
     {
         await using (var scope = app.Services.CreateAsyncScope())
         {
@@ -28,6 +28,5 @@ public static class MigrationDatabaseExtension
                 }
             }
         }
-        return app;
     }
 }
