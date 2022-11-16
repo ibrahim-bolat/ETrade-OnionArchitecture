@@ -1,6 +1,7 @@
 using ETrade.Application.Features.UserImages.Constants;
 using ETrade.Application.Repositories;
 using ETrade.Application.Wrappers.Concrete;
+using ETrade.Domain.Entities;
 using ETrade.Domain.Enums;
 using MediatR;
 
@@ -18,7 +19,7 @@ public class SetProfilImageCommandHandler:IRequestHandler<SetProfilImageCommandR
 
     public async Task<SetProfilImageCommandResponse> Handle(SetProfilImageCommandRequest request, CancellationToken cancellationToken)
     {
-        var userImages = await _unitOfWork.UserImageRepository.GetAllAsync(ui=>ui.UserId==request.UserId && ui.IsActive);
+        var userImages = await _unitOfWork.GetRepository<UserImage>().GetAllAsync(ui=>ui.UserId==request.UserId && ui.IsActive);
         if (userImages !=null)
         {
             foreach (var userImage in userImages)
@@ -28,14 +29,14 @@ public class SetProfilImageCommandHandler:IRequestHandler<SetProfilImageCommandR
                     userImage.Profil = true;
                     userImage.ModifiedByName = request.ModifiedByName;
                     userImage.ModifiedTime = DateTime.Now;
-                    await _unitOfWork.UserImageRepository.UpdateAsync(userImage);
+                    await _unitOfWork.GetRepository<UserImage>().UpdateAsync(userImage);
                 }
                 if(userImage.Id != request.Id && userImage.Profil)
                 {
                     userImage.Profil = false;
                     userImage.ModifiedByName = request.ModifiedByName;
                     userImage.ModifiedTime = DateTime.Now;
-                    await _unitOfWork.UserImageRepository.UpdateAsync(userImage);
+                    await _unitOfWork.GetRepository<UserImage>().UpdateAsync(userImage);
                     
                 }
             }

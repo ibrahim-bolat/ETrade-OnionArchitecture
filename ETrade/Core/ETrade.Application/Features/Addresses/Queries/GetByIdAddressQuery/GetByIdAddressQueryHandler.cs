@@ -3,6 +3,7 @@ using ETrade.Application.Features.Addresses.Constants;
 using ETrade.Application.Features.Addresses.DTOs;
 using ETrade.Application.Repositories;
 using ETrade.Application.Wrappers.Concrete;
+using ETrade.Domain.Entities;
 using ETrade.Domain.Enums;
 using MediatR;
 
@@ -22,7 +23,7 @@ public class GetByIdAddressQueryHandler:IRequestHandler<GetByIdAddressQueryReque
     public async Task<GetByIdAddressQueryResponse> Handle(GetByIdAddressQueryRequest request, CancellationToken cancellationToken)
     {
         var address =
-            await _unitOfWork.AddressRepository.GetAsync(x => x.Id == request.Id && x.IsActive == true);
+            await _unitOfWork.GetRepository<Address>().GetAsync(x => x.Id == request.Id && x.IsActive == true);
         if (address != null)
         {
             var addressDto = _mapper.Map<AddressDto>(address);

@@ -24,7 +24,7 @@ public class UpdateAddressCommandHandler:IRequestHandler<UpdateAddressCommandReq
     {
         if (request.AddressDto.DefaultAddress)
         {
-            var addresses = await _unitOfWork.AddressRepository.GetAllAsync(a=>a.UserId==request.AddressDto.UserId);
+            var addresses = await _unitOfWork.GetRepository<Address>().GetAllAsync(a=>a.UserId==request.AddressDto.UserId);
             for (int i = 0; i < addresses.Count; i++)
             {
    
@@ -33,7 +33,7 @@ public class UpdateAddressCommandHandler:IRequestHandler<UpdateAddressCommandReq
                     addresses[i].DefaultAddress = false;
                     addresses[i].ModifiedByName = request.ModifiedByName;
                     addresses[i].ModifiedTime = DateTime.Now;
-                    await _unitOfWork.AddressRepository.UpdateAsync(addresses[i]);
+                    await _unitOfWork.GetRepository<Address>().UpdateAsync(addresses[i]);
                 }
                 else
                 {
@@ -41,20 +41,20 @@ public class UpdateAddressCommandHandler:IRequestHandler<UpdateAddressCommandReq
                     addresses[i].DefaultAddress = true;
                     addresses[i].ModifiedByName = request.ModifiedByName;
                     addresses[i].ModifiedTime = DateTime.Now;
-                    await _unitOfWork.AddressRepository.UpdateAsync(addresses[i]);
+                    await _unitOfWork.GetRepository<Address>().UpdateAsync(addresses[i]);
                 }
             }
         }
         else
         {
-            var address = await _unitOfWork.AddressRepository.GetAsync(x => x.Id == request.AddressDto.Id);
+            var address = await _unitOfWork.GetRepository<Address>().GetAsync(x => x.Id == request.AddressDto.Id);
             if (address != null)
             {
                 address = _mapper.Map(request.AddressDto, address);
                 address.DefaultAddress = false;
                 address.ModifiedByName = request.ModifiedByName;
                 address.ModifiedTime = DateTime.Now;
-                await _unitOfWork.AddressRepository.UpdateAsync(address);
+                await _unitOfWork.GetRepository<Address>().UpdateAsync(address);
             }
         }
         var result = await _unitOfWork.SaveAsync();

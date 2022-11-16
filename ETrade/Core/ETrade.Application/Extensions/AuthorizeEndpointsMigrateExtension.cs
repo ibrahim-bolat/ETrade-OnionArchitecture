@@ -61,9 +61,9 @@ public static class AuthorizeEndpointsMigrateExtension
                                             AreaName = areaAttributeName,
                                             Definition = authorizeDefinitionAttribute.Menu
                                         };
-                                        if (await unitOfWork.MenuRepository.AnyAsync(m => m.ControllerName == menu.ControllerName))
+                                        if (await unitOfWork.GetRepository<Menu>().AnyAsync(m => m.ControllerName == menu.ControllerName))
                                         {
-                                            menu = await unitOfWork.MenuRepository.GetAsync(m => m.ControllerName == menu.ControllerName,m=>m.Actions);
+                                            menu = await unitOfWork.GetRepository<Menu>().GetAsync(m => m.ControllerName == menu.ControllerName,m=>m.Actions);
                                         }
                                     }
 
@@ -95,15 +95,15 @@ public static class AuthorizeEndpointsMigrateExtension
                                 }
                             }
 
-                            if ( menu != null && !await unitOfWork.MenuRepository.AnyAsync(m => m.ControllerName == menu.ControllerName))
+                            if ( menu != null && !await unitOfWork.GetRepository<Menu>().AnyAsync(m => m.ControllerName == menu.ControllerName))
                             {
      
-                                await unitOfWork.MenuRepository.AddAsync(menu);
+                                await unitOfWork.GetRepository<Menu>().AddAsync(menu);
                             }
 
-                            if (menu != null && await unitOfWork.MenuRepository.AnyAsync(m => m.ControllerName == menu.ControllerName))
+                            if (menu != null && await unitOfWork.GetRepository<Menu>().AnyAsync(m => m.ControllerName == menu.ControllerName))
                             {
-                                await unitOfWork.MenuRepository.UpdateAsync(menu);
+                                await unitOfWork.GetRepository<Menu>().UpdateAsync(menu);
                             }
                         }
                         await unitOfWork.SaveAsync();

@@ -3,6 +3,7 @@ using ETrade.Application.Features.UserImages.Constants;
 using ETrade.Application.Features.UserImages.DTOs;
 using ETrade.Application.Repositories;
 using ETrade.Application.Wrappers.Concrete;
+using ETrade.Domain.Entities;
 using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
@@ -24,7 +25,7 @@ public class DeleteUserImageCommandHandler:IRequestHandler<DeleteUserImageComman
     
     public async Task<DeleteUserImageCommandResponse> Handle(DeleteUserImageCommandRequest request, CancellationToken cancellationToken)
     {
-        var userImage = await _unitOfWork.UserImageRepository.GetAsync(x => x.Id == request.Id && x.IsActive==true);
+        var userImage = await _unitOfWork.GetRepository<UserImage>().GetAsync(x => x.Id == request.Id && x.IsActive==true);
         if (userImage != null)
         {
             var imagePath = _hostEnvironment.WebRootPath + userImage.ImagePath;
@@ -38,7 +39,7 @@ public class DeleteUserImageCommandHandler:IRequestHandler<DeleteUserImageComman
                 userImage.IsDeleted = true;
                 userImage.ModifiedByName = request.ModifiedByName;
                 userImage.ModifiedTime = DateTime.Now;
-                await _unitOfWork.UserImageRepository.UpdateAsync(userImage);
+                await _unitOfWork.GetRepository<UserImage>().UpdateAsync(userImage);
                 var result = await _unitOfWork.SaveAsync();
                 var userImageDto = _mapper.Map<UserImageDto>(userImage);
                 if (result > 0)

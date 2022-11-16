@@ -3,6 +3,7 @@ using ETrade.Application.Features.UserImages.Constants;
 using ETrade.Application.Features.UserImages.DTOs;
 using ETrade.Application.Repositories;
 using ETrade.Application.Wrappers.Concrete;
+using ETrade.Domain.Entities;
 using ETrade.Domain.Enums;
 using MediatR;
 
@@ -21,7 +22,7 @@ public class GetByUserIdProfilImageQueryHandler:IRequestHandler<GetByUserIdProfi
 
     public async Task<GetByUserIdProfilImageQueryResponse> Handle(GetByUserIdProfilImageQueryRequest request, CancellationToken cancellationToken)
     {
-        var userImage = await _unitOfWork.UserImageRepository.GetAsync(x => x.UserId == request.UserId && x.IsActive && x.Profil);
+        var userImage = await _unitOfWork.GetRepository<UserImage>().GetAsync(x => x.UserId == request.UserId && x.IsActive && x.Profil);
         var userImageViewDto = _mapper.Map<UserImageDto>(userImage);
         if (userImage != null)
         {

@@ -23,7 +23,7 @@ public class GetByIdAuthorizeEndpointsRoleListQueryHandler:IRequestHandler<GetBy
 
     public async Task<GetByIdAuthorizeEndpointsRoleListQueryResponse> Handle(GetByIdAuthorizeEndpointsRoleListQueryRequest request, CancellationToken cancellationToken)
     {
-        Action action = await _unitOfWork.ActionRepository.GetAsync(a=>a.Id.ToString()==request.Id,a=>a.AppRoles);
+        Action action = await _unitOfWork.GetRepository<Action>().GetAsync(a=>a.Id.ToString()==request.Id,a=>a.AppRoles);
         if (action != null)
         {
             if (action.IsActive)

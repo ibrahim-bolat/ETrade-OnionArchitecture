@@ -1,5 +1,6 @@
 using ETrade.Application.Repositories;
 using ETrade.Application.Wrappers.Concrete;
+using ETrade.Domain.Entities;
 using ETrade.Domain.Enums;
 using MediatR;
 
@@ -16,7 +17,7 @@ public class GetByUserIdUserImageCountQueryHandler:IRequestHandler<GetByUserIdUs
 
     public async Task<GetByUserIdUserImageCountQueryResponse> Handle(GetByUserIdUserImageCountQueryRequest request, CancellationToken cancellationToken)
     {
-        var count = await _unitOfWork.UserImageRepository.CountAsync(x => x.UserId == request.UserId && x.IsActive);
+        var count = await _unitOfWork.GetRepository<UserImage>().CountAsync(x => x.UserId == request.UserId && x.IsActive);
         return new GetByUserIdUserImageCountQueryResponse{
             Result = new DataResult<int>(ResultStatus.Success,count)
         };

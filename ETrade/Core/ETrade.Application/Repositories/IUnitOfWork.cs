@@ -1,11 +1,9 @@
+using ETrade.Domain.Entities.Common;
+
 namespace ETrade.Application.Repositories;
 
 public interface IUnitOfWork:IAsyncDisposable
 {
-    IAddressRepository AddressRepository { get; }
-    IUserImageRepository UserImageRepository { get; }
-    IMenuRepository MenuRepository { get; }
-    IActionRepository ActionRepository { get; }
-    IRequestInfoLogRepository RequestInfoLogRepository { get; }
+    IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IEntity, new();
     Task<int> SaveAsync();
 }

@@ -7,18 +7,21 @@ using Action = ETrade.Domain.Entities.Action;
 
 namespace ETrade.Persistence.Repositories;
 
-public class EfGenericRepository<TEntity>:IGenericRepository<TEntity> where TEntity:class,IEntity,new()
+public class Repository<TEntity>:IRepository<TEntity> where TEntity:class,IEntity,new()
 {
     protected readonly DbContext _context;
+    
 
-    public EfGenericRepository(DbContext context)
+    public Repository(DbContext context)
     {
         _context = context;
     }
-
+    
+    private DbSet<TEntity> Table { get => _context.Set<TEntity>(); }
+    
     public async Task<TEntity> AddAsync(TEntity entity)
     {
-        await _context.Set<TEntity>().AddAsync(entity);
+        await Table.AddAsync(entity);
         return entity;
     }
 
@@ -26,7 +29,7 @@ public class EfGenericRepository<TEntity>:IGenericRepository<TEntity> where TEnt
     {
         await Task.Run(() =>
         {
-            _context.Set<TEntity>().Update(entity);
+            Table.Update(entity);
         });
         return entity;
     }
@@ -35,13 +38,13 @@ public class EfGenericRepository<TEntity>:IGenericRepository<TEntity> where TEnt
     {
         await Task.Run(() =>
         {
-            _context.Set<TEntity>().Remove(entity);
+            Table.Remove(entity);
         });
     }
 
     public async Task<bool> AddRangeAsync(List<TEntity> entityList)
     {
-        await _context.Set<TEntity>().AddRangeAsync(entityList);
+        await Table.AddRangeAsync(entityList);
         return true;
     }
 
@@ -49,7 +52,7 @@ public class EfGenericRepository<TEntity>:IGenericRepository<TEntity> where TEnt
     {
         await Task.Run(() =>
         {
-            _context.Set<TEntity>().UpdateRange(entityList);
+            Table.UpdateRange(entityList);
         });
         return true;
     }
@@ -58,19 +61,19 @@ public class EfGenericRepository<TEntity>:IGenericRepository<TEntity> where TEnt
     {
         await Task.Run(() =>
         {
-            _context.Set<TEntity>().RemoveRange(entityList);
+            Table.RemoveRange(entityList);
         });
         return true;
     }
 
     public async Task<TEntity> GetByIdAsync(int id)
     {
-        return await _context.Set<TEntity>().FindAsync(id);
+        return await Table.FindAsync(id);
     }
 
     public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties)
     {
-        IQueryable<TEntity> query = _context.Set<TEntity>();
+        IQueryable<TEntity> query = Table;
         if (predicate != null)
         {
             query = query.Where(predicate);
@@ -88,7 +91,7 @@ public class EfGenericRepository<TEntity>:IGenericRepository<TEntity> where TEnt
 
     public async Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null, params Expression<Func<TEntity, object>>[] includeProperties)
     {
-        IQueryable<TEntity> query = _context.Set<TEntity>();
+        IQueryable<TEntity> query = Table;
         if (predicate != null)
         {
             query = query.Where(predicate);
@@ -107,11 +110,11 @@ public class EfGenericRepository<TEntity>:IGenericRepository<TEntity> where TEnt
 
     public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate)
     {
-        return await _context.Set<TEntity>().AnyAsync(predicate);
+        return await Table.AnyAsync(predicate);
     }
 
     public async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate)
     {
-        return await _context.Set<TEntity>().CountAsync(predicate);
+        return await Table.CountAsync(predicate);
     }
 }

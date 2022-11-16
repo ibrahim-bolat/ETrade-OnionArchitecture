@@ -22,7 +22,7 @@ public class CreateUserImageCommandHandler:IRequestHandler<CreateUserImageComman
 
     public async Task<CreateUserImageCommandResponse> Handle(CreateUserImageCommandRequest request, CancellationToken cancellationToken)
     {
-        var count = await _unitOfWork.UserImageRepository.CountAsync(x => x.UserId == request.UserImageAddDto.UserId && x.IsActive);
+        var count = await _unitOfWork.GetRepository<UserImage>().CountAsync(x => x.UserId == request.UserImageAddDto.UserId && x.IsActive);
         if (count >= 4)
         {
             return new CreateUserImageCommandResponse
@@ -38,11 +38,11 @@ public class CreateUserImageCommandHandler:IRequestHandler<CreateUserImageComman
         userImage.ModifiedTime=DateTime.Now;
         userImage.IsActive = true;
         userImage.IsDeleted = false;
-        await _unitOfWork.UserImageRepository.AddAsync(userImage);
+        await _unitOfWork.GetRepository<UserImage>().AddAsync(userImage);
         if (count > 0  && userImage.Profil)
         {
             var userImages =
-                await _unitOfWork.UserImageRepository.GetAllAsync(ui =>
+                await _unitOfWork.GetRepository<UserImage>().GetAllAsync(ui =>
                     ui.UserId == request.UserImageAddDto.UserId && ui.IsActive);
             if (userImages != null)
             {
@@ -53,7 +53,7 @@ public class CreateUserImageCommandHandler:IRequestHandler<CreateUserImageComman
                         uImage.Profil = false;
                         uImage.ModifiedByName = request.CreatedByName;
                         uImage.ModifiedTime = DateTime.Now;
-                        await _unitOfWork.UserImageRepository.UpdateAsync(uImage);
+                        await _unitOfWork.GetRepository<UserImage>().UpdateAsync(uImage);
                     }
                 }
             }

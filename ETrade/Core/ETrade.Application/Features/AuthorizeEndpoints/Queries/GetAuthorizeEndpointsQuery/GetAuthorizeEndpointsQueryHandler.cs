@@ -2,6 +2,7 @@ using ETrade.Application.Wrappers.Concrete;
 using ETrade.Application.Constants;
 using ETrade.Application.DTOs.Common;
 using ETrade.Application.Repositories;
+using ETrade.Domain.Entities;
 using ETrade.Domain.Enums;
 using MediatR;
 using Action = ETrade.Domain.Entities.Action;
@@ -22,7 +23,7 @@ public class
     public async Task<GetAuthorizeEndpointsQueryResponse> Handle(
         GetAuthorizeEndpointsQueryRequest request, CancellationToken cancellationToken)
     {
-        var menus = await _unitOfWork.MenuRepository.GetAllAsync(m => m.IsActive, m => m.Actions);
+        var menus = await _unitOfWork.GetRepository<Menu>().GetAllAsync(m => m.IsActive, m => m.Actions);
         if (menus != null)
         {
             List<TreeViewDto> treeViewDtos = new();

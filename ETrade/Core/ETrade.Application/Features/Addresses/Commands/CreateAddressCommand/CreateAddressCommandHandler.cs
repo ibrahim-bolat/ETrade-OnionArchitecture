@@ -22,7 +22,7 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
 
     public async Task<CreateAddressCommandResponse> Handle(CreateAddressCommandRequest request, CancellationToken cancellationToken)
     {
-       var count = await _unitOfWork.AddressRepository.CountAsync(x => x.UserId == request.AddressDto.UserId && x.IsActive);
+       var count = await _unitOfWork.GetRepository<Address>().CountAsync(x => x.UserId == request.AddressDto.UserId && x.IsActive);
         if (count > 4)
         {
             return new CreateAddressCommandResponse
@@ -34,13 +34,13 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
         {
             if (request.AddressDto.DefaultAddress)
             {
-                var addresses = await _unitOfWork.AddressRepository.GetAllAsync(a=>a.UserId==request.AddressDto.UserId);
+                var addresses = await _unitOfWork.GetRepository<Address>().GetAllAsync(a=>a.UserId==request.AddressDto.UserId);
                 foreach (var address in addresses)
                 {
                     address.DefaultAddress = false;
                     address.ModifiedByName = request.CreatedByName;
                     address.ModifiedTime = DateTime.Now;
-                    await _unitOfWork.AddressRepository.UpdateAsync(address);
+                    await _unitOfWork.GetRepository<Address>().UpdateAsync(address);
                 }
                 var newAddress = _mapper.Map<Address>(request.AddressDto);
                 newAddress.DefaultAddress = true;
@@ -50,7 +50,7 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
                 newAddress.ModifiedTime = DateTime.Now;
                 newAddress.IsActive = true;
                 newAddress.IsDeleted = false;
-                await _unitOfWork.AddressRepository.AddAsync(newAddress);
+                await _unitOfWork.GetRepository<Address>().AddAsync(newAddress);
             }
             else
             {
@@ -62,7 +62,7 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
                 newAddress.ModifiedTime = DateTime.Now;
                 newAddress.IsActive = true;
                 newAddress.IsDeleted = false;
-                await _unitOfWork.AddressRepository.AddAsync(newAddress);
+                await _unitOfWork.GetRepository<Address>().AddAsync(newAddress);
             }
         }
         else
@@ -77,7 +77,7 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
                 newAddress.ModifiedTime = DateTime.Now;
                 newAddress.IsActive = true;
                 newAddress.IsDeleted = false;
-                await _unitOfWork.AddressRepository.AddAsync(newAddress);
+                await _unitOfWork.GetRepository<Address>().AddAsync(newAddress);
             }
             else
             {
@@ -89,7 +89,7 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
                 newAddress.ModifiedTime = DateTime.Now;
                 newAddress.IsActive = true;
                 newAddress.IsDeleted = false;
-                await _unitOfWork.AddressRepository.AddAsync(newAddress);
+                await _unitOfWork.GetRepository<Address>().AddAsync(newAddress);
             }
         }
         int result = await _unitOfWork.SaveAsync();

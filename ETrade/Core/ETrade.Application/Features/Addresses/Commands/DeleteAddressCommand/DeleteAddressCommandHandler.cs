@@ -3,6 +3,7 @@ using ETrade.Application.Features.Addresses.Constants;
 using ETrade.Application.Features.Addresses.DTOs;
 using ETrade.Application.Repositories;
 using ETrade.Application.Wrappers.Concrete;
+using ETrade.Domain.Entities;
 using ETrade.Domain.Enums;
 using MediatR;
 
@@ -21,14 +22,14 @@ public class CreateAddressCommandHandler:IRequestHandler<DeleteAddressCommandReq
 
     public async Task<DeleteAddressCommandResponse> Handle(DeleteAddressCommandRequest request, CancellationToken cancellationToken)
     {
-        var address = await _unitOfWork.AddressRepository.GetAsync(x => x.Id == request.Id);
+        var address = await _unitOfWork.GetRepository<Address>().GetAsync(x => x.Id == request.Id);
         if (address != null)
         {
             address.IsActive = false;
             address.IsDeleted = true;
             address.ModifiedByName = request.ModifiedByName;
             address.ModifiedTime = DateTime.Now;
-            var deletedAddress = _unitOfWork.AddressRepository.UpdateAsync(address);
+            var deletedAddress = _unitOfWork.GetRepository<Address>().UpdateAsync(address);
             var result = await _unitOfWork.SaveAsync();
             var addressDto = _mapper.Map<AddressDto>(address);
             if (result > 0)

@@ -28,7 +28,7 @@ public class AssignRoleListAuthorizeEndpointsCommandHandler : IRequestHandler<
     public async Task<AssignRoleListAuthorizeEndpointsCommandResponse> Handle(
         AssignRoleListAuthorizeEndpointsCommandRequest request, CancellationToken cancellationToken)
     {
-        Action action = await _unitOfWork.ActionRepository.GetAsync(a => a.Id == request.Id && a.IsActive,a=>a.AppRoles);
+        Action action = await _unitOfWork.GetRepository<Action>().GetAsync(a => a.Id == request.Id && a.IsActive,a=>a.AppRoles);
         if (action != null)
         {
             List<AppRole> allRoles = _roleManager.Roles.Where(r=>r.IsActive).ToList();
