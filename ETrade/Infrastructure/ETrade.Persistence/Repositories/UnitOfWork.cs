@@ -1,28 +1,28 @@
-
 using ETrade.Application.Repositories;
 using ETrade.Domain.Entities.Common;
 using ETrade.Persistence.Contexts;
 
 namespace ETrade.Persistence.Repositories;
 
-public class UnitOfWork:IUnitOfWork
+public class UnitOfWork : IUnitOfWork
 {
     private readonly DataContext _dataContext;
-
+    private readonly IServiceProvider _serviceProvider;
     
-    public UnitOfWork(DataContext dataContext)
+    public UnitOfWork(DataContext dbContext,IServiceProvider serviceProvider)
     {
-        _dataContext = dataContext;
+        _dataContext = dbContext;;
+        _serviceProvider = serviceProvider;
     }
-
+    
     public async ValueTask DisposeAsync()
     {
         await _dataContext.DisposeAsync();
     }
 
-    IRepository<TEntity> IUnitOfWork.GetRepository<TEntity>()
+    public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IEntity, new()
     {
-        return new Repository<TEntity>(_dataContext);
+        return (IRepository<TEntity>)_serviceProvider.GetService(typeof(IRepository<TEntity>));
     }
 
     public async Task<int> SaveAsync()

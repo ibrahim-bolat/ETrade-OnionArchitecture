@@ -37,7 +37,7 @@ public static class ServiceRegistration
         
         
         //repositories
-        serviceCollection.AddScoped(typeof(IRepository<>),typeof(Repository<>));
+        serviceCollection.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
         
     }

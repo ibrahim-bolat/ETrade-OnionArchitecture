@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using ETrade.Application.CustomAttributes;
 using ETrade.Application.Repositories;

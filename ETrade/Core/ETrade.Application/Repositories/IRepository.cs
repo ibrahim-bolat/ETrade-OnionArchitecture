@@ -3,7 +3,7 @@ using ETrade.Domain.Entities.Common;
 
 namespace ETrade.Application.Repositories;
 
-public interface IRepository<TEntity> where TEntity:class,IEntity,new()
+public interface IRepository<TEntity> where TEntity : class, IEntity, new()
 {
     Task<TEntity> AddAsync(TEntity entity);
     Task<TEntity> UpdateAsync(TEntity entity);
