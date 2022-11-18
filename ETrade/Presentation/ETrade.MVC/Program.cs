@@ -2,8 +2,10 @@ using ETrade.Application;
 using ETrade.Application.Extensions;
 using ETrade.Infrastructure;
 using ETrade.MVC;
+using ETrade.MVC.Extensions;
 using ETrade.Persistence;
 using ETrade.Persistence.Extensions;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +15,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);
-builder.Services.AddPresentationServices(builder.Configuration);
+builder.Services.AddPresentationServices(builder.Configuration,builder.Host);
+
 
 var app = builder.Build();
 
@@ -27,14 +30,28 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 app.UseStatusCodePagesWithReExecute("/ErrorPages/AllErrorPages","?statusCode={0}");
+app.CustomExceptionHandler();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseRouting();
+app.UseSerilogRequestLogging();
+app.UseHttpLogging();
 
+app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+
+// Auto update migration
+await app.MigrateDatabaseAsync();
+
+// Auto seed authorize endpoints data
+await app.AuthorizeEndpointsMigrateAsync(typeof(Program));
+
+// Add user_name info to serilog LogContext
+app.AddUserIdtoSeriLogContext();
 
 app.UseEndpoints(endpoints =>
 {
@@ -46,9 +63,4 @@ app.UseEndpoints(endpoints =>
         pattern: "{controller=Home}/{action=Index}/{id?}");
 });
 
-// Auto update migration
-await app.MigrateDatabaseAsync();
-
-// Auto seed authorize endpoints data
-await app.AuthorizeEndpointsMigrateAsync(typeof(Program));
 app.Run();
