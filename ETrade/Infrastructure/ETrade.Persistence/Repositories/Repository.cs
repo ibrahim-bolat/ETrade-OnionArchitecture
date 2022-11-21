@@ -85,7 +85,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, I
         return await query.FirstOrDefaultAsync();
     }
 
-    public async Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null, params Expression<Func<TEntity, object>>[] includeProperties)
+    public async Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null, params Expression<Func<TEntity, object>>[] includeProperties)
     {
         IQueryable<TEntity> query = _dbSet;
         if (predicate != null)

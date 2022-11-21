@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
-using Action = ETrade.Domain.Entities.Action;
 
 namespace ETrade.Application.Filters;
 
@@ -24,7 +23,7 @@ public class AuthorizeEndpointsFilter : IAsyncActionFilter
     {
         string areaName = context.HttpContext.Request.RouteValues["area"] as string;
         string controllerName = context.HttpContext.Request.RouteValues["controller"] as string;
-        string actionName = context.HttpContext.Request.RouteValues["action"] as string;
+        string endpointName = context.HttpContext.Request.RouteValues["action"] as string;
         string requestMethodType = context.HttpContext.Request.Method;
         string localIpAddress = context.HttpContext.Connection.LocalIpAddress?.ToString();        
         string remoteIpAddress = context.HttpContext.Connection.RemoteIpAddress?.ToString();
@@ -36,8 +35,8 @@ public class AuthorizeEndpointsFilter : IAsyncActionFilter
         List<string> actionArguments = new List<string>();
         actionArguments.AddRange(context.ActionArguments.Select(a=>a.ToString()));
 
-        Action action = await _unitOfWork.GetRepository<Action>().GetAsync(
-                a => a.ActionName == actionName && a.ControllerName == controllerName  && 
+        Endpoint endpoint = await _unitOfWork.GetRepository<Endpoint>().GetAsync(
+                a => a.EndpointName == endpointName && a.ControllerName == controllerName  && 
                      a.AreaName == areaName && a.HttpType == requestMethodType && a.IsActive, a => a.AppRoles);
 
         AppUser user = null;
@@ -48,7 +47,7 @@ public class AuthorizeEndpointsFilter : IAsyncActionFilter
         {
             AreaName = areaName,
             ControllerName = controllerName,
-            ActionName = actionName,
+            ActionName = endpointName,
             RequestMethodType = requestMethodType,
             ActionArguments = actionArguments,
             DateTime = DateTime.Now,
@@ -59,12 +58,12 @@ public class AuthorizeEndpointsFilter : IAsyncActionFilter
             UserId = user?.Id
         });
         await _unitOfWork.SaveAsync();
-        if (action != null)
+        if (endpoint != null)
         {
             if (context.HttpContext.User.Identity!=null && context.HttpContext.User.Identity.Name != null)
             {
                 var appRoles = await _userManager.GetRolesAsync(user);
-                if (appRoles.Contains("Owner") || action.AppRoles.Any(r => appRoles.Contains(r.Name)))
+                if (appRoles.Contains("Owner") || endpoint.AppRoles.Any(r => appRoles.Contains(r.Name)))
                 {
                     await next();
                 }

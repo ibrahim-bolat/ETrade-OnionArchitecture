@@ -23,15 +23,15 @@ public class AddressController : Controller
     }
 
     [HttpGet]
-    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Reading, Definition = "Get Address Index Page")]
+    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Reading, Definition = "Get Address Index Page")]
     public IActionResult Index()
     {
         return View();
     }
 
     [HttpGet]
-    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Reading, Definition = "Get By Id Address for Create Address")]
-    public IActionResult AddressAdd(int userId)
+    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Reading, Definition = "Get By Id Address for Create Address")]
+    public IActionResult CreateAddress(int userId)
     {
         AddressDto addressDto = new AddressDto();
         addressDto.UserId = userId;
@@ -39,8 +39,8 @@ public class AddressController : Controller
     }
 
     [HttpPost]
-    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Writing, Definition = "Create Address")]
-    public async Task<IActionResult> AddressAdd(AddressDto addressDto)
+    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Writing, Definition = "Create Address")]
+    public async Task<IActionResult> CreateAddress(AddressDto addressDto)
     {
         if (ModelState.IsValid)
         {
@@ -57,15 +57,15 @@ public class AddressController : Controller
             if (dresult.Result.ResultStatus == ResultStatus.Success)
             {
                 TempData["AddAddressSuccess"] = true;
-                return RedirectToAction("AddressAdd", "Address" ,new  {userId=addressDto.UserId});
+                return RedirectToAction("CreateAddress", "Address" ,new  {userId=addressDto.UserId});
             }
         }
         return View(addressDto);
     }
 
     [HttpGet]
-    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Reading, Definition = "Get By Id Address for Update Address")]
-    public async Task<IActionResult> AddressUpdate(int addressId)
+    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Reading, Definition = "Get By Id Address for Update Address")]
+    public async Task<IActionResult> UpdateAddress(int addressId)
     {
         if (addressId > 0)
         {
@@ -83,8 +83,8 @@ public class AddressController : Controller
     }
 
     [HttpPost]
-    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Updating, Definition = "Update Address")]
-    public async Task<IActionResult> AddressUpdate(AddressDto addressDto)
+    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Updating, Definition = "Update Address")]
+    public async Task<IActionResult> UpdateAddress(AddressDto addressDto)
     {
         if (ModelState.IsValid)
         {
@@ -96,15 +96,15 @@ public class AddressController : Controller
             if (dresult.Result.ResultStatus == ResultStatus.Success)
             {
                 TempData["UpdateAddressSuccess"] = true;
-                return RedirectToAction("AddressUpdate", "Address" ,new { addressId=addressDto.Id});
+                return RedirectToAction("UpdateAddress", "Address" ,new { addressId=addressDto.Id});
             }
         }
         return View(addressDto);
     }
 
     [HttpGet]
-    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Reading, Definition = "Get By Id Address for Address Details")]
-    public async Task<IActionResult>  AddressDetail(int addressId)
+    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Reading, Definition = "Get By Id Address for Address Details")]
+    public async Task<IActionResult>  DetailAddress(int addressId)
     {
         if (addressId > 0)
         {
@@ -121,8 +121,8 @@ public class AddressController : Controller
     }
     
     [HttpPost]
-    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Deleting, Definition = "Delete Address")]
-    public async Task<IActionResult> AddressDelete(int addressId)
+    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Deleting, Definition = "Delete Address")]
+    public async Task<IActionResult> DeleteAddress(int addressId)
     {
         if (addressId > 0)
         {

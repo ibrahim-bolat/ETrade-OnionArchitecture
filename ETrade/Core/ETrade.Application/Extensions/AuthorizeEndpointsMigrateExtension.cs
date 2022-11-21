@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.DependencyInjection;
-using Action = ETrade.Domain.Entities.Action;
+using Endpoint = ETrade.Domain.Entities.Endpoint;
 
 namespace ETrade.Application.Extensions;
 
@@ -24,22 +24,22 @@ public static class AuthorizeEndpointsMigrateExtension
                 {
                     try
                     {
+                        List<Endpoint> endpoints = await unitOfWork.GetRepository<Endpoint>().GetAllAsync(e => e.IsActive);
                         Assembly assembly = Assembly.GetAssembly(type);
                         var controllers = assembly!.GetTypes().Where(t => t.IsAssignableTo(typeof(Controller)));
                         foreach (var controller in controllers)
                         {
-                            Menu menu = null;
-                            var actions = controller.GetMethods()
-                                .Where(m => m.IsDefined(typeof(AuthorizeDefinitionAttribute)));
+                            var endPoints = controller.GetMethods()
+                                .Where(m => m.IsDefined(typeof(AuthorizeEndpointAttribute)));
 
-                            foreach (var action in actions)
+                            foreach (var endPoint in endPoints)
                             {
-                                var attributes = action.GetCustomAttributes(true);
+                                var attributes = endPoint.GetCustomAttributes(true);
 
                                 var authorizeDefinitionAttribute =
                                     attributes.FirstOrDefault(a =>
-                                            a.GetType() == typeof(AuthorizeDefinitionAttribute)) as
-                                        AuthorizeDefinitionAttribute;
+                                            a.GetType() == typeof(AuthorizeEndpointAttribute)) as
+                                        AuthorizeEndpointAttribute;
                                 
                                 
                                 var controllerAttributes = controller.GetCustomAttributes(true);
@@ -51,60 +51,41 @@ public static class AuthorizeEndpointsMigrateExtension
                                 
                                 if (authorizeDefinitionAttribute != null)
                                 {
-                                    if (menu == null)
-                                    {
-                                        
-                                        menu = new Menu()
-                                        {
-                                            ControllerName  = controller.Name.Split("Controller").FirstOrDefault(),
-                                            AreaName = areaAttributeName,
-                                            Definition = authorizeDefinitionAttribute.Menu
-                                        };
-                                        if (await unitOfWork.GetRepository<Menu>().AnyAsync(m => m.ControllerName == menu.ControllerName))
-                                        {
-                                            menu = await unitOfWork.GetRepository<Menu>().GetAsync(m => m.ControllerName == menu.ControllerName,m=>m.Actions);
-                                        }
-                                    }
-
-                                    Action newAction = new()
-                                    {
-                                        ActionName = action.Name,
-                                        ControllerName = controller.Name.Split("Controller").FirstOrDefault(),
-                                        AreaName = areaAttributeName,
-                                        ActionType = Enum.GetName(typeof(ActionType),
-                                            authorizeDefinitionAttribute.ActionType),
-                                        Definition = authorizeDefinitionAttribute.Definition
-                                    };
-
-                                    var httpAttribute = attributes.FirstOrDefault(a =>
-                                            a.GetType().IsAssignableTo(typeof(HttpMethodAttribute))) as
-                                        HttpMethodAttribute;
+                                    string actionType = Enum.GetName(typeof(ActionType),
+                                        authorizeDefinitionAttribute.ActionType);
+                                    string definition = authorizeDefinitionAttribute.Definition;
+                                    
+                                    var httpAttribute = attributes.FirstOrDefault(a => a.GetType().IsAssignableTo(typeof(HttpMethodAttribute))) as HttpMethodAttribute;
+                                    string httpType = null;
                                     if (httpAttribute != null)
-                                        newAction.HttpType = httpAttribute.HttpMethods.First();
+                                         httpType = httpAttribute.HttpMethods.First();
                                     else
-                                        newAction.HttpType = HttpMethods.Get;
-
-                                    newAction.Code =
-                                        $"{newAction.HttpType}.{newAction.ActionType}.{newAction.Definition.Replace(" ", "")}";
-
-                                    if (!menu.Actions.Any(a => a.Code == newAction.Code))
+                                        httpType = HttpMethods.Get;
+                                    string code = $"{httpType}.{actionType}.{definition.Replace(" ", "")}";
+                                    
+                                    Endpoint newEndpoint = null;
+                                    if (!endpoints.Any(e => e.Code == code))
                                     {
-                                        menu.Actions.Add(newAction);
+                                        string endpointName = endPoint.Name;
+                                        string controllerName = controller.Name.Split("Controller").FirstOrDefault();
+                                        string areaName = areaAttributeName;
+                                        newEndpoint = new()
+                                        {
+                                            EndpointName = endpointName,
+                                            ControllerName = controllerName,
+                                            AreaName = areaName,
+                                            ActionType = Enum.GetName(typeof(ActionType),
+                                                authorizeDefinitionAttribute.ActionType),
+                                            HttpType = httpType,
+                                            Definition = definition,
+                                            Code = code
+                                        };
+                                        endpoints.Add(newEndpoint);
                                     }
                                 }
                             }
-
-                            if ( menu != null && !await unitOfWork.GetRepository<Menu>().AnyAsync(m => m.ControllerName == menu.ControllerName))
-                            {
-     
-                                await unitOfWork.GetRepository<Menu>().AddAsync(menu);
-                            }
-
-                            if (menu != null && await unitOfWork.GetRepository<Menu>().AnyAsync(m => m.ControllerName == menu.ControllerName))
-                            {
-                                await unitOfWork.GetRepository<Menu>().UpdateAsync(menu);
-                            }
                         }
+                        await unitOfWork.GetRepository<Endpoint>().UpdateRangeAsync(endpoints);
                         await unitOfWork.SaveAsync();
                     }
                     finally

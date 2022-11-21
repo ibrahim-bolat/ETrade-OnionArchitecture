@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace ETrade.Application.Features.UserImages.DTOs;
 
-public class UserImageAddDto:BaseDto,IDto
+public class CreateUserImageDto:BaseDto,IDto
 {
     public int Id { get; set; }
     

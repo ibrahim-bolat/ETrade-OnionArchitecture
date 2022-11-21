@@ -63,14 +63,14 @@ public class CreateUserImageCommandHandler:IRequestHandler<CreateUserImageComman
         {
             return new CreateUserImageCommandResponse
             {
-                Result = new DataResult<UserImageAddDto>(ResultStatus.Success, Messages.UserImageAdded, request.UserImageAddDto)
+                Result = new DataResult<CreateUserImageDto>(ResultStatus.Success, Messages.UserImageAdded, request.UserImageAddDto)
             };
         }
         return new CreateUserImageCommandResponse{
             Result = new Result(ResultStatus.Error, Messages.UserImageNotAdded)
         };
     }
-    private async Task<string> UploadImage(UserImageAddDto userImageAddDto)
+    private async Task<string> UploadImage(CreateUserImageDto userImageAddDto)
     {
         var imageFileName = Path.GetFileNameWithoutExtension(userImageAddDto.ImageFile.FileName);
 

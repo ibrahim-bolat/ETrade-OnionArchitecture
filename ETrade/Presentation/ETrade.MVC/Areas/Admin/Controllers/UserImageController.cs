@@ -22,40 +22,40 @@ public class UserImageController : Controller
     }
     
     [HttpGet]
-    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.UserImage, ActionType = ActionType.Reading, Definition = "Get By Id User for Create UserImage")]
-    public IActionResult UserImageAdd(int userId)
+    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.UserImage, ActionType = ActionType.Reading, Definition = "Get By Id User for Create UserImage")]
+    public IActionResult CreateUserImage(int userId)
     {
-        UserImageAddDto userImageAddDto = new UserImageAddDto();
-        userImageAddDto.UserId = userId;
-        return View(userImageAddDto);
+        CreateUserImageDto createUserImageDto = new CreateUserImageDto();
+        createUserImageDto.UserId = userId;
+        return View(createUserImageDto);
     }
     
     [HttpPost]
-    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.UserImage, ActionType = ActionType.Writing, Definition = "Create UserImage")]
-    public async Task<IActionResult> UserImageAdd(UserImageAddDto userImageAddDto)
+    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.UserImage, ActionType = ActionType.Writing, Definition = "Create UserImage")]
+    public async Task<IActionResult> CreateUserImage(CreateUserImageDto createUserImageDto)
     {
         if (ModelState.IsValid)
         {
             var dresult = await _mediator.Send(new CreateUserImageCommandRequest
             {
-                UserImageAddDto = userImageAddDto, 
+                UserImageAddDto = createUserImageDto, 
                 CreatedByName = User.Identity?.Name
             });
             if (dresult.Result.Message == Messages.UserImageCountMoreThan4)
             { 
                 ModelState.AddModelError("UserImageCountMoreThan4", Messages.UserImageCountMoreThan4);
-                return View(userImageAddDto);
+                return View(createUserImageDto);
             }
             if (dresult.Result.ResultStatus == ResultStatus.Success)
             {
-                TempData["AddUserImageSuccess"] = true;
-                return RedirectToAction("UserImageAdd", "UserImage" ,new { area = "Admin" ,userId=userImageAddDto.UserId});
+                TempData["CreateUserImageSuccess"] = true;
+                return RedirectToAction("createUserImage", "UserImage" ,new { area = "Admin" ,userId=createUserImageDto.UserId});
             }
         }
-        return View(userImageAddDto);
+        return View(createUserImageDto);
     }
     [HttpPost]
-    public async Task<IActionResult> UserImageSetProfil(int id,int userId)
+    public async Task<IActionResult> SetProfilImage(int id,int userId)
     {
         if (id>0)
         {
@@ -76,8 +76,8 @@ public class UserImageController : Controller
     
         
     [HttpPost]
-    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.UserImage, ActionType = ActionType.Deleting, Definition = "Delete UserImage")]
-    public async Task<IActionResult> UserImageDelete(int id)
+    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.UserImage, ActionType = ActionType.Deleting, Definition = "Delete UserImage")]
+    public async Task<IActionResult> DeleteUserImage(int id)
     {
         if (id > 0)
         {

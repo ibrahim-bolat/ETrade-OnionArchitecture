@@ -29,7 +29,7 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
 
         [HttpGet]
-        [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.RoleOperation, ActionType = ActionType.Reading, Definition = "Get RoleOperation Index Page")]
+        [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.RoleOperation, ActionType = ActionType.Reading, Definition = "Get RoleOperation Index Page")]
         public IActionResult  Index()
         {
             return View();
@@ -53,7 +53,7 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
 
         [HttpGet]
-        [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.RoleOperation, ActionType = ActionType.Reading, Definition = "Get Users Of TheRole Index Page")]
+        [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.RoleOperation, ActionType = ActionType.Reading, Definition = "Get Users Of TheRole Index Page")]
         public  async Task<IActionResult> UsersOfTheRole(int id)
         {
             var dresult = await _mediator.Send(new GetByIdRoleQueryRequest()
@@ -121,7 +121,7 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
 
         [HttpPost]
-        [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.RoleOperation, ActionType = ActionType.Writing, Definition = "Create Role")]
+        [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.RoleOperation, ActionType = ActionType.Writing, Definition = "Create Role")]
         public async Task<IActionResult> CreateRole(RoleDto roleDto)
         {
             if (!ModelState.IsValid)
@@ -145,7 +145,7 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
 
         [HttpPost]
-        [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.RoleOperation, ActionType = ActionType.Updating, Definition = "Update Role")]
+        [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.RoleOperation, ActionType = ActionType.Updating, Definition = "Update Role")]
         public async Task<IActionResult> UpdateRole(RoleDto roleDto)
         {
             if (!ModelState.IsValid)
@@ -263,7 +263,7 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
         
         [HttpGet]
-        [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.RoleOperation, ActionType = ActionType.Reading, Definition = "Get By Id Role Details")]
+        [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.RoleOperation, ActionType = ActionType.Reading, Definition = "Get By Id Role Details")]
         public async Task<IActionResult> GetRole(string id)
         {
             var dresult = await _mediator.Send(new GetByIdRoleQueryRequest()

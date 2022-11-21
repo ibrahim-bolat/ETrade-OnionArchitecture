@@ -9,7 +9,7 @@ using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Action = ETrade.Domain.Entities.Action;
+using Endpoint = ETrade.Domain.Entities.Endpoint;
 
 namespace ETrade.Application.Features.AuthorizeEndpoints.Commands.AssignRoleListAuthorizeEndpointsCommand;
 
@@ -28,26 +28,26 @@ public class AssignRoleListAuthorizeEndpointsCommandHandler : IRequestHandler<
     public async Task<AssignRoleListAuthorizeEndpointsCommandResponse> Handle(
         AssignRoleListAuthorizeEndpointsCommandRequest request, CancellationToken cancellationToken)
     {
-        Action action = await _unitOfWork.GetRepository<Action>().GetAsync(a => a.Id == request.Id && a.IsActive,a=>a.AppRoles);
-        if (action != null)
+        Endpoint endpoint = await _unitOfWork.GetRepository<Endpoint>().GetAsync(a => a.Id == request.Id && a.IsActive,a=>a.AppRoles);
+        if (endpoint != null)
         {
             List<AppRole> allRoles = _roleManager.Roles.Where(r=>r.IsActive).ToList();
             foreach (var role in allRoles)
             {
                 if (request.RoleIds.Contains(role.Id))
                 {
-                    if (!action.AppRoles.Any(r => r.Id ==role.Id))
+                    if (!endpoint.AppRoles.Any(r => r.Id ==role.Id))
                     {
                         AppRole appRole = allRoles.Where(a=>a.Id==role.Id).FirstOrDefault();
-                        action.AppRoles.Add(appRole);  
+                        endpoint.AppRoles.Add(appRole);  
                     }
                 }
                 else
                 {
-                    if (action.AppRoles.Any(r => r.Id == role.Id))
+                    if (endpoint.AppRoles.Any(r => r.Id == role.Id))
                     {
                         AppRole appRole = allRoles.Where(a=>a.Id==role.Id).FirstOrDefault();
-                        action.AppRoles.Remove(appRole);  
+                        endpoint.AppRoles.Remove(appRole);  
                     }
                 }
             }

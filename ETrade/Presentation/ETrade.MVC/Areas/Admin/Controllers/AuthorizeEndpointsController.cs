@@ -36,7 +36,7 @@ public class AuthorizeEndpointsController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult>  AssignRoleListAuthorizeEndpoints(int id, List<int> roleIds)
+    public async Task<IActionResult>  AssignRolesByEndpointId(int id, List<int> roleIds)
     {
         if (id>0 && roleIds != null)
         {
@@ -55,7 +55,7 @@ public class AuthorizeEndpointsController : Controller
     }
     
     [HttpGet]
-    public async Task<IActionResult> GetRole(string id)
+    public async Task<IActionResult> GetRoleById(string id)
     {
         var dresult = await _mediator.Send(new GetByIdAuthorizeEndpointsRoleListQueryRequest()
         {

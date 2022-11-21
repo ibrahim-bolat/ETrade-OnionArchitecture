@@ -5,7 +5,6 @@ using ETrade.Persistence.Mappings;
 using ETrade.Persistence.Mappings.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Action = ETrade.Domain.Entities.Action;
 
 namespace ETrade.Persistence.Contexts;
 
@@ -20,8 +19,7 @@ public class DataContext : IdentityDbContext<AppUser, AppRole, int>
     public DbSet<Ad> Ads { get; set; }
     public DbSet<VehicleAddress> VehicleAddresses { get; set; }
     public DbSet<VehicleImage> VehicleImages { get; set; }
-    public DbSet<Menu> Menus { get; set; }
-    public DbSet<Action> Actions { get; set; }
+    public DbSet<Endpoint> Endpoints { get; set; }
     public DbSet<RequestInfoLog> RequestInfoLogs { get; set; }
 
 

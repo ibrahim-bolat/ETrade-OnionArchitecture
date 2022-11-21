@@ -43,13 +43,6 @@ public static class ServiceRegistration
             cookieOptions.AccessDeniedPath = new PathString("/ErrorPages/AccessDenied");
         });
         
-        //user security stamp validate time
-        serviceCollection.Configure<SecurityStampValidatorOptions>(options =>
-        {
-            options.ValidationInterval = TimeSpan.FromMinutes(10);
-                
-        });
-        
         //all project authorize
         serviceCollection.AddAuthorization(options =>
         {

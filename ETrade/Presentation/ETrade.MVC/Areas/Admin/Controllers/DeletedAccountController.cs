@@ -20,7 +20,7 @@ public class DeletedAccountController : Controller
     }
 
     [HttpGet]
-    [AuthorizeDefinition(Menu = AuthorizeEndpointConstants.DeletedAccount, ActionType = ActionType.Reading, Definition = "Get DeletedAccount Index Page")]
+    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.DeletedAccount, ActionType = ActionType.Reading, Definition = "Get DeletedAccount Index Page")]
     public IActionResult Index()
     {
         return View();

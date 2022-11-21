@@ -3,9 +3,9 @@ using ETrade.Domain.Entities.Identity;
 
 namespace ETrade.Domain.Entities;
 
-public class Action:BaseEntity,IEntity
+public class Endpoint:BaseEntity,IEntity
 {
-    public string ActionName { get; set; }
+    public string EndpointName { get; set; }
     
     public string ControllerName { get; set; }
     
@@ -14,9 +14,6 @@ public class Action:BaseEntity,IEntity
     public string HttpType { get; set; }
     public string Definition { get; set; }
     public string Code { get; set; }
-    
-    public int MenuId{ get; set; }
-    public Menu Menu { get; set; }
     
     public  List<AppRole> AppRoles{ get; set; }
 }

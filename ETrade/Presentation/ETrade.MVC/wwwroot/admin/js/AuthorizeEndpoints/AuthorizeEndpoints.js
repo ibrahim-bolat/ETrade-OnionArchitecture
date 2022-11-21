@@ -33,7 +33,7 @@ $(document).ready(function ($) {
             roleIds: roleIds
         };
         $.ajax({
-            url: '/Admin/AuthorizeEndpoints/AssignRoleListAuthorizeEndpoints/' + Id,
+            url: '/Admin/AuthorizeEndpoints/AssignRolesByEndpointId/' + Id,
             type: "POST",
             data: postData,
             dataType: "json",
@@ -59,7 +59,7 @@ function getRole(Id) {
     console.log(Id);
     var html = "";
     $.ajax({
-        url: '/Admin/AuthorizeEndpoints/GetRole/' + Id,
+        url: '/Admin/AuthorizeEndpoints/GetRoleById/' + Id,
         typr: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",

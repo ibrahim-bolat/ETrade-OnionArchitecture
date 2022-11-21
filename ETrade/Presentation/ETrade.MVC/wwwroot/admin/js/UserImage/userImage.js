@@ -15,7 +15,7 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: "POST",
-                    url: '/Admin/UserImage/UserImageSetProfil',
+                    url: '/Admin/UserImage/SetProfilImage',
                     data: {
                         id: Id,
                         userId:userId
@@ -66,7 +66,7 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: "POST",
-                    url: '/Admin/UserImage/UserImageDelete',
+                    url: '/Admin/UserImage/DeleteUserImage',
                     data: {
                         id: Id
                     },

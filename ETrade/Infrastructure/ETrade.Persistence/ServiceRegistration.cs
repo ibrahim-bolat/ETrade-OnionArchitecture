@@ -29,12 +29,24 @@ public static class ServiceRegistration
                 options.User.RequireUniqueEmail = true;
                 options.User.AllowedUserNameCharacters =
                     "abcçdefghiıjklmnoöpqrsştuüvwxyzABCÇDEFGHIİJKLMNOÖPQRSŞTUÜVWXYZ0123456789-._@+";
-                options.SignIn.RequireConfirmedEmail = false; 
+                options.SignIn.RequireConfirmedEmail = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
             }).AddErrorDescriber<CustomIdentityErrorDescriber>()
             .AddEntityFrameworkStores<DataContext>()
-            .AddDefaultTokenProviders();
+            .AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider);
+
+        //user security stamp validate time
+        serviceCollection.Configure<SecurityStampValidatorOptions>(options =>
+        {
+            options.ValidationInterval = TimeSpan.FromMinutes(10);
+                
+        });
         
+        // Sets the expiry to two days
+        serviceCollection.Configure<DataProtectionTokenProviderOptions>(options =>
+        {
+            options.TokenLifespan = TimeSpan.FromHours(2); 
+        });
         
         //repositories
         serviceCollection.AddScoped(typeof(IRepository<>), typeof(Repository<>));

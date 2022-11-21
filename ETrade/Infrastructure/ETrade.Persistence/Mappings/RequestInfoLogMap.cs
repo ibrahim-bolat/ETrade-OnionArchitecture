@@ -2,7 +2,6 @@ using ETrade.Domain.Entities;
 using ETrade.Domain.Entities.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Action = ETrade.Domain.Entities.Action;
 
 namespace ETrade.Persistence.Mappings;
 

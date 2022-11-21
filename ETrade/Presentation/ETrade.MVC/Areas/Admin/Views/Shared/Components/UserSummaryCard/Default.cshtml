@@ -5,7 +5,7 @@
         {
             <img src="~/admin/images/avatar/unspecifieduseravatar.png" alt="avatar"
                  id="profilPhoto" class="rounded-circle img-fluid" style="width: auto;">
-            <p><a asp-area="Admin" asp-controller="UserImage" asp-action="UserImageAdd" asp-route-userId="@Model.Id" class="btn btn-outline-warning mr-2 rounded" >Profil Fotoğrafı Ekle</a></p>
+            <p><a asp-area="Admin" asp-controller="UserImage" asp-action="CreateUserImage" asp-route-userId="@Model.Id" class="btn btn-outline-warning mr-2 rounded" >Profil Fotoğrafı Ekle</a></p>
         }
         else if (ViewBag.UserImageCount>0 && ViewBag.UserImageProfilImagePath==null)
         {

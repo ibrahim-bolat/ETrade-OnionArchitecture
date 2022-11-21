@@ -109,7 +109,7 @@ $(document).ready(function ($) {
     $('#userCreateModalForm').on('submit', '#createModalForm', function () {
         var data = $(this).serialize();
         $.ajax({
-            url: "/Admin/UserOperation/Add",
+            url: "/Admin/UserOperation/CreateUser",
             type: "POST",
             data: data,
             success: function (result) {
@@ -138,7 +138,7 @@ $(document).ready(function ($) {
         e.preventDefault();
         var Id = $('#deleteID').val();
         $.ajax({
-            url: '/Admin/UserOperation/Delete/' + Id,
+            url: '/Admin/UserOperation/DeleteUser/' + Id,
             type: "POST",
             contentType: "application/json;charset=UTF-8",
             dataType: "json",
@@ -169,7 +169,7 @@ $(document).ready(function ($) {
         })
         var postData = { roleIds: roleIds };
         $.ajax({
-            url: '/Admin/UserOperation/SaveRole/' + Id,
+            url: '/Admin/UserOperation/AssignRolesByUserId/' + Id,
             type: "POST",
             data: postData,
             dataType: "json",
@@ -202,7 +202,7 @@ $(document).ready(function ($) {
 function getRole(Id) {
     var html ="";
     $.ajax({
-        url: '/Admin/UserOperation/GetRole/' + Id,
+        url: '/Admin/UserOperation/GetRoleById/' + Id,
         typr: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -244,7 +244,7 @@ function getByIdforDelete(Id) {
     clearDeleteModalTextBox();
     disabledDeleteModalTextBox(true);
     $.ajax({
-        url: '/Admin/UserOperation/getById/' + Id,
+        url: '/Admin/UserOperation/GetUserById/' + Id,
         typr: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",

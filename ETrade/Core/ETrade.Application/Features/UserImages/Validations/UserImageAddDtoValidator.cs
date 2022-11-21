@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace ETrade.Application.Features.UserImages.Validations;
 
-public class UserImageAddDtoValidator:AbstractValidator<UserImageAddDto>
+public class UserImageAddDtoValidator:AbstractValidator<CreateUserImageDto>
 {
     public UserImageAddDtoValidator()
     {
