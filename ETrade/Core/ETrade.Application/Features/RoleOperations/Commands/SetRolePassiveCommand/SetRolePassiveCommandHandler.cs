@@ -33,30 +33,27 @@ public class SetRolePassiveCommandHandler : IRequestHandler<SetRolePassiveComman
             {
                 if (role.IsActive)
                 {
-                    if (!defaultRoleIds.Contains(role.Id))
+                    role.IsActive = false;
+                    role.IsDeleted = true;
+                    role.ModifiedTime = DateTime.Now;
+                    role.ModifiedByName = _httpContextAccessor.HttpContext?.User.Identity?.Name;
+                    roleResult = await _roleManager.UpdateAsync(role);
+                    var usersInRole = await _userManager.GetUsersInRoleAsync(role.Name);
+                    foreach (var user in usersInRole)
                     {
-                        role.IsActive = false;
-                        role.IsDeleted = true;
-                        role.ModifiedTime = DateTime.Now;
-                        role.ModifiedByName = _httpContextAccessor.HttpContext?.User.Identity?.Name;
-                        roleResult = await _roleManager.UpdateAsync(role);
-                        var usersInRole = await _userManager.GetUsersInRoleAsync(role.Name);
-                        foreach (var user in usersInRole)
-                        {
-                            await _userManager.RemoveFromRoleAsync(user, role.Name);
-                        }
-                        if (roleResult.Succeeded)
-                        {
-                            return new SetRolePassiveCommandResponse
-                            {
-                                Result = new Result(ResultStatus.Success, Messages.RoleUpdated)
-                            };
-                        }
+                        await _userManager.RemoveFromRoleAsync(user, role.Name);
+                    }
+                    if (roleResult.Succeeded)
+                    {
                         return new SetRolePassiveCommandResponse
                         {
-                            Result = new Result(ResultStatus.Error, Messages.RoleNotDeleted,roleResult.Errors.ToList())
-                        }; 
+                            Result = new Result(ResultStatus.Success, Messages.RoleUpdated)
+                        };
                     }
+                    return new SetRolePassiveCommandResponse
+                    {
+                        Result = new Result(ResultStatus.Error, Messages.RoleNotDeleted,roleResult.Errors.ToList())
+                    };
                 }
                 return new SetRolePassiveCommandResponse
                 {

@@ -1,6 +1,6 @@
 @{
     Layout = "Admin/_AdminLayout";
-    ViewData["Title"] = "Yetkilendirme İşlemleri";
+    ViewData["Title"] = "Rol Bazlı Endpoint Yetkilendirme İşlemleri";
 }
 
 
@@ -11,6 +11,7 @@
             color: #536DFE;
             font-weight: bold;
          }
+
         /* roleModal Checkbox Switch Change Color */
          .custom-control-input:focus ~ .custom-control-label::before {
              border-color: #28a745 !important;
@@ -66,7 +67,7 @@
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Yetkilendirme İşlemleri</h2>
+                        <h2>Rol Bazlı Endpoint Yetkilendirme İşlemleri</h2>
                     </div>
                     <div class="card-body">
                         <button id="expandAll" class="btn btn-primary">Hepsini Genişlet</button>
@@ -84,6 +85,6 @@
     </div>
 @section Scripts {
     <script src="~/js/gijgo/gijgo.min.js"></script>
-    <script src="~/admin/js/AuthorizeEndpoints/AuthorizeEndpoints.js"></script>
+    <script src="~/admin/js/AuthorizeEndpoint/AuthorizeEndpointForAssignRole.js"></script>
 }
 

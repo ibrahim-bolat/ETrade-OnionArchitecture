@@ -1,6 +1,6 @@
 namespace ETrade.Domain.Enums;
 
-public enum ActionType
+public enum EndpointType
 {
     Reading,
     Writing,

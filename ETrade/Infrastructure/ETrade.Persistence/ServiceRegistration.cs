@@ -42,7 +42,7 @@ public static class ServiceRegistration
                 
         });
         
-        // Sets the expiry to two days
+        // Sets the expiry to two hours
         serviceCollection.Configure<DataProtectionTokenProviderOptions>(options =>
         {
             options.TokenLifespan = TimeSpan.FromHours(2); 

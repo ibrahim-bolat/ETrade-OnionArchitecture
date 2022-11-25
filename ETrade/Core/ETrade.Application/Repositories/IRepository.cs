@@ -14,6 +14,7 @@ public interface IRepository<TEntity> where TEntity : class, IEntity, new()
     Task<TEntity> GetByIdAsync(int id);
     Task<TEntity> GetAsync(Expression<Func<TEntity,bool>> predicate, params Expression<Func<TEntity,object>>[] includeProperties);
     Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null, params Expression<Func<TEntity, object>>[] includeProperties);
+    Task<IQueryable<TEntity>> GetAllQueryableAsync(Expression<Func<TEntity, bool>> predicate = null, params Expression<Func<TEntity, object>>[] includeProperties);
     Task<bool> AnyAsync(Expression<Func<TEntity,bool>> predicate);
     Task<int> CountAsync(Expression<Func<TEntity,bool>> predicate);
 }

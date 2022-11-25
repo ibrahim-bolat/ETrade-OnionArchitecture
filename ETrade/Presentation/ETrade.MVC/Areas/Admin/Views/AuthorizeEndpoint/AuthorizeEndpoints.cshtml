@@ -1,0 +1,92 @@
+@{
+    Layout = "Admin/_AdminLayout";
+    ViewData["Title"] = "IP Bazlı Endpoint Yetkilendirme İşlemleri";
+}
+
+
+@section Style {
+    <link href="~/css/gijgo/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        span .gj-icon {
+            color: #536DFE;
+            font-weight: bold;
+         }
+
+        /* roleModal Checkbox Switch Change Color */
+         .custom-control-input:focus ~ .custom-control-label::before {
+             border-color: #28a745 !important;
+             box-shadow: #28a745 !important;
+        }
+         .custom-control-input:checked ~ .custom-control-label::before {
+             border-color: #28a745 !important;
+             background-color: #28a745 !important;
+        }
+         .custom-control-input:active ~ .custom-control-label::before {
+             background-color: #28a745 !important;
+             border-color: #28a745 !important;
+        }
+         .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+             border-color: #28a745 !important;
+        }
+         .custom-control-input-green:not(:disabled):active ~ .custom-control-label::before {
+             background-color: #28a745 !important;
+             border-color: #28a745 !important;
+        }
+
+    </style>
+}
+
+    <div class="breadcrumbs">
+        <div class="col-sm-4">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>Dashboard</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right">
+                        <li class="active">Dashboard</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="content mt-3">
+            <div class="col-sm-12">
+                <div class="alert  alert-success alert-dismissible fade show" role="alert">
+                    <span class="badge badge-pill badge-success">Success</span> You successfully read this important alert message.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>IP Bazlı Endpoint Yetkilendirme İşlemleri</h2>
+                    </div>
+                    <div class="card-body">
+                        <button id="checkAll" class="btn btn-warning">Hepsini Seç</button>
+                        <button id="uncheckAll" class="btn btn-danger">Hiç Seçme</button>
+                        <button id="expandAll" class="btn btn-secondary">Hepsini Genişlet</button>
+                        <button id="collapseAll" class="btn btn-dark">Hepsini Daralt</button>
+                        <br/>
+                        <div class="row">
+                            <div id="tree"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div> <!-- .content -->
+    <div id="endpointIpModalPartial">
+
+    </div>
+@section Scripts {
+    <script src="~/js/gijgo/gijgo.min.js"></script>
+    <script src="~/admin/js/AuthorizeEndpoint/AuthorizeEndpointForAssignIp.js"></script>
+}
+

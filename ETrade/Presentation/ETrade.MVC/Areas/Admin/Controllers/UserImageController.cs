@@ -22,7 +22,7 @@ public class UserImageController : Controller
     }
     
     [HttpGet]
-    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.UserImage, ActionType = ActionType.Reading, Definition = "Get By Id User for Create UserImage")]
+    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.UserImage, EndpointType = EndpointType.Reading, Definition = "Get By Id User for Create UserImage")]
     public IActionResult CreateUserImage(int userId)
     {
         CreateUserImageDto createUserImageDto = new CreateUserImageDto();
@@ -31,7 +31,7 @@ public class UserImageController : Controller
     }
     
     [HttpPost]
-    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.UserImage, ActionType = ActionType.Writing, Definition = "Create UserImage")]
+    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.UserImage, EndpointType = EndpointType.Writing, Definition = "Create UserImage")]
     public async Task<IActionResult> CreateUserImage(CreateUserImageDto createUserImageDto)
     {
         if (ModelState.IsValid)
@@ -76,7 +76,7 @@ public class UserImageController : Controller
     
         
     [HttpPost]
-    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.UserImage, ActionType = ActionType.Deleting, Definition = "Delete UserImage")]
+    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.UserImage, EndpointType = EndpointType.Deleting, Definition = "Delete UserImage")]
     public async Task<IActionResult> DeleteUserImage(int id)
     {
         if (id > 0)

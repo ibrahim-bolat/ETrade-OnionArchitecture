@@ -23,14 +23,14 @@ public class AddressController : Controller
     }
 
     [HttpGet]
-    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Reading, Definition = "Get Address Index Page")]
+    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, EndpointType = EndpointType.Reading, Definition = "Get Address Index Page")]
     public IActionResult Index()
     {
         return View();
     }
 
     [HttpGet]
-    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Reading, Definition = "Get By Id Address for Create Address")]
+    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, EndpointType = EndpointType.Reading, Definition = "Get By Id Address for Create Address")]
     public IActionResult CreateAddress(int userId)
     {
         AddressDto addressDto = new AddressDto();
@@ -39,15 +39,14 @@ public class AddressController : Controller
     }
 
     [HttpPost]
-    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Writing, Definition = "Create Address")]
+    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, EndpointType = EndpointType.Writing, Definition = "Create Address")]
     public async Task<IActionResult> CreateAddress(AddressDto addressDto)
     {
         if (ModelState.IsValid)
         {
             var dresult = await _mediator.Send(new CreateAddressCommandRequest
             {
-                AddressDto = addressDto, 
-                CreatedByName = User.Identity?.Name
+                AddressDto = addressDto
             });
             if (dresult.Result.Message == Messages.AddressCountMoreThan4)
             {
@@ -64,7 +63,7 @@ public class AddressController : Controller
     }
 
     [HttpGet]
-    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Reading, Definition = "Get By Id Address for Update Address")]
+    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, EndpointType = EndpointType.Reading, Definition = "Get By Id Address for Update Address")]
     public async Task<IActionResult> UpdateAddress(int addressId)
     {
         if (addressId > 0)
@@ -83,7 +82,7 @@ public class AddressController : Controller
     }
 
     [HttpPost]
-    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Updating, Definition = "Update Address")]
+    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, EndpointType = EndpointType.Updating, Definition = "Update Address")]
     public async Task<IActionResult> UpdateAddress(AddressDto addressDto)
     {
         if (ModelState.IsValid)
@@ -103,7 +102,7 @@ public class AddressController : Controller
     }
 
     [HttpGet]
-    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Reading, Definition = "Get By Id Address for Address Details")]
+    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, EndpointType = EndpointType.Reading, Definition = "Get By Id Address for Address Details")]
     public async Task<IActionResult>  DetailAddress(int addressId)
     {
         if (addressId > 0)
@@ -121,7 +120,7 @@ public class AddressController : Controller
     }
     
     [HttpPost]
-    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, ActionType = ActionType.Deleting, Definition = "Delete Address")]
+    [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, EndpointType = EndpointType.Deleting, Definition = "Delete Address")]
     public async Task<IActionResult> DeleteAddress(int addressId)
     {
         if (addressId > 0)

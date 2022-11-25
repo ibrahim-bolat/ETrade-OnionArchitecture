@@ -1,0 +1,38 @@
+@model IpDto
+<div class="modal fade" id="ipCreateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="createModalForm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myCreateModalLabel">Ip Ekle</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body" id="createModalFormModalBody">
+                    <div asp-validation-summary="All" class="text-danger ml-4"></div>
+                    <div class="form-group">
+                        <label asp-for="RangeStart" class="control-label"></label>
+                        <input asp-for="RangeStart" id="createRangeStart" class="form-control" placeholder="xxx.xxx.xxx.xxx"/>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="RangeEnd" class="control-label"></label>
+                        <input asp-for="RangeEnd" id="createRangeEnd" class="form-control" placeholder="xxx.xxx.xxx.xxx"/>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IpListType" class="control-label"></label>
+                        <select id="createIpListType"  class="custom-select" asp-for="IpListType" 
+                                asp-items="@Html.GetEnumSelectList<IpListType>().Select(si => {
+                                                                                                  si.Text = ((IpListType)int.Parse(si.Value)).GetEnumDescription(); return si;})">
+                            <option disabled selected="selected" value="">Ip Listesi Türünü Seçiniz</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="btnAdd">Ekle</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

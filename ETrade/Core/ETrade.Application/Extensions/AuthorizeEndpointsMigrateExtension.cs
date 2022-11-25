@@ -42,17 +42,17 @@ public static class AuthorizeEndpointsMigrateExtension
                                         AuthorizeEndpointAttribute;
                                 
                                 
-                                var controllerAttributes = controller.GetCustomAttributes(true);
-                                var areaAttribute =
-                                    controllerAttributes.FirstOrDefault(a =>
-                                            a.GetType() == typeof(AreaAttribute)) as
-                                        AreaAttribute;
-                                var areaAttributeName = areaAttribute?.RouteValue;
-                                
                                 if (authorizeDefinitionAttribute != null)
                                 {
-                                    string actionType = Enum.GetName(typeof(ActionType),
-                                        authorizeDefinitionAttribute.ActionType);
+                                    var controllerAttributes = controller.GetCustomAttributes(true);
+                                    var areaAttribute =
+                                        controllerAttributes.FirstOrDefault(a =>
+                                                a.GetType() == typeof(AreaAttribute)) as
+                                            AreaAttribute;
+                                    var areaAttributeName = areaAttribute?.RouteValue;
+                                    
+                                    string endpointType = Enum.GetName(typeof(EndpointType),
+                                        authorizeDefinitionAttribute.EndpointType);
                                     string definition = authorizeDefinitionAttribute.Definition;
                                     
                                     var httpAttribute = attributes.FirstOrDefault(a => a.GetType().IsAssignableTo(typeof(HttpMethodAttribute))) as HttpMethodAttribute;
@@ -61,7 +61,7 @@ public static class AuthorizeEndpointsMigrateExtension
                                          httpType = httpAttribute.HttpMethods.First();
                                     else
                                         httpType = HttpMethods.Get;
-                                    string code = $"{httpType}.{actionType}.{definition.Replace(" ", "")}";
+                                    string code = $"{httpType}.{endpointType}.{definition.Replace(" ", "")}";
                                     
                                     Endpoint newEndpoint = null;
                                     if (!endpoints.Any(e => e.Code == code))
@@ -74,8 +74,8 @@ public static class AuthorizeEndpointsMigrateExtension
                                             EndpointName = endpointName,
                                             ControllerName = controllerName,
                                             AreaName = areaName,
-                                            ActionType = Enum.GetName(typeof(ActionType),
-                                                authorizeDefinitionAttribute.ActionType),
+                                            EndpointType = Enum.GetName(typeof(EndpointType),
+                                                authorizeDefinitionAttribute.EndpointType),
                                             HttpType = httpType,
                                             Definition = definition,
                                             Code = code

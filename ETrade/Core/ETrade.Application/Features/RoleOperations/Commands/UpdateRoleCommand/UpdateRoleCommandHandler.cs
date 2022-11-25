@@ -31,7 +31,6 @@ public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommandRequest
             AppRole role = await _roleManager.FindByIdAsync(request.RoleDto.Id.ToString());
             if (role != null)
             {
-       
                 string fixedRoleName = SeoHelper.ToSeoUrl(request.RoleDto.Name);
                 string roleName = char.ToUpperInvariant(fixedRoleName[0]) + fixedRoleName.Substring(1);
                 role.ModifiedTime = DateTime.Now;

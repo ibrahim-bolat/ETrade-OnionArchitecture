@@ -13,7 +13,7 @@ public class AppRoleMap : IEntityTypeConfiguration<AppRole>
         public void Configure(EntityTypeBuilder<AppRole> builder)
         {
             builder.Property(role => role.Note).HasMaxLength(500);
-            builder.HasMany(appRole => appRole.Endpoints).WithMany(action => action.AppRoles)
+            builder.HasMany(appRole => appRole.Endpoints).WithMany(endpoint => endpoint.AppRoles)
                 .UsingEntity(r => r.ToTable("EndpointRoles"));
             builder.HasData(new AppRole
             {

@@ -30,7 +30,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 app.UseStatusCodePagesWithReExecute("/ErrorPages/AllErrorPages","?statusCode={0}");
-app.CustomExceptionHandler();
+//uygulama canlıya çıkarkan devreye al
+//app.CustomExceptionHandler(); 
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

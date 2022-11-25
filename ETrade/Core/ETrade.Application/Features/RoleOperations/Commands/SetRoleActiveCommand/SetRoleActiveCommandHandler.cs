@@ -31,26 +31,22 @@ public class SetRoleActiveCommandCommandHandler : IRequestHandler<SetRoleActiveC
             {
                 if (role.IsDeleted)
                 {
-                    if (!defaultRoleIds.Contains(role.Id))
+                    role.IsActive = true;
+                    role.IsDeleted = false;
+                    role.ModifiedTime = DateTime.Now;
+                    role.ModifiedByName = _httpContextAccessor.HttpContext?.User.Identity?.Name;
+                    roleResult = await _roleManager.UpdateAsync(role);
+                    if (roleResult.Succeeded)
                     {
-                        role.IsActive = true;
-                        role.IsDeleted = false;
-                        role.ModifiedTime = DateTime.Now;
-                        role.ModifiedByName = _httpContextAccessor.HttpContext?.User.Identity?.Name;
-                        roleResult = await _roleManager.UpdateAsync(role);
-                        if (roleResult.Succeeded)
-                        {
-                            return new SetRoleActiveCommandResponse
-                            {
-                                Result = new Result(ResultStatus.Success, Messages.RoleUpdated)
-                            };
-                        }
                         return new SetRoleActiveCommandResponse
                         {
-                            Result = new Result(ResultStatus.Error, Messages.RoleNotDeleted,roleResult.Errors.ToList())
+                            Result = new Result(ResultStatus.Success, Messages.RoleUpdated)
                         };
                     }
-
+                    return new SetRoleActiveCommandResponse
+                    {
+                        Result = new Result(ResultStatus.Error, Messages.RoleNotDeleted,roleResult.Errors.ToList())
+                    };
                 }
                 return new SetRoleActiveCommandResponse
                 {

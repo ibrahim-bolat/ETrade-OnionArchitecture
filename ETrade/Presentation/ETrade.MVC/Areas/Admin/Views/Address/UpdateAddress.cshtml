@@ -116,7 +116,6 @@
                                 <label asp-for="AddressType" class="col-sm-3 col-form-label"></label>
                                 <div class="col-sm-9">
                                     <select class="custom-select" asp-for="AddressType" asp-items="@Html.GetEnumSelectList<AddressType>().Select(si => { si.Text = ((AddressType)int.Parse(si.Value)).GetEnumDescription(); return si;})">
-                                        >
                                         <option disabled selected="selected" value="">Adres Tipi Seçiniz</option>
                                     </select>
                                 </div>

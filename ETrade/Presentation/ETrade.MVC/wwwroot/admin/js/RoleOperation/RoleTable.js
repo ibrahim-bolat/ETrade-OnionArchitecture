@@ -43,20 +43,20 @@ $(document).ready(function ($) {
                 "data": "Id","className": "text-center","width": "50px", "render": function (data, type, row, meta) {
                     if(row.Status){
                         if(data === 1 || data === 2 || data === 3){
-                            return'<a class="btn btn-primary mr-2" href="AuthorizeEndpoints/Index"><i class="fa fa-tasks">Yetkilendirme</i></a>' +
+                            return'<a class="btn btn-primary mr-2" href="AuthorizeEndpoint/Index"><i class="fa fa-tasks">Yetkilendirme</i></a>' +
                                 '<a class="btn btn-info mr-2" href="RoleOperation/UsersOfTheRole/' + data + '"><i class="fa fa-info-circle">Rolün Kullanıcıları</i></a>' +
                                 '<a class="btn btn-warning mr-2 disabled">Default Rol</a>' +
                                 '<a class="btn btn-warning disabled">Default Rol</a>';
                         }
                         else{
-                            return'<a class="btn btn-primary mr-2" href="AuthorizeEndpoints/Index"><i class="fa fa-tasks">Yetkilendirme</i></a>' +
+                            return'<a class="btn btn-primary mr-2" href="AuthorizeEndpoint/Index"><i class="fa fa-tasks">Yetkilendirme</i></a>' +
                                 '<a class="btn btn-info mr-2" href="RoleOperation/UsersOfTheRole/' + data + '"><i class="fa fa-info-circle">Rolün Kullanıcıları</i></a>' +
                                 '<a class="btn btn-secondary mr-2" onclick="getByIdforUpdate(' + data + ')"><i class="fa fa-pencil-square-o">Rol Güncelle</i></a>' +
                                 '<a class="btn btn-danger" onclick="SetRolePassive(' + data + ')"><i class="fa fa-solid fa-times">Pasif Yap</i></a>';
                         }
                     }
                     else{
-                        return '<a class="btn btn-primary mr-2" href="RoleOperation/Authorization"><i class="fa fa-tasks">Yetkilendirme</i></a>' +
+                        return '<a class="btn btn-primary mr-2" href="AuthorizeEndpoint/Index"><i class="fa fa-tasks">Yetkilendirme</i></a>' +
                         '<a class="btn btn-info mr-2" href="RoleOperation/UsersOfTheRole/' + data + '"><i class="fa fa-info-circle">Rolün Kullanıcıları</i></a>' +
                         '<a class="btn btn-secondary mr-2" onclick="getByIdforUpdate(' + data + ')"><i class="fa fa-pencil-square-o">Rol Güncelle</i></a>' +
                         '<a class="btn btn-success" onclick="SetRoleActive(' + data + ')"><i class="fa fa-solid fa-check">Aktif Yap</i></a>';
@@ -69,7 +69,6 @@ $(document).ready(function ($) {
             "pageLength",
         ]
     });
-//<h3><span class="badge badge-danger" >Default Rol</span></h3>'
     $(tables.table().body())
         .addClass('tbody');
 
@@ -127,32 +126,6 @@ $(document).ready(function ($) {
         return false;
     });
 
-    //Modal Form Delete
-    $('#roleDeleteModalForm').on('submit', '#deleteModalForm', function (e) {
-        e.preventDefault();
-        var Id = $('#deleteID').val();
-        $.ajax({
-            url: '/Admin/RoleOperation/DeleteRole/' + Id,
-            type: "POST",
-            contentType: "application/json;charset=UTF-8",
-            dataType: "json",
-            success: function (result) {
-                if (result.success) {
-                    ReloadTable();
-                    $('#roleDeleteModal').modal('hide');
-                    clearDeleteModalTextBox();
-                    toastMessage(5000, "success", "Rol Başarıyla Silindi")
-                } else {
-                    toastMessage(3000, "error", "Rol Silinemedi")
-                }
-            },
-            error: function (errormessage) {
-                toastMessage(3000, "error", "Rol Silinemedi")
-            }
-        });
-        return false;
-    });
-
     //When Close Create Modal Reset ModelSate Errors and Form inputs
     $("#roleCreateModal").on("hidden.bs.modal", function () {
         var createModalForm = $(this).find("#createModalForm");
@@ -169,7 +142,7 @@ $(document).ready(function ($) {
 
 });
 
-//Get Role By Id For Delete
+//Get Role By Id For Update
 function getByIdforUpdate(Id) {
     clearUpdateModalTextBox();
     $.ajax({
@@ -194,31 +167,6 @@ function getByIdforUpdate(Id) {
     return false;
 }
 
-//Get Role By Id For Delete
-function getByIdforDelete(Id) {
-    clearDeleteModalTextBox();
-    disabledDeleteModalTextBox(true);
-    $.ajax({
-        url: '/Admin/RoleOperation/GetRole/' + Id,
-        typr: "GET",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-            if (result.success) {
-                $('#deleteID').val(result.role.Id);
-                $('#deleteName').val(result.role.Name);
-                $('#roleDeleteModal').modal('show');
-            } else {
-                toastMessage(3000, "error", "Rol Getirilemedi")
-            }
-
-        },
-        error: function (errormessage) {
-            toastMessage(3000, "error", "Rol Getirilemedi")
-        }
-    });
-    return false;
-}
 
 //Set Role Active
 function SetRoleActive(Id) {
@@ -351,16 +299,6 @@ function clearUpdateModalTextBox() {
     $('#updateName').css('border-color', 'lightgrey');
 }
 
-//Clear Delete Modal Form  Entire Features
-function clearDeleteModalTextBox() {
-    $('#deleteID').val("");
-    $('#deleteName').val("");
-    $('#deleteID-error').val("");
-    $('#deleteName-error').val("");
-    $('#btnDelete').show();
-    $('#deleteID').css('border-color', 'lightgrey');
-    $('#updateName').css('border-color', 'lightgrey');
-}
 
 //Disable Create Modal Form  Entire TextBox
 function disabledCreateModalTextBox(value = true) {
@@ -370,11 +308,6 @@ function disabledCreateModalTextBox(value = true) {
 //Disable Update Modal Form  Entire TextBox
 function disabledUpdateModalTextBox(value = true) {
     $('#updateName').attr("disabled", value);
-}
-
-//Disable Delete Modal Form  Entire TextBox
-function disabledDeleteModalTextBox(value = true) {
-    $('#deleteName').attr("disabled", value);
 }
 
 //Reload DataTable

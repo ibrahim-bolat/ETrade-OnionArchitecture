@@ -12,6 +12,9 @@ public class DataContext : IdentityDbContext<AppUser, AppRole, int>
 {
     public DbSet<Address> Addresses { get; set; }
     public DbSet<UserImage> UserImages { get; set; }
+    public DbSet<Endpoint> Endpoints { get; set; }
+    public DbSet<RequestInfoLog> RequestInfoLogs { get; set; }
+    public DbSet<IpAddress> IpAddresses { get; set; }
     public DbSet<MainCategory> MainCategories { get; set; }
     public DbSet<SubCategory> SubCategories { get; set; }
     public DbSet<Brand> Brands { get; set; }
@@ -19,8 +22,6 @@ public class DataContext : IdentityDbContext<AppUser, AppRole, int>
     public DbSet<Ad> Ads { get; set; }
     public DbSet<VehicleAddress> VehicleAddresses { get; set; }
     public DbSet<VehicleImage> VehicleImages { get; set; }
-    public DbSet<Endpoint> Endpoints { get; set; }
-    public DbSet<RequestInfoLog> RequestInfoLogs { get; set; }
 
 
     public DataContext(DbContextOptions<DataContext> dbContext) : base(dbContext)

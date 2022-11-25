@@ -32,7 +32,13 @@
                                 <i class="fa fa-cogs"></i><a asp-area="Admin" asp-controller="RoleOperation"  asp-action="Index" class="nav-link" >Rol İşlemleri</a>
                             </li>
                             <li>
-                                <i class="fa fa-toggle-on"></i><a asp-area="Admin" asp-controller="AuthorizeEndpoints"  asp-action="Index" class="nav-link" >Yetkilendirme İşlemleri</a>
+                                <i class="fa fa-cogs"></i><a asp-area="Admin" asp-controller="IpOperation"  asp-action="Index" class="nav-link" >IP İşlemleri</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-toggle-on"></i><a asp-area="Admin" asp-controller="AuthorizeEndpoint"  asp-action="Index" class="nav-link" >Rol Bazlı Endpoint Yetkilendirme İşlemleri</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-toggle-off"></i><a asp-area="Admin" asp-controller="AuthorizeEndpoint"  asp-action="AuthorizeEndpoints" class="nav-link" >Ip Bazlı Endpoint Yetkilendirme İşlemleri</a>
                             </li>
                         </ul>
                     </li>

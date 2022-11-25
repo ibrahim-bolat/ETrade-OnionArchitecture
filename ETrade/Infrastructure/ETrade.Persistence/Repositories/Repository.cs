@@ -103,6 +103,24 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, I
 
         return await query.ToListAsync();
     }
+    
+    public async Task<IQueryable<TEntity>> GetAllQueryableAsync(Expression<Func<TEntity, bool>> predicate = null, params Expression<Func<TEntity, object>>[] includeProperties)
+    {
+        IQueryable<TEntity> query = _dbSet;
+        if (predicate != null)
+        {
+            query = query.Where(predicate);
+        }
+
+        if (includeProperties.Any())
+        {
+            foreach (var item in includeProperties)
+            {
+                query = query.Include(item);
+            }
+        }
+        return await Task.FromResult(query.AsQueryable());
+    }
 
     public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate)
     {

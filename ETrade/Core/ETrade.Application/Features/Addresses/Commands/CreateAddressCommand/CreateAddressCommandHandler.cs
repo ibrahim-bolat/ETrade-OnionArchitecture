@@ -6,6 +6,7 @@ using ETrade.Application.Wrappers.Concrete;
 using ETrade.Domain.Entities;
 using ETrade.Domain.Enums;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace ETrade.Application.Features.Addresses.Commands.CreateAddressCommand;
 
@@ -13,16 +14,19 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public CreateAddressCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    public CreateAddressCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, IHttpContextAccessor httpContextAccessor)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<CreateAddressCommandResponse> Handle(CreateAddressCommandRequest request, CancellationToken cancellationToken)
     {
        var count = await _unitOfWork.GetRepository<Address>().CountAsync(x => x.UserId == request.AddressDto.UserId && x.IsActive);
+       string createdByName = _httpContextAccessor.HttpContext?.User?.Identity?.Name;
         if (count > 4)
         {
             return new CreateAddressCommandResponse
@@ -38,14 +42,14 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
                 foreach (var address in addresses)
                 {
                     address.DefaultAddress = false;
-                    address.ModifiedByName = request.CreatedByName;
+                    address.ModifiedByName = createdByName;
                     address.ModifiedTime = DateTime.Now;
                     await _unitOfWork.GetRepository<Address>().UpdateAsync(address);
                 }
                 var newAddress = _mapper.Map<Address>(request.AddressDto);
                 newAddress.DefaultAddress = true;
-                newAddress.CreatedByName = request.CreatedByName;
-                newAddress.ModifiedByName = request.CreatedByName;
+                newAddress.CreatedByName = createdByName;
+                newAddress.ModifiedByName = createdByName;
                 newAddress.CreatedTime = DateTime.Now;
                 newAddress.ModifiedTime = DateTime.Now;
                 newAddress.IsActive = true;
@@ -56,8 +60,8 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
             {
                 var newAddress = _mapper.Map<Address>(request.AddressDto);
                 newAddress.DefaultAddress = false;
-                newAddress.CreatedByName = request.CreatedByName;;
-                newAddress.ModifiedByName = request.CreatedByName;;
+                newAddress.CreatedByName = createdByName;
+                newAddress.ModifiedByName = createdByName;
                 newAddress.CreatedTime = DateTime.Now;
                 newAddress.ModifiedTime = DateTime.Now;
                 newAddress.IsActive = true;
@@ -71,8 +75,8 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
             {
                 var newAddress = _mapper.Map<Address>(request.AddressDto);
                 newAddress.DefaultAddress = true;
-                newAddress.CreatedByName = request.CreatedByName;;
-                newAddress.ModifiedByName = request.CreatedByName;;
+                newAddress.CreatedByName = createdByName;
+                newAddress.ModifiedByName = createdByName;
                 newAddress.CreatedTime = DateTime.Now;
                 newAddress.ModifiedTime = DateTime.Now;
                 newAddress.IsActive = true;
@@ -83,8 +87,8 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
             {
                 var newAddress = _mapper.Map<Address>(request.AddressDto);
                 newAddress.DefaultAddress = false;
-                newAddress.CreatedByName = request.CreatedByName;;
-                newAddress.ModifiedByName = request.CreatedByName;;
+                newAddress.CreatedByName = createdByName;
+                newAddress.ModifiedByName = createdByName;
                 newAddress.CreatedTime = DateTime.Now;
                 newAddress.ModifiedTime = DateTime.Now;
                 newAddress.IsActive = true;

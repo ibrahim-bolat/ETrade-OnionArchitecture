@@ -13,12 +13,14 @@ namespace ETrade.Persistence.Mappings;
             builder.Property(endpoint => endpoint.Code).HasMaxLength(150).IsRequired();
             builder.Property(endpoint => endpoint.Definition).HasMaxLength(150).IsRequired();
             builder.Property(endpoint => endpoint.HttpType).HasMaxLength(100).IsRequired();
-            builder.Property(endpoint => endpoint.ActionType).HasMaxLength(100).IsRequired();
+            builder.Property(endpoint => endpoint.EndpointType).HasMaxLength(100).IsRequired();
             builder.Property(endpoint => endpoint.EndpointName).HasMaxLength(100).IsRequired();
             builder.Property(endpoint => endpoint.ControllerName).HasMaxLength(100).IsRequired();
             builder.Property(endpoint => endpoint.AreaName).HasMaxLength(100);
             builder.Property(endpoint => endpoint.Note).HasMaxLength(500);
             builder.HasMany(endpoint => endpoint.AppRoles).WithMany(appRole => appRole.Endpoints)
-                .UsingEntity(r => r.ToTable("EndpointRoles"));;
+                .UsingEntity(e => e.ToTable("EndpointRoles"));;
+            builder.HasMany(endpoint => endpoint.IpAddresses).WithMany(ip => ip.Endpoints)
+                .UsingEntity(e => e.ToTable("EndpointIpAddreses"));;
         }
     }

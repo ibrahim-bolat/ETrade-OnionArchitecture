@@ -94,4 +94,8 @@
       <_ContentIncludedByDefault Remove="wwwroot\admin\images\userimages\1\Url Dogulama.png" />
     </ItemGroup>
 
+    <ItemGroup>
+      <AdditionalFiles Include="Areas\Admin\Views\IpOperation\Index.cshtml" />
+    </ItemGroup>
+
 </Project>
