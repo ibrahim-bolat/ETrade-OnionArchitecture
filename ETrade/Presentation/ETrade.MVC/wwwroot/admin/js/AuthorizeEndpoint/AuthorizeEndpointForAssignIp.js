@@ -5,7 +5,6 @@ $(document).ready(function ($) {
         uiLibrary: 'bootstrap4',
         dataSource: '/Admin/AuthorizeEndpoint/GetAuthorizeEndpointsforAssignIp',
         width: 800,
-        checkboxes: true,
         icons: {
             expand: '<i class="gj-icon chevron-right"></i>',
             collapse: '<i class="gj-icon chevron-down"></i>'
@@ -21,28 +20,48 @@ $(document).ready(function ($) {
     $('#collapseAll').on('click', function () {
         tree.collapseAll();
     });
-    $('#checkAll').on('click', function () {
-        tree.checkAll();
-    });
-    $('#uncheckAll').on('click', function () {
-        tree.uncheckAll();
-    });
 
     //IpModal Save
-    $('#endpointIpModalSave').click(function (e) {
+    $("#endpointIpModalPartial").on('click', '.endpointIpModalSaveBtn', function (e) {
         var ipIds = [];
-        var Id = $('#endpointIpModalForm .modal-body input[type="checkbox"]').attr("data-id");
+        var ipEndpointId;
+        var ipAreaName;
+        var ipMenuName;
+        //var Id = $('#endpointIpModalForm .modal-body input[type="checkbox"]').attr("data-id");
         $.each($('#endpointIpModalForm .modal-body input[type="checkbox"]:checked'), function () {
-            var ip_id = $(this).attr("name");
+            if ($(this).is('[data-areaname]')) {
+                var ip_areaName = $(this).attr("data-areaname");
+            }
+            if ($(this).is('[data-menuname]')) {
+                var ip_menuName = $(this).attr("data-menuname");
+            }
+            if ($(this).is('[data-id]')) {
+                var ip_id = $(this).attr("data-id");
+            }
+            if ($(this).is('[data-endpointId]')) {
+                var ip_endpointId = $(this).attr("data-endpointId");
+            }
             ipIds.push(ip_id);
+            ipEndpointId=ip_endpointId
+            ipAreaName=ip_areaName;
+            ipMenuName=ip_menuName;
         })
-        var postData = {
-            ipIds: ipIds
-        };
+        if(ipIds.length===0) {
+            if($('#endpointIpModalForm .modal-body input[type="checkbox"]').is('[data-areaname]')){
+                ipAreaName = $('#endpointIpModalForm .modal-body input[type="checkbox"]').attr("data-areaname");
+            }
+            if($('#endpointIpModalForm .modal-body input[type="checkbox"]').is('[data-menuname]')){
+                ipMenuName = $('#endpointIpModalForm .modal-body input[type="checkbox"]').attr("data-menuname");
+            }
+            if($('#endpointIpModalForm .modal-body input[type="checkbox"]').is('[data-endpointId]')){
+                ipEndpointId = $('#endpointIpModalForm .modal-body input[type="checkbox"]').attr("data-endpointId");
+            }
+        }
+        
         $.ajax({
-            url: '/Admin/AuthorizeEndpoint/AssignIpAddresses/' + Id,
+            url: '/Admin/AuthorizeEndpoint/AssignIpAddresses',
             type: "POST",
-            data: postData,
+            data: { "ipAreaName": ipAreaName ,"ipMenuName":ipMenuName,"ipEndpointId":ipEndpointId, "ipIds":ipIds},
             dataType: "json",
             traditional: true,
             success: function (result) {
@@ -60,12 +79,23 @@ $(document).ready(function ($) {
         return false;
     });
     
-    $('#tree').on('click', '.IpAdressesByEndpointId', function () {
-        var Id = $(this).attr("data-id");
+    $('#tree').on('click', '.CustomEndpointClass', function () {
+        if ($(this).is('[data-areaname]')) {
+            var areaName = $(this).attr("data-areaname");
+        }
+        if ($(this).is('[data-menuname]')) {
+            var menuName = $(this).attr("data-menuname");
+        }
+        if ($(this).is('[data-id]')) {
+            var Id = $(this).attr("data-id");
+        }
+        console.log(areaName);
+        console.log(menuName);
+        console.log(Id);
         $.ajax({
-            url: '/Admin/AuthorizeEndpoint/GetIpAdressesByEndpointId/' + Id,
+            url: '/Admin/AuthorizeEndpoint/GetIpAdressesByEndpoint',
             type: 'POST',
-            contentType: "application/json;charset=UTF-8",
+            data: { "areaName": areaName ,"menuName":menuName, "id":Id},
             dataType: 'html',
             success: function (modal) {
                 $("#endpointIpModalPartial").html(modal);
@@ -78,6 +108,47 @@ $(document).ready(function ($) {
         return false;
     });
 
+    /*
+    $('#tree').on('click', '.IpAdressesByAreaName', function () {
+        var areaName = $(this).attr("data-areaname");
+        console.log(areaName);
+        $.ajax({
+            url: '/Admin/AuthorizeEndpoint/GetIpAdressesByAreaName',
+            type: 'POST',
+            data: { "areaName": areaName },
+            dataType: 'html',
+            success: function (modal) {
+                $("#endpointIpModalPartial").html(modal);
+                $("#endpointIpModal").modal("show");
+            },
+            error: function (errormessage) {
+                toastMessage(3000, "error", "IP Adresleri Getirilemedi")
+            }
+        });
+        return false;
+    });
+    
+    $('#tree').on('click', '.IpAdressesByAreaNameandMenuName', function () {
+        var areaName = $(this).attr("data-areaname");
+        var menuName = $(this).attr("data-menuname");
+        $.ajax({
+            url: '/Admin/AuthorizeEndpoint/GetIpAdressesByAreaNameandMenuName',
+            type: 'POST',
+            data: { "areaName": areaName ,"menuName":menuName},
+            dataType: 'html',
+            success: function (modal) {
+                $("#endpointIpModalPartial").html(modal);
+                $("#endpointIpModal").modal("show");
+            },
+            error: function (errormessage) {
+                toastMessage(3000, "error", "IP Adresleri Getirilemedi")
+            }
+        });
+        return false;
+    });
+    
+   */
+    
     //Action Message
     function toastMessage(time, icon, message) {
         const Toast = Swal.mixin({

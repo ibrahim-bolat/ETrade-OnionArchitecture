@@ -17,6 +17,13 @@ public class IpAssignDto:BaseDto,IDto
         
         [Display(Name = "Ip Liste Tipi")]
         public  string IpListType { get; set; }
+
+        [Display(Name = "Area Adı")]
+        public  string TobeAssignedAreaName { get; set; }
         
+        [Display(Name = "Menu Adı")]
+        public  string TobeAssignedMenuName { get; set; }
+        
+        public  string TobeAssignedEndpointId { get; set; }
         public bool HasAssign { get; set; }
     }

@@ -8,20 +8,20 @@ using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace ETrade.Application.Features.AuthorizeEndpoints.Queries.GetByIdAuthorizeEndpointsRoleListQuery;
+namespace ETrade.Application.Features.AuthorizeEndpoints.Queries.GetRolesByEndpointIdQuery;
 
-public class GetByIdAuthorizeEndpointsRoleListQueryHandler:IRequestHandler<GetByIdAuthorizeEndpointsRoleListQueryRequest,GetByIdAuthorizeEndpointsRoleListQueryResponse>
+public class GetRolesByEndpointIdQueryHandler:IRequestHandler<GetRolesByEndpointIdQueryRequest,GetRolesByEndpointIdQueryResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly RoleManager<AppRole> _roleManager;
 
-    public GetByIdAuthorizeEndpointsRoleListQueryHandler(IUnitOfWork unitOfWork, RoleManager<AppRole> roleManager)
+    public GetRolesByEndpointIdQueryHandler(IUnitOfWork unitOfWork, RoleManager<AppRole> roleManager)
     {
         _unitOfWork = unitOfWork;
         _roleManager = roleManager;
     }
 
-    public async Task<GetByIdAuthorizeEndpointsRoleListQueryResponse> Handle(GetByIdAuthorizeEndpointsRoleListQueryRequest request, CancellationToken cancellationToken)
+    public async Task<GetRolesByEndpointIdQueryResponse> Handle(GetRolesByEndpointIdQueryRequest request, CancellationToken cancellationToken)
     {
         Endpoint endpoint = await _unitOfWork.GetRepository<Endpoint>().GetAsync(a=>a.Id.ToString()==request.Id,a=>a.AppRoles);
         if (endpoint != null)
@@ -37,15 +37,15 @@ public class GetByIdAuthorizeEndpointsRoleListQueryHandler:IRequestHandler<GetBy
                     Name = role.Name,
                     HasAssign = endpointRoles != null && endpointRoles.Any(r=>r.Id==role.Id)
                 }));
-                return new GetByIdAuthorizeEndpointsRoleListQueryResponse{
+                return new GetRolesByEndpointIdQueryResponse{
                     Result = new DataResult<List<RoleAssignDto>>(ResultStatus.Success, assignRoles)
                 };
             }
-            return new GetByIdAuthorizeEndpointsRoleListQueryResponse{
+            return new GetRolesByEndpointIdQueryResponse{
                 Result = new DataResult<List<RoleAssignDto>>(ResultStatus.Error, Messages.UserNotActive,null)
             };
         }
-        return new GetByIdAuthorizeEndpointsRoleListQueryResponse{
+        return new GetRolesByEndpointIdQueryResponse{
             Result = new DataResult<List<RoleAssignDto>>(ResultStatus.Error, Messages.UserNotFound,null)
         };
     }

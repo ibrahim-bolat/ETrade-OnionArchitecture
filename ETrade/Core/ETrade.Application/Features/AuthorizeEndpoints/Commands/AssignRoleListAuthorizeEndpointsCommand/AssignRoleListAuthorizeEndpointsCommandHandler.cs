@@ -28,6 +28,7 @@ public class AssignRoleListAuthorizeEndpointsCommandHandler : IRequestHandler<
     public async Task<AssignRoleListAuthorizeEndpointsCommandResponse> Handle(
         AssignRoleListAuthorizeEndpointsCommandRequest request, CancellationToken cancellationToken)
     {
+        
         Endpoint endpoint = await _unitOfWork.GetRepository<Endpoint>().GetAsync(a => a.Id == request.Id && a.IsActive,a=>a.AppRoles);
         if (endpoint != null)
         {
