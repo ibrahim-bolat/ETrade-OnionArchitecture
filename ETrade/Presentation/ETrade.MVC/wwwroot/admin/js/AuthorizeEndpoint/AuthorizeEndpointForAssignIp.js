@@ -48,13 +48,19 @@ $(document).ready(function ($) {
         })
         if(ipIds.length===0) {
             if($('#endpointIpModalForm .modal-body input[type="checkbox"]').is('[data-areaname]')){
-                ipAreaName = $('#endpointIpModalForm .modal-body input[type="checkbox"]').attr("data-areaname");
+                areaName = $('#endpointIpModalForm .modal-body input[type="checkbox"]').attr("data-areaname");
+                if (areaName != "" && areaName!==undefined )
+                    ipAreaName = areaName;
             }
             if($('#endpointIpModalForm .modal-body input[type="checkbox"]').is('[data-menuname]')){
-                ipMenuName = $('#endpointIpModalForm .modal-body input[type="checkbox"]').attr("data-menuname");
+                menuName = $('#endpointIpModalForm .modal-body input[type="checkbox"]').attr("data-menuname");
+                if (menuName != "" && menuName !==undefined)
+                    ipMenuName = menuName;
             }
             if($('#endpointIpModalForm .modal-body input[type="checkbox"]').is('[data-endpointId]')){
-                ipEndpointId = $('#endpointIpModalForm .modal-body input[type="checkbox"]').attr("data-endpointId");
+                endpointId = $('#endpointIpModalForm .modal-body input[type="checkbox"]').attr("data-endpointId");
+                if (endpointId != "" && endpointId !== undefined)
+                    ipEndpointId = endpointId;
             }
         }
         

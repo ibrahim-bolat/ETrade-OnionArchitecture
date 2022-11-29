@@ -389,12 +389,20 @@
       "PackagePath": "staticwebassets\\admin\\images\\userimages\\1\\profil.jpg"
     },
     {
-      "Id": "D:\\Yazılımlar\\VisualStudioProjects\\ETrade-OnionArchitecture\\ETrade\\Presentation\\ETrade.MVC\\wwwroot\\admin\\js\\AuthorizeEndpoints\\AuthorizeEndpoints.js",
-      "PackagePath": "staticwebassets\\admin\\js\\AuthorizeEndpoints\\AuthorizeEndpoints.js"
+      "Id": "D:\\Yazılımlar\\VisualStudioProjects\\ETrade-OnionArchitecture\\ETrade\\Presentation\\ETrade.MVC\\wwwroot\\admin\\js\\AuthorizeEndpoint\\AuthorizeEndpointForAssignIp.js",
+      "PackagePath": "staticwebassets\\admin\\js\\AuthorizeEndpoint\\AuthorizeEndpointForAssignIp.js"
+    },
+    {
+      "Id": "D:\\Yazılımlar\\VisualStudioProjects\\ETrade-OnionArchitecture\\ETrade\\Presentation\\ETrade.MVC\\wwwroot\\admin\\js\\AuthorizeEndpoint\\AuthorizeEndpointForAssignRole.js",
+      "PackagePath": "staticwebassets\\admin\\js\\AuthorizeEndpoint\\AuthorizeEndpointForAssignRole.js"
     },
     {
       "Id": "D:\\Yazılımlar\\VisualStudioProjects\\ETrade-OnionArchitecture\\ETrade\\Presentation\\ETrade.MVC\\wwwroot\\admin\\js\\DeletedAccount\\DeletedUserTable.js",
       "PackagePath": "staticwebassets\\admin\\js\\DeletedAccount\\DeletedUserTable.js"
+    },
+    {
+      "Id": "D:\\Yazılımlar\\VisualStudioProjects\\ETrade-OnionArchitecture\\ETrade\\Presentation\\ETrade.MVC\\wwwroot\\admin\\js\\IpOperation\\IpTable.js",
+      "PackagePath": "staticwebassets\\admin\\js\\IpOperation\\IpTable.js"
     },
     {
       "Id": "D:\\Yazılımlar\\VisualStudioProjects\\ETrade-OnionArchitecture\\ETrade\\Presentation\\ETrade.MVC\\wwwroot\\admin\\js\\RoleOperation\\RoleTable.js",

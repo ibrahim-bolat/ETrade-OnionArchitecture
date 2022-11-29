@@ -3,8 +3,6 @@ using ETrade.Application.Features.AuthorizeEndpoints.Commands.AssignRoleListAuth
 using ETrade.Application.Features.AuthorizeEndpoints.DTOs;
 using ETrade.Application.Features.AuthorizeEndpoints.Queries.GetAuthorizeEndpointsforAssignIpQuery;
 using ETrade.Application.Features.AuthorizeEndpoints.Queries.GetAuthorizeEndpointsforAssignRoleQuery;
-using ETrade.Application.Features.AuthorizeEndpoints.Queries.GetIpAdressesByAreaNameandMenuNameQuery;
-using ETrade.Application.Features.AuthorizeEndpoints.Queries.GetIpAdressesByAreaNameQuery;
 using ETrade.Application.Features.AuthorizeEndpoints.Queries.GetIpAdressesByEndpointQuery;
 using ETrade.Application.Features.AuthorizeEndpoints.Queries.GetRolesByEndpointIdQuery;
 using ETrade.Domain.Enums;
