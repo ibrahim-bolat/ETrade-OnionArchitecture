@@ -5,243 +5,242 @@ build_property.UsingMicrosoftNETSdkWeb = true
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
 build_property.PlatformNeutralAssembly = 
-build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ETrade.MVC
 build_property.RootNamespace = ETrade.MVC
-build_property.ProjectDir = D:\Yazılımlar\VisualStudioProjects\ETrade-OnionArchitecture\ETrade\Presentation\ETrade.MVC\
+build_property.ProjectDir = /home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = true
-build_property.MSBuildProjectDirectory = D:\Yazılımlar\VisualStudioProjects\ETrade-OnionArchitecture\ETrade\Presentation\ETrade.MVC
+build_property.MSBuildProjectDirectory = /home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/IpOperation/Index.cshtml]
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/IpOperation/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = 
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSXBPcGVyYXRpb25cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvSXBPcGVyYXRpb24vSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Account/ConfirmEmail.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWNjb3VudFxDb25maXJtRW1haWwuY3NodG1s
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Account/ConfirmEmail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQWNjb3VudC9Db25maXJtRW1haWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Account/EditPassword.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWNjb3VudFxFZGl0UGFzc3dvcmQuY3NodG1s
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Account/EditPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQWNjb3VudC9FZGl0UGFzc3dvcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Account/EditProfile.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWNjb3VudFxFZGl0UHJvZmlsZS5jc2h0bWw=
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Account/EditProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQWNjb3VudC9FZGl0UHJvZmlsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Account/ForgetPass.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWNjb3VudFxGb3JnZXRQYXNzLmNzaHRtbA==
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Account/ForgetPass.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQWNjb3VudC9Gb3JnZXRQYXNzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Account/Login.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQWNjb3VudC9Mb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Account/Profile.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWNjb3VudFxQcm9maWxlLmNzaHRtbA==
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Account/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQWNjb3VudC9Qcm9maWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Account/Register.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQWNjb3VudC9SZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Account/UpdatePassword.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWNjb3VudFxVcGRhdGVQYXNzd29yZC5jc2h0bWw=
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Account/UpdatePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQWNjb3VudC9VcGRhdGVQYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Address/CreateAddress.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRkcmVzc1xDcmVhdGVBZGRyZXNzLmNzaHRtbA==
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Address/CreateAddress.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQWRkcmVzcy9DcmVhdGVBZGRyZXNzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Address/DetailAddress.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRkcmVzc1xEZXRhaWxBZGRyZXNzLmNzaHRtbA==
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Address/DetailAddress.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQWRkcmVzcy9EZXRhaWxBZGRyZXNzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Address/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRkcmVzc1xJbmRleC5jc2h0bWw=
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Address/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQWRkcmVzcy9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Address/UpdateAddress.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRkcmVzc1xVcGRhdGVBZGRyZXNzLmNzaHRtbA==
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Address/UpdateAddress.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQWRkcmVzcy9VcGRhdGVBZGRyZXNzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/AuthorizeEndpoint/AuthorizeEndpoints.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQXV0aG9yaXplRW5kcG9pbnRcQXV0aG9yaXplRW5kcG9pbnRzLmNzaHRtbA==
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/AuthorizeEndpoint/AuthorizeEndpoints.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQXV0aG9yaXplRW5kcG9pbnQvQXV0aG9yaXplRW5kcG9pbnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/AuthorizeEndpoint/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQXV0aG9yaXplRW5kcG9pbnRcSW5kZXguY3NodG1s
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/AuthorizeEndpoint/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQXV0aG9yaXplRW5kcG9pbnQvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/AuthorizeEndpoint/PartialViews/_EndpointIpModalPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQXV0aG9yaXplRW5kcG9pbnRcUGFydGlhbFZpZXdzXF9FbmRwb2ludElwTW9kYWxQYXJ0aWFsLmNzaHRtbA==
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/AuthorizeEndpoint/PartialViews/_EndpointIpModalPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQXV0aG9yaXplRW5kcG9pbnQvUGFydGlhbFZpZXdzL19FbmRwb2ludElwTW9kYWxQYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/AuthorizeEndpoint/PartialViews/_EndpointRoleModalPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQXV0aG9yaXplRW5kcG9pbnRcUGFydGlhbFZpZXdzXF9FbmRwb2ludFJvbGVNb2RhbFBhcnRpYWwuY3NodG1s
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/AuthorizeEndpoint/PartialViews/_EndpointRoleModalPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQXV0aG9yaXplRW5kcG9pbnQvUGFydGlhbFZpZXdzL19FbmRwb2ludFJvbGVNb2RhbFBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/DeletedAccount/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGVsZXRlZEFjY291bnRcSW5kZXguY3NodG1s
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/DeletedAccount/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvRGVsZXRlZEFjY291bnQvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Home/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/IpOperation/PartialViews/_IpCreateModalPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSXBPcGVyYXRpb25cUGFydGlhbFZpZXdzXF9JcENyZWF0ZU1vZGFsUGFydGlhbC5jc2h0bWw=
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/IpOperation/PartialViews/_IpCreateModalPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvSXBPcGVyYXRpb24vUGFydGlhbFZpZXdzL19JcENyZWF0ZU1vZGFsUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/IpOperation/PartialViews/_IpUpdateModalPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSXBPcGVyYXRpb25cUGFydGlhbFZpZXdzXF9JcFVwZGF0ZU1vZGFsUGFydGlhbC5jc2h0bWw=
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/IpOperation/PartialViews/_IpUpdateModalPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvSXBPcGVyYXRpb24vUGFydGlhbFZpZXdzL19JcFVwZGF0ZU1vZGFsUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/RoleOperation/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUm9sZU9wZXJhdGlvblxJbmRleC5jc2h0bWw=
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/RoleOperation/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvUm9sZU9wZXJhdGlvbi9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/RoleOperation/PartialViews/_RoleCreateModalPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUm9sZU9wZXJhdGlvblxQYXJ0aWFsVmlld3NcX1JvbGVDcmVhdGVNb2RhbFBhcnRpYWwuY3NodG1s
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/RoleOperation/PartialViews/_RoleCreateModalPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvUm9sZU9wZXJhdGlvbi9QYXJ0aWFsVmlld3MvX1JvbGVDcmVhdGVNb2RhbFBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/RoleOperation/PartialViews/_RoleUpdateModalPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUm9sZU9wZXJhdGlvblxQYXJ0aWFsVmlld3NcX1JvbGVVcGRhdGVNb2RhbFBhcnRpYWwuY3NodG1s
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/RoleOperation/PartialViews/_RoleUpdateModalPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvUm9sZU9wZXJhdGlvbi9QYXJ0aWFsVmlld3MvX1JvbGVVcGRhdGVNb2RhbFBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/RoleOperation/UsersOfTheRole.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUm9sZU9wZXJhdGlvblxVc2Vyc09mVGhlUm9sZS5jc2h0bWw=
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/RoleOperation/UsersOfTheRole.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvUm9sZU9wZXJhdGlvbi9Vc2Vyc09mVGhlUm9sZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Shared/Account/_AccountLayout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXEFjY291bnRcX0FjY291bnRMYXlvdXQuY3NodG1s
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Shared/Account/_AccountLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2hhcmVkL0FjY291bnQvX0FjY291bnRMYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Shared/Admin/_AdminHeader.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXEFkbWluXF9BZG1pbkhlYWRlci5jc2h0bWw=
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Shared/Admin/_AdminHeader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2hhcmVkL0FkbWluL19BZG1pbkhlYWRlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Shared/Admin/_AdminLayout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXEFkbWluXF9BZG1pbkxheW91dC5jc2h0bWw=
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Shared/Admin/_AdminLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2hhcmVkL0FkbWluL19BZG1pbkxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Shared/Admin/_AdminLeftPanel.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXEFkbWluXF9BZG1pbkxlZnRQYW5lbC5jc2h0bWw=
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Shared/Admin/_AdminLeftPanel.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2hhcmVkL0FkbWluL19BZG1pbkxlZnRQYW5lbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Shared/Components/AdminHeaderAvatar/Default.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXENvbXBvbmVudHNcQWRtaW5IZWFkZXJBdmF0YXJcRGVmYXVsdC5jc2h0bWw=
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Shared/Components/AdminHeaderAvatar/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2hhcmVkL0NvbXBvbmVudHMvQWRtaW5IZWFkZXJBdmF0YXIvRGVmYXVsdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Shared/Components/UserImageCard/Default.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXENvbXBvbmVudHNcVXNlckltYWdlQ2FyZFxEZWZhdWx0LmNzaHRtbA==
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Shared/Components/UserImageCard/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2hhcmVkL0NvbXBvbmVudHMvVXNlckltYWdlQ2FyZC9EZWZhdWx0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Shared/Components/UserSummaryCard/Default.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXENvbXBvbmVudHNcVXNlclN1bW1hcnlDYXJkXERlZmF1bHQuY3NodG1s
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Shared/Components/UserSummaryCard/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2hhcmVkL0NvbXBvbmVudHMvVXNlclN1bW1hcnlDYXJkL0RlZmF1bHQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Shared/UserImage/PartialViews/_UserImageSelectProfilModalPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXFVzZXJJbWFnZVxQYXJ0aWFsVmlld3NcX1VzZXJJbWFnZVNlbGVjdFByb2ZpbE1vZGFsUGFydGlhbC5jc2h0bWw=
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Shared/UserImage/PartialViews/_UserImageSelectProfilModalPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2hhcmVkL1VzZXJJbWFnZS9QYXJ0aWFsVmlld3MvX1VzZXJJbWFnZVNlbGVjdFByb2ZpbE1vZGFsUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Shared/_ValidationScriptsPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/UserImage/CreateUserImage.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVXNlckltYWdlXENyZWF0ZVVzZXJJbWFnZS5jc2h0bWw=
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/UserImage/CreateUserImage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvVXNlckltYWdlL0NyZWF0ZVVzZXJJbWFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/UserImage/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVXNlckltYWdlXEluZGV4LmNzaHRtbA==
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/UserImage/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvVXNlckltYWdlL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/UserOperation/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVXNlck9wZXJhdGlvblxJbmRleC5jc2h0bWw=
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/UserOperation/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvVXNlck9wZXJhdGlvbi9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/UserOperation/PartialViews/_RoleModalPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVXNlck9wZXJhdGlvblxQYXJ0aWFsVmlld3NcX1JvbGVNb2RhbFBhcnRpYWwuY3NodG1s
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/UserOperation/PartialViews/_RoleModalPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvVXNlck9wZXJhdGlvbi9QYXJ0aWFsVmlld3MvX1JvbGVNb2RhbFBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/UserOperation/PartialViews/_UserCreateModalPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVXNlck9wZXJhdGlvblxQYXJ0aWFsVmlld3NcX1VzZXJDcmVhdGVNb2RhbFBhcnRpYWwuY3NodG1s
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/UserOperation/PartialViews/_UserCreateModalPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvVXNlck9wZXJhdGlvbi9QYXJ0aWFsVmlld3MvX1VzZXJDcmVhdGVNb2RhbFBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/UserOperation/PartialViews/_UserDeleteModalPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVXNlck9wZXJhdGlvblxQYXJ0aWFsVmlld3NcX1VzZXJEZWxldGVNb2RhbFBhcnRpYWwuY3NodG1s
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/UserOperation/PartialViews/_UserDeleteModalPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvVXNlck9wZXJhdGlvbi9QYXJ0aWFsVmlld3MvX1VzZXJEZWxldGVNb2RhbFBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/_ViewStart.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Areas/Admin/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/ErrorPages/AccessDenied.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JQYWdlc1xBY2Nlc3NEZW5pZWQuY3NodG1s
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/ErrorPages/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXJyb3JQYWdlcy9BY2Nlc3NEZW5pZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/ErrorPages/AllErrorPages.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JQYWdlc1xBbGxFcnJvclBhZ2VzLmNzaHRtbA==
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/ErrorPages/AllErrorPages.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXJyb3JQYWdlcy9BbGxFcnJvclBhZ2VzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Home/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Shared/_Breadcrump.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9CcmVhZGNydW1wLmNzaHRtbA==
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Shared/_Breadcrump.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19CcmVhZGNydW1wLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Shared/_Footer.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Gb290ZXIuY3NodG1s
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Shared/_Footer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19Gb290ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Shared/_Header.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9IZWFkZXIuY3NodG1s
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Shared/_Header.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19IZWFkZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Shared/_Hero.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9IZXJvLmNzaHRtbA==
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Shared/_Hero.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19IZXJvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Shared/_Humberger.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9IdW1iZXJnZXIuY3NodG1s
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Shared/_Humberger.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19IdW1iZXJnZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Shared/_Layout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Shared/_PagePreloder.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9QYWdlUHJlbG9kZXIuY3NodG1s
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Shared/_PagePreloder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19QYWdlUHJlbG9kZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Shared/_Sidebar.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TaWRlYmFyLmNzaHRtbA==
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Shared/_Sidebar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19TaWRlYmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Shared/_ValidationScriptsPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/_ViewStart.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

@@ -10,7 +10,8 @@ using MediatR;
 
 namespace ETrade.Application.Features.AuthorizeEndpoints.Queries.GetIpAdressesByEndpointQuery;
 
-public class GetIpAdressesByEndpointQueryHandler:IRequestHandler<GetIpAdressesByEndpointQueryRequest,GetIpAdressesByEndpointQueryResponse>
+public class GetIpAdressesByEndpointQueryHandler : IRequestHandler<GetIpAdressesByEndpointQueryRequest,
+    GetIpAdressesByEndpointQueryResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
@@ -21,59 +22,94 @@ public class GetIpAdressesByEndpointQueryHandler:IRequestHandler<GetIpAdressesBy
         _mapper = mapper;
     }
 
-    public async Task<GetIpAdressesByEndpointQueryResponse> Handle(GetIpAdressesByEndpointQueryRequest request, CancellationToken cancellationToken)
+    public async Task<GetIpAdressesByEndpointQueryResponse> Handle(GetIpAdressesByEndpointQueryRequest request,
+        CancellationToken cancellationToken)
     {
         List<Endpoint> endpointList = null;
-        if (request.AreaName != null && request.MenuName == null && request.Id==0)
+        if (request.AreaName != null && request.EndpointId == 0)
         {
-            endpointList = await _unitOfWork.GetRepository<Endpoint>().GetAllAsync(a=>a.AreaName==request.AreaName,a=>a.IpAddresses);
-        }
-        if (request.AreaName != null && request.MenuName != null && request.Id==0)
-        {
-            endpointList = await _unitOfWork.GetRepository<Endpoint>().GetAllAsync(a=>a.AreaName==request.AreaName && a.ControllerName==request.MenuName,a=>a.IpAddresses);
-        }
-        if (request.AreaName == null && request.MenuName == null && request.Id>0)
-        { 
-            endpointList = await _unitOfWork.GetRepository<Endpoint>().GetAllAsync(a=>a.Id==request.Id,a=>a.IpAddresses);
-        }
-        
-        if (endpointList != null)
-        {
-            List<IpAddress> allActiveIpAddresses =
-                await _unitOfWork.GetRepository<IpAddress>().GetAllAsync(ip => ip.IsActive);
-            HashSet<IpAssignDto> assignIpAddress = new HashSet<IpAssignDto>();
-            foreach (var endpoint in endpointList)
+            if (request.MenuName == null)
             {
-                if (endpoint.IsActive)
-                {
-                    foreach (var activeIpAddress in allActiveIpAddresses)
-                    {
-                        List<IpAddress> endpointIpAddress = endpoint.IpAddresses;
-                        if (!assignIpAddress.Any(ip => ip.Id == activeIpAddress.Id))
-                        {
-                            assignIpAddress.Add(new IpAssignDto
-                            {
-                                Id = activeIpAddress.Id,
-                                RangeStart = activeIpAddress.RangeStart,
-                                RangeEnd = activeIpAddress.RangeEnd,
-                                IpListType = activeIpAddress.IpListType.GetEnumDescription(),
-                                TobeAssignedAreaName = ((request.AreaName != null && request.MenuName == null && request.Id==0)||
-                                                        (request.AreaName != null && request.MenuName != null && request.Id==0))? request.AreaName:string.Empty,
-                                TobeAssignedMenuName = (request.AreaName != null && request.MenuName != null && request.Id==0)? request.MenuName:string.Empty,
-                                TobeAssignedEndpointId = (request.AreaName == null && request.MenuName == null && request.Id>0) ? endpoint.Id.ToString():string.Empty,
-                                HasAssign = endpointIpAddress != null &&
-                                            endpointIpAddress.Any(e => e.Id == activeIpAddress.Id)
-                            });
-                        }
-                    }
-                }
+                endpointList = await _unitOfWork.GetRepository<Endpoint>().GetAllAsync(a => 
+                    a.AreaName == request.AreaName, a => a.IpAddresses);
             }
-            return new GetIpAdressesByEndpointQueryResponse{
-                Result = new DataResult<HashSet<IpAssignDto>>(ResultStatus.Success, assignIpAddress)
+            else
+            {
+                endpointList = await _unitOfWork.GetRepository<Endpoint>().GetAllAsync(a => 
+                    a.AreaName == request.AreaName && a.ControllerName == request.MenuName, a => a.IpAddresses);
+            }
+            if (endpointList != null)
+            {
+                List<IpAddress> allActiveIpAddresses =
+                    await _unitOfWork.GetRepository<IpAddress>().GetAllAsync(ip => ip.IsActive);
+                HashSet<IpAssignDto> assignIpAddress = new HashSet<IpAssignDto>();
+                foreach (var activeIpAddress in allActiveIpAddresses)
+                {
+                    assignIpAddress.Add(new IpAssignDto
+                    {
+                        Id = activeIpAddress.Id,
+                        RangeStart = activeIpAddress.RangeStart,
+                        RangeEnd = activeIpAddress.RangeEnd,
+                        IpListType = activeIpAddress.IpListType.GetEnumDescription(),
+                        TobeAssignedAreaName = request.AreaName,
+                        TobeAssignedMenuName = request.MenuName ?? string.Empty,
+                        TobeAssignedEndpointId = string.Empty,
+                        HasAssign = endpointList.All(e => e.IpAddresses.Any(i => i.Id == activeIpAddress.Id))
+                    });
+                }
+
+                return new GetIpAdressesByEndpointQueryResponse
+                {
+                    Result = new DataResult<HashSet<IpAssignDto>>(ResultStatus.Success, assignIpAddress)
+                };
+            }
+
+            return new GetIpAdressesByEndpointQueryResponse
+            {
+                Result = new DataResult<HashSet<IpAssignDto>>(ResultStatus.Error, Messages.IpNotFound, null)
             };
         }
-        return new GetIpAdressesByEndpointQueryResponse{
-            Result = new DataResult<HashSet<IpAssignDto>>(ResultStatus.Error, Messages.IpNotFound,null)
+        
+        if (request.AreaName == null && request.MenuName == null && request.EndpointId > 0)
+        {
+            Endpoint endpoint = await _unitOfWork.GetRepository<Endpoint>()
+                .GetAsync(a => a.Id == request.EndpointId, a => a.IpAddresses);
+            if (endpoint != null)
+            {
+                List<IpAddress> allActiveIpAddresses =
+                    await _unitOfWork.GetRepository<IpAddress>().GetAllAsync(ip => ip.IsActive);
+                HashSet<IpAssignDto> assignIpAddress = new HashSet<IpAssignDto>();
+                List<IpAddress> endpointIpAddress = endpoint.IpAddresses;
+                foreach (var activeIpAddress in allActiveIpAddresses)
+                {
+                    assignIpAddress.Add(new IpAssignDto
+                    {
+                        Id = activeIpAddress.Id,
+                        RangeStart = activeIpAddress.RangeStart,
+                        RangeEnd = activeIpAddress.RangeEnd,
+                        IpListType = activeIpAddress.IpListType.GetEnumDescription(),
+                        TobeAssignedAreaName = string.Empty,
+                        TobeAssignedMenuName = string.Empty,
+                        TobeAssignedEndpointId = endpoint.Id.ToString(),
+                        HasAssign = endpointIpAddress != null &&
+                                    endpointIpAddress.Any(e => e.Id == activeIpAddress.Id)
+                    });
+                }
+
+                return new GetIpAdressesByEndpointQueryResponse
+                {
+                    Result = new DataResult<HashSet<IpAssignDto>>(ResultStatus.Success, assignIpAddress)
+                };
+            }
+
+            return new GetIpAdressesByEndpointQueryResponse
+            {
+                Result = new DataResult<HashSet<IpAssignDto>>(ResultStatus.Error, Messages.IpNotFound, null)
+            };
+        }
+        return new GetIpAdressesByEndpointQueryResponse
+        {
+            Result = new DataResult<HashSet<IpAssignDto>>(ResultStatus.Error, AuthorizeEndpoints.Constants.Messages.EndpointNotFound, null)
         };
     }
 }

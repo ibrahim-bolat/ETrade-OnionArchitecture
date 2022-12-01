@@ -110,29 +110,13 @@ public class AuthorizeEndpointController : Controller
         return Json(new { success = false });
     }
     [HttpPost]
-    public async Task<IActionResult> GetIpAdressesByEndpoint(string areaName,string menuName,int id)
+    public async Task<IActionResult> GetIpAdressesByEndpoint(string areaName,string menuName,int endpointId)
     {
         var dresult = await _mediator.Send(new GetIpAdressesByEndpointQueryRequest()
         {
             AreaName =areaName,
             MenuName =menuName,
-            Id=id,
-        });
-
-        if (dresult.Result.ResultStatus == ResultStatus.Success)
-        {
-            return PartialView("PartialViews/_EndpointIpModalPartial",dresult.Result.Data);
-        }
-        return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 400});
-    }  
-    
-    /*
-    [HttpPost]
-    public async Task<IActionResult> GetIpAdressesByAreaName(string areaName)
-    {
-        var dresult = await _mediator.Send(new GetIpAdressesByAreaNameQueryRequest()
-        {
-            AreaName=areaName,
+            EndpointId=endpointId,
         });
 
         if (dresult.Result.ResultStatus == ResultStatus.Success)
@@ -141,21 +125,4 @@ public class AuthorizeEndpointController : Controller
         }
         return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 400});
     }
-    
-    [HttpPost]
-    public async Task<IActionResult> GetIpAdressesByAreaNameandMenuName(string areaName,string menuName)
-    {
-        var dresult = await _mediator.Send(new GetIpAdressesByAreaNameandMenuNameQueryRequest()
-        {
-            AreaName =areaName,
-            MenuName =menuName
-        });
-
-        if (dresult.Result.ResultStatus == ResultStatus.Success)
-        {
-            return PartialView("PartialViews/_EndpointIpModalPartial",dresult.Result.Data);
-        }
-        return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 400});
-    }
-    */
 }

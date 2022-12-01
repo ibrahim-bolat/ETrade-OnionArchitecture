@@ -93,35 +93,12 @@ $(document).ready(function ($) {
             var menuName = $(this).attr("data-menuname");
         }
         if ($(this).is('[data-id]')) {
-            var Id = $(this).attr("data-id");
+            var endpointId = $(this).attr("data-id");
         }
-        console.log(areaName);
-        console.log(menuName);
-        console.log(Id);
         $.ajax({
             url: '/Admin/AuthorizeEndpoint/GetIpAdressesByEndpoint',
             type: 'POST',
-            data: { "areaName": areaName ,"menuName":menuName, "id":Id},
-            dataType: 'html',
-            success: function (modal) {
-                $("#endpointIpModalPartial").html(modal);
-                $("#endpointIpModal").modal("show");
-            },
-            error: function (errormessage) {
-                toastMessage(3000, "error", "IP Adresleri Getirilemedi")
-            }
-        });
-        return false;
-    });
-
-    /*
-    $('#tree').on('click', '.IpAdressesByAreaName', function () {
-        var areaName = $(this).attr("data-areaname");
-        console.log(areaName);
-        $.ajax({
-            url: '/Admin/AuthorizeEndpoint/GetIpAdressesByAreaName',
-            type: 'POST',
-            data: { "areaName": areaName },
+            data: { "areaName": areaName ,"menuName":menuName, "endpointId":endpointId},
             dataType: 'html',
             success: function (modal) {
                 $("#endpointIpModalPartial").html(modal);
@@ -134,26 +111,6 @@ $(document).ready(function ($) {
         return false;
     });
     
-    $('#tree').on('click', '.IpAdressesByAreaNameandMenuName', function () {
-        var areaName = $(this).attr("data-areaname");
-        var menuName = $(this).attr("data-menuname");
-        $.ajax({
-            url: '/Admin/AuthorizeEndpoint/GetIpAdressesByAreaNameandMenuName',
-            type: 'POST',
-            data: { "areaName": areaName ,"menuName":menuName},
-            dataType: 'html',
-            success: function (modal) {
-                $("#endpointIpModalPartial").html(modal);
-                $("#endpointIpModal").modal("show");
-            },
-            error: function (errormessage) {
-                toastMessage(3000, "error", "IP Adresleri Getirilemedi")
-            }
-        });
-        return false;
-    });
-    
-   */
     
     //Action Message
     function toastMessage(time, icon, message) {

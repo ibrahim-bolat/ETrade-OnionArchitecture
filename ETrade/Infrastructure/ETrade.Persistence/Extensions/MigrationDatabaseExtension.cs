@@ -17,9 +17,9 @@ public static class MigrationDatabaseExtension
                 {
                     try
                     {
-                        //await dataContext.Database.EnsureDeletedAsync();
                         await dataContext.Database.EnsureCreatedAsync();
-                        await dataContext.Database.MigrateAsync();
+                        //await dataContext.Database.EnsureDeletedAsync();
+                        //await dataContext.Database.MigrateAsync();
                     }
                     finally
                     {

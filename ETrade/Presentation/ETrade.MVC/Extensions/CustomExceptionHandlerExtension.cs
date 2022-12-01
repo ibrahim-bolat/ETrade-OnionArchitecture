@@ -14,7 +14,6 @@ public static class CustomExceptionHandlerExtension
             builder.Run(context =>
             {
                 var statusCode = (int)HttpStatusCode.InternalServerError;
-                context.Response.ContentType = MediaTypeNames.Application.Json;
 
                 var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                 if (contextFeature != null)
