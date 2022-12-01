@@ -24,15 +24,15 @@ namespace ETrade.Persistence.Mappings;
             builder.HasData(new IpAddress()
             {
                 Id = 1, 
-                RangeStart = "192.168.1.0",
-                RangeEnd = "192.168.5.10",
+                RangeStart = "192.168.10.30",
+                RangeEnd = "192.168.10.50",
                 IpListType = IpListType.BlackList,
             },
                 new IpAddress()
                 {
                     Id = 2, 
-                    RangeStart = "192.168.6.0",
-                    RangeEnd = "192.168.10.10",
+                    RangeStart = "192.168.0.10",
+                    RangeEnd = "192.168.10.20",
                     IpListType = IpListType.WhiteList,
                 });
 

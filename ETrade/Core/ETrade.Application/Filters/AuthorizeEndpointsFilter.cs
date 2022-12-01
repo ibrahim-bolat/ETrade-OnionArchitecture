@@ -1,10 +1,14 @@
+using System.Net;
 using ETrade.Application.Repositories;
 using ETrade.Domain.Entities;
 using ETrade.Domain.Entities.Identity;
+using ETrade.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
+using NetTools;
+
 
 namespace ETrade.Application.Filters;
 
@@ -25,23 +29,22 @@ public class AuthorizeEndpointsFilter : IAsyncActionFilter
         string controllerName = context.HttpContext.Request.RouteValues["controller"] as string;
         string endpointName = context.HttpContext.Request.RouteValues["action"] as string;
         string requestMethodType = context.HttpContext.Request.Method;
-        string localIpAddress = context.HttpContext.Connection.LocalIpAddress?.ToString();        
+        string localIpAddress = context.HttpContext.Connection.LocalIpAddress?.ToString();
         string remoteIpAddress = context.HttpContext.Connection.RemoteIpAddress?.ToString();
         int localPort = context.HttpContext.Connection.LocalPort;
         int remotePort = context.HttpContext.Connection.RemotePort;
         
-        
-        //string Id = context.ActionArguments["id"] as string;
         List<string> actionArguments = new List<string>();
-        actionArguments.AddRange(context.ActionArguments.Select(a=>a.ToString()));
+        actionArguments.AddRange(context.ActionArguments.Select(a => a.ToString()));
 
         Endpoint endpoint = await _unitOfWork.GetRepository<Endpoint>().GetAsync(
-                a => a.EndpointName == endpointName && a.ControllerName == controllerName  && 
-                     a.AreaName == areaName && a.HttpType == requestMethodType && a.IsActive, a => a.AppRoles);
+            a => a.EndpointName == endpointName && a.ControllerName == controllerName &&
+                 a.AreaName == areaName && a.HttpType == requestMethodType && a.IsActive, a => a.AppRoles,
+            a => a.IpAddresses);
 
         AppUser user = null;
         var userName = context.HttpContext.User.Identity?.Name;
-        if ( userName!= null)
+        if (userName != null)
             user = await _userManager.FindByNameAsync(userName);
         await _unitOfWork.GetRepository<RequestInfoLog>().AddAsync(new RequestInfoLog()
         {
@@ -60,13 +63,15 @@ public class AuthorizeEndpointsFilter : IAsyncActionFilter
         await _unitOfWork.SaveAsync();
         if (endpoint != null)
         {
-            if (context.HttpContext.User.Identity!=null && context.HttpContext.User.Identity.Name != null)
+            if (context.HttpContext.User.Identity != null && context.HttpContext.User.Identity.Name != null)
             {
                 var appRoles = await _userManager.GetRolesAsync(user);
-                if (appRoles.Contains("Owner") || endpoint.AppRoles.Any(r => appRoles.Contains(r.Name)))
+                if (appRoles.Contains("Owner") || (endpoint.AppRoles.Any(r => appRoles.Contains(r.Name))) &&
+                    IpCheck(remoteIpAddress, endpoint))
                 {
                     await next();
                 }
+
                 context.Result = new RedirectToRouteResult(
                     new RouteValueDictionary()
                     {
@@ -85,5 +90,50 @@ public class AuthorizeEndpointsFilter : IAsyncActionFilter
         {
             await next();
         }
+    }
+
+    private bool IpCheck(string remoteIpAddress, Endpoint endpoint)
+    {
+        if (endpoint.IpAddresses != null)
+        {
+            List<IpAddress> whiteList = endpoint.IpAddresses.Where(i => i.IpListType == IpListType.WhiteList).ToList();
+            List<IpAddress> blackList = endpoint.IpAddresses.Where(i => i.IpListType == IpListType.BlackList).ToList();
+            if (whiteList.Count != 0 && blackList.Count != 0)
+            {
+                if (whiteList.Any(i =>
+                        IPAddressRange.Parse($"{i.RangeStart} - {i.RangeEnd}")
+                            .Contains(IPAddress.Parse(remoteIpAddress))) && (blackList.Any(i =>
+                        IPAddressRange.Parse($"{i.RangeStart} - {i.RangeEnd}")
+                            .Contains(IPAddress.Parse(remoteIpAddress))) == false))
+                {
+                    return true;
+                }
+                return false;
+            }
+
+            if (whiteList.Count != 0 && blackList.Count == 0)
+            {
+                if (whiteList.Any(i =>
+                        IPAddressRange.Parse($"{i.RangeStart} - {i.RangeEnd}")
+                            .Contains(IPAddress.Parse(remoteIpAddress))))
+                {
+
+                    return true;
+                }
+                return false;
+            }
+
+            if (whiteList.Count == 0 && blackList.Count != 0)
+            {
+                if (blackList.Any(i =>
+                        IPAddressRange.Parse($"{i.RangeStart} - {i.RangeEnd}")
+                            .Contains(IPAddress.Parse(remoteIpAddress))) == false)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        return true;
     }
 }
