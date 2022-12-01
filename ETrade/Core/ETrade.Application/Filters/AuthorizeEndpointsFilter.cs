@@ -102,9 +102,9 @@ public class AuthorizeEndpointsFilter : IAsyncActionFilter
             {
                 if (whiteList.Any(i =>
                         IPAddressRange.Parse($"{i.RangeStart} - {i.RangeEnd}")
-                            .Contains(IPAddress.Parse(remoteIpAddress))) && (blackList.Any(i =>
+                            .Contains(IPAddress.Parse(remoteIpAddress))) && !blackList.Any(i =>
                         IPAddressRange.Parse($"{i.RangeStart} - {i.RangeEnd}")
-                            .Contains(IPAddress.Parse(remoteIpAddress))) == false))
+                            .Contains(IPAddress.Parse(remoteIpAddress))))
                 {
                     return true;
                 }
@@ -125,9 +125,9 @@ public class AuthorizeEndpointsFilter : IAsyncActionFilter
 
             if (whiteList.Count == 0 && blackList.Count != 0)
             {
-                if (blackList.Any(i =>
+                if (!blackList.Any(i =>
                         IPAddressRange.Parse($"{i.RangeStart} - {i.RangeEnd}")
-                            .Contains(IPAddress.Parse(remoteIpAddress))) == false)
+                            .Contains(IPAddress.Parse(remoteIpAddress))))
                 {
                     return true;
                 }

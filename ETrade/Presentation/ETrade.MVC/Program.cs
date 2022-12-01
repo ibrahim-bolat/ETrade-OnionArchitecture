@@ -1,3 +1,4 @@
+using System.Net;
 using ETrade.Application;
 using ETrade.Application.Extensions;
 using ETrade.Infrastructure;
@@ -25,13 +26,13 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler($"/ErrorPages/AllErrorPages?statusCode={(int)HttpStatusCode.InternalServerError}");
+    //alttakinide kullanabilirsin
+    //app.CustomExceptionHandler(); 
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 app.UseStatusCodePagesWithReExecute("/ErrorPages/AllErrorPages","?statusCode={0}");
-//uygulama canlıya çıkarkan devreye al
-//app.CustomExceptionHandler(); 
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

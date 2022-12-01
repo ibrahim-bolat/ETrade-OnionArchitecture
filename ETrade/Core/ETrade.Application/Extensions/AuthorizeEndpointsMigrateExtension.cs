@@ -18,7 +18,7 @@ public static class AuthorizeEndpointsMigrateExtension
     {
         await using (var scope = app.Services.CreateAsyncScope())
         {
-            await using (var unitOfWork = scope.ServiceProvider.GetService<IUnitOfWork>())
+            await using (var unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>())
             {
                 if (unitOfWork != null)
                 {

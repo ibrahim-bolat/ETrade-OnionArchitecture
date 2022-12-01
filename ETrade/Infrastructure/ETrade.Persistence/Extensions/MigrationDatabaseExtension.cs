@@ -11,7 +11,7 @@ public static class MigrationDatabaseExtension
     {
         await using (var scope = app.Services.CreateAsyncScope())
         {
-            await using (var dataContext = scope.ServiceProvider.GetService<DataContext>())
+            await using (var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>())
             {
                 if (dataContext != null)
                 {
