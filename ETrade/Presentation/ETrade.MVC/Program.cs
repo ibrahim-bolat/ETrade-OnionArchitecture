@@ -18,12 +18,17 @@ builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddPresentationServices(builder.Configuration,builder.Host);
 
+// Add Rate Limiting
+builder.Services.AddRateLimiting(builder.Configuration);
 
 var app = builder.Build();
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
-// Configure the HTTP request pipeline.
+// Use Rate Limiting
+app.UseRateLimiting();
+
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler($"/ErrorPages/AllErrorPages?statusCode={(int)HttpStatusCode.InternalServerError}");

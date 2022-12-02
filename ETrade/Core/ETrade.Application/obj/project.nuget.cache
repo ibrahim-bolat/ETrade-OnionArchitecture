@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "s3D9xwNGuSqB/5MLsTfVrX4MUK+c+8+VrxnvK9EHUj+b1qjvUcZ4R0GpZ+oW0nZKD9fR+stQPgwFqjnxPM+E3w==",
+  "dgSpecHash": "UK1ZScs9R0MCKWw+aVzDyuP2QM8T+zuI2Y2CEqkuOfCgQqxbRpXClobUHUbFcs/IZtguLzcSKMIAKhjGF4YDLA==",
   "success": true,
   "projectFilePath": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Core/ETrade.Application/ETrade.Application.csproj",
   "expectedPackageFiles": [
@@ -63,7 +63,7 @@
     "/home/ibrahim.bolat/.nuget/packages/microsoft.netcore.targets/1.1.0/microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/microsoft.win32.primitives/4.3.0/microsoft.win32.primitives.4.3.0.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/netstandard.library/1.6.1/netstandard.library.1.6.1.nupkg.sha512",
-    "/home/ibrahim.bolat/.nuget/packages/newtonsoft.json/9.0.1/newtonsoft.json.9.0.1.nupkg.sha512",
+    "/home/ibrahim.bolat/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl/4.3.0/runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl/4.3.0/runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl/4.3.0/runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
@@ -122,7 +122,6 @@
     "/home/ibrahim.bolat/.nuget/packages/system.runtime.interopservices/4.3.0/system.runtime.interopservices.4.3.0.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/system.runtime.interopservices.runtimeinformation/4.3.0/system.runtime.interopservices.runtimeinformation.4.3.0.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/system.runtime.numerics/4.3.0/system.runtime.numerics.4.3.0.nupkg.sha512",
-    "/home/ibrahim.bolat/.nuget/packages/system.runtime.serialization.primitives/4.1.1/system.runtime.serialization.primitives.4.1.1.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/system.security.cryptography.algorithms/4.3.0/system.security.cryptography.algorithms.4.3.0.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/system.security.cryptography.cng/4.3.0/system.security.cryptography.cng.4.3.0.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/system.security.cryptography.csp/4.3.0/system.security.cryptography.csp.4.3.0.nupkg.sha512",

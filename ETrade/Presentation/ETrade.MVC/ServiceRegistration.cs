@@ -90,6 +90,5 @@ public static class ServiceRegistration
             logging.RequestBodyLogLimit = 4096;
             logging.ResponseBodyLogLimit = 4096;
         });
-        
     }
 }

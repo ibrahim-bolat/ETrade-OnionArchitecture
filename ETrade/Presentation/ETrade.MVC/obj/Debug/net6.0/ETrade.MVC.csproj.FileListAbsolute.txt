@@ -1156,3 +1156,5 @@ D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentatio
 D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/obj/Debug/net6.0/ETrade.MVC.genruntimeconfig.cache
 D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/obj/Debug/net6.0/ref/ETrade.MVC.dll
 /home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/bin/Debug/net6.0/IPAddressRange.dll
+/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/bin/Debug/net6.0/AspNetCoreRateLimit.dll
+/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/bin/Debug/net6.0/Microsoft.Extensions.Logging.Abstractions.dll

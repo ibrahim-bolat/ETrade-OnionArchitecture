@@ -55,8 +55,21 @@ public class ErrorPagesController : Controller
         return View();
     }
 
+    public IActionResult QuotaExceededRateLimit(string limit,string period,string retryAfter,int errorNumber)
+    {
+        ViewBag.Limit = limit;
+        ViewBag.Period = period;
+        ViewBag.RetryAfter = retryAfter;
+        ViewBag.ErrorNumber = errorNumber;
+        ViewBag.ErrorTitle = "İstek Limiti Aşılmıştır.";
+        ViewBag.ErrorMessage = $"İstek Limit Kotası Aşıldı. {period} başına {limit} istek yapabilirsiniz. Lütfen {retryAfter} saniye sonra tekrar deneyiniz.";
+        return View();
+    }
     public IActionResult AccessDenied()
     {
+        ViewBag.ErrorNumber = 401;
+        ViewBag.ErrorTitle = "Access Denied";
+        ViewBag.ErrorMessage = "Bu sayfaya girebilmek için yetkiniz bulunmamaktadır.";
         return View();
     }
 }
