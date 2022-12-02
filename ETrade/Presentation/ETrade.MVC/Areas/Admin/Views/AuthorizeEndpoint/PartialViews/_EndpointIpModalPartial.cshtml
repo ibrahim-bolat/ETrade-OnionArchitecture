@@ -19,10 +19,10 @@
                                 <input asp-for="@ip.Id" id="ipID@(ip.Id)" class="form-control" type="hidden"/>
                                 <div class="col-8">
                                     <div class="custom-control custom-switch custom-control-inline">
-                                        <input class="custom-control-input" type="checkbox" id="ipHasAssign@(ip.Id)" data-id="@ip.Id" 
-                                           data-areaname="@(ip.TobeAssignedAreaName!=null ? ip.TobeAssignedAreaName:null)"
-                                           data-menuname="@(ip.TobeAssignedMenuName!=null ? ip.TobeAssignedMenuName:null)"
-                                           data-endpointId="@(ip.TobeAssignedEndpointId!=null ? ip.TobeAssignedEndpointId:null)"
+                                        <input class="custom-control-input" type="checkbox" id="ipHasAssign@(ip.Id)" data-id="@ip.Id"
+                                           @(ip.TobeAssignedAreaName!=null ? ("data-areaname=" + ip.TobeAssignedAreaName) : null)
+                                           @(ip.TobeAssignedMenuName!=null ? ("data-menuname=" + ip.TobeAssignedMenuName) : null)
+                                           @(ip.TobeAssignedEndpointId!=null ? ("data-endpointId=" + ip.TobeAssignedEndpointId) : null)
                                            @(ip.HasAssign ? "checked" : "")/>
                                         <label class="custom-control-label" for="ipHasAssign@(ip.Id)">@ip.RangeStart-@ip.RangeEnd</label>
                                     </div>

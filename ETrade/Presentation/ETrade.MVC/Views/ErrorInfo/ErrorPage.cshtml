@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "_ErrorLayout";
+    ViewData["Title"] = ViewBag.StatusCode.ToString();
+}
+@if(ViewBag.StatusCode==400 || ViewBag.StatusCode==401 || ViewBag.StatusCode==404 || ViewBag.StatusCode==429 ||ViewBag.StatusCode==500)
+{
+    <h1 class="text-center text-danger">@ViewBag.StatusCode</h1>
+    <h2 class="text-center text-danger">@ViewBag.ErrorTitle</h2>
+    <h3 class="text-center text-danger">Oops, @ViewBag.ErrorMessage</h3>
+    <p><a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Index">Anasayfa</a></p>
+}
+else
+{
+    <h1>@ViewBag.StatusCode</h1>
+    <h2>@ViewBag.ErrorTitle</h2>
+    <h3>Oops, @ViewBag.ErrorMessage</h3>
+    <p><a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Index">Anasayfa</a></p>
+}

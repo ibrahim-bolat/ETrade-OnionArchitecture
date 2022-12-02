@@ -191,7 +191,7 @@ public class AccountController : Controller
         {
             return View();
         }
-        return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 400});
+        return RedirectToAction("ErrorPage", "ErrorInfo" ,new { area = "", statusCode = 400});
     }
 
     [AllowAnonymous]
@@ -239,7 +239,7 @@ public class AccountController : Controller
         {
             return View(dresult.Result.Data);
         }
-        return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 404});
+        return RedirectToAction("ErrorPage", "ErrorInfo" ,new { area = "", statusCode = 404});
     }
 
     [HttpPost]
@@ -293,7 +293,7 @@ public class AccountController : Controller
         {
             return View(dresult.Result.Data);
         }
-        return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 404});
+        return RedirectToAction("ErrorPage", "ErrorInfo" ,new { area = "", statusCode = 404});
     }
     
     [HttpPost]
@@ -349,6 +349,6 @@ public class AccountController : Controller
         {
             return View(dresult.Result.Data);
         }
-        return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 404});
+        return RedirectToAction("ErrorPage", "ErrorInfo" ,new { area = "", statusCode = 404});
     }
 }

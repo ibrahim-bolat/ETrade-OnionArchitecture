@@ -53,7 +53,7 @@ public class AuthorizeEndpointController : Controller
             {
                 return Json(new { success = true });
             }
-            return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 404});
+            return RedirectToAction("ErrorPage", "ErrorInfo" ,new { area = "", statusCode = 400});
         }
         return Json(new { success = false });
     }
@@ -69,7 +69,7 @@ public class AuthorizeEndpointController : Controller
         {
             return Json(new { success = true, roles = dresult.Result.Data });
         }
-        return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 400});
+        return RedirectToAction("ErrorPage", "ErrorInfo" ,new { area = "", statusCode = 400});
     }
     
     [HttpGet]
@@ -105,7 +105,7 @@ public class AuthorizeEndpointController : Controller
             {
                 return Json(new { success = true });
             }
-            return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 404});
+            return RedirectToAction("ErrorPage", "ErrorInfo" ,new { area = "", statusCode = 400});
         }
         return Json(new { success = false });
     }
@@ -123,6 +123,6 @@ public class AuthorizeEndpointController : Controller
         {
             return PartialView("PartialViews/_EndpointIpModalPartial",dresult.Result.Data);
         }
-        return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 400});
-    }
+        
+        return RedirectToAction("ErrorPage", "ErrorInfo" ,new { area = "", statusCode = 400});}
 }

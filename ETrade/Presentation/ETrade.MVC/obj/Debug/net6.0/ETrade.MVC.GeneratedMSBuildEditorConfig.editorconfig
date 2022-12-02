@@ -185,16 +185,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/ErrorPages/AccessDenied.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXJyb3JQYWdlcy9BY2Nlc3NEZW5pZWQuY3NodG1s
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/ErrorInfo/ErrorPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXJyb3JJbmZvL0Vycm9yUGFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/ErrorPages/AllErrorPages.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXJyb3JQYWdlcy9BbGxFcnJvclBhZ2VzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/ErrorPages/QuotaExceededRateLimit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXJyb3JQYWdlcy9RdW90YUV4Y2VlZGVkUmF0ZUxpbWl0LmNzaHRtbA==
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/ErrorInfo/QuotaExceededRateLimit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXJyb3JJbmZvL1F1b3RhRXhjZWVkZWRSYXRlTGltaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Home/Index.cshtml]
@@ -207,6 +203,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Shared/_Breadcrump.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19CcmVhZGNydW1wLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Shared/_ErrorLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19FcnJvckxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/Views/Shared/_Footer.cshtml]

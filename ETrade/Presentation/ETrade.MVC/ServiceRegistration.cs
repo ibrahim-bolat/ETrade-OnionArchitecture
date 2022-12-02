@@ -40,7 +40,7 @@ public static class ServiceRegistration
             };
             cookieOptions.SlidingExpiration = true; 
             cookieOptions.ExpireTimeSpan = TimeSpan.FromDays(30);
-            cookieOptions.AccessDeniedPath = new PathString("/ErrorPages/AccessDenied");
+            cookieOptions.AccessDeniedPath = new PathString($"/ErrorInfo/ErrorPage?statusCode={401}");
         });
         
         //all project authorize

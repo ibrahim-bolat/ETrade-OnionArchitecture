@@ -64,7 +64,7 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
             {
                 return View(dresult.Result.Data);
             }
-            return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 404});
+            return RedirectToAction("ErrorPage", "ErrorInfo" ,new { area = "", statusCode = 400});
         }
         
         [HttpPost]

@@ -19,7 +19,7 @@ public static class CustomExceptionHandlerExtension
                 if (contextFeature != null)
                 {
                     logger.LogError(contextFeature.Error.Message);
-                    context.Response.Redirect($"/ErrorPages/AllErrorPages?statusCode={statusCode}");
+                    context.Response.Redirect($"/ErrorInfo/ErrorPage?statusCode={statusCode}");
                 }
                 return Task.CompletedTask;
             });

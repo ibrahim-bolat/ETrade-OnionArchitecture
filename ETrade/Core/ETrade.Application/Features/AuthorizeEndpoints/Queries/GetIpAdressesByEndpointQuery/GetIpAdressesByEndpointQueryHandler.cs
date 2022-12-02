@@ -52,8 +52,8 @@ public class GetIpAdressesByEndpointQueryHandler : IRequestHandler<GetIpAdresses
                         RangeEnd = activeIpAddress.RangeEnd,
                         IpListType = activeIpAddress.IpListType.GetEnumDescription(),
                         TobeAssignedAreaName = request.AreaName,
-                        TobeAssignedMenuName = request.MenuName ?? string.Empty,
-                        TobeAssignedEndpointId = string.Empty,
+                        TobeAssignedMenuName = request.MenuName,
+                        TobeAssignedEndpointId = null,
                         HasAssign = endpointList.All(e => e.IpAddresses.Any(i => i.Id == activeIpAddress.Id))
                     });
                 }
@@ -88,8 +88,8 @@ public class GetIpAdressesByEndpointQueryHandler : IRequestHandler<GetIpAdresses
                         RangeStart = activeIpAddress.RangeStart,
                         RangeEnd = activeIpAddress.RangeEnd,
                         IpListType = activeIpAddress.IpListType.GetEnumDescription(),
-                        TobeAssignedAreaName = string.Empty,
-                        TobeAssignedMenuName = string.Empty,
+                        TobeAssignedAreaName = null,
+                        TobeAssignedMenuName = null,
                         TobeAssignedEndpointId = endpoint.Id.ToString(),
                         HasAssign = endpointIpAddress != null &&
                                     endpointIpAddress.Any(e => e.Id == activeIpAddress.Id)

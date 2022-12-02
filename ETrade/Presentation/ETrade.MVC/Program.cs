@@ -31,13 +31,13 @@ app.UseRateLimiting();
 
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler($"/ErrorPages/AllErrorPages?statusCode={(int)HttpStatusCode.InternalServerError}");
+    app.UseExceptionHandler($"/ErrorInfo/ErrorPage?statusCode={(int)HttpStatusCode.InternalServerError}");
     //alttakinide kullanabilirsin
     //app.CustomExceptionHandler(); 
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-app.UseStatusCodePagesWithReExecute("/ErrorPages/AllErrorPages","?statusCode={0}");
+app.UseStatusCodePagesWithReExecute("/ErrorInfo/ErrorPage","?statusCode={0}");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

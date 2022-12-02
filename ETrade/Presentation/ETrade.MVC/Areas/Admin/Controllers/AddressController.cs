@@ -78,7 +78,7 @@ public class AddressController : Controller
             }
             
         }
-        return RedirectToAction("AllErrorPages", "ErrorPages", new { statusCode = 404 });
+        return RedirectToAction("ErrorPage", "ErrorInfo" ,new { area = "", statusCode = 400});
     }
 
     [HttpPost]
@@ -116,7 +116,7 @@ public class AddressController : Controller
                 return View(dresult.Result.Data);
             }
         }
-        return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 404});
+        return RedirectToAction("ErrorPage", "ErrorInfo" ,new { area = "", statusCode = 400});
     }
     
     [HttpPost]
@@ -137,6 +137,6 @@ public class AddressController : Controller
             }
             return Json(new { success = false});
         }
-        return RedirectToAction("AllErrorPages", "ErrorPages" ,new { area = "", statusCode = 404});
+        return RedirectToAction("ErrorPage", "ErrorInfo" ,new { area = "", statusCode = 400});
     }
 }
