@@ -4,7 +4,7 @@ using ETrade.Application.DTOs.Base;
 namespace ETrade.Application.Features.Accounts.DTOs;
 
 
-public class LoginDto:BaseDto,IDto
+public class LoginDto:BaseDto
     {
         [Display(Name = "E-Posta ")]
         public string Email { get; set; }

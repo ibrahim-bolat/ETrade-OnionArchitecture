@@ -38,8 +38,7 @@ public static class ServiceRegistration
         //user security stamp validate time
         serviceCollection.Configure<SecurityStampValidatorOptions>(options =>
         {
-            options.ValidationInterval = TimeSpan.FromMinutes(10);
-                
+            options.ValidationInterval = TimeSpan.Zero;
         });
         
         // Sets the expiry to two hours

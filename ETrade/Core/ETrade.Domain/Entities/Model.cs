@@ -3,7 +3,7 @@ using ETrade.Domain.Enums;
 
 namespace ETrade.Domain.Entities;
 
-    public class Model : BaseEntity,IEntity
+    public class Model : BaseEntity
     {
         public string Name { get; set; }   // Golf Gibi
         public string EngineType { get; set; } //1.4 TSI and 1.6 TDI gibi

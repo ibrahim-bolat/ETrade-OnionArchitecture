@@ -3,6 +3,7 @@ using ETrade.Application;
 using ETrade.Application.Extensions;
 using ETrade.Infrastructure;
 using ETrade.MVC;
+using ETrade.MVC.Configurations.RateLimit;
 using ETrade.MVC.Extensions;
 using ETrade.Persistence;
 using ETrade.Persistence.Extensions;
@@ -31,13 +32,13 @@ app.UseRateLimiting();
 
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler($"/ErrorInfo/ErrorPage?statusCode={(int)HttpStatusCode.InternalServerError}");
+    app.UseExceptionHandler($"/Error/Index?statusCode={(int)HttpStatusCode.InternalServerError}");
     //alttakinide kullanabilirsin
     //app.CustomExceptionHandler(); 
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-app.UseStatusCodePagesWithReExecute("/ErrorInfo/ErrorPage","?statusCode={0}");
+app.UseStatusCodePagesWithReExecute("/Error/Index","?statusCode={0}");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

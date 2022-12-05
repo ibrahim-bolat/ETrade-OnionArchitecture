@@ -11,12 +11,14 @@ namespace ETrade.Application.Features.UserOperations.Commands.SetDeletedUserComm
 public class SetDeletedUserCommandHandler : IRequestHandler<SetDeletedUserCommandRequest, SetDeletedUserCommandResponse>
 {
     private readonly UserManager<AppUser> _userManager;
+    private readonly SignInManager<AppUser> _signInManager;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public SetDeletedUserCommandHandler(UserManager<AppUser> userManager, IHttpContextAccessor httpContextAccessor)
+    public SetDeletedUserCommandHandler(UserManager<AppUser> userManager, IHttpContextAccessor httpContextAccessor, SignInManager<AppUser> signInManager)
     {
         _userManager = userManager;
         _httpContextAccessor = httpContextAccessor;
+        _signInManager = signInManager;
     }
 
     public async Task<SetDeletedUserCommandResponse> Handle(SetDeletedUserCommandRequest request,
@@ -47,6 +49,11 @@ public class SetDeletedUserCommandHandler : IRequestHandler<SetDeletedUserComman
                     {
                         Result = new Result(ResultStatus.Error, Messages.UserNotUpdateSecurityStamp, result.Errors.ToList())
                     };
+                }
+                string userIdentityName = _httpContextAccessor.HttpContext?.User.Identity?.Name;
+                if (!string.IsNullOrEmpty(userIdentityName) && user.UserName.Equals(userIdentityName))
+                {
+                    await _signInManager.RefreshSignInAsync(user);
                 }
                 return new SetDeletedUserCommandResponse
                 {

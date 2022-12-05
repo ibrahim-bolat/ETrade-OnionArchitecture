@@ -4,7 +4,7 @@ using ETrade.Domain.Enums;
 
 namespace ETrade.Application.Features.Addresses.DTOs;
 
-public class AddressDto:BaseDto,IDto
+public class AddressDto:BaseDto
 {
     public int Id { get; set; }
     

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using ETrade.Application.DTOs.Base;
 
 namespace ETrade.Application.Features.Accounts.DTOs;
-public class AddressSummaryDto:BaseDto,IDto
+public class AddressSummaryDto:BaseDto
 {
     public int Id { get; set; }
     

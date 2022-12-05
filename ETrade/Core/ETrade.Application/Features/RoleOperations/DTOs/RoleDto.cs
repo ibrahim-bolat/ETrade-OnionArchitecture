@@ -3,7 +3,7 @@ using ETrade.Application.DTOs.Base;
 
 namespace ETrade.Application.Features.RoleOperations.DTOs;
 
-public class RoleDto:BaseDto,IDto
+public class RoleDto:BaseDto
     {
         public int Id { get; set; }
         

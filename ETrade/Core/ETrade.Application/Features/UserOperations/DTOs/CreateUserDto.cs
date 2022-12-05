@@ -4,7 +4,7 @@ using ETrade.Application.DTOs.Base;
 namespace ETrade.Application.Features.UserOperations.DTOs;
 
 
-public class CreateUserDto:BaseDto,IDto
+public class CreateUserDto:BaseDto
     {
         [Display(Name = "Ad")]
         public string FirstName { get; set; }

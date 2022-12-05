@@ -75,8 +75,8 @@ public class AuthorizeEndpointsFilter : IAsyncActionFilter
                 context.Result = new RedirectToRouteResult(
                     new RouteValueDictionary()
                     {
-                        { "action", "ErrorInfo" },
-                        { "controller", "ErrorPage" },
+                        { "action", "Index" },
+                        { "controller", "Error" },
                         { "area", "" },
                         { "statusCode", 401 },
                     });

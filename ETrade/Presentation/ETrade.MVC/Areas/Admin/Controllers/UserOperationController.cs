@@ -151,7 +151,7 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
             {
                 return Json(new { success = true, roles = dresult.Result.Data });
             }
-            return RedirectToAction("ErrorPage", "ErrorInfo" ,new { area = "", statusCode = 400});
+            return RedirectToAction("Index", "Error" ,new { area = "", statusCode = 400});
         }
 
         [HttpPost]
@@ -169,7 +169,7 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
                 {
                     return Json(new { success = true });
                 }
-                return RedirectToAction("ErrorPage", "ErrorInfo" ,new { area = "", statusCode = 400});
+                return RedirectToAction("Index", "Error" ,new { area = "", statusCode = 400});
             }
             return Json(new { success = false });
         }

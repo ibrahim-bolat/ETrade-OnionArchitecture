@@ -4,7 +4,7 @@ using ETrade.Application.DTOs.Base;
 namespace ETrade.Application.Features.Accounts.DTOs;
 
 
-public class UpdatePasswordDto:BaseDto,IDto
+public class UpdatePasswordDto:BaseDto
     {
         [Display(Name = "Yeni Şifre")]
         public string Password { get; set; }

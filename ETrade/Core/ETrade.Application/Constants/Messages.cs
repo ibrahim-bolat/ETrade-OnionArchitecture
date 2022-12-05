@@ -2,17 +2,19 @@ namespace ETrade.Application.Constants;
 
 public static class Messages
 {
+    public const string UserLoggedIn = "Kullanıcı başarıyla giriş yaptı";
+    public const string UserNotLoggedIn = "Kullanıcı giriş yapamadı";
     public const string UserAdded = "Kullanıcı başarıyla eklendi";
     public const string UserNotAdded = "Kullanıcı eklenemedi";
     public const string UserDeleted = "Kullanıcı başarıyla silindi";
     public const string UserUpdated = "Kullanıcı başarıyla güncellendi";
     public const string UserNotUpdated = "Kullanıcı güncellenemedi";
     public const string UserNotDeleted = "Kullanıcı silinemedi";
-    public const string UserNotFound = "Kullanıcı bulunamadı!";
-    public const string UserAccountLocked = "Art arda 3 başarısız giriş denemesi yaptığınızdan dolayı hesabınız 30 dk kilitlenmiştir!";
+    public const string UserNotFound = "Kullanıcı emaili yada şifresi hatalıdır!";
+    public const string UserIncorrectPassword = "Kullanıcı emaili yada şifresi hatalıdır!";
     public const string UserActive = "Kullanıcı hesabı zaten aktif!";
-    public const string UserNotActive = "Kullanıcı hesabı aktif değildir!";
-    public const string UserIncorrectPassword = "Kullanıcı şifresi hatalıdır!";
+    public const string UserNotActive = "Kullanıcının sisteme giriş izni yok!!";
+    public const string UserAccountLocked = "Art arda 3 başarısız giriş denemesi yaptığınızdan dolayı hesabınız 30 dk kilitlenmiştir!";
     public const string UserConfirmEmail = "Kullanıcı emaili doğrulandı";
     public const string UserNotConfirmEmail = "Kullanıcı emaili doğrulanmadı!";
     public const string UserSuccessSendEmail = "Kullanıcıya email başarıyla gönderildi";

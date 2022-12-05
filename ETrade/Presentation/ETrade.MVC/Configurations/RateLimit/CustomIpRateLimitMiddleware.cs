@@ -1,9 +1,8 @@
 using System.Net;
 using AspNetCoreRateLimit;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace ETrade.MVC.Extensions;
+namespace ETrade.MVC.Configurations.RateLimit;
 
 public class CustomIpRateLimitMiddleware:IpRateLimitMiddleware
 {
@@ -16,7 +15,7 @@ public class CustomIpRateLimitMiddleware:IpRateLimitMiddleware
         int statusCode = (int)HttpStatusCode.TooManyRequests;
         string errorTitle=WebUtility.UrlEncode("İstek Limiti Aşılmıştır.");
         string errorMessage=WebUtility.UrlEncode($"İstek Limit Kotası Aşıldı. {rule.Period} başına {rule.Limit} istek yapabilirsiniz. Lütfen {retryAfter} saniye sonra tekrar deneyiniz.");
-        httpContext.Response.Redirect($"/ErrorInfo/QuotaExceededRateLimit?statusCode={statusCode}&errorTitle={errorTitle}&errorMessage={errorMessage}");
+        httpContext.Response.Redirect($"/Error/Index?statusCode={statusCode}&errorTitle={errorTitle}&errorMessage={errorMessage}");
         return Task.CompletedTask;
     }
 }

@@ -3,7 +3,7 @@ using ETrade.Domain.Entities.Identity;
 
 namespace ETrade.Domain.Entities;
 
-public class Endpoint:BaseEntity,IEntity
+public class Endpoint:BaseEntity
 {
     public string EndpointName { get; set; }
     

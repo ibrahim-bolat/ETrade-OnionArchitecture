@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ETrade.Domain.Entities.Identity;
 
-public class AppRole:IdentityRole<int>,IIdentityEntity
+public class AppRole:IdentityRole<int>,IEntity
     {
         public  DateTime CreatedTime { get; set; } = DateTime.Now;
         public  DateTime ModifiedTime { get; set; } = DateTime.Now;

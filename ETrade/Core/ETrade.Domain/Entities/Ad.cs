@@ -4,7 +4,7 @@ using ETrade.Domain.Enums;
 
 namespace ETrade.Domain.Entities;
 
-    public class Ad : BaseEntity,IEntity
+    public class Ad : BaseEntity
     {
         public string AdNo { get; set; }  //123458752 gibi
         public string AdTitle { get; set; }  //SAHİBİNDEN 2016 SERVİS BAKIMLI İYİ NİYET GARANTİLİ GOLF gibi

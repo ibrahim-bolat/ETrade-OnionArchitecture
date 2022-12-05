@@ -26,6 +26,7 @@ public class AssignUserRoleListCommandHandler:IRequestHandler<AssignUserRoleList
 
     public async Task<AssignUserRoleListCommandResponse> Handle(AssignUserRoleListCommandRequest request, CancellationToken cancellationToken)
     {
+        IdentityResult result;
         AppUser user = await _userManager.FindByIdAsync(request.Id);
         if (user != null)
         {
@@ -45,9 +46,15 @@ public class AssignUserRoleListCommandHandler:IRequestHandler<AssignUserRoleList
                             await _userManager.RemoveFromRoleAsync(user, role.Name);
                     }
                 }
-                await _userManager.UpdateSecurityStampAsync(user);
-                var currentUser = await _userManager.GetUserAsync(_httpContextAccessor.HttpContext?.User);
-                if (currentUser.Id == user.Id)
+                result = await _userManager.UpdateSecurityStampAsync(user);
+                if (!result.Succeeded)
+                {
+                    return new AssignUserRoleListCommandResponse{
+                        Result = new Result(ResultStatus.Error, Messages.UserNotUpdateSecurityStamp, result.Errors.ToList())
+                    };
+                }
+                string userIdentityName = _httpContextAccessor.HttpContext?.User.Identity?.Name;
+                if (!string.IsNullOrEmpty(userIdentityName) && user.UserName.Equals(userIdentityName))
                 {
                     await _signInManager.RefreshSignInAsync(user);
                 }

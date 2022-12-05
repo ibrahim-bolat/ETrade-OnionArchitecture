@@ -2,7 +2,7 @@
 
 namespace ETrade.Domain.Entities;
 
-    public class VehicleAddress : BaseEntity,IEntity
+    public class VehicleAddress : BaseEntity
     {
         public  string AddressTitle{ get; set; }
         public  string NeighborhoodOrVillage{ get; set; }

@@ -1,6 +1,6 @@
 ﻿@{
     Layout = "_ErrorLayout";
-    ViewData["Title"] = ViewBag.StatusCode.ToString();
+    ViewData["Title"] = ViewBag.ErrorTitle;
 }
 @if(ViewBag.StatusCode==400 || ViewBag.StatusCode==401 || ViewBag.StatusCode==404 || ViewBag.StatusCode==429 ||ViewBag.StatusCode==500)
 {

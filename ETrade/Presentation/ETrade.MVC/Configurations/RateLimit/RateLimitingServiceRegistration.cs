@@ -1,8 +1,8 @@
 using AspNetCoreRateLimit;
 
-namespace ETrade.MVC.Extensions;
+namespace ETrade.MVC.Configurations.RateLimit;
 
-internal static class RateLimitingMiddlewareExtension
+internal static class RateLimitingServiceRegistration
 {
     internal static IServiceCollection AddRateLimiting(this IServiceCollection services, IConfiguration configuration)
     {

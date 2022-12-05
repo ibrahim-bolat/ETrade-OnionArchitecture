@@ -4,7 +4,7 @@ using ETrade.Application.DTOs.Base;
 
 namespace ETrade.Application.Features.UserImages.DTOs;
 
-public class UserImageDto:BaseDto,IDto
+public class UserImageDto:BaseDto
 {
     public int Id { get; set; }
     

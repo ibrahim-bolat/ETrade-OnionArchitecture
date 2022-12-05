@@ -2,7 +2,7 @@ using ETrade.Domain.Enums;
 
 namespace ETrade.Domain.Entities.Common;
 
-public abstract class BaseEntity
+public abstract class BaseEntity:IEntity
 {
     public virtual int Id { get; set; }
     public virtual DateTime CreatedTime { get; set; } = DateTime.Now;

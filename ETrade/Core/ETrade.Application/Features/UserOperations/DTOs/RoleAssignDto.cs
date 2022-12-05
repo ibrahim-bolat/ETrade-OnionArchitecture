@@ -5,7 +5,7 @@ namespace ETrade.Application.Features.UserOperations.DTOs;
 
 
 
-public class RoleAssignDto:BaseDto,IDto
+public class RoleAssignDto:BaseDto
     {
         public int Id { get; set; }
         

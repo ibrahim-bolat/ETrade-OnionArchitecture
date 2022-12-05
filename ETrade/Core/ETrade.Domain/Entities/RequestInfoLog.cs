@@ -3,7 +3,7 @@ using ETrade.Domain.Entities.Identity;
 
 namespace ETrade.Domain.Entities;
 
-public class RequestInfoLog:BaseEntity,IEntity
+public class RequestInfoLog:BaseEntity
 {
     public string AreaName { get; set; }
     

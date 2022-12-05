@@ -4,7 +4,7 @@ using ETrade.Domain.Enums;
 
 namespace ETrade.Domain.Entities;
 
-    public class Address : BaseEntity,IEntity
+    public class Address : BaseEntity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

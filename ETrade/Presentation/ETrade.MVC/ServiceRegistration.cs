@@ -2,7 +2,6 @@ using System.Text.Json.Serialization;
 using ETrade.MVC.Configurations.SeriLog;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.HttpLogging;
-using Microsoft.AspNetCore.Identity;
 using NpgsqlTypes;
 using Serilog;
 using Serilog.Core;
@@ -40,7 +39,7 @@ public static class ServiceRegistration
             };
             cookieOptions.SlidingExpiration = true; 
             cookieOptions.ExpireTimeSpan = TimeSpan.FromDays(30);
-            cookieOptions.AccessDeniedPath = new PathString($"/ErrorInfo/ErrorPage?statusCode={401}");
+            cookieOptions.AccessDeniedPath = new PathString($"/Error/Index?statusCode={401}");
         });
         
         //all project authorize

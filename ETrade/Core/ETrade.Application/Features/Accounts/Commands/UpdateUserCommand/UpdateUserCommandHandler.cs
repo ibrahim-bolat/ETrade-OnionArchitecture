@@ -30,7 +30,7 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommandRequest
     public async Task<UpdateUserCommandResponse> Handle(UpdateUserCommandRequest request,
         CancellationToken cancellationToken)
     {
-        IdentityResult result = null;
+        IdentityResult result;
         AppUser user = await _userManager.FindByIdAsync(request.UserDto.Id.ToString());
         if (user != null)
         {
@@ -39,29 +39,8 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommandRequest
             if (user.IsActive)
             {
                 user = _mapper.Map(request.UserDto, user);
-                if (!tempUserEmail.Equals(request.UserDto.Email))
-                {
-                    result = await _userManager.SetEmailAsync(user, request.UserDto.Email);
-                    if (!result.Succeeded)
-                    {
-                        return new UpdateUserCommandResponse
-                        {
-                            Result = new Result(ResultStatus.Error, Messages.UserNotUpdateEmail, result.Errors.ToList())
-                        };
-                    }
-                }
-
-                if (!tempUserName.Equals(request.UserDto.UserName))
-                {
-                    result = await _userManager.SetUserNameAsync(user, request.UserDto.UserName);
-                    if (!result.Succeeded)
-                    {
-                        return new UpdateUserCommandResponse
-                        {
-                            Result = new Result(ResultStatus.Error, Messages.UserNotUpdateUserName, result.Errors.ToList())
-                        };
-                    }
-                }
+                user.NormalizedEmail = _userManager.NormalizeEmail(request.UserDto.Email);
+                user.NormalizedUserName = _userManager.NormalizeName(request.UserDto.UserName);
                 result = await _userManager.UpdateAsync(user);
                 if (!result.Succeeded)
                 {

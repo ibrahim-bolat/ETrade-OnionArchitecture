@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ETrade.Domain.Entities.Identity;
 
-public class AppUser:IdentityUser<int>,IIdentityEntity
+public class AppUser:IdentityUser<int>,IEntity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

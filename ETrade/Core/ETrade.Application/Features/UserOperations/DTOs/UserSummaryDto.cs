@@ -4,7 +4,7 @@ using ETrade.Application.DTOs.Base;
 namespace ETrade.Application.Features.UserOperations.DTOs;
 
 
-public class UserSummaryDto:BaseDto,IDto
+public class UserSummaryDto:BaseDto
     {
         public string Id { get; set; }
 

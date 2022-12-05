@@ -5,7 +5,7 @@ using ETrade.Domain.Enums;
 namespace ETrade.Application.Features.AuthorizeEndpoints.DTOs;
 
 
-public class IpAssignDto:BaseDto,IDto
+public class IpAssignDto:BaseDto
     {
         public int Id { get; set; }
         

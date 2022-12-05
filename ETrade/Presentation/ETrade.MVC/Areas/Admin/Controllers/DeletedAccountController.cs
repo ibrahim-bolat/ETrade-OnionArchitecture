@@ -72,6 +72,6 @@ public class DeletedAccountController : Controller
             var errors = ModelState.ToDictionary(x => x.Key, x => x.Value?.Errors);
             return Json(new { success = false, errors = errors });
         }
-        return RedirectToAction("ErrorPage", "ErrorInfo" ,new { area = "", statusCode = 400});
+        return RedirectToAction("Index", "Error" ,new { area = "", statusCode = 400});
     }
 }

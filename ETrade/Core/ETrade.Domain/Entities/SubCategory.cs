@@ -2,7 +2,7 @@
 
 namespace ETrade.Domain.Entities;
 
-    public class SubCategory : BaseEntity,IEntity
+    public class SubCategory : BaseEntity
     {
         public string Name { get; set; }    // Ototmobil , Minivan & Panelvan ,Elektrikli Araçlar gibi
         public int MainCategoryId { get; set; }

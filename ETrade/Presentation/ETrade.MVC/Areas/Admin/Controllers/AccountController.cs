@@ -191,7 +191,7 @@ public class AccountController : Controller
         {
             return View();
         }
-        return RedirectToAction("ErrorPage", "ErrorInfo" ,new { area = "", statusCode = 400});
+        return RedirectToAction("Index", "Error" ,new { area = "", statusCode = 400});
     }
 
     [AllowAnonymous]
@@ -239,7 +239,7 @@ public class AccountController : Controller
         {
             return View(dresult.Result.Data);
         }
-        return RedirectToAction("ErrorPage", "ErrorInfo" ,new { area = "", statusCode = 404});
+        return RedirectToAction("Index", "Error" ,new { area = "", statusCode = 400});
     }
 
     [HttpPost]
@@ -293,7 +293,7 @@ public class AccountController : Controller
         {
             return View(dresult.Result.Data);
         }
-        return RedirectToAction("ErrorPage", "ErrorInfo" ,new { area = "", statusCode = 404});
+        return RedirectToAction("Index", "Error" ,new { area = "", statusCode = 400});
     }
     
     [HttpPost]
@@ -349,6 +349,6 @@ public class AccountController : Controller
         {
             return View(dresult.Result.Data);
         }
-        return RedirectToAction("ErrorPage", "ErrorInfo" ,new { area = "", statusCode = 404});
+        return RedirectToAction("Index", "Error" ,new { area = "", statusCode = 400});
     }
 }

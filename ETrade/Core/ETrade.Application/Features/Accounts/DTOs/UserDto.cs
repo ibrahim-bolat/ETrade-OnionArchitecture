@@ -5,7 +5,7 @@ using ETrade.Domain.Enums;
 
 namespace ETrade.Application.Features.Accounts.DTOs;
 
-public class UserDto:BaseDto,IDto
+public class UserDto:BaseDto
     {
         public int Id { get; set; }
         

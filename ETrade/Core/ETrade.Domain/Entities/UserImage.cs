@@ -2,7 +2,7 @@ using ETrade.Domain.Entities.Common;
 using ETrade.Domain.Entities.Identity;
 
 namespace ETrade.Domain.Entities;
-public class UserImage:BaseEntity,IEntity
+public class UserImage:BaseEntity
     {
         public string ImageTitle { get; set; }
         public string ImagePath { get; set; }

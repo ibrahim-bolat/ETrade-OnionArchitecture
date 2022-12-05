@@ -71,7 +71,7 @@ public class UserImageController : Controller
             }
             return Json(new { success = false});
         }
-        return RedirectToAction("ErrorPage", "ErrorInfo" ,new { area = "", statusCode = 400});
+        return RedirectToAction("Index", "Error" ,new { area = "", statusCode = 400});
     }
     
         
@@ -92,6 +92,6 @@ public class UserImageController : Controller
             }
             return Json(new { success = false});
         }
-        return RedirectToAction("ErrorPage", "ErrorInfo" ,new { area = "", statusCode = 400});
+        return RedirectToAction("Index", "Error" ,new { area = "", statusCode = 400});
     }
 }

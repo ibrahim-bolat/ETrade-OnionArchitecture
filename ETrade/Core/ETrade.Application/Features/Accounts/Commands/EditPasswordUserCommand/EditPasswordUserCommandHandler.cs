@@ -23,13 +23,14 @@ public class UpdatePasswordUserCommandHandler:IRequestHandler<EditPasswordUserCo
 
     public async Task<EditPasswordUserCommandResponse> Handle(EditPasswordUserCommandRequest request, CancellationToken cancellationToken)
     {
+        IdentityResult result;
         AppUser user = await _userManager.FindByIdAsync(request.EditPasswordDto.Id.ToString());
         if(user!=null)
         {
             if (user.IsActive)
             {
                 var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var result = await _userManager.ResetPasswordAsync(user, token, request.EditPasswordDto.NewPassword);
+                result = await _userManager.ResetPasswordAsync(user, token, request.EditPasswordDto.NewPassword);
                 if (!result.Succeeded)
                 {
                     return new EditPasswordUserCommandResponse{

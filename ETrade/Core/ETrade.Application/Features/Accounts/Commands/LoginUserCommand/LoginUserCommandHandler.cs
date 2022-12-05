@@ -33,7 +33,7 @@ public class LoginUserCommandHandler:IRequestHandler<LoginUserCommandRequest,Log
                         await _userManager.ResetAccessFailedCountAsync(user);
                         return new LoginUserCommandResponse
                         {
-                            Result = new DataResult<LoginDto>(ResultStatus.Success, Messages.UserAdded, request.LoginDto)
+                            Result = new DataResult<LoginDto>(ResultStatus.Success, Messages.UserLoggedIn, request.LoginDto)
                         };
                     }
                     await _userManager.AccessFailedAsync(user);

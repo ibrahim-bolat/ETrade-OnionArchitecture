@@ -3,7 +3,7 @@ using ETrade.Application.DTOs.Base;
 
 namespace ETrade.Application.Features.Accounts.DTOs;
 
-public class EditPasswordDto:BaseDto,IDto
+public class EditPasswordDto:BaseDto
         {
             public int Id { get; set; }
             

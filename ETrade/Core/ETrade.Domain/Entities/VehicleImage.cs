@@ -1,7 +1,7 @@
 using ETrade.Domain.Entities.Common;
 
 namespace ETrade.Domain.Entities;
-public class VehicleImage:BaseEntity,IEntity
+public class VehicleImage:BaseEntity
     {
         public string ImageTitle { get; set; }
         public string ImagePath { get; set; }
