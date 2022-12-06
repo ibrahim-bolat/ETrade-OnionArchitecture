@@ -29,6 +29,9 @@ public class AddressDto:BaseDto
     
     [Display(Name = "Adres Tipi")]
     public  AddressType AddressType { get; set; }
+    
+    [Display(Name = "Cadde ya da Sokak")]
+    public  string Street{ get; set; }
 
     [Display(Name = "Mahalle ya da Köy")]
     public  string NeighborhoodOrVillage{ get; set; }

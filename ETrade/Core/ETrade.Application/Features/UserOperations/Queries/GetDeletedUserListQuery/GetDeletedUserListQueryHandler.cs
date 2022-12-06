@@ -6,6 +6,7 @@ using ETrade.Domain.Entities.Identity;
 using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace ETrade.Application.Features.UserOperations.Queries.GetDeletedUserListQuery;
 
@@ -20,7 +21,7 @@ public class GetDeletedUserListQueryHandler:IRequestHandler<GetDeletedUserListQu
         _mapper = mapper;
     }
 
-    public Task<GetDeletedUserListQueryResponse> Handle(GetDeletedUserListQueryRequest request, CancellationToken cancellationToken)
+    public async Task<GetDeletedUserListQueryResponse> Handle(GetDeletedUserListQueryRequest request, CancellationToken cancellationToken)
     {
         var userData = _userManager.Users.Where(u=>u.IsDeleted==true).AsQueryable();
         int pageSize = request.DatatableRequestDto.Length == -1 ? userData.Count() :  request.DatatableRequestDto.Length;
@@ -51,7 +52,7 @@ public class GetDeletedUserListQueryHandler:IRequestHandler<GetDeletedUserListQu
             }
         }
         int recordsTotal = userData.Count();
-        var data = userData.Skip(skip).Take(pageSize).ToList();
+        var data = await userData.Skip(skip).Take(pageSize).ToListAsync();
         List<UserSummaryDto> deletedUser = _mapper.Map<List<UserSummaryDto>>(data);
         var response = new DatatableResponseDto<UserSummaryDto>
         {
@@ -60,8 +61,8 @@ public class GetDeletedUserListQueryHandler:IRequestHandler<GetDeletedUserListQu
             RecordsFiltered = recordsTotal,
             Data = deletedUser
         };
-        return Task.FromResult(new GetDeletedUserListQueryResponse{
+        return new GetDeletedUserListQueryResponse{
             Result = new DataResult<DatatableResponseDto<UserSummaryDto>>(ResultStatus.Success, response)
-        });
+        };
     }
 }

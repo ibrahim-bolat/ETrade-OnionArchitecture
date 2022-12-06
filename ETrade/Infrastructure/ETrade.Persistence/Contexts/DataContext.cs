@@ -22,6 +22,10 @@ public class DataContext : IdentityDbContext<AppUser, AppRole, int>
     public DbSet<Ad> Ads { get; set; }
     public DbSet<VehicleAddress> VehicleAddresses { get; set; }
     public DbSet<VehicleImage> VehicleImages { get; set; }
+    public DbSet<City> Cities { get; set; }
+    public DbSet<District> Districts { get; set; }
+    public DbSet<NeighborhoodOrVillage> NeighborhoodsOrVillages { get; set; }
+    public DbSet<Street> Streets { get; set; }
 
 
     public DataContext(DbContextOptions<DataContext> dbContext) : base(dbContext)

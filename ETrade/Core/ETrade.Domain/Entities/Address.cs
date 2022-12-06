@@ -12,6 +12,7 @@ namespace ETrade.Domain.Entities;
         public string PhoneNumber{ get; set; }
         public  string AddressTitle{ get; set; }
         public  AddressType AddressType { get; set; }
+        public  string Street{ get; set; }
         public  string NeighborhoodOrVillage{ get; set; }
         public  string District{ get; set; }
         public  string City{ get; set; }

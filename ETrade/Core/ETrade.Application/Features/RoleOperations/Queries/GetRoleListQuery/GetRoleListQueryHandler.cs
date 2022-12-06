@@ -6,6 +6,7 @@ using ETrade.Domain.Entities.Identity;
 using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace ETrade.Application.Features.RoleOperations.Queries.GetRoleListQuery;
 
@@ -20,7 +21,7 @@ public class GetRoleListQueryHandler:IRequestHandler<GetRoleListQueryRequest,Get
         _mapper = mapper;
     }
 
-    public  Task<GetRoleListQueryResponse> Handle(GetRoleListQueryRequest request, CancellationToken cancellationToken)
+    public async Task<GetRoleListQueryResponse> Handle(GetRoleListQueryRequest request, CancellationToken cancellationToken)
     {
         var roleData = _roleManager.Roles.AsQueryable();
         int pageSize = request.DatatableRequestDto.Length == -1 ? roleData.Count() :  request.DatatableRequestDto.Length;
@@ -44,7 +45,7 @@ public class GetRoleListQueryHandler:IRequestHandler<GetRoleListQueryRequest,Get
             }
         }
         int recordsTotal = roleData.Count();
-        var data = roleData.Skip(skip).Take(pageSize).ToList();
+        var data = await roleData.Skip(skip).Take(pageSize).ToListAsync();
         List<RoleDto> roleList = _mapper.Map<List<RoleDto>>(data);
         var response = new DatatableResponseDto<RoleDto>
         {
@@ -53,8 +54,8 @@ public class GetRoleListQueryHandler:IRequestHandler<GetRoleListQueryRequest,Get
             RecordsFiltered = recordsTotal,
             Data = roleList
         };
-        return Task.FromResult(new GetRoleListQueryResponse{
+        return new GetRoleListQueryResponse{
             Result = new DataResult<DatatableResponseDto<RoleDto>>(ResultStatus.Success, response)
-        });
+        };
     }
 }

@@ -5,6 +5,7 @@ using ETrade.Domain.Entities.Identity;
 using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace ETrade.Application.Features.UserOperations.Queries.GetByIdUserRoleListQuery;
 
@@ -26,7 +27,7 @@ public class GetByIdUserRoleListQueryHandler:IRequestHandler<GetByIdUserRoleList
         {
             if (user.IsActive)
             {
-                List<AppRole> allActiveRoles =  _roleManager.Roles.Where(r=>r.IsActive).ToList();
+                List<AppRole> allActiveRoles =  await _roleManager.Roles.Where(r=>r.IsActive).ToListAsync();
                 List<string> userRoles = await _userManager.GetRolesAsync(user) as List<string>;
                 List<RoleAssignDto> assignRoles = new List<RoleAssignDto>();
                 allActiveRoles.ForEach(role => assignRoles.Add(new RoleAssignDto

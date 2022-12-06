@@ -56,13 +56,21 @@ public class AddressDtoValidator:AbstractValidator<AddressDto>
             .NotEmpty()
             .WithMessage("Lütden adres tipini boş geçmeyiniz....");
         
+        RuleFor(address => address.Street)
+            .NotNull()
+            .WithMessage("Lütden cadde yada sokağı boş geçmeyiniz....")
+            .NotEmpty()
+            .WithMessage("Lütden cadde yada sokağı boş geçmeyiniz....")
+            .MaximumLength(500)
+            .WithMessage("En fazla 500 karakter girebilirsiniz...");
+        
         RuleFor(address => address.NeighborhoodOrVillage)
             .NotNull()
             .WithMessage("Lütden mahalle yada köyü boş geçmeyiniz....")
             .NotEmpty()
             .WithMessage("Lütden mahalle yada köyü boş geçmeyiniz....")
-            .MaximumLength(250)
-            .WithMessage("En fazla 250 karakter girebilirsiniz...");
+            .MaximumLength(500)
+            .WithMessage("En fazla 500 karakter girebilirsiniz...");
         
         RuleFor(address => address.District)
             .NotNull()

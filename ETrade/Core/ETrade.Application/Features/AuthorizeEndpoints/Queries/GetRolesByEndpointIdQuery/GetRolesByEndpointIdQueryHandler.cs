@@ -7,6 +7,7 @@ using ETrade.Domain.Entities.Identity;
 using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace ETrade.Application.Features.AuthorizeEndpoints.Queries.GetRolesByEndpointIdQuery;
 
@@ -28,7 +29,7 @@ public class GetRolesByEndpointIdQueryHandler:IRequestHandler<GetRolesByEndpoint
         {
             if (endpoint.IsActive)
             {
-                List<AppRole> allActiveRoles =  _roleManager.Roles.Where(r=>r.IsActive).ToList();
+                List<AppRole> allActiveRoles =  await _roleManager.Roles.Where(r=>r.IsActive).ToListAsync();
                 List<AppRole> endpointRoles = endpoint.AppRoles;
                 List<RoleAssignDto> assignRoles = new List<RoleAssignDto>();
                 allActiveRoles.ForEach(role => assignRoles.Add(new RoleAssignDto

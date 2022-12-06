@@ -9,6 +9,7 @@ using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Endpoint = ETrade.Domain.Entities.Endpoint;
 
 namespace ETrade.Application.Features.AuthorizeEndpoints.Commands.AssignRoleListAuthorizeEndpointsCommand;
@@ -32,7 +33,7 @@ public class AssignRoleListAuthorizeEndpointsCommandHandler : IRequestHandler<
         Endpoint endpoint = await _unitOfWork.GetRepository<Endpoint>().GetAsync(a => a.Id == request.Id && a.IsActive,a=>a.AppRoles);
         if (endpoint != null)
         {
-            List<AppRole> allRoles = _roleManager.Roles.Where(r=>r.IsActive).ToList();
+            List<AppRole> allRoles = await _roleManager.Roles.Where(r=>r.IsActive).ToListAsync();
             foreach (var role in allRoles)
             {
                 if (request.RoleIds.Contains(role.Id))

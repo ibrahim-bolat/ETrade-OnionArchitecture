@@ -6,6 +6,7 @@ using ETrade.Domain.Entities.Identity;
 using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace ETrade.Application.Features.RoleOperations.Queries.GetUsersOfTheRoleQuery;
 
@@ -56,7 +57,7 @@ public class GetUsersOfTheRoleQueryHandler:IRequestHandler<GetUsersOfTheRoleQuer
                 }
             }
             int recordsTotal = userData.Count();
-            var data = userData.Skip(skip).Take(pageSize).ToList();
+            var data = await userData.Skip(skip).Take(pageSize).ToListAsync();
             List<UserSummaryDto> deletedUser = _mapper.Map<List<UserSummaryDto>>(data);
             var response = new DatatableResponseDto<UserSummaryDto>
             {

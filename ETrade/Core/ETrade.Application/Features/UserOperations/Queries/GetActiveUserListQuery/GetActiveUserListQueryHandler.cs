@@ -6,6 +6,7 @@ using ETrade.Domain.Entities.Identity;
 using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace ETrade.Application.Features.UserOperations.Queries.GetActiveUserListQuery;
 
@@ -20,7 +21,7 @@ public class GetActiveUserListQueryHandler:IRequestHandler<GetActiveUserListQuer
         _mapper = mapper;
     }
 
-    public Task<GetActiveUserListQueryResponse> Handle(GetActiveUserListQueryRequest request, CancellationToken cancellationToken)
+    public async Task<GetActiveUserListQueryResponse> Handle(GetActiveUserListQueryRequest request, CancellationToken cancellationToken)
     {
         var userData = _userManager.Users.Where(u=>u.IsActive==true).AsQueryable();
         int pageSize = request.DatatableRequestDto.Length == -1 ? userData.Count() :  request.DatatableRequestDto.Length;
@@ -51,7 +52,7 @@ public class GetActiveUserListQueryHandler:IRequestHandler<GetActiveUserListQuer
             }
         }
         int recordsTotal = userData.Count();
-        var data = userData.Skip(skip).Take(pageSize).ToList();
+        var data = await userData.Skip(skip).Take(pageSize).ToListAsync();
         List<UserSummaryDto> activeUser = _mapper.Map<List<UserSummaryDto>>(data);
         var response = new DatatableResponseDto<UserSummaryDto>
         {
@@ -60,8 +61,8 @@ public class GetActiveUserListQueryHandler:IRequestHandler<GetActiveUserListQuer
             RecordsFiltered = recordsTotal,
             Data = activeUser
         };
-        return Task.FromResult(new GetActiveUserListQueryResponse{
+        return new GetActiveUserListQueryResponse{
             Result = new DataResult<DatatableResponseDto<UserSummaryDto>>(ResultStatus.Success, response)
-        });
+        };
     }
 }

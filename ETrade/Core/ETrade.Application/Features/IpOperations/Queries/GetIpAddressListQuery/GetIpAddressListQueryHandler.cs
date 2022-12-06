@@ -6,6 +6,7 @@ using ETrade.Application.Wrappers.Concrete;
 using ETrade.Domain.Entities;
 using ETrade.Domain.Enums;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace ETrade.Application.Features.IpOperations.Queries.GetIpAddressListQuery;
 
@@ -19,7 +20,7 @@ public class GetIpAddressListQueryHandler:IRequestHandler<GetIpAddressListQueryR
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
-    public  async Task<GetIpAddressListQueryResponse> Handle(GetIpAddressListQueryRequest request, CancellationToken cancellationToken)
+    public async Task<GetIpAddressListQueryResponse> Handle(GetIpAddressListQueryRequest request, CancellationToken cancellationToken)
     {
         var ipData =
             _mapper.ProjectTo<IpListDto>(await _unitOfWork.GetRepository<IpAddress>().GetAllQueryableAsync()).AsQueryable();
@@ -50,7 +51,7 @@ public class GetIpAddressListQueryHandler:IRequestHandler<GetIpAddressListQueryR
             }
         }
         int recordsTotal = ipData.Count();
-        var ipList = ipData.Skip(skip).Take(pageSize).ToList();
+        var ipList = await ipData.Skip(skip).Take(pageSize).ToListAsync();
         var response = new DatatableResponseDto<IpListDto>
         {
             Draw = request.DatatableRequestDto.Draw,
@@ -58,8 +59,8 @@ public class GetIpAddressListQueryHandler:IRequestHandler<GetIpAddressListQueryR
             RecordsFiltered = recordsTotal,
             Data = ipList
         };
-        return await Task.FromResult(new GetIpAddressListQueryResponse{
+        return new GetIpAddressListQueryResponse{
             Result = new DataResult<DatatableResponseDto<IpListDto>>(ResultStatus.Success, response)
-        });
+        };
     }
 }

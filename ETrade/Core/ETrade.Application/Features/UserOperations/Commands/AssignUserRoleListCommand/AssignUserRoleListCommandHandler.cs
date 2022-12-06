@@ -6,6 +6,7 @@ using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace ETrade.Application.Features.UserOperations.Commands.AssignUserRoleListCommand;
 
@@ -32,7 +33,7 @@ public class AssignUserRoleListCommandHandler:IRequestHandler<AssignUserRoleList
         {
             if (user.IsActive)
             {
-                List<AppRole> allRoles = _roleManager.Roles.Where(r=>r.IsActive).ToList();
+                List<AppRole> allRoles = await _roleManager.Roles.Where(r=>r.IsActive).ToListAsync();
                 foreach (var role in allRoles)
                 {
                     if (request.RoleIds.Contains(role.Id))
