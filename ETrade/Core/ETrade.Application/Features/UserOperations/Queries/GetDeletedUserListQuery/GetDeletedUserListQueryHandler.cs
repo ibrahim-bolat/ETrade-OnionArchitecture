@@ -21,7 +21,7 @@ public class GetDeletedUserListQueryHandler:IRequestHandler<GetDeletedUserListQu
         _mapper = mapper;
     }
 
-    public async Task<GetDeletedUserListQueryResponse> Handle(GetDeletedUserListQueryRequest request, CancellationToken cancellationToken)
+    public Task<GetDeletedUserListQueryResponse> Handle(GetDeletedUserListQueryRequest request, CancellationToken cancellationToken)
     {
         var userData = _userManager.Users.Where(u=>u.IsDeleted==true).AsQueryable();
         int pageSize = request.DatatableRequestDto.Length == -1 ? userData.Count() :  request.DatatableRequestDto.Length;
@@ -52,7 +52,7 @@ public class GetDeletedUserListQueryHandler:IRequestHandler<GetDeletedUserListQu
             }
         }
         int recordsTotal = userData.Count();
-        var data = await userData.Skip(skip).Take(pageSize).ToListAsync();
+        var data =  userData.Skip(skip).Take(pageSize).ToList();
         List<UserSummaryDto> deletedUser = _mapper.Map<List<UserSummaryDto>>(data);
         var response = new DatatableResponseDto<UserSummaryDto>
         {
@@ -61,8 +61,8 @@ public class GetDeletedUserListQueryHandler:IRequestHandler<GetDeletedUserListQu
             RecordsFiltered = recordsTotal,
             Data = deletedUser
         };
-        return new GetDeletedUserListQueryResponse{
+        return Task.FromResult(new GetDeletedUserListQueryResponse{
             Result = new DataResult<DatatableResponseDto<UserSummaryDto>>(ResultStatus.Success, response)
-        };
+        });
     }
 }

@@ -5,5 +5,5 @@ namespace ETrade.Application.Features.Addresses.Commands.CreateAddressCommand;
 
 public class CreateAddressCommandRequest:IRequest<CreateAddressCommandResponse>
 {
-    public AddressDto AddressDto { get; set; }
+    public CreateAddressDto CreateAddressDto { get; set; }
 }

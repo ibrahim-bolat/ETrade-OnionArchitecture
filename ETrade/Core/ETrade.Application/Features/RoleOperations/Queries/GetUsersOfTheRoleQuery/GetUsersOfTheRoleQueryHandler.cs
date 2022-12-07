@@ -57,7 +57,7 @@ public class GetUsersOfTheRoleQueryHandler:IRequestHandler<GetUsersOfTheRoleQuer
                 }
             }
             int recordsTotal = userData.Count();
-            var data = await userData.Skip(skip).Take(pageSize).ToListAsync();
+            var data = userData.Skip(skip).Take(pageSize).ToList();
             List<UserSummaryDto> deletedUser = _mapper.Map<List<UserSummaryDto>>(data);
             var response = new DatatableResponseDto<UserSummaryDto>
             {

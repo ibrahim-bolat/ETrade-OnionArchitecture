@@ -5,6 +5,12 @@ using ETrade.Application.Features.Addresses.Commands.DeleteAddressCommand;
 using ETrade.Application.Features.Addresses.Commands.UpdateAddressCommand;
 using ETrade.Application.Features.Addresses.DTOs;
 using ETrade.Application.Features.Addresses.Queries.GetByIdAddressQuery;
+using ETrade.Application.Features.Addresses.Queries.GetCityListQuery;
+using ETrade.Application.Features.Addresses.Queries.GetCreateAddressDtoQuery;
+using ETrade.Application.Features.Addresses.Queries.GetDistrictListQuery;
+using ETrade.Application.Features.Addresses.Queries.GetNeighborhoodOrVillageListQuery;
+using ETrade.Application.Features.Addresses.Queries.GetSelectedAddressQuery;
+using ETrade.Application.Features.Addresses.Queries.GetStreetListQuery;
 using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -31,35 +37,49 @@ public class AddressController : Controller
 
     [HttpGet]
     [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, EndpointType = EndpointType.Reading, Definition = "Get By Id Address for Create Address")]
-    public IActionResult CreateAddress(int userId)
+    public async Task<IActionResult> CreateAddress(int userId)
     {
-        AddressDto addressDto = new AddressDto();
-        addressDto.UserId = userId;
-        return View(addressDto);
+        var dresult = await _mediator.Send(new GetCreateAddressDtoQueryRequest()
+        {
+            UserId = userId
+        });
+        if (dresult.Result.ResultStatus == ResultStatus.Success)
+        {
+            return View(dresult.Result.Data);
+        }
+        return RedirectToAction("Index", "Error" ,new { area = "", statusCode = 400});
     }
 
     [HttpPost]
     [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, EndpointType = EndpointType.Writing, Definition = "Create Address")]
-    public async Task<IActionResult> CreateAddress(AddressDto addressDto)
+    public async Task<IActionResult> CreateAddress(CreateAddressDto createAddressDto)
     {
         if (ModelState.IsValid)
         {
             var dresult = await _mediator.Send(new CreateAddressCommandRequest
             {
-                AddressDto = addressDto
+                CreateAddressDto = createAddressDto
             });
             if (dresult.Result.Message == Messages.AddressCountMoreThan4)
             {
+                var getSelectedAddressResult = await _mediator.Send(new GetSelectedAddressQueryRequest()
+                {
+                    CreateAddressDto = createAddressDto
+                });
                 ModelState.AddModelError("AddressCountMoreThan4", Messages.AddressCountMoreThan4);
-                return View(addressDto);
+                return View(getSelectedAddressResult.Result.Data);
             }
             if (dresult.Result.ResultStatus == ResultStatus.Success)
             {
                 TempData["AddAddressSuccess"] = true;
-                return RedirectToAction("CreateAddress", "Address" ,new  {userId=addressDto.UserId});
+                return RedirectToAction("CreateAddress", "Address" ,new  {userId=createAddressDto.UserId});
             }
         }
-        return View(addressDto);
+        var selectedAddressResult = await _mediator.Send(new GetSelectedAddressQueryRequest()
+        {
+            CreateAddressDto = createAddressDto
+        });
+        return View(selectedAddressResult.Result.Data);
     }
 
     [HttpGet]
@@ -138,5 +158,48 @@ public class AddressController : Controller
             return Json(new { success = false});
         }
         return RedirectToAction("Index", "Error" ,new { area = "", statusCode = 400});
+    }    
+    
+    
+    [HttpPost]
+    public async Task<IActionResult> GetAllDistrictsByCityId(int cityId)
+    {
+        var dresult = await _mediator.Send(new GetDistrictListQueryRequest()
+        {
+            CityId = cityId
+        });
+        if (dresult.Result.ResultStatus == ResultStatus.Success)
+        {
+            return Json(new { success = true, districts = dresult.Result.Data});
+        }
+        return Json(new { success = false });
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> GetAllNeighborhoodsOrVillagesByDistrictId(int districtId)
+    {
+        var dresult = await _mediator.Send(new GetNeighborhoodOrVillageListQueryRequest()
+        {
+            DistrictId = districtId
+        });
+        if (dresult.Result.ResultStatus == ResultStatus.Success)
+        {
+            return Json(new { success = true, neighborhoodsOrVillages = dresult.Result.Data});
+        }
+        return Json(new { success = false });
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> GetAllStreetsByNeighborhoodOrVillageId(int neighborhoodOrVillageId)
+    {
+        var dresult = await _mediator.Send(new GetStreetListQueryRequest()
+        {
+            NeighborhoodOrVillageId = neighborhoodOrVillageId
+        });
+        if (dresult.Result.ResultStatus == ResultStatus.Success)
+        {
+            return Json(new { success = true, streets = dresult.Result.Data});
+        }
+        return Json(new { success = false });
     }
 }

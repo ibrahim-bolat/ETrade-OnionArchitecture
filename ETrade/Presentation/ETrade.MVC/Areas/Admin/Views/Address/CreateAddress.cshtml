@@ -1,4 +1,4 @@
-@model AddressDto
+@model CreateAddressDto
 
 @{
     Layout = "Admin/_AdminLayout";
@@ -77,8 +77,8 @@
                     <div class="card-header">
                         <h2>Adres Ekle</h2>
                     </div>
-                    <div class="card-body">
-                        <form asp-area="Admin" asp-controller="Address" asp-action="CreateAddress" method="post">
+                    <div id="createAddressCardBody" class="card-body">
+                        <form id="createAddressForm">
                             <div class="form-group row offset-3 col-9 text-danger" asp-validation-summary="All">
                             </div>
                             <div class="form-group row">
@@ -122,27 +122,35 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label asp-for="City" class="col-sm-3 col-form-label"></label>
+                                <label asp-for="CityId" class="col-sm-3 col-form-label"></label>
                                 <div class="col-sm-9">
-                                    <input asp-for="City" class="form-control"/>
+                                    <select id="cityId" asp-for="CityId" class="custom-select" asp-items="Model.Cities">
+                                        <option selected="selected" value="">İl Seçiniz</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label asp-for="District" class="col-sm-3 col-form-label"></label>
-                                <div class="col-sm-9">
-                                    <input asp-for="District" class="form-control"/>
+                                <label asp-for="DistrictId" class="col-sm-3 col-form-label"></label>
+                                  <div class="col-sm-9">
+                                    <select id="districtId" class="custom-select" asp-for="DistrictId" asp-items="Model.Districts">
+                                        <option selected="selected" value="">İlçe Seçiniz</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label asp-for="NeighborhoodOrVillage" class="col-sm-3 col-form-label"></label>
-                                <div class="col-sm-9">
-                                    <input asp-for="NeighborhoodOrVillage" class="form-control"/>
+                            <label asp-for="NeighborhoodOrVillageId" class="col-sm-3 col-form-label"></label>
+                                  <div class="col-sm-9">
+                                    <select id="neighborhoodOrVillageId" class="custom-select" asp-for="NeighborhoodOrVillageId" asp-items="Model.NeighborhoodsOrVillages">
+                                        <option selected="selected" value="">Mahalle ya da Köy Seçiniz</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label asp-for="Street" class="col-sm-3 col-form-label"></label>
-                                <div class="col-sm-9">
-                                    <input asp-for="Street" class="form-control"/>
+                            <label asp-for="StreetId" class="col-sm-3 col-form-label"></label>
+                                  <div class="col-sm-9">
+                                    <select id="streetId" class="custom-select" asp-for="StreetId" asp-items="Model.Streets">
+                                        <option selected="selected" value="">Cadde ya da Sokak Seçiniz</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -172,7 +180,7 @@
                             <input type="hidden" asp-for="UserId" class="form-control"/>
                             <div class="form-group row">
                                 <div class="offset-sm-3 col-sm-9">
-                                    <input type="submit" value="Kaydet" class="btn btn-success btn-sm"/>
+                                    <input type="submit" value="Kaydet" id="btnSave" class="btn btn-success btn-sm"/>
                                     <a asp-area="Admin" asp-controller="Account" asp-action="Profile" asp-route-id="@Model.UserId" class="btn btn-primary btn-sm ml-2">Profil</a>
                                 </div>
                             </div>
@@ -188,36 +196,33 @@
     <script src="~/js/inputmask/jquery.inputmask.min.js"></script>
     <script src="~/lib/fancybox/js/jquery.fancybox.min.js"></script>
     <script src="~/admin/js/UserImage/userImage.js"></script>
-    <script type="text/javascript">
-           (function($) {
-               $("#phonemasc").inputmask("+\\90(999)999-99-99");
-               })(jQuery);
-    </script>
+    <script src="~/admin/js/Address/address.js"></script>
+    
     <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    var addAddressMessage = '@TempData["AddAddressSuccess"]';
-                    if (addAddressMessage)
-                    {
-                        const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 5000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener('click', Swal.close)
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                        })
-            
-                     Toast.fire({
-                    icon: 'success',
-                    title: 'Adres Kullanıcıya Eklendi',
-                    text: 'Kullanıca Adres Ekleme İşlemi Başarıyla Gerçekleştirildi.',
-                        })
-            
-                    }
-            });
+    document.addEventListener("DOMContentLoaded", function() {
+        var addAddressMessage = '@TempData["AddAddressSuccess"]';
+        if (addAddressMessage)
+        {
+            const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('click', Swal.close)
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+            })
+
+         Toast.fire({
+        icon: 'success',
+        title: 'Adres Kullanıcıya Eklendi',
+        text: 'Kullanıca Adres Ekleme İşlemi Başarıyla Gerçekleştirildi.',
+            })
+
+        }
+});
         </script>
 }

@@ -11,7 +11,6 @@ namespace ETrade.Persistence.Mappings;
             builder.HasKey(district => district.Id);
             builder.Property(district => district.Id).ValueGeneratedOnAdd();
             builder.Property(district => district.Name).HasMaxLength(250).IsRequired();
-            builder.Property(district => district.Note).HasMaxLength(500);
             builder.HasOne(district => district.City).WithMany(city => city.Districts)
                 .HasForeignKey(district => district.CityId).OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(district => district.NeighborhoodsOrVillages).WithOne(neighborhoodorvillage => neighborhoodorvillage.District)

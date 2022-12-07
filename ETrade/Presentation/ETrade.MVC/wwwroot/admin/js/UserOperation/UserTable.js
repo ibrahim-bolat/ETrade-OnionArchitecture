@@ -203,7 +203,7 @@ function getRole(Id) {
     var html ="";
     $.ajax({
         url: '/Admin/UserOperation/GetRoleById/' + Id,
-        typr: "GET",
+        type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
@@ -245,7 +245,7 @@ function getByIdforDelete(Id) {
     disabledDeleteModalTextBox(true);
     $.ajax({
         url: '/Admin/UserOperation/GetUserById/' + Id,
-        typr: "GET",
+        type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {

@@ -25,9 +25,9 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
 
     public async Task<CreateAddressCommandResponse> Handle(CreateAddressCommandRequest request, CancellationToken cancellationToken)
     {
-       var count = await _unitOfWork.GetRepository<Address>().CountAsync(x => x.UserId == request.AddressDto.UserId && x.IsActive);
+       var count = await _unitOfWork.GetRepository<Address>().CountAsync(x => x.UserId == request.CreateAddressDto.UserId && x.IsActive);
        string createdByName = _httpContextAccessor.HttpContext?.User?.Identity?.Name;
-        if (count > 4)
+        if (count >= 4)
         {
             return new CreateAddressCommandResponse
             {
@@ -36,9 +36,9 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
         }
         if (count > 0)
         {
-            if (request.AddressDto.DefaultAddress)
+            if (request.CreateAddressDto.DefaultAddress)
             {
-                var addresses = await _unitOfWork.GetRepository<Address>().GetAllAsync(a=>a.UserId==request.AddressDto.UserId);
+                var addresses = await _unitOfWork.GetRepository<Address>().GetAllAsync(a=>a.UserId==request.CreateAddressDto.UserId);
                 foreach (var address in addresses)
                 {
                     address.DefaultAddress = false;
@@ -46,7 +46,7 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
                     address.ModifiedTime = DateTime.Now;
                     await _unitOfWork.GetRepository<Address>().UpdateAsync(address);
                 }
-                var newAddress = _mapper.Map<Address>(request.AddressDto);
+                var newAddress = _mapper.Map<Address>(request.CreateAddressDto);
                 newAddress.DefaultAddress = true;
                 newAddress.CreatedByName = createdByName;
                 newAddress.ModifiedByName = createdByName;
@@ -58,7 +58,7 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
             }
             else
             {
-                var newAddress = _mapper.Map<Address>(request.AddressDto);
+                var newAddress = _mapper.Map<Address>(request.CreateAddressDto);
                 newAddress.DefaultAddress = false;
                 newAddress.CreatedByName = createdByName;
                 newAddress.ModifiedByName = createdByName;
@@ -71,9 +71,9 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
         }
         else
         {
-            if (request.AddressDto.DefaultAddress)
+            if (request.CreateAddressDto.DefaultAddress)
             {
-                var newAddress = _mapper.Map<Address>(request.AddressDto);
+                var newAddress = _mapper.Map<Address>(request.CreateAddressDto);
                 newAddress.DefaultAddress = true;
                 newAddress.CreatedByName = createdByName;
                 newAddress.ModifiedByName = createdByName;
@@ -85,7 +85,7 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
             }
             else
             {
-                var newAddress = _mapper.Map<Address>(request.AddressDto);
+                var newAddress = _mapper.Map<Address>(request.CreateAddressDto);
                 newAddress.DefaultAddress = false;
                 newAddress.CreatedByName = createdByName;
                 newAddress.ModifiedByName = createdByName;
@@ -101,7 +101,7 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
         {
             return new CreateAddressCommandResponse
             {
-                Result = new DataResult<AddressDto>(ResultStatus.Success, Messages.AddressAdded, request.AddressDto)
+                Result = new DataResult<CreateAddressDto>(ResultStatus.Success, Messages.AddressAdded, request.CreateAddressDto)
             };
         }
         return new CreateAddressCommandResponse{

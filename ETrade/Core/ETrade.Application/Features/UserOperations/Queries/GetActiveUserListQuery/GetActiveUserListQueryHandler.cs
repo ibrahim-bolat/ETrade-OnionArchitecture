@@ -14,14 +14,12 @@ public class GetActiveUserListQueryHandler:IRequestHandler<GetActiveUserListQuer
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly IMapper _mapper;
-
     public GetActiveUserListQueryHandler(UserManager<AppUser> userManager, IMapper mapper)
     {
         _userManager = userManager;
         _mapper = mapper;
     }
-
-    public async Task<GetActiveUserListQueryResponse> Handle(GetActiveUserListQueryRequest request, CancellationToken cancellationToken)
+    public Task<GetActiveUserListQueryResponse> Handle(GetActiveUserListQueryRequest request, CancellationToken cancellationToken)
     {
         var userData = _userManager.Users.Where(u=>u.IsActive==true).AsQueryable();
         int pageSize = request.DatatableRequestDto.Length == -1 ? userData.Count() :  request.DatatableRequestDto.Length;
@@ -52,7 +50,7 @@ public class GetActiveUserListQueryHandler:IRequestHandler<GetActiveUserListQuer
             }
         }
         int recordsTotal = userData.Count();
-        var data = await userData.Skip(skip).Take(pageSize).ToListAsync();
+        var data = userData.Skip(skip).Take(pageSize).ToList();
         List<UserSummaryDto> activeUser = _mapper.Map<List<UserSummaryDto>>(data);
         var response = new DatatableResponseDto<UserSummaryDto>
         {
@@ -61,8 +59,8 @@ public class GetActiveUserListQueryHandler:IRequestHandler<GetActiveUserListQuer
             RecordsFiltered = recordsTotal,
             Data = activeUser
         };
-        return new GetActiveUserListQueryResponse{
+        return Task.FromResult(new GetActiveUserListQueryResponse{
             Result = new DataResult<DatatableResponseDto<UserSummaryDto>>(ResultStatus.Success, response)
-        };
+        });
     }
 }
