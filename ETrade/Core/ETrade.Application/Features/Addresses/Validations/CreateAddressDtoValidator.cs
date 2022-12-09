@@ -87,8 +87,10 @@ public class CreateAddressDtoValidator:AbstractValidator<CreateAddressDto>
             .WithMessage("Lütfen posta kodunu boş geçmeyiniz...")
             .NotEmpty()
             .WithMessage("Lütfen posta kodunu boş geçmeyiniz...")
-            .MinimumLength(5).WithMessage("Lütfen posta kodunu 5 karakter olarak giriniz...")
-            .MaximumLength(5).WithMessage("Lütfen posta kodunu 5 karakter olarak giriniz...");
+            .Length(5)
+            .WithMessage("Lütfen posta kodunu 5 karakter olarak giriniz...")
+            .Matches(new Regex(@"^\d{5}$"))
+            .WithMessage("Lütfen posta kodunu sadece sayısal değerler giriniz.");
 
         RuleFor(address => address.AddressDetails)
             .NotNull()

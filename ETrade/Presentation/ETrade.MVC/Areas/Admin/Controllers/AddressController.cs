@@ -5,8 +5,7 @@ using ETrade.Application.Features.Addresses.Commands.DeleteAddressCommand;
 using ETrade.Application.Features.Addresses.Commands.UpdateAddressCommand;
 using ETrade.Application.Features.Addresses.DTOs;
 using ETrade.Application.Features.Addresses.Queries.GetByIdAddressQuery;
-using ETrade.Application.Features.Addresses.Queries.GetCityListQuery;
-using ETrade.Application.Features.Addresses.Queries.GetCreateAddressDtoQuery;
+using ETrade.Application.Features.Addresses.Queries.GetCreateAddressQuery;
 using ETrade.Application.Features.Addresses.Queries.GetDistrictListQuery;
 using ETrade.Application.Features.Addresses.Queries.GetNeighborhoodOrVillageListQuery;
 using ETrade.Application.Features.Addresses.Queries.GetSelectedAddressQuery;
@@ -39,7 +38,7 @@ public class AddressController : Controller
     [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, EndpointType = EndpointType.Reading, Definition = "Get By Id Address for Create Address")]
     public async Task<IActionResult> CreateAddress(int userId)
     {
-        var dresult = await _mediator.Send(new GetCreateAddressDtoQueryRequest()
+        var dresult = await _mediator.Send(new GetCreateAddressQueryRequest()
         {
             UserId = userId
         });
@@ -67,19 +66,18 @@ public class AddressController : Controller
                     CreateAddressDto = createAddressDto
                 });
                 ModelState.AddModelError("AddressCountMoreThan4", Messages.AddressCountMoreThan4);
-                return View(getSelectedAddressResult.Result.Data);
+                return PartialView("PartialViews/_CreateAddressPartial", getSelectedAddressResult.Result.Data);
             }
             if (dresult.Result.ResultStatus == ResultStatus.Success)
             {
-                TempData["AddAddressSuccess"] = true;
-                return RedirectToAction("CreateAddress", "Address" ,new  {userId=createAddressDto.UserId});
+                return Json(new { success = true});
             }
         }
         var selectedAddressResult = await _mediator.Send(new GetSelectedAddressQueryRequest()
         {
             CreateAddressDto = createAddressDto
         });
-        return View(selectedAddressResult.Result.Data);
+        return PartialView("PartialViews/_CreateAddressPartial", selectedAddressResult.Result.Data);
     }
 
     [HttpGet]

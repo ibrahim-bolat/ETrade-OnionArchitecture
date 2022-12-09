@@ -1,4 +1,5 @@
 using ETrade.Domain.Entities.Common;
+using Microsoft.EntityFrameworkCore;
 
 namespace ETrade.Application.Repositories;
 

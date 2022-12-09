@@ -1,6 +1,7 @@
 using ETrade.Application.Repositories;
 using ETrade.Domain.Entities.Common;
 using ETrade.Persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ETrade.Persistence.Repositories;

@@ -7,6 +7,7 @@ using ETrade.Domain.Entities;
 using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace ETrade.Application.Features.Addresses.Commands.CreateAddressCommand;
 
@@ -34,6 +35,35 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
                 Result = new Result(ResultStatus.Error, Messages.AddressCountMoreThan4)
             };
         }
+        int cityId = Convert.ToInt32(request.CreateAddressDto.CityId);
+        int districtId = Convert.ToInt32(request.CreateAddressDto.DistrictId);
+        int neighborhoodorvillageId = Convert.ToInt32(request.CreateAddressDto.NeighborhoodOrVillageId);
+        string cityName = null;
+        string districtName = null;
+        string neighborhoodOrVillageName = null;
+        string streetName = null;
+        City city = null;
+        if (int.TryParse(request.CreateAddressDto.StreetId, out int streetId))
+        {
+            city = await _unitOfWork.GetRepository<City>().GetThenIncludableAsync(c => c.Id == cityId,
+                includes: c => c.Include(city=>city.Districts.Where(d=>d.Id==districtId))
+                    .ThenInclude(district=>district.NeighborhoodsOrVillages.Where(n=>n.Id==neighborhoodorvillageId))
+                    .ThenInclude(neighborhoodorvillage=>neighborhoodorvillage.Streets.Where(s=>s.Id==streetId)));
+             cityName = city.Name;
+             districtName = city.Districts.FirstOrDefault()?.Name;
+             neighborhoodOrVillageName = city.Districts.FirstOrDefault()?.NeighborhoodsOrVillages.FirstOrDefault()?.Name;
+             streetName = city.Districts.FirstOrDefault()?.NeighborhoodsOrVillages.FirstOrDefault()
+                ?.Streets.FirstOrDefault()?.Name;
+        }
+        else
+        {
+            city = await _unitOfWork.GetRepository<City>().GetThenIncludableAsync(c => c.Id == cityId,
+                includes: c => c.Include(city => city.Districts.Where(d => d.Id == districtId))
+                    .ThenInclude(district => district.NeighborhoodsOrVillages.Where(n => n.Id == neighborhoodorvillageId)));
+             cityName = city.Name;
+             districtName = city.Districts.FirstOrDefault()?.Name;
+             neighborhoodOrVillageName = city.Districts.FirstOrDefault()?.NeighborhoodsOrVillages.FirstOrDefault()?.Name;
+        }
         if (count > 0)
         {
             if (request.CreateAddressDto.DefaultAddress)
@@ -54,6 +84,10 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
                 newAddress.ModifiedTime = DateTime.Now;
                 newAddress.IsActive = true;
                 newAddress.IsDeleted = false;
+                newAddress.CityName = cityName;
+                newAddress.DistrictName = districtName;
+                newAddress.NeighborhoodOrVillageName = neighborhoodOrVillageName;
+                newAddress.StreetName = streetName;
                 await _unitOfWork.GetRepository<Address>().AddAsync(newAddress);
             }
             else
@@ -66,6 +100,10 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
                 newAddress.ModifiedTime = DateTime.Now;
                 newAddress.IsActive = true;
                 newAddress.IsDeleted = false;
+                newAddress.CityName = cityName;
+                newAddress.DistrictName = districtName;
+                newAddress.NeighborhoodOrVillageName = neighborhoodOrVillageName;
+                newAddress.StreetName = streetName;
                 await _unitOfWork.GetRepository<Address>().AddAsync(newAddress);
             }
         }
@@ -81,6 +119,10 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
                 newAddress.ModifiedTime = DateTime.Now;
                 newAddress.IsActive = true;
                 newAddress.IsDeleted = false;
+                newAddress.CityName = cityName;
+                newAddress.DistrictName = districtName;
+                newAddress.NeighborhoodOrVillageName = neighborhoodOrVillageName;
+                newAddress.StreetName = streetName;
                 await _unitOfWork.GetRepository<Address>().AddAsync(newAddress);
             }
             else
@@ -93,6 +135,10 @@ public class CreateAddressCommandHandler:IRequestHandler<CreateAddressCommandReq
                 newAddress.ModifiedTime = DateTime.Now;
                 newAddress.IsActive = true;
                 newAddress.IsDeleted = false;
+                newAddress.CityName = cityName;
+                newAddress.DistrictName = districtName;
+                newAddress.NeighborhoodOrVillageName = neighborhoodOrVillageName;
+                newAddress.StreetName = streetName;
                 await _unitOfWork.GetRepository<Address>().AddAsync(newAddress);
             }
         }

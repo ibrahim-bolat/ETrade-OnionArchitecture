@@ -3,18 +3,19 @@ using ETrade.Application.Repositories;
 using ETrade.Domain.Entities.Common;
 using ETrade.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace ETrade.Persistence.Repositories;
 
 public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity, new()
 {
     private readonly DbSet<TEntity> _dbSet;
-    
+
     public Repository(DataContext dbContext)
     {
         _dbSet = dbContext.Set<TEntity>();
     }
-    
+
     public async Task<TEntity> AddAsync(TEntity entity)
     {
         await _dbSet.AddAsync(entity);
@@ -85,6 +86,21 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, I
         return await query.FirstOrDefaultAsync();
     }
 
+    public async Task<TEntity> GetThenIncludableAsync(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null)
+    {
+        IQueryable<TEntity> query = _dbSet;
+        if (predicate != null)
+        {
+            query = query.Where(predicate);
+        }
+
+        if (includes!=null)
+        {
+            query = includes(query);
+        }
+        return await query.FirstOrDefaultAsync();
+    }
+
     public async Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null, params Expression<Func<TEntity, object>>[] includeProperties)
     {
         IQueryable<TEntity> query = _dbSet;
@@ -100,10 +116,24 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, I
                 query = query.Include(item);
             }
         }
-
         return await query.ToListAsync();
     }
-    
+
+    public async Task<List<TEntity>> GetAllThenIncludableAsync(Expression<Func<TEntity, bool>> predicate = null, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null)
+    {
+        IQueryable<TEntity> query = _dbSet;
+        if (predicate != null)
+        {
+            query = query.Where(predicate);
+        }
+
+        if (includes!=null)
+        {
+            query = includes(query);
+        }
+        return await query.ToListAsync();
+    }
+
     public async Task<IQueryable<TEntity>> GetAllQueryableAsync(Expression<Func<TEntity, bool>> predicate = null, params Expression<Func<TEntity, object>>[] includeProperties)
     {
         IQueryable<TEntity> query = _dbSet;

@@ -6,7 +6,7 @@ $(document).ready(function ($) {
         $("#phonemasc").inputmask("+\\90(999)999-99-99");
     });
     //GetAllDistrictsByCityId
-    $("#createAddressCardBody").on('change', '#cityId', function () {
+    $("#createAddressPartial").on('change', '#cityId', function () {
         $("#districtId").empty();
         $("#neighborhoodOrVillageId").empty();
         $("#streetId").empty();
@@ -26,17 +26,17 @@ $(document).ready(function ($) {
                     });
                 }
                 else {
-                    toastMessage(3000, "error", "İlçe Getirilemedi")
+                    toastMessage(3000, "error", "Dikkat","İlçe Getirilemedi")
                 }
             },
             error: function (errormessage) {
-                toastMessage(3000, "error", "İlçe Getirilemedi")
+                toastMessage(3000, "error", "Dikkat","İlçe Getirilemedi")
             }
         });
     });
 
     //GetAllNeighborhoodsOrVillagesByDistrictId
-    $("#createAddressCardBody").on('change', '#districtId', function () {
+    $("#createAddressPartial").on('change', '#districtId', function () {
         $("#neighborhoodOrVillageId").empty();
         $("#streetId").empty();
         var districtId = $("#districtId").val();
@@ -54,16 +54,16 @@ $(document).ready(function ($) {
                     });
                 }
                 else {
-                    toastMessage(3000, "error", "Mahalle ya da Köy Getirilemedi")
+                    toastMessage(3000, "error", "Dikkat","Mahalle ya da Köy Getirilemedi")
                 }
             },
             error: function (errormessage) {
-                toastMessage(3000, "error", "Mahalle ya da Köy Getirilemedi")
+                toastMessage(3000, "error", "Dikkat","Mahalle ya da Köy Getirilemedi")
             }
         });
     });
     //GetAllStreetsByNeighborhoodOrVillageId
-    $("#createAddressCardBody").on('change', '#neighborhoodOrVillageId', function () {
+    $("#createAddressPartial").on('change', '#neighborhoodOrVillageId', function () {
         $("#streetId").empty();
         var neighborhoodOrVillageId = $("#neighborhoodOrVillageId").val();
         $.ajax({
@@ -79,40 +79,66 @@ $(document).ready(function ($) {
                     });
                 }
                 else {
-                    toastMessage(3000, "error", "Cadde ya da Sokak Getirilemedi")
+                    toastMessage(3000, "error", "Dikkat","Cadde ya da Sokak Getirilemedi")
                 }
             },
             error: function (errormessage) {
-                toastMessage(3000, "error", "Cadde ya da Sokak Getirilemedi")
+                toastMessage(3000, "error", "Dikkat","Cadde ya da Sokak Getirilemedi")
             }
         });
     });
 
     //Address Form Create
-    $("#createAddressCardBody").on('submit', '#createAddressForm', function () {
+    $("#createAddressPartial").on("submit", "#createAddressForm", function () {
         var data = $(this).serialize();
         $.ajax({
             url: "/Admin/Address/CreateAddress",
             type: "POST",
             data: data,
-            dataType: 'html',
             success: function (result) {
                 if (result.success) {
-                    toastMessage(5000, "success", "Adres Başarıyla Eklendi")
+                    ResetFormValue();
+                    ResetValidation($("#createAddressForm"));
+                    toastMessage(5000, "success", "Tebrikler","Adres Başarıyla Eklendi")
                 } else {
-                    var mytag=$('<div></div>').html(result);
-                    $('#createAddressCardBody').html(mytag.find("#createAddressCardBody").html());
+                    $('#createAddressForm').replaceWith($('#createAddressForm',$.parseHTML(result)));
                 }
             },
             error: function (errormessage) {
-                toastMessage(3000, "error", "Adres Eklenemedi")
+                toastMessage(3000, "error", "Dikkat","Adres Eklenemedi")
             }
         });
         return false;
     });
+    
 
+    //remove ModelSate Errors and reset Form
+    function ResetValidation(currentForm) {
+        currentForm.find("[data-valmsg-summary=true]")
+            .removeClass("validation-summary-errors")
+            .addClass("validation-summary-valid")
+            .find("ul").empty();
+        currentForm.find("[data-valmsg-replace=true]")
+            .removeClass("field-validation-error")
+            .addClass("field-validation-valid")
+        currentForm.find("[data-val=true]")
+            .removeClass("input-validation-error")
+            .addClass("input-validation-valid")
+    }    
+    
+    function ResetFormValue() {
+        $(".clearcreateform").val("");
+        $('#createAddressForm input[type=checkbox]').prop('checked', false);
+        $("#addressType")[0].selectedIndex = 0;
+        $("#cityId")[0].selectedIndex = 0;
+        $("#districtId").empty().append("<option selected='selected' value=''>İlçe Seçiniz</option>");
+        $("#neighborhoodOrVillageId").empty().append("<option selected='selected' value=''>Mahalle ya da Köy Seçiniz</option>");
+        $("#streetId").empty().append("<option selected='selected' value=''>Cadde ya da Sokak Seçiniz</option>");
+    }
+    
+    
     //Action Message
-    function toastMessage(time, icon, message) {
+    function toastMessage(time, icon,title,text) {
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -125,11 +151,12 @@ $(document).ready(function ($) {
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
-
         Toast.fire({
             icon: icon,
-            title: message,
+            title: title,
+            text: text
         })
     }
+    
 });
 

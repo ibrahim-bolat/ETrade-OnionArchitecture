@@ -8,20 +8,20 @@ using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace ETrade.Application.Features.Addresses.Queries.GetCreateAddressDtoQuery;
+namespace ETrade.Application.Features.Addresses.Queries.GetCreateAddressQuery;
 
-public class GetCreateAddressDtoQueryHandler:IRequestHandler<GetCreateAddressDtoQueryRequest,GetCreateAddressDtoQueryResponse>
+public class GetCreateAddressQueryHandler:IRequestHandler<GetCreateAddressQueryRequest,GetCreateAddressQueryResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public GetCreateAddressDtoQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    public GetCreateAddressQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
-    public async Task<GetCreateAddressDtoQueryResponse> Handle(GetCreateAddressDtoQueryRequest request,
+    public async Task<GetCreateAddressQueryResponse> Handle(GetCreateAddressQueryRequest request,
         CancellationToken cancellationToken)
     {
         var cityList = await _unitOfWork.GetRepository<City>().GetAllAsync();
@@ -38,12 +38,12 @@ public class GetCreateAddressDtoQueryHandler:IRequestHandler<GetCreateAddressDto
                 UserId = request.UserId,
                 Cities = citySelectListItems,
             };
-            return new GetCreateAddressDtoQueryResponse
+            return new GetCreateAddressQueryResponse
             {
                 Result = new DataResult<CreateAddressDto>(ResultStatus.Success, createAddressDto)
             };
         }
-        return new GetCreateAddressDtoQueryResponse
+        return new GetCreateAddressQueryResponse
         {
             Result = new DataResult<CreateAddressDto>(ResultStatus.Error, Messages.AddressNotFound,null)
         };
