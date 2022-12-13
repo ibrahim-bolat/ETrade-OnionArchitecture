@@ -35,7 +35,7 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
 
         [HttpPost]
-        public async Task<ActionResult>  Users(DatatableRequestDto datatableRequestDto)
+        public async Task<ActionResult>  GetAllUsers(DatatableRequestDto datatableRequestDto)
         {
  
             var dresult = await _mediator.Send(new GetActiveUserListQueryRequest()

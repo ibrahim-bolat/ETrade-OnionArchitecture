@@ -78,7 +78,7 @@ public class AuthorizeEndpointController : Controller
         return View();
     }
     [HttpGet]
-    public  async Task<IActionResult>  GetAuthorizeEndpointsforAssignIp(string query)
+    public  async Task<IActionResult>  GetAllAuthorizeEndpointsforAssignIp(string query)
     {
          
         var dresult = await _mediator.Send(new GetAuthorizeEndpointsforAssignIpQueryRequest()
@@ -110,7 +110,7 @@ public class AuthorizeEndpointController : Controller
         return Json(new { success = false });
     }
     [HttpPost]
-    public async Task<IActionResult> GetIpAdressesByEndpoint(string areaName,string menuName,int endpointId)
+    public async Task<IActionResult> GetAllIpAdressesByEndpoint(string areaName,string menuName,int endpointId)
     {
         var dresult = await _mediator.Send(new GetIpAdressesByEndpointQueryRequest()
         {

@@ -36,7 +36,7 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
         
         [HttpPost]
-        public async Task<IActionResult> Roles(DatatableRequestDto datatableRequestDto)
+        public async Task<IActionResult> GetAllRoles(DatatableRequestDto datatableRequestDto)
         {
             
             var dresult = await _mediator.Send(new GetRoleListQueryRequest()
@@ -264,7 +264,7 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         
         [HttpGet]
         [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.RoleOperation, EndpointType = EndpointType.Reading, Definition = "Get By Id Role Details")]
-        public async Task<IActionResult> GetRole(string id)
+        public async Task<IActionResult> GetRoleById(string id)
         {
             var dresult = await _mediator.Send(new GetByIdRoleQueryRequest()
             {

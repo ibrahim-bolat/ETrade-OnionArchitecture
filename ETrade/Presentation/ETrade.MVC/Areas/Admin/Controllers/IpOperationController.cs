@@ -33,7 +33,7 @@ public class IpOperationController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> IpAddresses(DatatableRequestDto datatableRequestDto)
+    public async Task<IActionResult> GetAllIpAddresses(DatatableRequestDto datatableRequestDto)
     {
         var dresult = await _mediator.Send(new GetIpAddressListQueryRequest()
         {
@@ -167,7 +167,7 @@ public class IpOperationController : Controller
     [HttpGet]
     [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.IpOperation, EndpointType = EndpointType.Reading,
         Definition = "Get By Id IpAddress Details")]
-    public async Task<IActionResult> GetIpAddress(int id)
+    public async Task<IActionResult> GetIpAddressById(int id)
     {
         var dresult = await _mediator.Send(new GetByIdIpAddressQueryRequest()
         {

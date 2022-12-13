@@ -17,7 +17,7 @@ $(document).ready(function ($) {
             'url': '/lib/datatables/turkceDil.json'
         },
         "ajax": {
-            "url": "/Admin/RoleOperation/Roles",
+            "url": "/Admin/RoleOperation/GetAllRoles",
             "type": "POST",
             "datatype": "json"
         },
@@ -146,7 +146,7 @@ $(document).ready(function ($) {
 function getByIdforUpdate(Id) {
     clearUpdateModalTextBox();
     $.ajax({
-        url: '/Admin/RoleOperation/GetRole/' + Id,
+        url: '/Admin/RoleOperation/GetRoleById/' + Id,
         typr: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",

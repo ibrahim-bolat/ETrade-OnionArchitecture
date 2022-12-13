@@ -17,7 +17,7 @@ $(document).ready(function ($) {
             'url': '/lib/datatables/turkceDil.json'
         },
         "ajax": {
-            "url": "/Admin/UserOperation/Users",
+            "url": "/Admin/UserOperation/GetAllUsers",
             "type": "POST",
             "datatype": "json"
         },

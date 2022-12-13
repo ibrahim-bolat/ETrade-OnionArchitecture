@@ -17,7 +17,7 @@ $(document).ready(function ($) {
             'url': '/lib/datatables/turkceDil.json'
         },
         "ajax": {
-            "url": "/Admin/IpOperation/IpAddresses",
+            "url": "/Admin/IpOperation/GetAllIpAddresses",
             "type": "POST",
             "datatype": "json"
         },
@@ -189,7 +189,7 @@ $(document).ready(function ($) {
 function getByIdforUpdate(Id) {
     clearUpdateModalTextBox();
     $.ajax({
-        url: '/Admin/IpOperation/GetIpAddress/' + Id,
+        url: '/Admin/IpOperation/GetIpAddressById/' + Id,
         typr: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
