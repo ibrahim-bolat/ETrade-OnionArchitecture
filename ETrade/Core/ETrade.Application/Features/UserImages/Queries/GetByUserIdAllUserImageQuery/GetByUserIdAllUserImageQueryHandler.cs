@@ -22,7 +22,7 @@ public class GetByUserIdAllUserImageQueryHandler:IRequestHandler<GetByUserIdAllU
 
     public async Task<GetByUserIdAllUserImageQueryResponse> Handle(GetByUserIdAllUserImageQueryRequest request, CancellationToken cancellationToken)
     {
-        var userImages = await _unitOfWork.GetRepository<UserImage>().GetAllAsync(ui=>ui.UserId==request.UserId && ui.IsActive);
+        var userImages = await _unitOfWork.GetRepository<UserImage>().GetAllAsync(predicate:ui=>ui.UserId==request.UserId && ui.IsActive);
         var userImagesViewDtoList = _mapper.Map<IList<UserImageDto>>(userImages);
         if (userImages.Count > -1)
         {

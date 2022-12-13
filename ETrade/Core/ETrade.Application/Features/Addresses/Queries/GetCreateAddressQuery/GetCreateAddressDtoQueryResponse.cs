@@ -6,5 +6,5 @@ namespace ETrade.Application.Features.Addresses.Queries.GetCreateAddressQuery;
 
 public class GetCreateAddressQueryResponse
 {
-    public IDataResult<CreateAddressDto> Result { get; set; }
+    public IDataResult<AddressDto> Result { get; set; }
 }

@@ -19,7 +19,7 @@ public class SetProfilImageCommandHandler:IRequestHandler<SetProfilImageCommandR
 
     public async Task<SetProfilImageCommandResponse> Handle(SetProfilImageCommandRequest request, CancellationToken cancellationToken)
     {
-        var userImages = await _unitOfWork.GetRepository<UserImage>().GetAllAsync(ui=>ui.UserId==request.UserId && ui.IsActive);
+        var userImages = await _unitOfWork.GetRepository<UserImage>().GetAllAsync(predicate:ui=>ui.UserId==request.UserId && ui.IsActive);
         if (userImages !=null)
         {
             foreach (var userImage in userImages)

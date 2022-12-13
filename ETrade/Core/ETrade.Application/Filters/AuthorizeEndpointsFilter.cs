@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
 using NetTools;
 
 
@@ -38,9 +39,11 @@ public class AuthorizeEndpointsFilter : IAsyncActionFilter
         actionArguments.AddRange(context.ActionArguments.Select(a => a.ToString()));
 
         Endpoint endpoint = await _unitOfWork.GetRepository<Endpoint>().GetAsync(
-            a => a.EndpointName == endpointName && a.ControllerName == controllerName &&
-                 a.AreaName == areaName && a.HttpType == requestMethodType && a.IsActive, a => a.AppRoles,
-            a => a.IpAddresses);
+            predicate:a => a.EndpointName == endpointName && a.ControllerName == controllerName &&
+                 a.AreaName == areaName && a.HttpType == requestMethodType && a.IsActive, 
+                include:e => e
+                    .Include(endpoint=>endpoint.AppRoles)
+                    .Include(endpoint => endpoint.IpAddresses));
 
         AppUser user = null;
         var userName = context.HttpContext.User.Identity?.Name;

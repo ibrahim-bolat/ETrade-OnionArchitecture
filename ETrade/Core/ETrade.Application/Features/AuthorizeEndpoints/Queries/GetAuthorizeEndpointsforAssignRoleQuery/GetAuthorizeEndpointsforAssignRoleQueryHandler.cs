@@ -22,7 +22,7 @@ public class
     public async Task<GetAuthorizeEndpointsforAssignRoleQueryResponse> Handle(
         GetAuthorizeEndpointsforAssignRoleQueryRequest request, CancellationToken cancellationToken)
     {
-        List<Endpoint> endpoints = await _unitOfWork.GetRepository<Endpoint>().GetAllAsync(e => e.IsActive);
+        List<Endpoint> endpoints = await _unitOfWork.GetRepository<Endpoint>().GetAllAsync(predicate:e => e.IsActive);
         HashSet<string> menus = new();
         endpoints.ForEach(e => menus.Add(e.ControllerName));
         List<TreeViewDto> treeViewDtos = new();

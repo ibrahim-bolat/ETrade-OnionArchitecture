@@ -55,47 +55,44 @@ public class AddressDtoValidator:AbstractValidator<AddressDto>
             .WithMessage("Lütden adres tipini boş geçmeyiniz....")
             .NotEmpty()
             .WithMessage("Lütden adres tipini boş geçmeyiniz....");
-        
-        RuleFor(address => address.Street)
-            .NotNull()
-            .WithMessage("Lütden cadde yada sokağı boş geçmeyiniz....")
-            .NotEmpty()
-            .WithMessage("Lütden cadde yada sokağı boş geçmeyiniz....")
-            .MaximumLength(500)
-            .WithMessage("En fazla 500 karakter girebilirsiniz...");
-        
-        RuleFor(address => address.NeighborhoodOrVillage)
-            .NotNull()
-            .WithMessage("Lütden mahalle yada köyü boş geçmeyiniz....")
-            .NotEmpty()
-            .WithMessage("Lütden mahalle yada köyü boş geçmeyiniz....")
-            .MaximumLength(500)
-            .WithMessage("En fazla 500 karakter girebilirsiniz...");
-        
-        RuleFor(address => address.District)
-            .NotNull()
-            .WithMessage("Lütden ilçeyi boş geçmeyiniz....")
-            .NotEmpty()
-            .WithMessage("Lütden ilçeyi boş geçmeyiniz....")
-            .MaximumLength(250)
-            .WithMessage("En fazla 250 karakter girebilirsiniz...");
-        
-        RuleFor(address => address.City)
-            .NotNull()
-            .WithMessage("Lütden ili boş geçmeyiniz....")
-            .NotEmpty()
-            .WithMessage("Lütden ili boş geçmeyiniz....")
-            .MaximumLength(250)
-            .WithMessage("En fazla 250 karakter girebilirsiniz...");
 
+        RuleFor(address => address.CityId)
+            .NotNull()
+            .WithMessage("Lütden ili boş geçmeyiniz....")
+            .NotEmpty()
+            .WithMessage("Lütden ili boş geçmeyiniz....")
+            .MaximumLength(10)
+            .WithMessage("En fazla 10 karakter girebilirsiniz...");
+        
+        RuleFor(address => address.DistrictId)
+            .NotNull()
+            .WithMessage("Lütden ilçeyi boş geçmeyiniz....")
+            .NotEmpty()
+            .WithMessage("Lütden ilçeyi boş geçmeyiniz....")
+            .MaximumLength(10)
+            .WithMessage("En fazla 10 karakter girebilirsiniz...");
+
+        RuleFor(address => address.NeighborhoodOrVillageId)
+            .NotNull()
+            .WithMessage("Lütden mahalle yada köyü boş geçmeyiniz....")
+            .NotEmpty()
+            .WithMessage("Lütden mahalle yada köyü boş geçmeyiniz....")
+            .MaximumLength(10)
+            .WithMessage("En fazla 10 karakter girebilirsiniz...");
+        
+        RuleFor(address => address.StreetId)
+            .MaximumLength(10)
+            .WithMessage("En fazla 10 karakter girebilirsiniz...");
 
         RuleFor(address => address.PostalCode)
             .NotNull()
             .WithMessage("Lütfen posta kodunu boş geçmeyiniz...")
             .NotEmpty()
             .WithMessage("Lütfen posta kodunu boş geçmeyiniz...")
-            .MinimumLength(5).WithMessage("Lütfen posta kodunu 5 karakter olarak giriniz...")
-            .MaximumLength(5).WithMessage("Lütfen posta kodunu 5 karakter olarak giriniz...");
+            .Length(5)
+            .WithMessage("Lütfen posta kodunu 5 karakter olarak giriniz...")
+            .Matches(new Regex(@"^\d{5}$"))
+            .WithMessage("Lütfen posta kodunu sadece sayısal değerler giriniz.");
 
         RuleFor(address => address.AddressDetails)
             .NotNull()

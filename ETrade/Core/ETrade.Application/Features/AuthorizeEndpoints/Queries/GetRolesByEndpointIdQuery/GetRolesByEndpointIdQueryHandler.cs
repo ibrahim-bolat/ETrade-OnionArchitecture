@@ -24,7 +24,7 @@ public class GetRolesByEndpointIdQueryHandler:IRequestHandler<GetRolesByEndpoint
 
     public async Task<GetRolesByEndpointIdQueryResponse> Handle(GetRolesByEndpointIdQueryRequest request, CancellationToken cancellationToken)
     {
-        Endpoint endpoint = await _unitOfWork.GetRepository<Endpoint>().GetAsync(a=>a.Id.ToString()==request.Id,a=>a.AppRoles);
+        Endpoint endpoint = await _unitOfWork.GetRepository<Endpoint>().GetAsync(predicate:a=>a.Id.ToString()==request.Id,include:e => e.Include(endpoint=>endpoint.AppRoles));
         if (endpoint != null)
         {
             if (endpoint.IsActive)

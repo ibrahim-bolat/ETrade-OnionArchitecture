@@ -23,7 +23,7 @@ public class
     public async Task<GetAuthorizeEndpointsforAssignIpQueryResponse> Handle(
         GetAuthorizeEndpointsforAssignIpQueryRequest request, CancellationToken cancellationToken)
     {
-        List<Endpoint> endpoints = await _unitOfWork.GetRepository<Endpoint>().GetAllAsync(e => e.IsActive);
+        List<Endpoint> endpoints = await _unitOfWork.GetRepository<Endpoint>().GetAllAsync(predicate:e => e.IsActive);
         HashSet<string> areas = new();
         endpoints.ForEach(e=>areas.Add(e.AreaName));
         List<TreeViewDto> treeViewDtos = new();

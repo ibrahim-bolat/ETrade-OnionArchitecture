@@ -6,7 +6,7 @@ $(document).ready(function ($) {
         $("#phonemasc").inputmask("+\\90(999)999-99-99");
     });
     //GetAllDistrictsByCityId
-    $("#createAddressPartial").on('change', '#cityId', function () {
+    $(".addresspartial").on('change', '#cityId', function () {
         $("#districtId").empty();
         $("#neighborhoodOrVillageId").empty();
         $("#streetId").empty();
@@ -36,7 +36,7 @@ $(document).ready(function ($) {
     });
 
     //GetAllNeighborhoodsOrVillagesByDistrictId
-    $("#createAddressPartial").on('change', '#districtId', function () {
+    $(".addresspartial").on('change', '#districtId', function () {
         $("#neighborhoodOrVillageId").empty();
         $("#streetId").empty();
         var districtId = $("#districtId").val();
@@ -63,7 +63,7 @@ $(document).ready(function ($) {
         });
     });
     //GetAllStreetsByNeighborhoodOrVillageId
-    $("#createAddressPartial").on('change', '#neighborhoodOrVillageId', function () {
+    $(".addresspartial").on('change', '#neighborhoodOrVillageId', function () {
         $("#streetId").empty();
         var neighborhoodOrVillageId = $("#neighborhoodOrVillageId").val();
         $.ajax({
@@ -97,11 +97,12 @@ $(document).ready(function ($) {
             data: data,
             success: function (result) {
                 if (result.success) {
-                    ResetFormValue();
+                    ResetCreateFormValue();
                     ResetValidation($("#createAddressForm"));
                     toastMessage(5000, "success", "Tebrikler","Adres Başarıyla Eklendi")
                 } else {
-                    $('#createAddressForm').replaceWith($('#createAddressForm',$.parseHTML(result)));
+                    //$('#createAddressForm').html($($.parseHTML(result)).find("#createAddressForm").html());
+                    $('#createAddressForm').html($('#createAddressForm',$.parseHTML(result)).html());
                 }
             },
             error: function (errormessage) {
@@ -109,6 +110,82 @@ $(document).ready(function ($) {
             }
         });
         return false;
+    });
+
+    //Address Form Update
+    $("#updateAddressPartial").on("submit", "#updateAddressForm", function () {
+        var data = $(this).serialize();
+        var userId = $('#updateAddressForm #userId').attr("data-userId");
+        $.ajax({
+            url: "/Admin/Address/UpdateAddress",
+            type: "POST",
+            data: data,
+            success: function (result) {
+                if (result.success) {
+                    ResetUpdateFormValue();
+                    ResetValidation($("#updateAddressForm"));
+                    window.location = app.Urls.profileUrl + userId;
+                } else {
+                    //$('#createAddressForm').html($($.parseHTML(result)).find("#createAddressForm").html());
+                    $('#updateAddressForm').html($('#updateAddressForm',$.parseHTML(result)).html());
+                }
+            },
+            error: function (errormessage) {
+                toastMessage(3000, "error", "Dikkat","Adres Güncellenemedi")
+            }
+        });
+        return false;
+    });
+    //Address Form Delete
+    $("#detailAddressPartial").on("click", "#addressdeletebutton", function () {
+        var Id = $(this).attr("data-id");
+        Swal.fire({
+            title: 'Adresi Silmek İstediğinizden Emin misiniz?',
+            text: "Silme işlemine onay verdikten sonra işlemi tekrardan geri alamazsınız!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sil!',
+            cancelButtonText: 'İptal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: '/Admin/Address/DeleteAddress',
+                    data: {
+                        addressId: Id
+                    },
+                    dataType: "json",
+                    success: function(deleteResult) {
+                        if (deleteResult.success) {
+                            Swal.fire({
+                                title: 'Silindi?',
+                                text: "Adres Başarıyla Silindi",
+                                icon: 'success',
+                            }).then((result) => {
+                                var userId = deleteResult.userId;
+                                window.location = app.Urls.profileUrl + userId;
+                            })
+                        } else {
+                            Swal.fire({
+                                title: 'Hata',
+                                text: "Adres Silinemedi",
+                                icon: 'error',
+                            });
+                        }
+                    },
+                    error: function(errormessage) {
+                        Swal.fire({
+                            title: 'Hata',
+                            text: "Adres Silinemedi",
+                            icon: 'error',
+                        });
+                    }
+                });
+            }
+            return false;
+        });
     });
     
 
@@ -126,7 +203,7 @@ $(document).ready(function ($) {
             .addClass("input-validation-valid")
     }    
     
-    function ResetFormValue() {
+    function ResetCreateFormValue() {
         $(".clearcreateform").val("");
         $('#createAddressForm input[type=checkbox]').prop('checked', false);
         $("#addressType")[0].selectedIndex = 0;
@@ -135,6 +212,17 @@ $(document).ready(function ($) {
         $("#neighborhoodOrVillageId").empty().append("<option selected='selected' value=''>Mahalle ya da Köy Seçiniz</option>");
         $("#streetId").empty().append("<option selected='selected' value=''>Cadde ya da Sokak Seçiniz</option>");
     }
+
+    function ResetUpdateFormValue() {
+        $(".clearupdateform").val("");
+        $('#updateAddressForm input[type=checkbox]').prop('checked', false);
+        $("#addressType")[0].selectedIndex = 0;
+        $("#cityId")[0].selectedIndex = 0;
+        $("#districtId").empty().append("<option selected='selected' value=''>İlçe Seçiniz</option>");
+        $("#neighborhoodOrVillageId").empty().append("<option selected='selected' value=''>Mahalle ya da Köy Seçiniz</option>");
+        $("#streetId").empty().append("<option selected='selected' value=''>Cadde ya da Sokak Seçiniz</option>");
+    }
+   
     
     
     //Action Message

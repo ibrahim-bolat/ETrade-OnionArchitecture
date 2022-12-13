@@ -4,7 +4,8 @@ using ETrade.Application.Features.Addresses.Commands.CreateAddressCommand;
 using ETrade.Application.Features.Addresses.Commands.DeleteAddressCommand;
 using ETrade.Application.Features.Addresses.Commands.UpdateAddressCommand;
 using ETrade.Application.Features.Addresses.DTOs;
-using ETrade.Application.Features.Addresses.Queries.GetByIdAddressQuery;
+using ETrade.Application.Features.Addresses.Queries.GetByIdDetailAddressQuery;
+using ETrade.Application.Features.Addresses.Queries.GetByIdUpdateAddressQuery;
 using ETrade.Application.Features.Addresses.Queries.GetCreateAddressQuery;
 using ETrade.Application.Features.Addresses.Queries.GetDistrictListQuery;
 using ETrade.Application.Features.Addresses.Queries.GetNeighborhoodOrVillageListQuery;
@@ -51,19 +52,19 @@ public class AddressController : Controller
 
     [HttpPost]
     [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, EndpointType = EndpointType.Writing, Definition = "Create Address")]
-    public async Task<IActionResult> CreateAddress(CreateAddressDto createAddressDto)
+    public async Task<IActionResult> CreateAddress(AddressDto addressDto)
     {
         if (ModelState.IsValid)
         {
             var dresult = await _mediator.Send(new CreateAddressCommandRequest
             {
-                CreateAddressDto = createAddressDto
+                AddressDto = addressDto
             });
             if (dresult.Result.Message == Messages.AddressCountMoreThan4)
             {
                 var getSelectedAddressResult = await _mediator.Send(new GetSelectedAddressQueryRequest()
                 {
-                    CreateAddressDto = createAddressDto
+                    AddressDto = addressDto
                 });
                 ModelState.AddModelError("AddressCountMoreThan4", Messages.AddressCountMoreThan4);
                 return PartialView("PartialViews/_CreateAddressPartial", getSelectedAddressResult.Result.Data);
@@ -75,7 +76,7 @@ public class AddressController : Controller
         }
         var selectedAddressResult = await _mediator.Send(new GetSelectedAddressQueryRequest()
         {
-            CreateAddressDto = createAddressDto
+            AddressDto = addressDto
         });
         return PartialView("PartialViews/_CreateAddressPartial", selectedAddressResult.Result.Data);
     }
@@ -86,7 +87,7 @@ public class AddressController : Controller
     {
         if (addressId > 0)
         {
-            var dresult = await _mediator.Send(new GetByIdAddressQueryRequest
+            var dresult = await _mediator.Send(new GetByIdUpdateAddressQueryRequest()
             {
                 Id = addressId
             });
@@ -112,12 +113,17 @@ public class AddressController : Controller
             });
             if (dresult.Result.ResultStatus == ResultStatus.Success)
             {
-                TempData["UpdateAddressSuccess"] = true;
-                return RedirectToAction("UpdateAddress", "Address" ,new { addressId=addressDto.Id});
+                TempData["UpdateAddressMessage"] = true;
+                return Json(new { success = true});
             }
         }
-        return View(addressDto);
+        var selectedAddressResult = await _mediator.Send(new GetSelectedAddressQueryRequest()
+        {
+            AddressDto = addressDto
+        });
+        return PartialView("PartialViews/_UpdateAddressPartial", selectedAddressResult.Result.Data);
     }
+
 
     [HttpGet]
     [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, EndpointType = EndpointType.Reading, Definition = "Get By Id Address for Address Details")]
@@ -125,7 +131,7 @@ public class AddressController : Controller
     {
         if (addressId > 0)
         {
-            var dresult = await _mediator.Send(new GetByIdAddressQueryRequest
+            var dresult = await _mediator.Send(new GetByIdDetailAddressQueryRequest()
             {
                 Id = addressId
             });
@@ -136,6 +142,7 @@ public class AddressController : Controller
         }
         return RedirectToAction("Index", "Error" ,new { area = "", statusCode = 400});
     }
+    
     
     [HttpPost]
     [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Address, EndpointType = EndpointType.Deleting, Definition = "Delete Address")]

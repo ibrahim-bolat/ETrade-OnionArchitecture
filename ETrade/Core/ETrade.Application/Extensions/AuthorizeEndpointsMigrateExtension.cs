@@ -24,7 +24,7 @@ public static class AuthorizeEndpointsMigrateExtension
                 {
                     try
                     {
-                        List<Endpoint> endpoints = await unitOfWork.GetRepository<Endpoint>().GetAllAsync(e => e.IsActive);
+                        List<Endpoint> endpoints = await unitOfWork.GetRepository<Endpoint>().GetAllAsync(predicate:e => e.IsActive);
                         Assembly assembly = Assembly.GetAssembly(type);
                         var controllers = assembly!.GetTypes().Where(t => t.IsAssignableTo(typeof(Controller)));
                         foreach (var controller in controllers)

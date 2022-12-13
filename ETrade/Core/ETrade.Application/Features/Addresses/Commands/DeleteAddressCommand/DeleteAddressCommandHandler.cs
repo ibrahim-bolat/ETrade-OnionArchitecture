@@ -22,7 +22,7 @@ public class CreateAddressCommandHandler:IRequestHandler<DeleteAddressCommandReq
 
     public async Task<DeleteAddressCommandResponse> Handle(DeleteAddressCommandRequest request, CancellationToken cancellationToken)
     {
-        var address = await _unitOfWork.GetRepository<Address>().GetAsync(x => x.Id == request.Id);
+        var address = await _unitOfWork.GetRepository<Address>().GetAsync(predicate:x => x.Id == request.Id);
         if (address != null)
         {
             address.IsActive = false;
@@ -31,22 +31,22 @@ public class CreateAddressCommandHandler:IRequestHandler<DeleteAddressCommandReq
             address.ModifiedTime = DateTime.Now;
             var deletedAddress = _unitOfWork.GetRepository<Address>().UpdateAsync(address);
             var result = await _unitOfWork.SaveAsync();
-            var addressDto = _mapper.Map<AddressDto>(address);
+            var addressDto = _mapper.Map<DetailAddressDto>(address);
             if (result > 0)
             {
                 return new DeleteAddressCommandResponse
                 {
-                    Result = new DataResult<AddressDto>(ResultStatus.Success, Messages.AddressDeleted, addressDto)
+                    Result = new DataResult<DetailAddressDto>(ResultStatus.Success, Messages.AddressDeleted, addressDto)
                 };
             }
             return new DeleteAddressCommandResponse
             {
-                Result = new DataResult<AddressDto>(ResultStatus.Error, Messages.AddressNotDeleted, null)
+                Result = new DataResult<DetailAddressDto>(ResultStatus.Error, Messages.AddressNotDeleted, null)
             };
         }
         return new DeleteAddressCommandResponse
         {
-            Result = new DataResult<AddressDto>(ResultStatus.Error, Messages.AddressNotFound, null)
+            Result = new DataResult<DetailAddressDto>(ResultStatus.Error, Messages.AddressNotFound, null)
         };
     }
 }

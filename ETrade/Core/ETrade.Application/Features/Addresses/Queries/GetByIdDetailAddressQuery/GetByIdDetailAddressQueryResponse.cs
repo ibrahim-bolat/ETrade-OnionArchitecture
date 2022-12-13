@@ -2,9 +2,9 @@
 using ETrade.Application.Features.Addresses.DTOs;
 using ETrade.Application.Wrappers.Abstract;
 
-namespace ETrade.Application.Features.Addresses.Commands.DeleteAddressCommand;
+namespace ETrade.Application.Features.Addresses.Queries.GetByIdDetailAddressQuery;
 
-public class DeleteAddressCommandResponse
+public class GetByIdDetailAddressQueryResponse
 {
     public IDataResult<DetailAddressDto> Result { get; set; }
 }

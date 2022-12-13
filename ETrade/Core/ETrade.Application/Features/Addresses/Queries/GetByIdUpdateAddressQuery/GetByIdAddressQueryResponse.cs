@@ -2,9 +2,9 @@
 using ETrade.Application.Features.Addresses.DTOs;
 using ETrade.Application.Wrappers.Abstract;
 
-namespace ETrade.Application.Features.Addresses.Queries.GetByIdAddressQuery;
+namespace ETrade.Application.Features.Addresses.Queries.GetByIdUpdateAddressQuery;
 
-public class GetByIdAddressQueryResponse
+public class GetByIdUpdateAddressQueryResponse
 {
     public IDataResult<AddressDto> Result { get; set; }
 }

@@ -7,6 +7,7 @@ using ETrade.Application.Wrappers.Concrete;
 using ETrade.Domain.Entities;
 using ETrade.Domain.Enums;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace ETrade.Application.Features.AuthorizeEndpoints.Queries.GetIpAdressesByEndpointQuery;
 
@@ -30,18 +31,18 @@ public class GetIpAdressesByEndpointQueryHandler : IRequestHandler<GetIpAdresses
         {
             if (request.MenuName == null)
             {
-                endpointList = await _unitOfWork.GetRepository<Endpoint>().GetAllAsync(a => 
-                    a.AreaName == request.AreaName, a => a.IpAddresses);
+                endpointList = await _unitOfWork.GetRepository<Endpoint>().GetAllAsync(predicate:a => 
+                    a.AreaName == request.AreaName, include:e => e.Include(endpoint=>endpoint.IpAddresses));
             }
             else
             {
-                endpointList = await _unitOfWork.GetRepository<Endpoint>().GetAllAsync(a => 
-                    a.AreaName == request.AreaName && a.ControllerName == request.MenuName, a => a.IpAddresses);
+                endpointList = await _unitOfWork.GetRepository<Endpoint>().GetAllAsync(predicate:a => 
+                    a.AreaName == request.AreaName && a.ControllerName == request.MenuName, include:e => e.Include(endpoint=>endpoint.IpAddresses));
             }
             if (endpointList != null)
             {
                 List<IpAddress> allActiveIpAddresses =
-                    await _unitOfWork.GetRepository<IpAddress>().GetAllAsync(ip => ip.IsActive);
+                    await _unitOfWork.GetRepository<IpAddress>().GetAllAsync(predicate:ip => ip.IsActive);
                 HashSet<IpAssignDto> assignIpAddress = new HashSet<IpAssignDto>();
                 foreach (var activeIpAddress in allActiveIpAddresses)
                 {
@@ -73,11 +74,11 @@ public class GetIpAdressesByEndpointQueryHandler : IRequestHandler<GetIpAdresses
         if (request.AreaName == null && request.MenuName == null && request.EndpointId > 0)
         {
             Endpoint endpoint = await _unitOfWork.GetRepository<Endpoint>()
-                .GetAsync(a => a.Id == request.EndpointId, a => a.IpAddresses);
+                .GetAsync(predicate:a => a.Id == request.EndpointId, include:e => e.Include(endpoint=>endpoint.IpAddresses));
             if (endpoint != null)
             {
                 List<IpAddress> allActiveIpAddresses =
-                    await _unitOfWork.GetRepository<IpAddress>().GetAllAsync(ip => ip.IsActive);
+                    await _unitOfWork.GetRepository<IpAddress>().GetAllAsync(predicate:ip => ip.IsActive);
                 HashSet<IpAssignDto> assignIpAddress = new HashSet<IpAssignDto>();
                 List<IpAddress> endpointIpAddress = endpoint.IpAddresses;
                 foreach (var activeIpAddress in allActiveIpAddresses)

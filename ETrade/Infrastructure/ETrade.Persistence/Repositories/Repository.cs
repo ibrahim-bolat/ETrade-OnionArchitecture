@@ -68,86 +68,67 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, I
         return await _dbSet.FindAsync(id);
     }
 
-    public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties)
+    public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate = null, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,bool enableTracking = true)
     {
         IQueryable<TEntity> query = _dbSet;
+        if (!enableTracking)
+        {
+            query = query.AsNoTracking();
+        }
+        if (include!=null)
+        {
+            query = include(query);
+        }
         if (predicate != null)
         {
             query = query.Where(predicate);
         }
 
-        if (includeProperties.Any())
-        {
-            foreach (var item in includeProperties)
-            {
-                query = query.Include(item);
-            }
-        }
         return await query.FirstOrDefaultAsync();
     }
 
-    public async Task<TEntity> GetThenIncludableAsync(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null)
+    public async Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null,Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+        Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,bool enableTracking = true)
     {
         IQueryable<TEntity> query = _dbSet;
+        if (!enableTracking)
+        {
+            query = query.AsNoTracking();
+        }
+        if (include!=null)
+        {
+            query = include(query);
+        }
         if (predicate != null)
         {
             query = query.Where(predicate);
         }
-
-        if (includes!=null)
+        if (orderBy != null)
         {
-            query = includes(query);
-        }
-        return await query.FirstOrDefaultAsync();
-    }
-
-    public async Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null, params Expression<Func<TEntity, object>>[] includeProperties)
-    {
-        IQueryable<TEntity> query = _dbSet;
-        if (predicate != null)
-        {
-            query = query.Where(predicate);
-        }
-
-        if (includeProperties.Any())
-        {
-            foreach (var item in includeProperties)
-            {
-                query = query.Include(item);
-            }
+            query = orderBy(query);
         }
         return await query.ToListAsync();
     }
-
-    public async Task<List<TEntity>> GetAllThenIncludableAsync(Expression<Func<TEntity, bool>> predicate = null, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null)
+    
+    public async Task<IQueryable<TEntity>> GetAllQueryableAsync(Expression<Func<TEntity, bool>> predicate = null,Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+        Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,bool enableTracking = true)
     {
         IQueryable<TEntity> query = _dbSet;
+        if (!enableTracking)
+        {
+            query = query.AsNoTracking();
+        }
+        if (include!=null)
+        {
+            query = include(query);
+        }
         if (predicate != null)
         {
             query = query.Where(predicate);
         }
-
-        if (includes!=null)
+        if (orderBy != null)
         {
-            query = includes(query);
-        }
-        return await query.ToListAsync();
-    }
-
-    public async Task<IQueryable<TEntity>> GetAllQueryableAsync(Expression<Func<TEntity, bool>> predicate = null, params Expression<Func<TEntity, object>>[] includeProperties)
-    {
-        IQueryable<TEntity> query = _dbSet;
-        if (predicate != null)
-        {
-            query = query.Where(predicate);
-        }
-
-        if (includeProperties.Any())
-        {
-            foreach (var item in includeProperties)
-            {
-                query = query.Include(item);
-            }
+            query = orderBy(query);
         }
         return await Task.FromResult(query.AsQueryable());
     }

@@ -13,12 +13,10 @@ namespace ETrade.Application.Features.Addresses.Queries.GetCreateAddressQuery;
 public class GetCreateAddressQueryHandler:IRequestHandler<GetCreateAddressQueryRequest,GetCreateAddressQueryResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IMapper _mapper;
 
-    public GetCreateAddressQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    public GetCreateAddressQueryHandler(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
-        _mapper = mapper;
     }
 
     public async Task<GetCreateAddressQueryResponse> Handle(GetCreateAddressQueryRequest request,
@@ -33,19 +31,19 @@ public class GetCreateAddressQueryHandler:IRequestHandler<GetCreateAddressQueryR
                 Value = city.Id.ToString(),
                 Text = city.Name
             }).ToList();
-            CreateAddressDto createAddressDto = new CreateAddressDto()
+            AddressDto addressDto = new AddressDto()
             {
                 UserId = request.UserId,
                 Cities = citySelectListItems,
             };
             return new GetCreateAddressQueryResponse
             {
-                Result = new DataResult<CreateAddressDto>(ResultStatus.Success, createAddressDto)
+                Result = new DataResult<AddressDto>(ResultStatus.Success, addressDto)
             };
         }
         return new GetCreateAddressQueryResponse
         {
-            Result = new DataResult<CreateAddressDto>(ResultStatus.Error, Messages.AddressNotFound,null)
+            Result = new DataResult<AddressDto>(ResultStatus.Error, Messages.AddressNotFound,null)
         };
     }
 }

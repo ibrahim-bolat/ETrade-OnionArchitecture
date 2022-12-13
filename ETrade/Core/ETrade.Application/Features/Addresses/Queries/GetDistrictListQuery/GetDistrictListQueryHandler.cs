@@ -20,7 +20,7 @@ public class GetDistrictListQueryHandler:IRequestHandler<GetDistrictListQueryReq
 
     public async Task<GetDistrictListQueryResponse> Handle(GetDistrictListQueryRequest request, CancellationToken cancellationToken)
     {
-        var districtList = await _unitOfWork.GetRepository<District>().GetAllAsync(district=>district.CityId==request.CityId);
+        var districtList = await _unitOfWork.GetRepository<District>().GetAllAsync(predicate:district=>district.CityId==request.CityId);
         if (districtList != null)
         {
             var response = districtList.Select(district => new SelectListItem()

@@ -25,7 +25,7 @@ public class DeleteUserImageCommandHandler:IRequestHandler<DeleteUserImageComman
     
     public async Task<DeleteUserImageCommandResponse> Handle(DeleteUserImageCommandRequest request, CancellationToken cancellationToken)
     {
-        var userImage = await _unitOfWork.GetRepository<UserImage>().GetAsync(x => x.Id == request.Id && x.IsActive==true);
+        var userImage = await _unitOfWork.GetRepository<UserImage>().GetAsync(predicate:x => x.Id == request.Id && x.IsActive==true);
         if (userImage != null)
         {
             var imagePath = _hostEnvironment.WebRootPath + userImage.ImagePath;

@@ -20,7 +20,7 @@ public class GetNeighborhoodOrVillageListQueryHandler:IRequestHandler<GetNeighbo
 
     public async Task<GetNeighborhoodOrVillageListQueryResponse> Handle(GetNeighborhoodOrVillageListQueryRequest request, CancellationToken cancellationToken)
     {
-        var neighborhoodorvillageList = await _unitOfWork.GetRepository<NeighborhoodOrVillage>().GetAllAsync(neighborhoodOrVillage=>neighborhoodOrVillage.DistrictId==request.DistrictId);
+        var neighborhoodorvillageList = await _unitOfWork.GetRepository<NeighborhoodOrVillage>().GetAllAsync(predicate:neighborhoodOrVillage=>neighborhoodOrVillage.DistrictId==request.DistrictId);
         if (neighborhoodorvillageList != null)
         {
             var response = neighborhoodorvillageList.Select(neighborhoodorvillage => new SelectListItem()

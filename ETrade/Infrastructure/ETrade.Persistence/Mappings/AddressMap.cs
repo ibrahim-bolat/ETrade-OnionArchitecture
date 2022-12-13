@@ -21,10 +21,14 @@ namespace ETrade.Persistence.Mappings;
                     a=>a.ToString(),
                     a=>(AddressType)Enum.Parse(typeof(AddressType),a))
                 .IsRequired();
-            builder.Property(address => address.StreetName).HasMaxLength(500);
-            builder.Property(address => address.NeighborhoodOrVillageName).HasMaxLength(500).IsRequired();
-            builder.Property(address => address.DistrictName).HasMaxLength(250).IsRequired();
+            builder.Property(address => address.CityId).HasMaxLength(10).IsRequired();
             builder.Property(address => address.CityName).HasMaxLength(250).IsRequired();
+            builder.Property(address => address.DistrictId).HasMaxLength(10).IsRequired();
+            builder.Property(address => address.DistrictName).HasMaxLength(250).IsRequired();
+            builder.Property(address => address.NeighborhoodOrVillageId).HasMaxLength(10).IsRequired();
+            builder.Property(address => address.NeighborhoodOrVillageName).HasMaxLength(500).IsRequired();
+            builder.Property(address => address.StreetId).HasMaxLength(10);
+            builder.Property(address => address.StreetName).HasMaxLength(500);
             builder.Property(address => address.PostalCode).HasMaxLength(5);
             builder.Property(address => address.AddressDetails).HasMaxLength(500).IsRequired();
             builder.Property(address => address.Note).HasMaxLength(500);

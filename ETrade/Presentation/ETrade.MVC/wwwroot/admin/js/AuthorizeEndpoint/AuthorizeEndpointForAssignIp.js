@@ -46,7 +46,6 @@ $(document).ready(function ($) {
             ipAreaName=ip_areaName;
             ipMenuName=ip_menuName;
         })
-        debugger;
         if(ipIds.length===0) {
             if($('#endpointIpModalForm .modal-body input[type="checkbox"]').is('[data-areaname]')){
                 areaName = $('#endpointIpModalForm .modal-body input[type="checkbox"]').attr("data-areaname");

@@ -22,7 +22,7 @@ public class CreateUserImageCommandHandler:IRequestHandler<CreateUserImageComman
 
     public async Task<CreateUserImageCommandResponse> Handle(CreateUserImageCommandRequest request, CancellationToken cancellationToken)
     {
-        var count = await _unitOfWork.GetRepository<UserImage>().CountAsync(x => x.UserId == request.UserImageAddDto.UserId && x.IsActive);
+        var count = await _unitOfWork.GetRepository<UserImage>().CountAsync(predicate:x => x.UserId == request.UserImageAddDto.UserId && x.IsActive);
         if (count >= 4)
         {
             return new CreateUserImageCommandResponse
@@ -42,7 +42,7 @@ public class CreateUserImageCommandHandler:IRequestHandler<CreateUserImageComman
         if (count > 0  && userImage.Profil)
         {
             var userImages =
-                await _unitOfWork.GetRepository<UserImage>().GetAllAsync(ui =>
+                await _unitOfWork.GetRepository<UserImage>().GetAllAsync(predicate:ui =>
                     ui.UserId == request.UserImageAddDto.UserId && ui.IsActive);
             if (userImages != null)
             {

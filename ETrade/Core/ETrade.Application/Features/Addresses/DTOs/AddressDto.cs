@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using ETrade.Application.DTOs.Base;
 using ETrade.Domain.Enums;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ETrade.Application.Features.Addresses.DTOs;
 
@@ -31,16 +32,21 @@ public class AddressDto:BaseDto
     public  AddressType AddressType { get; set; }
     
     [Display(Name = "Cadde ya da Sokak")]
-    public  string Street{ get; set; }
+    public  string StreetId  { get; set; }
+    public  List<SelectListItem> Streets { get; set; }
 
     [Display(Name = "Mahalle ya da Köy")]
-    public  string NeighborhoodOrVillage{ get; set; }
+    public  string NeighborhoodOrVillageId  { get; set; }
+    public  List<SelectListItem> NeighborhoodsOrVillages { get; set; }
     
     [Display(Name = "İlçe")]
-    public  string District{ get; set; }
+    public  string DistrictId  { get; set; }
+    public  List<SelectListItem> Districts { get; set; }
     
     [Display(Name = "İl")]
-    public  string City{ get; set; }
+    public  string CityId  { get; set; }
+        
+    public  List<SelectListItem> Cities { get; set; }
 
     [Display(Name = "Posta Kodu")]
     public  string PostalCode{ get; set; }

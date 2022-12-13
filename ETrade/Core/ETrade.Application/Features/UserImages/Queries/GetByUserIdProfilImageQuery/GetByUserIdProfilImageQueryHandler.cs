@@ -22,7 +22,7 @@ public class GetByUserIdProfilImageQueryHandler:IRequestHandler<GetByUserIdProfi
 
     public async Task<GetByUserIdProfilImageQueryResponse> Handle(GetByUserIdProfilImageQueryRequest request, CancellationToken cancellationToken)
     {
-        var userImage = await _unitOfWork.GetRepository<UserImage>().GetAsync(x => x.UserId == request.UserId && x.IsActive && x.Profil);
+        var userImage = await _unitOfWork.GetRepository<UserImage>().GetAsync(predicate:x => x.UserId == request.UserId && x.IsActive && x.Profil);
         var userImageViewDto = _mapper.Map<UserImageDto>(userImage);
         if (userImage != null)
         {

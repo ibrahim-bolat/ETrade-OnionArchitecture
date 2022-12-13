@@ -20,7 +20,7 @@ public class GetStreetListQueryHandler:IRequestHandler<GetStreetListQueryRequest
 
     public async Task<GetStreetListQueryResponse> Handle(GetStreetListQueryRequest request, CancellationToken cancellationToken)
     {
-        var streetList = await _unitOfWork.GetRepository<Street>().GetAllAsync(street=>street.NeighborhoodOrVillageId==request.NeighborhoodOrVillageId);
+        var streetList = await _unitOfWork.GetRepository<Street>().GetAllAsync(predicate:street=>street.NeighborhoodOrVillageId==request.NeighborhoodOrVillageId);
         if (streetList != null)
         {
             var response = streetList.Select(street => new SelectListItem()

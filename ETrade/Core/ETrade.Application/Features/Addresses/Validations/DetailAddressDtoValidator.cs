@@ -4,9 +4,9 @@ using FluentValidation;
 
 namespace ETrade.Application.Features.Addresses.Validations;
 
-public class CreateAddressDtoValidator:AbstractValidator<CreateAddressDto>
+public class DetailAddressDtoValidator:AbstractValidator<DetailAddressDto>
 {
-    public CreateAddressDtoValidator()
+    public DetailAddressDtoValidator()
     {
         RuleFor(x => x.FirstName)
             .NotNull()
@@ -55,9 +55,24 @@ public class CreateAddressDtoValidator:AbstractValidator<CreateAddressDto>
             .WithMessage("Lütden adres tipini boş geçmeyiniz....")
             .NotEmpty()
             .WithMessage("Lütden adres tipini boş geçmeyiniz....");
+
+        RuleFor(address => address.CityName)
+            .NotNull()
+            .WithMessage("Lütden ili boş geçmeyiniz....")
+            .NotEmpty()
+            .WithMessage("Lütden ili boş geçmeyiniz....")
+            .MaximumLength(250)
+            .WithMessage("En fazla 250 karakter girebilirsiniz...");
         
-        
-        RuleFor(address => address.NeighborhoodOrVillageId)
+        RuleFor(address => address.DistrictName)
+            .NotNull()
+            .WithMessage("Lütden ilçeyi boş geçmeyiniz....")
+            .NotEmpty()
+            .WithMessage("Lütden ilçeyi boş geçmeyiniz....")
+            .MaximumLength(250)
+            .WithMessage("En fazla 250 karakter girebilirsiniz...");
+
+        RuleFor(address => address.NeighborhoodOrVillageName)
             .NotNull()
             .WithMessage("Lütden mahalle yada köyü boş geçmeyiniz....")
             .NotEmpty()
@@ -65,23 +80,10 @@ public class CreateAddressDtoValidator:AbstractValidator<CreateAddressDto>
             .MaximumLength(500)
             .WithMessage("En fazla 500 karakter girebilirsiniz...");
         
-        RuleFor(address => address.DistrictId)
-            .NotNull()
-            .WithMessage("Lütden ilçeyi boş geçmeyiniz....")
-            .NotEmpty()
-            .WithMessage("Lütden ilçeyi boş geçmeyiniz....")
-            .MaximumLength(250)
-            .WithMessage("En fazla 250 karakter girebilirsiniz...");
+        RuleFor(address => address.StreetName)
+            .MaximumLength(500)
+            .WithMessage("En fazla 500 karakter girebilirsiniz...");
         
-        RuleFor(address => address.CityId)
-            .NotNull()
-            .WithMessage("Lütden ili boş geçmeyiniz....")
-            .NotEmpty()
-            .WithMessage("Lütden ili boş geçmeyiniz....")
-            .MaximumLength(250)
-            .WithMessage("En fazla 250 karakter girebilirsiniz...");
-
-
         RuleFor(address => address.PostalCode)
             .NotNull()
             .WithMessage("Lütfen posta kodunu boş geçmeyiniz...")

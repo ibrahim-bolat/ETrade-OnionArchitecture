@@ -34,7 +34,6 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommandRequest
         AppUser user = await _userManager.FindByIdAsync(request.UserDto.Id.ToString());
         if (user != null)
         {
-            string tempUserEmail = user.Email;
             string tempUserName = user.UserName;
             if (user.IsActive)
             {
@@ -58,7 +57,7 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommandRequest
                     };
                 }
                 string userIdentityName = _httpContextAccessor.HttpContext?.User.Identity?.Name;
-                if (!String.IsNullOrEmpty(userIdentityName) && !String.IsNullOrEmpty(tempUserName) && userIdentityName.Equals(tempUserName) && (!tempUserName.Equals(request.UserDto.UserName) || !tempUserEmail.Equals(request.UserDto.Email)))
+                if (!String.IsNullOrEmpty(userIdentityName) && userIdentityName.Equals(tempUserName))
                 {
                     await _signInManager.RefreshSignInAsync(user);
                 }

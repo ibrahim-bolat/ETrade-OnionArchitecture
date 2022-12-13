@@ -1,4 +1,3 @@
-@model AddressDto
 @{
     Layout = "Admin/_AdminLayout";
     ViewData["Title"] = "Adres Detay";
@@ -72,172 +71,22 @@
                                 <!-- UserImage Card-->
             </div>
             <div class="col-lg-8">
-                         <div class="card">
-                             <div class="card-header">
-                                 <h3>Kullanıcı Adres Bilgileri</h3>
-                                 </div>
-                            <div class="card-body">
-                                <a asp-area="Admin" asp-controller="Address" asp-action="CreateAddress" asp-route-userId="@Model.UserId" class="btn btn-outline-primary mb-2">Adres Ekle</a>
-                                <table class="table border-bottom">
-                                    <thead>
-                                    <tr>
-                                        <th class="border-0" style="width: 30%;"></th>
-                                        <th class="border-0" style="width: 70%;"></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td class="border-0">
-                                            <label asp-for="FirstName"></label>
-                                        </td>
-                                        <td class="text-muted border-0">@Model.FirstName</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label asp-for="LastName"></label>
-                                        </td>
-                                        <td class="text-muted">@Model.LastName</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="border-0">
-                                            <label asp-for="Email"></label>
-                                        </td>
-                                        <td class="text-muted border-0">@Model.Email</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label asp-for="PhoneNumber"></label>
-                                        </td>
-                                        <td class="text-muted">@Model.PhoneNumber</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label asp-for="AddressTitle"></label>
-                                        </td>
-                                        <td class="text-muted">@Model.AddressTitle</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label asp-for="AddressType"></label>
-                                        </td>
-                                        <td class="text-muted">@Model.AddressType.GetEnumDescription()</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label asp-for="City"></label>
-                                        </td>
-                                        <td class="text-muted">@Model.City</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label asp-for="District"></label>
-                                        </td>
-                                        <td class="text-muted">@Model.District</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label asp-for="NeighborhoodOrVillage"></label>
-                                        </td>
-                                        <td class="text-muted">@Model.NeighborhoodOrVillage</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label asp-for="Street"></label>
-                                        </td>
-                                        <td class="text-muted">@Model.Street</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label asp-for="PostalCode"></label>
-                                        </td>
-                                        <td class="text-muted">@Model.PostalCode</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label asp-for="AddressDetails"></label>
-                                        </td>
-                                        <td class="text-muted">@Model.AddressDetails </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label asp-for="Note"></label>
-                                        </td>
-                                        <td class="text-muted">@Model.Note </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label asp-for="DefaultAddress"></label>
-                                        </td>
-                                        <td class="text-muted">@(Model.DefaultAddress? "Evet":"Hayır")</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <div class="d-flex justify-content-end">
-                                    <a asp-area="Admin" asp-controller="Account" asp-action="Profile" asp-route-id="@Model.UserId" class="btn btn-primary btn-sm ml-2">Profil</a>
-                                    <a asp-area="Admin" asp-controller="Address" asp-action="UpdateAddress" asp-route-addressId="@Model.Id" class="btn btn-success btn-sm ml-2">Düzenle</a>
-                                    <button type="button" id="addressdeletebutton" class="btn btn-danger btn-sm ml-2" data-id="@Model.Id">Sil</button>
-                                </div>
-                            </div>
-                         </div>
-                      </div>
+                <div id="detailAddressPartial" class="card addresspartial">
+                    <partial name="PartialViews/_DetailAddressPartial" />
+                </div>
+            </div>
         </div>
     </div>
 </div> <!-- .content -->
 @section Scripts {
+    <script src="~/js/inputmask/jquery.inputmask.min.js"></script>
     <script src="~/lib/fancybox/js/jquery.fancybox.min.js"></script>
     <script src="~/admin/js/UserImage/userImage.js"></script>
     <script>
-    (function($) {
-        $("#addressdeletebutton").on("click", function() {
-            var Id = $(this).attr("data-id");
-            Swal.fire({
-                title: 'Adresi Silmek İstediğinizden Emin misiniz?',
-                text: "Silme işlemine onay verdikten sonra işlemi tekrardan geri alamazsınız!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Sil!',
-                cancelButtonText: 'İptal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: "POST",
-                        url: '/Admin/Address/DeleteAddress',
-                        data: {
-                            addressId: Id
-                        },
-                        dataType: "json",
-                        success: function(deleteResult) {
-                            if (deleteResult.success) {
-                                Swal.fire({
-                                    title: 'Silindi?',
-                                    text: "Adres Başarıyla Silindi",
-                                    icon: 'success',
-                                }).then((result) => {
-                                   var userId = deleteResult.userId;
-                                   window.location = '@Url.Action("Profile", "Account", new { area = "Admin" })?id=' + userId;
-                                })
-                            } else {
-                                Swal.fire({
-                                    title: 'Hata',
-                                    text: "Adres Silinemedi",
-                                    icon: 'error',
-                                });
-                            }
-                        },
-                        error: function(errormessage) {
-                            Swal.fire({
-                                title: 'Hata',
-                                text: "Adres Silinemedi",
-                                icon: 'error',
-                            });
-                        }
-                    });
-                }
-                return false;
-            });
-        });
-    })(jQuery);
+        var app = app || {};
+        app.Urls = app.Urls || {};
+        app.Urls.baseUrl = '@Url.Content("~")';
+        app.Urls.profileUrl = '@(Url.Action("Profile", "Account",new { area = "Admin" }))' + '/';
     </script>
+    <script src="~/admin/js/Address/address.js"></script>
 }
