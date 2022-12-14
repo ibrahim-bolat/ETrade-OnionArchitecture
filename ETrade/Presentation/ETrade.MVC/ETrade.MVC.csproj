@@ -93,6 +93,9 @@
       <_ContentIncludedByDefault Remove="wwwroot\admin\images\userimages\1\11.jpg" />
       <_ContentIncludedByDefault Remove="wwwroot\admin\images\userimages\1\icon.png" />
       <_ContentIncludedByDefault Remove="wwwroot\admin\images\userimages\1\Url Dogulama.png" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\Address\PartialViews\_CreateAddressPartial.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\Address\PartialViews\_DetailAddressPartial.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\Address\PartialViews\_UpdateAddressPartial.cshtml" />
     </ItemGroup>
 
     <ItemGroup>

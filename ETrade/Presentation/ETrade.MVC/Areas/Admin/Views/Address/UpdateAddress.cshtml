@@ -1,3 +1,4 @@
+@model AddressDto
 @{
     Layout = "Admin/_AdminLayout";
     ViewBag.Title = "Adres Güncelle";
@@ -71,8 +72,119 @@
                 <!-- UserImage Card-->
             </div>
             <div class="col-lg-8">
-                <div id="updateAddressPartial" class="card addresspartial">
-                     <partial name="PartialViews/_UpdateAddressPartial" />
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Adres Güncelle</h2>
+                    </div>
+                    <div class="card-body">
+                       <form asp-area="Admin" asp-controller="Address" asp-action="UpdateAddress" method="post" id="updateAddressForm" class="addressForm">
+                            <div class="form-group row offset-3 col-9 text-danger" asp-validation-summary="All">
+                            </div>
+                            <input type="hidden" asp-for="Id"/>
+                            <div class="form-group row">
+                                <label asp-for="FirstName" class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <input asp-for="FirstName" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="LastName" class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <input asp-for="LastName" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="Email" class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <input asp-for="Email" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="PhoneNumber" class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <input asp-for="PhoneNumber" id="phonemasc" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="AddressTitle" class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <input asp-for="AddressTitle" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="AddressType" class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <select id="addressType" class="custom-select" asp-for="AddressType"
+                                            asp-items="@Html.GetEnumSelectList<AddressType>().Select(si => { si.Text = ((AddressType)int.Parse(si.Value)).GetEnumDescription(); return si;})">
+                                        <option disabled selected="selected" value="">Adres Tipi Seçiniz</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="CityId" class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <select id="cityId" asp-for="CityId" class="custom-select" asp-items="Model.Cities">
+                                        <option selected="selected" value="">İl Seçiniz</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="DistrictId" class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <select id="districtId" class="custom-select" asp-for="DistrictId" asp-items="Model.Districts">
+                                        <option selected="selected" value="">İlçe Seçiniz</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="NeighborhoodOrVillageId" class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <select id="neighborhoodOrVillageId" class="custom-select" asp-for="NeighborhoodOrVillageId" asp-items="Model.NeighborhoodsOrVillages">
+                                        <option selected="selected" value="">Mahalle ya da Köy Seçiniz</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="StreetId" class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <select id="streetId" class="custom-select" asp-for="StreetId" asp-items="Model.Streets">
+                                        <option selected="selected" value="">Cadde ya da Sokak Seçiniz</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="PostalCode" class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <input type="number" asp-for="PostalCode"  class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="AddressDetails" class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <textarea asp-for="AddressDetails" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="Note" class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <textarea asp-for="Note" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="DefaultAddress" class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <input asp-for="DefaultAddress" class="mt-3"/>
+                                </div>
+                            </div>
+                            <input type="hidden" asp-for="UserId" id="userId" data-userId="@Model.UserId" class="form-control"/>
+                            <div class="form-group row">
+                                <div class="offset-sm-3 col-sm-9">
+                                    <input type="submit" value="Güncelle" id="btnUpdate"  class="btn btn-info btn-sm"/>
+                                    <a asp-area="Admin" asp-controller="Address" asp-action="DetailAddress" asp-route-addressId="@Model.Id" class="btn btn-danger btn-sm">İptal</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

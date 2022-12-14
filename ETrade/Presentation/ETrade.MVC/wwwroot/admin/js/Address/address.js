@@ -6,7 +6,7 @@ $(document).ready(function ($) {
         $("#phonemasc").inputmask("+\\90(999)999-99-99");
     });
     //GetAllDistrictsByCityId
-    $(".addresspartial").on('change', '#cityId', function () {
+    $(".addressForm").on('change', '#cityId', function () {
         $("#districtId").empty();
         $("#neighborhoodOrVillageId").empty();
         $("#streetId").empty();
@@ -36,7 +36,7 @@ $(document).ready(function ($) {
     });
 
     //GetAllNeighborhoodsOrVillagesByDistrictId
-    $(".addresspartial").on('change', '#districtId', function () {
+    $(".addressForm").on('change', '#districtId', function () {
         $("#neighborhoodOrVillageId").empty();
         $("#streetId").empty();
         var districtId = $("#districtId").val();
@@ -63,7 +63,7 @@ $(document).ready(function ($) {
         });
     });
     //GetAllStreetsByNeighborhoodOrVillageId
-    $(".addresspartial").on('change', '#neighborhoodOrVillageId', function () {
+    $(".addressForm").on('change', '#neighborhoodOrVillageId', function () {
         $("#streetId").empty();
         var neighborhoodOrVillageId = $("#neighborhoodOrVillageId").val();
         $.ajax({
@@ -89,7 +89,7 @@ $(document).ready(function ($) {
     });
     
     //Address Form Delete
-    $("#detailAddressPartial").on("click", "#addressdeletebutton", function () {
+    $("#addressdeletebutton").click(function () {
         var Id = $(this).attr("data-id");
         Swal.fire({
             title: 'Adresi Silmek İstediğinizden Emin misiniz?',
