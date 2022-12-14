@@ -67,18 +67,19 @@ public class AddressController : Controller
                     AddressDto = addressDto
                 });
                 ModelState.AddModelError("AddressCountMoreThan4", Messages.AddressCountMoreThan4);
-                return PartialView("PartialViews/_CreateAddressPartial", getSelectedAddressResult.Result.Data);
+                return View(getSelectedAddressResult.Result.Data);
             }
             if (dresult.Result.ResultStatus == ResultStatus.Success)
             {
-                return Json(new { success = true});
+                TempData["CreateAddressSuccess"] = true;
+                return RedirectToAction("CreateAddress", "Address" ,new { area = "Admin", userId = addressDto.UserId});
             }
         }
         var selectedAddressResult = await _mediator.Send(new GetSelectedAddressQueryRequest()
         {
             AddressDto = addressDto
         });
-        return PartialView("PartialViews/_CreateAddressPartial", selectedAddressResult.Result.Data);
+        return View( selectedAddressResult.Result.Data);
     }
 
     [HttpGet]
@@ -113,15 +114,15 @@ public class AddressController : Controller
             });
             if (dresult.Result.ResultStatus == ResultStatus.Success)
             {
-                TempData["UpdateAddressMessage"] = true;
-                return Json(new { success = true});
+                TempData["UpdateAddressSuccess"] = true;
+                return RedirectToAction("Profile", "Account" ,new { area = "Admin", id = addressDto.UserId});
             }
         }
         var selectedAddressResult = await _mediator.Send(new GetSelectedAddressQueryRequest()
         {
             AddressDto = addressDto
         });
-        return PartialView("PartialViews/_UpdateAddressPartial", selectedAddressResult.Result.Data);
+        return View(selectedAddressResult.Result.Data);
     }
 
 

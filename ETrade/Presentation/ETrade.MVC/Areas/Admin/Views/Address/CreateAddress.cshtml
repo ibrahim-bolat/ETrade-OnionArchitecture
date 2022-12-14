@@ -83,5 +83,30 @@
     <script src="~/js/inputmask/jquery.inputmask.min.js"></script>
     <script src="~/lib/fancybox/js/jquery.fancybox.min.js"></script>
     <script src="~/admin/js/UserImage/userImage.js"></script>
-    <script src="~/admin/js/Address/address.js"></script>
+     <script src="~/admin/js/Address/address.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var createAddressMessage = '@TempData["CreateAddressSuccess"]';
+            if (createAddressMessage) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('click', Swal.close)
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Adres Kaydedildi',
+                    text: 'Adres Kaydetme İşlemi Başarıyla Gerçekleştirildi.',
+                })
+            }
+          });
+        </script>
 }

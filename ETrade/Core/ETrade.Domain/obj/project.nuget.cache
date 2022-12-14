@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "cOhxbC5x9d7ZZM2qJuytwUkz/uIwu6wJ3TmK5Z6HQiJE78O4183SxioSq5fXWaev++I9N0JI7YtwWAwQD+9GiQ==",
+  "dgSpecHash": "Q229oyQn/CT3+e5xU+T6ei71GmSBgTWhHbLBqp8/NlNRTbgmWfshnBDFvj+Rs6vf+BTKmvX2v8g5k5NoQ/a4JA==",
   "success": true,
   "projectFilePath": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Core/ETrade.Domain/ETrade.Domain.csproj",
   "expectedPackageFiles": [
@@ -26,7 +26,9 @@
     "/home/ibrahim.bolat/.nuget/packages/microsoft.extensions.primitives/6.0.0/microsoft.extensions.primitives.6.0.0.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/system.collections.immutable/6.0.0/system.collections.immutable.6.0.0.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/system.diagnostics.diagnosticsource/6.0.0/system.diagnostics.diagnosticsource.6.0.0.nupkg.sha512",
-    "/home/ibrahim.bolat/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+    "/home/ibrahim.bolat/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "/home/ibrahim.bolat/.nuget/packages/microsoft.netcore.app.ref/6.0.11/microsoft.netcore.app.ref.6.0.11.nupkg.sha512",
+    "/home/ibrahim.bolat/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.11/microsoft.aspnetcore.app.ref.6.0.11.nupkg.sha512"
   ],
   "logs": []
 }

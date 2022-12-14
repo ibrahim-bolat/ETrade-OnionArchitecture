@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "UK1ZScs9R0MCKWw+aVzDyuP2QM8T+zuI2Y2CEqkuOfCgQqxbRpXClobUHUbFcs/IZtguLzcSKMIAKhjGF4YDLA==",
+  "dgSpecHash": "fIkrrYwYLmiigR17/HoBjtpLvASekjoD9wlvuiAtnwqCCtVXtnk7/ZFmRV8QOiI99FiS07IhPNHTRAinLH5QCg==",
   "success": true,
   "projectFilePath": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Core/ETrade.Application/ETrade.Application.csproj",
   "expectedPackageFiles": [
@@ -139,7 +139,9 @@
     "/home/ibrahim.bolat/.nuget/packages/system.threading.tasks.extensions/4.5.1/system.threading.tasks.extensions.4.5.1.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/system.threading.timer/4.3.0/system.threading.timer.4.3.0.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/system.xml.readerwriter/4.3.0/system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "/home/ibrahim.bolat/.nuget/packages/system.xml.xdocument/4.3.0/system.xml.xdocument.4.3.0.nupkg.sha512"
+    "/home/ibrahim.bolat/.nuget/packages/system.xml.xdocument/4.3.0/system.xml.xdocument.4.3.0.nupkg.sha512",
+    "/home/ibrahim.bolat/.nuget/packages/microsoft.netcore.app.ref/6.0.11/microsoft.netcore.app.ref.6.0.11.nupkg.sha512",
+    "/home/ibrahim.bolat/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.11/microsoft.aspnetcore.app.ref.6.0.11.nupkg.sha512"
   ],
   "logs": []
 }

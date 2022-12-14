@@ -91,7 +91,7 @@ public class AddressDtoValidator:AbstractValidator<AddressDto>
             .WithMessage("Lütfen posta kodunu boş geçmeyiniz...")
             .Length(5)
             .WithMessage("Lütfen posta kodunu 5 karakter olarak giriniz...")
-            .Matches(new Regex(@"^\d{5}$"))
+            .Must(IsDigit)
             .WithMessage("Lütfen posta kodunu sadece sayısal değerler giriniz.");
 
         RuleFor(address => address.AddressDetails)
@@ -105,5 +105,9 @@ public class AddressDtoValidator:AbstractValidator<AddressDto>
         RuleFor(address => address.Note)
             .MaximumLength(500)
             .WithMessage("En fazla 500 karakter girebilirsiniz...");
+    }
+    private bool IsDigit(string postalCode)
+    {
+        return postalCode.All(Char.IsDigit); 
     }
 }

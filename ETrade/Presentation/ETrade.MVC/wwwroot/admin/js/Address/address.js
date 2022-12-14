@@ -87,55 +87,7 @@ $(document).ready(function ($) {
             }
         });
     });
-
-    //Address Form Create
-    $("#createAddressPartial").on("submit", "#createAddressForm", function () {
-        var data = $(this).serialize();
-        $.ajax({
-            url: "/Admin/Address/CreateAddress",
-            type: "POST",
-            data: data,
-            success: function (result) {
-                if (result.success) {
-                    ResetCreateFormValue();
-                    ResetValidation($("#createAddressForm"));
-                    toastMessage(5000, "success", "Tebrikler","Adres Başarıyla Eklendi")
-                } else {
-                    //$('#createAddressForm').html($($.parseHTML(result)).find("#createAddressForm").html());
-                    $('#createAddressForm').html($('#createAddressForm',$.parseHTML(result)).html());
-                }
-            },
-            error: function (errormessage) {
-                toastMessage(3000, "error", "Dikkat","Adres Eklenemedi")
-            }
-        });
-        return false;
-    });
-
-    //Address Form Update
-    $("#updateAddressPartial").on("submit", "#updateAddressForm", function () {
-        var data = $(this).serialize();
-        var userId = $('#updateAddressForm #userId').attr("data-userId");
-        $.ajax({
-            url: "/Admin/Address/UpdateAddress",
-            type: "POST",
-            data: data,
-            success: function (result) {
-                if (result.success) {
-                    ResetUpdateFormValue();
-                    ResetValidation($("#updateAddressForm"));
-                    window.location = app.Urls.profileUrl + userId;
-                } else {
-                    //$('#createAddressForm').html($($.parseHTML(result)).find("#createAddressForm").html());
-                    $('#updateAddressForm').html($('#updateAddressForm',$.parseHTML(result)).html());
-                }
-            },
-            error: function (errormessage) {
-                toastMessage(3000, "error", "Dikkat","Adres Güncellenemedi")
-            }
-        });
-        return false;
-    });
+    
     //Address Form Delete
     $("#detailAddressPartial").on("click", "#addressdeletebutton", function () {
         var Id = $(this).attr("data-id");
@@ -187,43 +139,6 @@ $(document).ready(function ($) {
             return false;
         });
     });
-    
-
-    //remove ModelSate Errors and reset Form
-    function ResetValidation(currentForm) {
-        currentForm.find("[data-valmsg-summary=true]")
-            .removeClass("validation-summary-errors")
-            .addClass("validation-summary-valid")
-            .find("ul").empty();
-        currentForm.find("[data-valmsg-replace=true]")
-            .removeClass("field-validation-error")
-            .addClass("field-validation-valid")
-        currentForm.find("[data-val=true]")
-            .removeClass("input-validation-error")
-            .addClass("input-validation-valid")
-    }    
-    
-    function ResetCreateFormValue() {
-        $(".clearcreateform").val("");
-        $('#createAddressForm input[type=checkbox]').prop('checked', false);
-        $("#addressType")[0].selectedIndex = 0;
-        $("#cityId")[0].selectedIndex = 0;
-        $("#districtId").empty().append("<option selected='selected' value=''>İlçe Seçiniz</option>");
-        $("#neighborhoodOrVillageId").empty().append("<option selected='selected' value=''>Mahalle ya da Köy Seçiniz</option>");
-        $("#streetId").empty().append("<option selected='selected' value=''>Cadde ya da Sokak Seçiniz</option>");
-    }
-
-    function ResetUpdateFormValue() {
-        $(".clearupdateform").val("");
-        $('#updateAddressForm input[type=checkbox]').prop('checked', false);
-        $("#addressType")[0].selectedIndex = 0;
-        $("#cityId")[0].selectedIndex = 0;
-        $("#districtId").empty().append("<option selected='selected' value=''>İlçe Seçiniz</option>");
-        $("#neighborhoodOrVillageId").empty().append("<option selected='selected' value=''>Mahalle ya da Köy Seçiniz</option>");
-        $("#streetId").empty().append("<option selected='selected' value=''>Cadde ya da Sokak Seçiniz</option>");
-    }
-   
-    
     
     //Action Message
     function toastMessage(time, icon,title,text) {

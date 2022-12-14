@@ -13,7 +13,7 @@ public class RoleDtoValidator:AbstractValidator<RoleDto>
             .NotEmpty()
             .WithMessage("Lütden rolü boş geçmeyiniz....")
             .Must(IsLetter)
-            .WithMessage("Lütfen sadece harflerden oluşan kelime giriniz.");;
+            .WithMessage("Lütfen sadece harflerden oluşan kelime giriniz.");
     }
     private bool IsLetter(string name)
     {
