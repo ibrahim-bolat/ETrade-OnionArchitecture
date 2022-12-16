@@ -32,5 +32,18 @@
 <script src="~/js/sweetalert2/sweetalert2.all.min.js"></script>
 <script src="~/admin/js/admin.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
+<script>
+// url fix after facebook login
+    document.addEventListener("DOMContentLoaded", function() {
+         if (window.location.hash === "#_=_"){
+             if (history.replaceState) {
+                 var cleanHref = window.location.href.split("#")[0];
+                 history.replaceState(null, null, cleanHref);
+             } else {
+                 window.location.hash = "";
+             }
+         }
+    });
+</script>
 </body>
 </html>

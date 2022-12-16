@@ -33,8 +33,8 @@ public static class ServiceRegistration
                 x.GetRequiredService<IUrlHelperFactory>()
                     .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext!));
         
+        
         //for Authorize Filters
-        serviceCollection.AddControllers(options => 
-            options.Filters.Add<AuthorizeEndpointsFilter>());
+        //serviceCollection.AddControllers(options => options.Filters.Add<AuthorizeEndpointsFilter>());
     }
 }

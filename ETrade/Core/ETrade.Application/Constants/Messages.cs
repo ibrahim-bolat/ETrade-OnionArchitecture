@@ -30,6 +30,8 @@ public static class Messages
     public const string UserErrorConfirm = "Kullanıcı dorğulanmadı!";
     public const string UserRemoveFromRole = "Kullanıcı rolden çıkarıldı!";
     public const string UserNotRemoveFromRole = "Kullanıcı rolden çıkarılamadı!";
+    public const string AuthenticationPropertiesNotFound = "AuthenticationPropertiesNotFound!";
+    public const string LoginInfoNotFound = "Giriş Bilgisi Bulunamadı!";
     
     public const string RoleAdded = "Rol başarıyla eklendi";
     public const string RoleNotAdded = "Rol eklenemedi";

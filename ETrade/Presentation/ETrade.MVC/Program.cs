@@ -20,14 +20,14 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddPresentationServices(builder.Configuration,builder.Host);
 
 // Add Rate Limiting
-builder.Services.AddRateLimiting(builder.Configuration);
+// builder.Services.AddRateLimiting(builder.Configuration);
 
 var app = builder.Build();
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 // Use Rate Limiting
-app.UseRateLimiting();
+//app.UseRateLimiting();
 
 
 if (!app.Environment.IsDevelopment())
@@ -43,8 +43,8 @@ app.UseStatusCodePagesWithReExecute("/Error/Index","?statusCode={0}");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseSerilogRequestLogging();
-app.UseHttpLogging();
+//app.UseSerilogRequestLogging();
+//app.UseHttpLogging();
 
 app.UseRouting();
 
@@ -59,7 +59,7 @@ await app.MigrateDatabaseAsync();
 await app.AuthorizeEndpointsMigrateAsync(typeof(Program));
 
 // Add user_name info to serilog LogContext
-app.AddUserIdtoSeriLogContext();
+//app.AddUserIdtoSeriLogContext();
 
 app.UseEndpoints(endpoints =>
 {

@@ -80,5 +80,18 @@
       });
     })(jQuery);
     </script>
+<script>
+// url fix after facebook login
+    document.addEventListener("DOMContentLoaded", function() {
+         if (window.location.hash === "#_=_"){
+             if (history.replaceState) {
+                 var cleanHref = window.location.href.split("#")[0];
+                 history.replaceState(null, null, cleanHref);
+             } else {
+                 window.location.hash = "";
+             }
+         }
+    });
+</script>
 </body>
 </html>

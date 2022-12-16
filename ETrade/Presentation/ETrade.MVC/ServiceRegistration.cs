@@ -42,6 +42,15 @@ public static class ServiceRegistration
             cookieOptions.AccessDeniedPath = new PathString($"/Error/Index?statusCode={401}");
         });
         
+        //facebook login authenticate
+        serviceCollection.AddAuthentication().AddFacebook(faceOptions =>
+        {
+            faceOptions.AppId = configuration["FacebookAppId"];
+            faceOptions.AppSecret = configuration["FacebookAppSecret"];
+            faceOptions.AccessDeniedPath = new PathString("/Admin/Account/Login");
+            faceOptions.ReturnUrlParameter = "";
+        });
+        
         //all project authorize
         serviceCollection.AddAuthorization(options =>
         {

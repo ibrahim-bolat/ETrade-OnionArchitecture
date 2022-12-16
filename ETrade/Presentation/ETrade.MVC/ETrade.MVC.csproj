@@ -4,6 +4,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>disable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>02c0bd63-58b4-47b9-9edd-d84fbeaba098</UserSecretsId>
     </PropertyGroup>
     <ItemGroup>
       <ProjectReference Include="..\..\Core\ETrade.Application\ETrade.Application.csproj" />
@@ -13,6 +14,7 @@
 
     <ItemGroup>
       <PackageReference Include="AspNetCoreRateLimit" Version="4.0.2" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="6.0.7" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.7" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.7">
         <PrivateAssets>all</PrivateAssets>
