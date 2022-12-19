@@ -6,26 +6,26 @@ using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace ETrade.Application.Features.Accounts.Commands.FacebookLoginUserCommand;
+namespace ETrade.Application.Features.Accounts.Commands.ExternalLoginUserCommand;
 
-public class FacebookLoginUserCommandHandler : IRequestHandler<FacebookLoginUserCommandRequest, FacebookLoginUserCommandResponse>
+public class ExternalLoginUserCommandHandler : IRequestHandler<ExternalLoginUserCommandRequest, ExternalLoginUserCommandResponse>
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _signInManager;
 
-    public FacebookLoginUserCommandHandler(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+    public ExternalLoginUserCommandHandler(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
     {
         _userManager = userManager;
         _signInManager = signInManager;
     }
 
-    public async Task<FacebookLoginUserCommandResponse> Handle(FacebookLoginUserCommandRequest request,
+    public async Task<ExternalLoginUserCommandResponse> Handle(ExternalLoginUserCommandRequest request,
         CancellationToken cancellationToken)
     {
         ExternalLoginInfo loginInfo = await _signInManager.GetExternalLoginInfoAsync();
         if (loginInfo == null)
         {
-            return new FacebookLoginUserCommandResponse
+            return new ExternalLoginUserCommandResponse
             {
                 Result = new Result(ResultStatus.Error, Messages.LoginInfoNotFound)
             };
@@ -35,7 +35,7 @@ public class FacebookLoginUserCommandHandler : IRequestHandler<FacebookLoginUser
             loginInfo.ProviderKey, request.IsPersistent);
         if (loginResult.Succeeded)
         {
-            return new FacebookLoginUserCommandResponse
+            return new ExternalLoginUserCommandResponse
             {
                 Result = new Result(ResultStatus.Success, Messages.UserLoggedIn)
             };
@@ -54,17 +54,17 @@ public class FacebookLoginUserCommandHandler : IRequestHandler<FacebookLoginUser
             if (addLoginResult.Succeeded)
             {
                 await _signInManager.SignInAsync(user, request.IsPersistent);
-                return new FacebookLoginUserCommandResponse
+                return new ExternalLoginUserCommandResponse
                 {
                     Result = new Result(ResultStatus.Success, Messages.UserLoggedIn)
                 };
             }
-            return new FacebookLoginUserCommandResponse
+            return new ExternalLoginUserCommandResponse
             {
                 Result = new Result(ResultStatus.Error, Messages.UserNotLoggedIn,addLoginResult.Errors.ToList())
             };
         }
-        return new FacebookLoginUserCommandResponse
+        return new ExternalLoginUserCommandResponse
         {
             Result = new Result(ResultStatus.Error, Messages.UserNotAdded,createResult.Errors.ToList())
         };

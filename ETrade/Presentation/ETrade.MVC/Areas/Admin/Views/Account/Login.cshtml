@@ -4,8 +4,8 @@
     ViewBag.Title = "Giriş";
 }
 
-<div class="login-form">
-    <form asp-area="Admin" asp-controller="Account" asp-action="Login" method="post" class="border border-2 p-2">
+<div class="login-form p-4">
+    <form asp-area="Admin" asp-controller="Account" asp-action="Login" method="post">
         <div asp-validation-summary="All" class="text-danger ml-4"></div>
         <div class="form-group row">
             <label asp-for="Email" class="col-sm-3 col-form-label"></label>
@@ -28,29 +28,31 @@
                 </label>
             </div>
         </div>
-        <div class="form-group row mx-2">
+        <div class="form-group row mx-1">
             <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30 rounded">Giriş Yap</button>
         </div>
-         <div class="form-group row mx-2 justify-content-between">
-             <button type="button" id="facebookLogin" data-returnUrl="@Context.Request.Query["ReturnUrl"]" class="btn btn-primary facebook col-sm-5 p-2 rounded">
-            <i class="fa fa-facebook fa-2x"></i>
-            <span class="text-capitalize mr-sm-2 pr-md-0">Facebook ile Giriş Yap</span>
-        </button>
-         <button type="button" id="googleLogin" data-returnUrl="@Context.Request.Query["ReturnUrl"]" class="btn btn-danger google-plus col-sm-5 p-2 mt-2 mt-sm-0 rounded">
-             <i class="fa fa-google-plus fa-2x"></i>
-             <span class="text-capitalize pr-sm-2 pr-md-0">Google ile Giriş Yap</span>
-         </button>
-         </div>
-        <div class="register-link m-t-15 text-center">
-            <p>Hesabın yok mu? <a asp-area="Admin" asp-controller="Account" asp-action="Register" class="font-weight-bold">Kaydol</a></p>
-        </div>
     </form>
+    <div class="form-group row mx-1 justify-content-between">
+            <button type="button" id="facebookLoginButton" data-returnUrl="@Context.Request.Query["ReturnUrl"]" class="btn btn-primary facebook externallogin col-sm-5 p-2 rounded">
+                <i class="fa fa-facebook fa-2x"></i>
+                <span class="text-capitalize mr-sm-2 pr-md-0">Facebook ile Giriş Yap</span>
+            </button>
+            <button type="button" id="googleLoginButton" data-returnUrl="@Context.Request.Query["ReturnUrl"]" class="btn btn-danger google-plus externallogin col-sm-5 p-2 mt-2 mt-sm-0 rounded">
+                <i class="fa fa-google-plus fa-2x"></i>
+                <span class="text-capitalize pr-sm-2 pr-md-0">Google ile Giriş Yap</span>
+            </button>
+        </div>
+    <div class="register-link m-t-15 text-center">
+        <p>Hesabın yok mu? <a asp-area="Admin" asp-controller="Account" asp-action="Register" class="font-weight-bold">Kaydol</a></p>
+    </div>
 </div>
+
 @section Scripts {
     <script>
     document.addEventListener("DOMContentLoaded", function() {
         var loginMessage = '@TempData["LoginSuccess"]';
-        var facebookLoginMessage = '@TempData["FacebookLoginStatus"]';
+        var facebookLoginMessage = '@TempData["facebookLoginStatus"]';
+        var googleLoginMessage = '@TempData["googleLoginStatus"]';
         var updatePasswordMessage = '@TempData["UpdatePasswordStatus"]';
         if (loginMessage)
         {
@@ -115,18 +117,44 @@
             text: 'Facebook ile Giriş İşleminiz Başarısız Oldu!',
             })
         }
-    });
-    document.getElementById("facebookLogin").addEventListener("click", function(event){
-       event.preventDefault(); 
-       var returnUrl = this.getAttribute("data-returnUrl");
-       var isPersistent = document.getElementById("loginIsPersistent").checked;
-       window.location = '@(Url.Action("FacebookLogin", "Account",new { area = "Admin" }))'+ '?isPersistent=' + isPersistent+'&returnUrl='+returnUrl;
-    });
-    document.getElementById("googleLogin").addEventListener("click", function(event){
-       event.preventDefault(); 
-       var returnUrl = this.getAttribute("data-returnUrl");
-       var isPersistent = document.getElementById("loginIsPersistent").checked;
-      // window.location = '@(Url.Action("FacebookLogin", "Account",new { area = "Admin" }))'+ '?isPersistent=' + isPersistent+'&returnUrl='+returnUrl;
+          if (googleLoginMessage===false)
+         {
+             const Toast = Swal.mixin({
+             toast: true,
+             position: 'top-end',
+             showConfirmButton: false,
+             timer: 5000,
+             timerProgressBar: true,
+             didOpen: (toast) => {
+                 toast.addEventListener('click', Swal.close)
+                 toast.addEventListener('mouseenter', Swal.stopTimer)
+                 toast.addEventListener('mouseleave', Swal.resumeTimer)
+             }
+             })
+             Toast.fire({
+             icon: 'error',
+             title: 'Hata',
+             text: 'Google ile Giriş İşleminiz Başarısız Oldu!',
+             })
+         }
+          var externalLoginProvider = document.getElementsByClassName("externallogin");
+          for (i = 0; i < externalLoginProvider.length; i++) {
+              externalLoginProvider[i].addEventListener("click", externalLogin);
+          }
+          function externalLogin(event){
+             event.preventDefault(); 
+             const id = this.getAttribute("id");
+             const returnUrl = this.getAttribute("data-returnUrl");
+             const isPersistent = document.getElementById("loginIsPersistent").checked;
+             let providerName;
+             if (id.trim()==="facebookLoginButton"){
+                 providerName="Facebook";
+             }
+             if (id.trim()==="googleLoginButton"){
+                 providerName="Google";
+             }
+             window.location = '@(Url.Action("ExternalLogin", "Account", new { area = "Admin" }))'+ '?providerName='+ providerName + '&isPersistent=' + isPersistent+'&returnUrl='+returnUrl;
+         }
     });
 </script>
 }

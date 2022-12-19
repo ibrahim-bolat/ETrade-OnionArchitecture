@@ -1159,3 +1159,4 @@ D:/Yazılımlar/VisualStudioProjects/ETrade-OnionArchitecture/ETrade/Presentatio
 /home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/bin/Debug/net6.0/AspNetCoreRateLimit.dll
 /home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/bin/Debug/net6.0/Microsoft.Extensions.Logging.Abstractions.dll
 /home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/bin/Debug/net6.0/Microsoft.AspNetCore.Authentication.Facebook.dll
+/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/bin/Debug/net6.0/Microsoft.AspNetCore.Authentication.Google.dll

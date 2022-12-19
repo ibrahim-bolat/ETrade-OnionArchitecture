@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "JL/Ni15rhzXhHILdg/OQEEo57EEkh6MVyRC+sx9BEKiWtGFUkF/DttScx2ahRMMkX8RcuEOheQYhrDQM6MJHhw==",
+  "dgSpecHash": "V6c3IuOuC96eo+IzdF9uRUkXaJQC2N39fnqiBpe5XZ0eHV7d4oj1UBJ67QuXsRm38poe3CahXt2Alen1jGJCmA==",
   "success": true,
   "projectFilePath": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/ETrade.MVC.csproj",
   "expectedPackageFiles": [
@@ -18,6 +18,7 @@
     "/home/ibrahim.bolat/.nuget/packages/microsoft.aspnetcore.authentication.abstractions/2.2.0/microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/microsoft.aspnetcore.authentication.core/2.2.0/microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/microsoft.aspnetcore.authentication.facebook/6.0.7/microsoft.aspnetcore.authentication.facebook.6.0.7.nupkg.sha512",
+    "/home/ibrahim.bolat/.nuget/packages/microsoft.aspnetcore.authentication.google/6.0.7/microsoft.aspnetcore.authentication.google.6.0.7.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/microsoft.aspnetcore.authorization/2.2.0/microsoft.aspnetcore.authorization.2.2.0.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/microsoft.aspnetcore.authorization.policy/2.2.0/microsoft.aspnetcore.authorization.policy.2.2.0.nupkg.sha512",
     "/home/ibrahim.bolat/.nuget/packages/microsoft.aspnetcore.cryptography.internal/6.0.7/microsoft.aspnetcore.cryptography.internal.6.0.7.nupkg.sha512",

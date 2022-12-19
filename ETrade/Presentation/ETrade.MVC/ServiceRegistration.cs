@@ -49,7 +49,14 @@ public static class ServiceRegistration
             faceOptions.AppSecret = configuration["FacebookAppSecret"];
             faceOptions.AccessDeniedPath = new PathString("/Admin/Account/Login");
             faceOptions.ReturnUrlParameter = "";
-        });
+        })
+        .AddGoogle(googleOptions =>
+        {
+            googleOptions.ClientId = configuration["GoogleClientId"];
+            googleOptions.ClientSecret = configuration["GoogleClientSecret"];
+            googleOptions.AccessDeniedPath = new PathString("/Admin/Account/Login");
+            googleOptions.ReturnUrlParameter = "";
+        });;
         
         //all project authorize
         serviceCollection.AddAuthorization(options =>

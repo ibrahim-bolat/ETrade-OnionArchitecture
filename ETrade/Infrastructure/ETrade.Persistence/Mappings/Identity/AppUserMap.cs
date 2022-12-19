@@ -10,8 +10,8 @@ namespace ETrade.Persistence.Mappings.Identity;
     {
         public void Configure(EntityTypeBuilder<AppUser> builder)
         {
-            builder.Property(user => user.FirstName).HasMaxLength(100);
-            builder.Property(user => user.LastName).HasMaxLength(100);
+            builder.Property(user => user.FirstName).HasMaxLength(100).IsRequired();
+            builder.Property(user => user.LastName).HasMaxLength(100).IsRequired();
             builder.Property(user => user.UserIdendityNo).HasMaxLength(11);
             builder.Property(user => user.GenderType)
                 .HasConversion(

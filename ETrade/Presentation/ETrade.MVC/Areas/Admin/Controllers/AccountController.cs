@@ -7,21 +7,18 @@ using ETrade.Application.Features.Accounts.Commands.UpdatePasswordUserCommand;
 using ETrade.Application.Features.Accounts.Commands.UpdateUserCommand;
 using ETrade.Application.Constants;
 using ETrade.Application.CustomAttributes;
-using ETrade.Application.Features.Accounts.Commands.FacebookLoginUserCommand;
+using ETrade.Application.Features.Accounts.Commands.ExternalLoginUserCommand;
 using ETrade.Application.Features.Accounts.DTOs;
 using ETrade.Application.Features.Accounts.Queries.ForgetPasswordUserQuery;
 using ETrade.Application.Features.Accounts.Queries.GetByIdForDetailProfileUserQuery;
 using ETrade.Application.Features.Accounts.Queries.GetByIdForEditPasswordUserQuery;
 using ETrade.Application.Features.Accounts.Queries.GetByIdUserQuery;
-using ETrade.Application.Features.Accounts.Queries.GetFacebookLoginAuthenticationPropertiesQuery;
+using ETrade.Application.Features.Accounts.Queries.GetExternalLoginAuthenticationPropertiesQuery;
 using ETrade.Application.Features.Accounts.Queries.LogoutUserQuery;
 using ETrade.Application.Features.Accounts.Queries.VerifyTokenUserQuery;
-using ETrade.Domain.Entities.Identity;
 using ETrade.Domain.Enums;
 using MediatR;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ETrade.MVC.Areas.Admin.Controllers;
@@ -150,27 +147,28 @@ public class AccountController : Controller
         }
         return View(loginDto);
     }
-
+    
     [AllowAnonymous]
     [HttpGet]
-    public async Task<IActionResult> FacebookLogin(bool isPersistent,string returnUrl)
+    public async Task<IActionResult> ExternalLogin(string providerName,bool isPersistent,string returnUrl)
     {
-        var dresult = await _mediator.Send(new GetFacebookLoginAuthenticationPropertiesQueryRequest()
+        var dresult = await _mediator.Send(new GetExternalLoginAuthenticationPropertiesQueryRequest()
         {
-            RedirectUrl = Url.Action("FacebookResponse", "Account", new { isPersistent=isPersistent ,returnUrl = returnUrl})
+            ProviderName = providerName,
+            RedirectUrl = Url.Action("ExternalLoginResponse", "Account", new {providerName=providerName,isPersistent=isPersistent ,returnUrl = returnUrl})
         });
         if (dresult.Result.ResultStatus == ResultStatus.Success)
         {
-            return new ChallengeResult("Facebook", dresult.Result.Data);
+            return new ChallengeResult(providerName.Trim(), dresult.Result.Data);
         }
         return RedirectToAction("Login", "Account", new { area = "Admin" });
     }
-
+    
     [AllowAnonymous]
     [HttpGet]
-    public async Task<IActionResult> FacebookResponse(bool isPersistent,string returnUrl = "Index")
+    public async Task<IActionResult> ExternalLoginResponse(string providerName,bool isPersistent,string returnUrl = "Index")
     {
-        var dresult = await _mediator.Send(new FacebookLoginUserCommandRequest()
+        var dresult = await _mediator.Send(new ExternalLoginUserCommandRequest()
         {
             IsPersistent = isPersistent
         });
@@ -182,10 +180,10 @@ public class AccountController : Controller
             }
             return Redirect(returnUrl);
         }
-        TempData["FacebookLoginStatus"] = false;
+        TempData[$"{providerName}LoginStatus"] = false;
         return RedirectToAction("Login", "Account", new { area = "Admin" });
     }
-
+    
     [HttpPost]
     public async Task<IActionResult> Logout()
     {

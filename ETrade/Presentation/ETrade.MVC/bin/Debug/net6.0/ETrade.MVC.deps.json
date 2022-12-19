@@ -39,6 +39,7 @@
           "ETrade.Infrastructure": "1.0.0",
           "ETrade.Persistence": "1.0.0",
           "Microsoft.AspNetCore.Authentication.Facebook": "6.0.7",
+          "Microsoft.AspNetCore.Authentication.Google": "6.0.7",
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "6.0.7",
           "Microsoft.EntityFrameworkCore.Design": "6.0.7",
           "Microsoft.Extensions.DependencyInjection": "6.0.0",
@@ -514,6 +515,17 @@
         },
         "compile": {
           "lib/net6.0/Microsoft.AspNetCore.Authentication.Facebook.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.Google/6.0.7": {
+        "runtime": {
+          "lib/net6.0/Microsoft.AspNetCore.Authentication.Google.dll": {
+            "assemblyVersion": "6.0.7.0",
+            "fileVersion": "6.0.722.32205"
+          }
+        },
+        "compile": {
+          "lib/net6.0/Microsoft.AspNetCore.Authentication.Google.dll": {}
         }
       },
       "Microsoft.AspNetCore.Authorization/2.2.0": {
@@ -3839,6 +3851,13 @@
       "sha512": "sha512-SosckGBoItf/qBBEfwc6uEhbYl70OcuZRdVj6m8lLaL0/wApw1MNe2bwWhWUsbXq8VxC95zi1liBEPKNO6rZ8w==",
       "path": "microsoft.aspnetcore.authentication.facebook/6.0.7",
       "hashPath": "microsoft.aspnetcore.authentication.facebook.6.0.7.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Authentication.Google/6.0.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JMmRAvF7EWVTJuREutLIiXZZdnQsu0iMLXr+pN95TxEIcwmLq11EEJ57QzG/5qq77Whc4MWwhXvmg5RC0v5/Zg==",
+      "path": "microsoft.aspnetcore.authentication.google/6.0.7",
+      "hashPath": "microsoft.aspnetcore.authentication.google.6.0.7.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authorization/2.2.0": {
       "type": "package",
