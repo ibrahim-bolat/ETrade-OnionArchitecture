@@ -50,11 +50,6 @@ public class SetDeletedUserCommandHandler : IRequestHandler<SetDeletedUserComman
                         Result = new Result(ResultStatus.Error, Messages.UserNotUpdateSecurityStamp, result.Errors.ToList())
                     };
                 }
-                string userIdentityName = _httpContextAccessor.HttpContext?.User.Identity?.Name;
-                if (!string.IsNullOrEmpty(userIdentityName) && user.UserName.Equals(userIdentityName))
-                {
-                    await _signInManager.RefreshSignInAsync(user);
-                }
                 return new SetDeletedUserCommandResponse
                 {
                     Result = new Result(ResultStatus.Success, Messages.UserUpdated)

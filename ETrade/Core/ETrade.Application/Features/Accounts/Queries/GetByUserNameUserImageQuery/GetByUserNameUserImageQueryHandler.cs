@@ -24,7 +24,7 @@ public class GetByUserNameUserImageQueryHandler:IRequestHandler<GetByUserNameUse
     public async Task<GetByUserNameUserImageQueryResponse> Handle(GetByUserNameUserImageQueryRequest request, CancellationToken cancellationToken)
     {
         AppUser user = await _userManager.Users.Include(x => x.UserImages.Where(a => a.IsActive))
-            .FirstOrDefaultAsync(x => x.UserName == request.UserName && x.IsActive);
+            .FirstOrDefaultAsync(x => x.UserName == request.UserName);
         if (user != null)
         {
             if (user.IsActive)

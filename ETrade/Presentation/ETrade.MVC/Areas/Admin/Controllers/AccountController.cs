@@ -172,6 +172,12 @@ public class AccountController : Controller
         {
             IsPersistent = isPersistent
         });
+        if (dresult.Result.ResultStatus == ResultStatus.Error &&
+            dresult.Result.Message.Equals(Messages.UserNotActive))
+        {
+            ModelState.AddModelError("UserNotActive", Messages.UserNotActive);
+            return View("Login");
+        }
         if (dresult.Result.ResultStatus == ResultStatus.Success)
         {
             if (returnUrl.Equals("Index") || returnUrl.Equals("/"))
@@ -419,7 +425,6 @@ public class AccountController : Controller
         {
             return View(dresult.Result.Data);
         }
-
         return RedirectToAction("Index", "Error", new { area = "", statusCode = 400 });
     }
 }

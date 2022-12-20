@@ -30,15 +30,21 @@ public class ExternalLoginUserCommandHandler : IRequestHandler<ExternalLoginUser
                 Result = new Result(ResultStatus.Error, Messages.LoginInfoNotFound)
             };
         }
-
+        AppUser loginUser = await _userManager.FindByEmailAsync(loginInfo.Principal.FindFirstValue(ClaimTypes.Email));
+        if (loginUser!=null && loginUser.IsDeleted)
+        {
+            return new ExternalLoginUserCommandResponse{
+                Result = new Result(ResultStatus.Error, Messages.UserNotActive)
+            };
+        }
         SignInResult loginResult = await _signInManager.ExternalLoginSignInAsync(loginInfo.LoginProvider,
             loginInfo.ProviderKey, request.IsPersistent);
         if (loginResult.Succeeded)
         {
             return new ExternalLoginUserCommandResponse
-            {
-                Result = new Result(ResultStatus.Success, Messages.UserLoggedIn)
-            };
+                {
+                    Result = new Result(ResultStatus.Success, Messages.UserLoggedIn)
+                };
         }
         AppUser user = new AppUser
         {
