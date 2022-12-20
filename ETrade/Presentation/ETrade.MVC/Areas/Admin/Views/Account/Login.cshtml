@@ -48,113 +48,16 @@
 </div>
 
 @section Scripts {
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var loginMessage = '@TempData["LoginSuccess"]';
-        var facebookLoginMessage = '@TempData["facebookLoginStatus"]';
-        var googleLoginMessage = '@TempData["googleLoginStatus"]';
-        var updatePasswordMessage = '@TempData["UpdatePasswordStatus"]';
-        if (loginMessage)
-        {
-            const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 5000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('click', Swal.close)
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-            })
-
-            Toast.fire({
-            icon: 'success',
-            title: 'Tebrikler Kayıt Oldunuz',
-            text: 'Artık giriş yapabilirsiniz.',
-            })
-
-        }
-        if (updatePasswordMessage==="True")
-        {
-            const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 5000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('click', Swal.close)
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-            })
-
-            Toast.fire({
-            icon: 'success',
-            title: 'Tebrikler Şifre Güncellendi.',
-            text: 'Şifre Güncelleme İşlemi Başarıyla Gerçekleşmiştir.',
-            })
-        }
-         if (facebookLoginMessage===false)
-        {
-            const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 5000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('click', Swal.close)
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-            })
-            Toast.fire({
-            icon: 'error',
-            title: 'Hata',
-            text: 'Facebook ile Giriş İşleminiz Başarısız Oldu!',
-            })
-        }
-          if (googleLoginMessage===false)
-         {
-             const Toast = Swal.mixin({
-             toast: true,
-             position: 'top-end',
-             showConfirmButton: false,
-             timer: 5000,
-             timerProgressBar: true,
-             didOpen: (toast) => {
-                 toast.addEventListener('click', Swal.close)
-                 toast.addEventListener('mouseenter', Swal.stopTimer)
-                 toast.addEventListener('mouseleave', Swal.resumeTimer)
-             }
-             })
-             Toast.fire({
-             icon: 'error',
-             title: 'Hata',
-             text: 'Google ile Giriş İşleminiz Başarısız Oldu!',
-             })
-         }
-          var externalLoginProvider = document.getElementsByClassName("externallogin");
-          for (i = 0; i < externalLoginProvider.length; i++) {
-              externalLoginProvider[i].addEventListener("click", externalLogin);
-          }
-          function externalLogin(event){
-             event.preventDefault(); 
-             const id = this.getAttribute("id");
-             const returnUrl = this.getAttribute("data-returnUrl");
-             const isPersistent = document.getElementById("loginIsPersistent").checked;
-             let providerName;
-             if (id.trim()==="facebookLoginButton"){
-                 providerName="Facebook";
-             }
-             if (id.trim()==="googleLoginButton"){
-                 providerName="Google";
-             }
-             window.location.href = '@(Url.Action("ExternalLogin", "Account", new { area = "Admin" }))'+ '?providerName='+ providerName + '&isPersistent=' + isPersistent+'&returnUrl='+returnUrl;
-         }
-    });
-</script>
+        <script src="~/js/inputmask/jquery.inputmask.min.js"></script>
+        <script>
+                var app = app || {};
+                app.ToastMessages = app.ToastMessages || {};
+                app.Urls = app.Urls || {};
+                app.Urls.externalLoginUrl = '@(Url.Action("ExternalLogin", "Account", new { area = "Admin" }))';
+                app.ToastMessages.loginMessage = '@TempData["LoginSuccess"]';
+                app.ToastMessages.facebookLoginMessage = '@TempData["facebookLoginStatus"]';
+                app.ToastMessages.googleLoginMessage = '@TempData["googleLoginStatus"]';
+                app.ToastMessages.updatePasswordMessage = '@TempData["UpdatePasswordStatus"]';
+        </script>
+        <script src="~/admin/js/Account/account.js"></script>
 }

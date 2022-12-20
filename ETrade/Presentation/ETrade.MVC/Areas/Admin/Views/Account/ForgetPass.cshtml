@@ -21,52 +21,12 @@
     </form>
 </div>
 @section Scripts {
+    <script src="~/js/inputmask/jquery.inputmask.min.js"></script>
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var emailSendMessage = '@TempData["EmailSendStatus"]';
-        if (emailSendMessage==="True")
-        {
-            const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 5000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('click', Swal.close)
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-            })
-
-            Toast.fire({
-            icon: 'success',
-            title: 'Doğrulama Maili Gönderildi.',
-            text: 'Şifre talebi için e-posta adresinize bilgilerindirici mail gönderilmiştir.',
-            })
-
-        }
-        if(emailSendMessage==="False"){
-            const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 5000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                 toast.addEventListener('click', Swal.close)
-                 toast.addEventListener('mouseenter', Swal.stopTimer)
-                 toast.addEventListener('mouseleave', Swal.resumeTimer)
-              }
-            })
-            
-            Toast.fire({
-            icon: 'error',
-            title: 'Doğrulama Maili Gönderilemedi!!!',
-            text: 'Şifre talebi için mail gönderme işleminde hata oluştu. Lütfen mail sunucu bilgilerini kontrol ediniz!',
-            })
-        }
-       
-});
-</script>
+            var app = app || {};
+            app.ToastMessages = app.ToastMessages || {};
+            app.Urls = app.Urls || {};
+            app.ToastMessages.emailSendMessage = '@TempData["EmailSendStatus"]';
+    </script>
+    <script src="~/admin/js/Account/account.js"></script>
 }
