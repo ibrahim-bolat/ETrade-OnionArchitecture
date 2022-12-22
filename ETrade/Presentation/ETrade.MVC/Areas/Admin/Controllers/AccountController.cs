@@ -111,10 +111,10 @@ public class AccountController : Controller
             if (dresult.Result.ResultStatus == ResultStatus.Success)
             {
                 if (string.IsNullOrEmpty(TempData["returnUrl"] != null ? TempData["returnUrl"].ToString() : ""))
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home",new { area = "Admin" });
                 if (TempData["returnUrl"]!.Equals("Index") || TempData["returnUrl"].Equals("/"))
-                    return RedirectToAction("Index", "Home");
-                return Redirect(TempData["returnUrl"].ToString()!);
+                    return RedirectToAction("Index", "Home",new { area = "Admin" });
+                return LocalRedirect(TempData["returnUrl"].ToString()!);
             }
 
             if (dresult.Result.ResultStatus == ResultStatus.Error &&
@@ -184,7 +184,7 @@ public class AccountController : Controller
             {
                 return RedirectToAction("Index", "Home",new { area="Admin" });
             }
-            return Redirect(returnUrl);
+            return LocalRedirect(returnUrl);
         }
         TempData[$"{providerName}LoginStatus"] = false;
         return RedirectToAction("Login", "Account", new { area = "Admin" });
