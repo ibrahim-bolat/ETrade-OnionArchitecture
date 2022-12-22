@@ -20,18 +20,7 @@
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
-<script>
-// url fix after facebook login
-    document.addEventListener("DOMContentLoaded", function() {
-         if (window.location.hash === "#_=_"){
-             if (history.replaceState) {
-                 var cleanHref = window.location.href.split("#")[0];
-                 history.replaceState(null, null, cleanHref);
-             } else {
-                 window.location.hash = "";
-             }
-         }
-    });
-</script>
+<script src="~/js/Common/common.js"></script>
+@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

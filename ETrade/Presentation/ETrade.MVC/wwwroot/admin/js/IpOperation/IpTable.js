@@ -128,14 +128,14 @@ $(document).ready(function ($) {
                     $(".modal-fade").modal("hide");
                     $(".modal-backdrop").remove();
                     clearCreateModalTextBox();
-                    toastMessage(5000, "success", "IP Başarıyla OLuşturuldu")
+                    toastMessage(5000,"success","Tebrikler.", "IP Başarıyla Oluşturuldu.");
                 } else {
                     var mytag=$('<div></div>').html(result);
                     $('#createModalFormModalBody').html(mytag.find(".modal-body").html());
                 }
             },
             error: function (errormessage) {
-                toastMessage(3000, "error", "IP Oluşturulamadı")
+                toastMessage(3000,"error","Hata.", "IP Oluşturulamadı");
             }
         });
         return false;
@@ -155,14 +155,14 @@ $(document).ready(function ($) {
                     $(".modal-fade").modal("hide");
                     $(".modal-backdrop").remove();
                     clearUpdateModalTextBox();
-                    toastMessage(5000, "success", "IP Başarıyla Güncellendi")
+                    toastMessage(5000,"success","Tebrikler.", "IP Başarıyla Güncellendi.");
                 } else {
                     var mytag=$('<div></div>').html(result);
                     $('#updateModalFormModalBody').html(mytag.find(".modal-body").html());
                 }
             },
             error: function (errormessage) {
-                toastMessage(3000, "error", "IP Güncellenemedi")
+                toastMessage(3000,"error","Hata.", "IP Güncellenemedi");
             }
         });
         return false;
@@ -181,6 +181,28 @@ $(document).ready(function ($) {
         var updateModalForm = $(this).find("#updateModalForm");
         ResetValidation(updateModalForm);
         clearUpdateModalTextBox();
+    });
+
+    //IP Input Mask
+    var createRangeStart = $('#createRangeStart');
+    var createRangeEnd = $('#createRangeEnd');
+    var updateRangeStart = $('#updateRangeStart');
+    var updateRangeEnd = $('#updateRangeEnd');
+    createRangeStart.inputmask({
+        alias: "ip",
+        greedy: false
+    });
+    createRangeEnd.inputmask({
+        alias: "ip",
+        greedy: false
+    });
+    updateRangeStart.inputmask({
+        alias: "ip",
+        greedy: false
+    });
+    updateRangeEnd.inputmask({
+        alias: "ip",
+        greedy: false
     });
 
 });
@@ -202,12 +224,12 @@ function getByIdforUpdate(Id) {
                 $('#updateIpListType').val(result.ip.IpListType);
                 $('#ipUpdateModal').modal('show');
             } else {
-                toastMessage(3000, "error", "IP Getirilemedi")
+                toastMessage(3000,"error","Hata.", "IP Getirilemedi");
             }
 
         },
         error: function (errormessage) {
-            toastMessage(3000, "error", "IP Getirilemedi")
+            toastMessage(3000,"error","Hata.", "IP Getirilemedi");
         }
     });
     return false;
@@ -385,8 +407,9 @@ function ReloadTable() {
     $('#ipTable').DataTable().ajax.reload(null,false);
 }
 
-//Action Message
-function toastMessage(time, icon, message) {
+
+//Toast Message
+function toastMessage(time, icon,title,text) {
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -399,9 +422,9 @@ function toastMessage(time, icon, message) {
             toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
     })
-
     Toast.fire({
         icon: icon,
-        title: message,
+        title: title,
+        text: text
     })
-}                  
+}                

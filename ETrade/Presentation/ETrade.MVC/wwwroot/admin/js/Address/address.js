@@ -1,10 +1,12 @@
 ﻿var $=jQuery.noConflict();
 $(document).ready(function ($) {
     <!-- Phone Input Mask -->
+    
     $("#phonemasc").inputmask("+\\90(999)999-99-99");
     $(document).on("ajaxComplete", function(e){
         $("#phonemasc").inputmask("+\\90(999)999-99-99");
     });
+    
     //GetAllDistrictsByCityId
     $(".addressForm").on('change', '#cityId', function () {
         $("#districtId").empty();
@@ -139,8 +141,14 @@ $(document).ready(function ($) {
             return false;
         });
     });
+
+    <!-- CreateAddress -->
+    if(app.ToastMessages.createAddressMessage==="True"){
+        toastMessage(5000,"success","Adres Kaydedildi",
+            "Adres Kaydetme İşlemi Başarıyla Gerçekleştirildi.");
+    }
     
-    //Action Message
+    //Toast Message
     function toastMessage(time, icon,title,text) {
         const Toast = Swal.mixin({
             toast: true,

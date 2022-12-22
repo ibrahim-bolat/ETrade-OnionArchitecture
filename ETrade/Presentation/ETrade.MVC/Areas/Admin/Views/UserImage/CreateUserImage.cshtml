@@ -123,33 +123,12 @@
     </div> <!-- .content -->
 
 @section Scripts {
-        <script src="~/lib/fancybox/js/jquery.fancybox.min.js"></script>
-        <script src="~/admin/js/UserImage/userImage.js"></script>
+    <script src="~/lib/fancybox/js/jquery.fancybox.min.js"></script>
     <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    var addAddressMessage = '@TempData["CreateUserImageSuccess"]';
-                    if (addAddressMessage)
-                    {
-                        const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 5000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener('click', Swal.close)
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                        })
-            
-                     Toast.fire({
-                    icon: 'success',
-                    title: 'Resim Eklendi',
-                    text: 'Resim Ekleme İşlemi Başarıyla Gerçekleştirildi.',
-                        })
-            
-                    }
-            });
-        </script>
+        var app = app || {};
+        app.Urls = app.Urls || {};
+        app.ToastMessages = app.ToastMessages || {};
+        app.ToastMessages.createUserImageMessage = '@TempData["CreateUserImageSuccess"]';
+    </script>
+    <script src="~/admin/js/UserImage/userImage.js"></script>
 }

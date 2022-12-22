@@ -356,8 +356,23 @@ function ReloadTable() {
     $('#userTable').DataTable().ajax.reload(null,false);
 }
 
-//Action Message
-function toastMessage(time, icon, message) {
+
+<!-- Index -->
+if(app.ToastMessages.registerMessage==="True"){
+    toastMessage(5000,"success","Kullanıcı Kaydedildi.",
+        "Kullanıcı Kaydetme İşlemi Başarıyla Gerçekleştirildi.");
+}
+if(app.ToastMessages.editProfileMessage==="True"){
+    toastMessage(5000,"success","Kullanıcı Güncellendi.",
+        "Kullanıcı Güncelleme İşlemi Başarıyla Gerçekleştirildi.");
+}
+if(app.ToastMessages.editPasswordMessage==="True"){
+    toastMessage(5000,"success","Şifre Güncellendi.",
+        "Şifre Güncelleme İşlemi Başarıyla Gerçekleştirildi.");
+}
+
+<!-- Toast Message -->
+function toastMessage(time, icon,title,text) {
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -370,9 +385,9 @@ function toastMessage(time, icon, message) {
             toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
     })
-
     Toast.fire({
         icon: icon,
-        title: message,
+        title: title,
+        text: text
     })
-}                  
+}                

@@ -1,4 +1,5 @@
-(function($) {
+var $=jQuery.noConflict();
+$(document).ready(function ($) {
     $(".userImageSetProfilButton").on("click", function() {
         var Id = $(this).attr("data-id");
         var userId = $(this).attr("data-userid");
@@ -100,4 +101,31 @@
             return false;
         });
     });
-})(jQuery);
+
+    <!-- CreateUserImage -->
+    if(app.ToastMessages.createUserImageMessage==="True"){
+        toastMessage(5000,"success","Resim Eklendi.",
+            "Resim Ekleme İşlemi Başarıyla Gerçekleştirildi.");
+    }
+
+    <!-- Toast Message -->
+    function toastMessage(time, icon,title,text) {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: time,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('click', Swal.close)
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+        Toast.fire({
+            icon: icon,
+            title: title,
+            text: text
+        })
+    }
+});
