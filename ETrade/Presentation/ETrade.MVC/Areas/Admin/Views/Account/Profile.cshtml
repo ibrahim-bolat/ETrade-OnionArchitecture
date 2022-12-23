@@ -203,12 +203,12 @@
 @section Scripts {
         <script src="~/js/inputmask/jquery.inputmask.min.js"></script>
         <script src="~/lib/fancybox/js/jquery.fancybox.min.js"></script>
-        <script src="~/admin/js/UserImage/userImage.js"></script>
-        <script>
+        <script src="~/admin/js/UserImage/userImage.js" asp-append-version="true"></script>
+        <script asp-append-version="true">
             var app = app || {};
             app.Urls = app.Urls || {};
             app.ToastMessages = app.ToastMessages || {};
             app.ToastMessages.updateAddressMessage = '@TempData["UpdateAddressSuccess"]';
         </script>
-        <script src="~/admin/js/Account/account.js"></script>
+        <script src="~/admin/js/Account/account.js" asp-append-version="true"></script>
 }

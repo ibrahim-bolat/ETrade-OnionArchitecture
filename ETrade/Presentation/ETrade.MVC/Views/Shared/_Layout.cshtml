@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="~/css/jquery-ui.min.css">
         <link rel="stylesheet" href="~/css/owl.carousel.min.css">
         <link rel="stylesheet" href="~/css/slicknav.min.css">
-        <link rel="stylesheet" href="~/css/style.css">
+        <link rel="stylesheet" href="~/css/style.css" asp-append-version="true">
 </head>
 <body>
     <!-- Page Preloder Begin -->
@@ -73,8 +73,8 @@
 <script src="~/js/jquery.slicknav.js"></script>
 <script src="~/js/mixitup.min.js"></script>
 <script src="~/js/owl.carousel.min.js"></script>
-<script src="~/js/main.js"></script>
-<script src="~/js/Common/common.js"></script>
+<script src="~/js/main.js" asp-append-version="true"></script>
+<script src="~/js/Common/alllayouts.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

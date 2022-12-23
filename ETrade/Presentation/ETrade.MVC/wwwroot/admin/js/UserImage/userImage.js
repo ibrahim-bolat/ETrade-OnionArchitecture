@@ -51,6 +51,7 @@ $(document).ready(function ($) {
             return false;
         });
     });
+    
     $(".userImageDeleteProfilButton").on("click", function() {
         var Id = $(this).attr("data-id");
         var userId = $(this).attr("data-userid");

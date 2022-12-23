@@ -6,29 +6,29 @@ $(document).ready(function ($) {
 
     <!-- Forget Pass -->
     if(app.ToastMessages.emailSendMessage==="True"){
-        toastMessage(5000,"success","Doğrulama Maili Gönderildi.",
+        toastMessage(3000,"success","Doğrulama Maili Gönderildi.",
             "Şifre talebi için e-posta adresinize bilgilerindirici mail gönderilmiştir.");
     }
     if(app.ToastMessages.emailSendMessage==="False"){
-        toastMessage(5000,"error","Doğrulama Maili Gönderilemedi!!!",
+        toastMessage(3000,"error","Doğrulama Maili Gönderilemedi!!!",
             "Şifre talebi için mail gönderme işleminde hata oluştu. Lütfen mail sunucu bilgilerini kontrol ediniz!");
     }
 
     <!-- Login -->
     if(app.ToastMessages.loginMessage==="True"){
-        toastMessage(5000,"success","Tebrikler Kayıt Oldunuz.",
+        toastMessage(3000,"success","Tebrikler Kayıt Oldunuz.",
             "Artık giriş yapabilirsiniz.");
     }    
     if(app.ToastMessages.updatePasswordMessage==="True"){
-        toastMessage(5000,"success","Tebrikler Şifre Güncellendi.",
+        toastMessage(3000,"success","Tebrikler Şifre Güncellendi.",
             "Şifre Güncelleme İşlemi Başarıyla Gerçekleşmiştir.");
     }
     if(app.ToastMessages.facebookLoginMessage==="False"){
-        toastMessage(5000,"error","Facebook ile Giriş Hatalı",
+        toastMessage(3000,"error","Facebook ile Giriş Hatalı",
             "Facebook ile Giriş İşleminiz Başarısız Oldu!");
     }
     if(app.ToastMessages.googleLoginMessage==="False"){
-        toastMessage(5000,"error","Google ile Giriş Hatalı",
+        toastMessage(3000,"error","Google ile Giriş Hatalı",
             "Google ile Giriş İşleminiz Başarısız Oldu!");
     }
     
@@ -49,13 +49,13 @@ $(document).ready(function ($) {
 
     <!-- Profile -->
     if(app.ToastMessages.updateAddressMessage==="True"){
-        toastMessage(5000,"success","Tebrikler",
+        toastMessage(3000,"success","Tebrikler",
             "Adres Başarıyla Güncellendi.");
     }
 
     <!-- UpdatePassword -->
     if(app.ToastMessages.updatePasswordMessage==="False"){
-        toastMessage(5000,"error","Hata! Şifre Güncellenemedi!!!",
+        toastMessage(3000,"error","Hata! Şifre Güncellenemedi!!!",
             "Şifreyi güncellerken beklenmeyen hatayla karşılaşıldı.Kurallara uygun şifre oluşturmayı deneyiniz!");
     }
 

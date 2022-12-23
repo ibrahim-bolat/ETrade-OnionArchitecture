@@ -124,11 +124,11 @@
 
 @section Scripts {
     <script src="~/lib/fancybox/js/jquery.fancybox.min.js"></script>
-    <script>
+    <script asp-append-version="true">
         var app = app || {};
         app.Urls = app.Urls || {};
         app.ToastMessages = app.ToastMessages || {};
         app.ToastMessages.createUserImageMessage = '@TempData["CreateUserImageSuccess"]';
     </script>
-    <script src="~/admin/js/UserImage/userImage.js"></script>
+    <script src="~/admin/js/UserImage/userImage.js" asp-append-version="true"></script>
 }

@@ -128,7 +128,7 @@ $(document).ready(function ($) {
                     $(".modal-fade").modal("hide");
                     $(".modal-backdrop").remove();
                     clearCreateModalTextBox();
-                    toastMessage(5000,"success","Tebrikler.", "IP Başarıyla Oluşturuldu.");
+                    toastMessage(3000,"success","Tebrikler.", "IP Başarıyla Oluşturuldu.");
                 } else {
                     var mytag=$('<div></div>').html(result);
                     $('#createModalFormModalBody').html(mytag.find(".modal-body").html());
@@ -155,7 +155,7 @@ $(document).ready(function ($) {
                     $(".modal-fade").modal("hide");
                     $(".modal-backdrop").remove();
                     clearUpdateModalTextBox();
-                    toastMessage(5000,"success","Tebrikler.", "IP Başarıyla Güncellendi.");
+                    toastMessage(3000,"success","Tebrikler.", "IP Başarıyla Güncellendi.");
                 } else {
                     var mytag=$('<div></div>').html(result);
                     $('#updateModalFormModalBody').html(mytag.find(".modal-body").html());
@@ -406,7 +406,6 @@ function ReloadTable() {
     // $('#example').DataTable().clear();                                                        
     $('#ipTable').DataTable().ajax.reload(null,false);
 }
-
 
 //Toast Message
 function toastMessage(time, icon,title,text) {

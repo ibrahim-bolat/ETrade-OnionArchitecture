@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/admin/fonts/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/icons/themify-icons/css/themify-icons.css">
     <link rel="stylesheet" href="~/icons/flag-icon/css/flag-icon.min.css">
-    <link rel="stylesheet" href="~/admin/css/admin.css"/>
+    <link rel="stylesheet" href="~/admin/css/admin.css" asp-append-version="true"/>
 
     <link rel="stylesheet" href="~/admin/fonts/googlefonts/css/googlefonts.css">
     @await RenderSectionAsync("Style", required: false)
@@ -36,8 +36,8 @@
 @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 <script src="~/js/sweetalert2/sweetalert2.all.min.js"></script>
 <script src="~/admin/js/admin.js" asp-append-version="true"></script>
-<script src="~/admin/js/AdminLayout/adminlayout.js"></script>
-<script src="~/js/Common/common.js"></script>
+<script src="~/admin/js/AdminLayout/adminlayout.js" asp-append-version="true"></script>
+<script src="~/js/Common/alllayouts.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

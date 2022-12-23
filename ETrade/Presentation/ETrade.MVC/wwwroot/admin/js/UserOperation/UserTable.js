@@ -119,14 +119,14 @@ $(document).ready(function ($) {
                     $(".modal-fade").modal("hide");
                     $(".modal-backdrop").remove();
                     clearCreateModalTextBox();
-                    toastMessage(5000, "success", "Kayıt Başarıyla Eklendi")
+                    toastMessage(3000, "success", "Tebrikler","Kayıt Başarıyla Eklendi");
                 } else {
                     var mytag=$('<div></div>').html(result);
                     $('#createModalFormModalBody').html(mytag.find(".modal-body").html());
                 }
             },
             error: function (errormessage) {
-                toastMessage(3000, "error", "Kayıt Eklenemedi")
+                toastMessage(3000, "error", "Hata","Kayıt Eklenemedi");
             }
         });
         return false;
@@ -147,13 +147,13 @@ $(document).ready(function ($) {
                     ReloadTable();
                     $('#userDeleteModal').modal('hide');
                     clearDeleteModalTextBox();
-                    toastMessage(5000, "success", "Kayıt Başarıyla Silindi")
+                    toastMessage(3000, "success", "Tebrikler","Kayıt Başarıyla Silindi");
                 } else {
-                    toastMessage(3000, "error", "Kayıt Siinemedi")
+                    toastMessage(3000, "error", "Hata","Kayıt Silinemedi");
                 }
             },
             error: function (errormessage) {
-                toastMessage(3000, "error", "Kayıt Siinemedi")
+                toastMessage(3000, "error", "Hata","Kayıt Silinemedi");
             }
         });
         return false;
@@ -177,13 +177,13 @@ $(document).ready(function ($) {
             success: function (result) {
                 if (result.success) {
                     $("#roleModal").modal("hide");
-                    toastMessage(5000, "success", "Rol Atama Başarıyla Gerçekleşti")
+                    toastMessage(3000, "success", "Tebrikler","Rol Atama Başarıyla Gerçekleşti");
                 } else {
-                    toastMessage(3000, "error", "Rol Atama İşlemi Yapılamadı!")
+                    toastMessage(3000, "error", "Hata","Rol Atama İşlemi Yapılamadı!");
                 }
             },
             error: function (errormessage) {
-                toastMessage(3000, "error", "Rol Atama İşlemi Yapılamadı!")
+                toastMessage(3000, "error", "Hata","Rol Atama İşlemi Yapılamadı!");
             }
         });
         return false;
@@ -196,6 +196,20 @@ $(document).ready(function ($) {
         clearCreateModalTextBox();
     });
     
+    <!-- Index -->
+    if(app.ToastMessages.registerMessage==="True"){
+        toastMessage(3000,"success","Kullanıcı Kaydedildi.",
+            "Kullanıcı Kaydetme İşlemi Başarıyla Gerçekleştirildi.");
+    }
+    if(app.ToastMessages.editProfileMessage==="True"){
+        toastMessage(3000,"success","Kullanıcı Güncellendi.",
+            "Kullanıcı Güncelleme İşlemi Başarıyla Gerçekleştirildi.");
+    }
+    if(app.ToastMessages.editPasswordMessage==="True"){
+        toastMessage(3000,"success","Şifre Güncellendi.",
+            "Şifre Güncelleme İşlemi Başarıyla Gerçekleştirildi.");
+    }
+
 });
 
 //Get Role By Id For Update
@@ -228,12 +242,12 @@ function getRole(Id) {
                 $('#roleModal .modal-body').html(html);
                 $('#roleModal').modal('show');
             } else {
-                toastMessage(3000, "error", "Roller Getirilemedi")
+                toastMessage(3000, "error", "Hata","Roller Getirilemedi");
             }
 
         },
         error: function (errormessage) {
-            toastMessage(3000, "error", "Roller Getirilemedi")
+            toastMessage(3000, "error", "Hata","Roller Getirilemedi");
         }
     });
     return false;
@@ -257,12 +271,12 @@ function getByIdforDelete(Id) {
                 $('#deleteEmail').val(result.user.Email);
                 $('#userDeleteModal').modal('show');
             } else {
-                toastMessage(3000, "error", "Kayıt Getirilemedi")
+                toastMessage(3000, "error","Hata", "Kayıt Getirilemedi");
             }
 
         },
         error: function (errormessage) {
-            toastMessage(3000, "error", "Kayıt Getirilemedi")
+            toastMessage(3000, "error", "Hata","Kayıt Getirilemedi");
         }
     });
     return false;
@@ -354,21 +368,6 @@ function disabledDeleteModalTextBox(value = true) {
 function ReloadTable() {
     // $('#example').DataTable().clear();                                                        
     $('#userTable').DataTable().ajax.reload(null,false);
-}
-
-
-<!-- Index -->
-if(app.ToastMessages.registerMessage==="True"){
-    toastMessage(5000,"success","Kullanıcı Kaydedildi.",
-        "Kullanıcı Kaydetme İşlemi Başarıyla Gerçekleştirildi.");
-}
-if(app.ToastMessages.editProfileMessage==="True"){
-    toastMessage(5000,"success","Kullanıcı Güncellendi.",
-        "Kullanıcı Güncelleme İşlemi Başarıyla Gerçekleştirildi.");
-}
-if(app.ToastMessages.editPasswordMessage==="True"){
-    toastMessage(5000,"success","Şifre Güncellendi.",
-        "Şifre Güncelleme İşlemi Başarıyla Gerçekleştirildi.");
 }
 
 <!-- Toast Message -->

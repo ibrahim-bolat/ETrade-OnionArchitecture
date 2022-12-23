@@ -86,14 +86,14 @@ $(document).ready(function ($) {
                     $(".modal-fade").modal("hide");
                     $(".modal-backdrop").remove();
                     clearCreateModalTextBox();
-                    toastMessage(5000, "success", "Rol Başarıyla OLuşturuldu")
+                    toastMessage(3000, "success", "Tebrikler","Rol Başarıyla OLuşturuldu");
                 } else {
                     var mytag=$('<div></div>').html(result);
                     $('#createModalFormModalBody').html(mytag.find(".modal-body").html());
                 }
             },
             error: function (errormessage) {
-                toastMessage(3000, "error", "Rol Oluşturulamadı")
+                toastMessage(3000, "error", "Hata","Rol Oluşturulamadı");
             }
         });
         return false;
@@ -113,14 +113,14 @@ $(document).ready(function ($) {
                     $(".modal-fade").modal("hide");
                     $(".modal-backdrop").remove();
                     clearUpdateModalTextBox();
-                    toastMessage(5000, "success", "Rol Başarıyla Güncellendi")
+                    toastMessage(3000, "success", "Tebrikler","Rol Başarıyla Güncellendi");
                 } else {
                     var mytag=$('<div></div>').html(result);
                     $('#updateModalFormModalBody').html(mytag.find(".modal-body").html());
                 }
             },
             error: function (errormessage) {
-                toastMessage(3000, "error", "Rol Güncellenemedi")
+                toastMessage(3000, "error", "Hata","Rol Güncellenemedi");
             }
         });
         return false;
@@ -156,12 +156,12 @@ function getByIdforUpdate(Id) {
                 $('#updateName').val(result.role.Name);
                 $('#roleUpdateModal').modal('show');
             } else {
-                toastMessage(3000, "error", "Role Getirilemedi")
+                toastMessage(3000, "error", "Hata","Role Getirilemedi");
             }
 
         },
         error: function (errormessage) {
-            toastMessage(3000, "error", "Role Getirilemedi")
+            toastMessage(3000, "error", "Hata","Role Getirilemedi");
         }
     });
     return false;
@@ -316,8 +316,8 @@ function ReloadTable() {
     $('#roleTable').DataTable().ajax.reload(null,false);
 }
 
-//Action Message
-function toastMessage(time, icon, message) {
+//Toast Message
+function toastMessage(time, icon,title,text) {
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -330,9 +330,9 @@ function toastMessage(time, icon, message) {
             toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
     })
-
     Toast.fire({
         icon: icon,
-        title: message,
+        title: title,
+        text: text
     })
 }                  

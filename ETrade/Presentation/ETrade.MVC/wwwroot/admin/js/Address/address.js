@@ -28,11 +28,11 @@ $(document).ready(function ($) {
                     });
                 }
                 else {
-                    toastMessage(3000, "error", "Dikkat","İlçe Getirilemedi")
+                    toastMessage(3000, "error", "Dikkat","İlçe Getirilemedi");
                 }
             },
             error: function (errormessage) {
-                toastMessage(3000, "error", "Dikkat","İlçe Getirilemedi")
+                toastMessage(3000, "error", "Dikkat","İlçe Getirilemedi");
             }
         });
     });
@@ -56,11 +56,11 @@ $(document).ready(function ($) {
                     });
                 }
                 else {
-                    toastMessage(3000, "error", "Dikkat","Mahalle ya da Köy Getirilemedi")
+                    toastMessage(3000, "error", "Dikkat","Mahalle ya da Köy Getirilemedi");
                 }
             },
             error: function (errormessage) {
-                toastMessage(3000, "error", "Dikkat","Mahalle ya da Köy Getirilemedi")
+                toastMessage(3000, "error", "Dikkat","Mahalle ya da Köy Getirilemedi");
             }
         });
     });
@@ -81,11 +81,11 @@ $(document).ready(function ($) {
                     });
                 }
                 else {
-                    toastMessage(3000, "error", "Dikkat","Cadde ya da Sokak Getirilemedi")
+                    toastMessage(3000, "error", "Dikkat","Cadde ya da Sokak Getirilemedi");
                 }
             },
             error: function (errormessage) {
-                toastMessage(3000, "error", "Dikkat","Cadde ya da Sokak Getirilemedi")
+                toastMessage(3000, "error", "Dikkat","Cadde ya da Sokak Getirilemedi");
             }
         });
     });
@@ -144,7 +144,7 @@ $(document).ready(function ($) {
 
     <!-- CreateAddress -->
     if(app.ToastMessages.createAddressMessage==="True"){
-        toastMessage(5000,"success","Adres Kaydedildi",
+        toastMessage(3000,"success","Adres Kaydedildi",
             "Adres Kaydetme İşlemi Başarıyla Gerçekleştirildi.");
     }
     

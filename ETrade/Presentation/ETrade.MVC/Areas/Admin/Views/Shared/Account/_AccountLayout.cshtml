@@ -7,10 +7,8 @@
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/admin/fonts/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="~/admin/css/admin.css"/>
-
     <link rel="stylesheet" href="~/admin/fonts/googlefonts/css/googlefonts.css">
-
+    <link rel="stylesheet" href="~/admin/css/admin.css" asp-append-version="true"/>
 </head>
 
 <body class="bg-dark">
@@ -31,7 +29,7 @@
 @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 <script src="~/js/sweetalert2/sweetalert2.all.min.js"></script>
 <script src="~/admin/js/admin.js" asp-append-version="true"></script>
-<script src="~/js/Common/common.js"></script>
+<script src="~/js/Common/alllayouts.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

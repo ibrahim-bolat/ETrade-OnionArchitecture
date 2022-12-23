@@ -152,7 +152,6 @@ function SetUserActive(Id) {
         }
     });
 }
-    
 
 //Reload DataTable
 function ReloadTable() {

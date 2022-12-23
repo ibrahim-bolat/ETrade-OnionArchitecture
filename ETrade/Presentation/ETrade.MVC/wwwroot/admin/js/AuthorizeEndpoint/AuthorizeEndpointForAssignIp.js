@@ -73,13 +73,13 @@ $(document).ready(function ($) {
             success: function (result) {
                 if (result.success) {
                     $("#endpointIpModal").modal("hide");
-                    toastMessage(5000, "success", "IP Atama Başarıyla Gerçekleşti")
+                    toastMessage(3000, "success", "Tebrikler","IP Atama Başarıyla Gerçekleşti.");
                 } else {
-                    toastMessage(3000, "error", "IP Atama İşlemi Yapılamadı!")
+                    toastMessage(3000, "error", "Hata", "IP Atama İşlemi Yapılamadı!");
                 }
             },
             error: function (errormessage) {
-                toastMessage(3000, "error", "IP Atama İşlemi Yapılamadı!")
+                toastMessage(3000, "error","Hata", "IP Atama İşlemi Yapılamadı!");
             }
         });
         return false;
@@ -105,15 +105,14 @@ $(document).ready(function ($) {
                 $("#endpointIpModal").modal("show");
             },
             error: function (errormessage) {
-                toastMessage(3000, "error", "IP Adresleri Getirilemedi")
+                toastMessage(3000, "error", "Hata","IP Adresleri Getirilemedi");
             }
         });
         return false;
     });
-    
-    
-    //Action Message
-    function toastMessage(time, icon, message) {
+
+    //Toast Message
+    function toastMessage(time, icon,title,text) {
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -126,12 +125,13 @@ $(document).ready(function ($) {
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
-
         Toast.fire({
             icon: icon,
-            title: message,
+            title: title,
+            text: text
         })
     }
+
 });
 
 

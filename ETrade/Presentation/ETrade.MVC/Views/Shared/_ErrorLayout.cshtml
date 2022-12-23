@@ -9,7 +9,7 @@
     <title>@ViewData["Title"] - ErrorPage</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/fonts/errorpage/css/googlefonts.css">
-    <link rel="stylesheet" href="~/css/errorpage.css">
+    <link rel="stylesheet" href="~/css/errorpage.css" asp-append-version="true">
 </head>
 <body>
 <div class="container">
@@ -20,7 +20,7 @@
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
-<script src="~/js/Common/common.js"></script>
+<script src="~/js/Common/alllayouts.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -41,13 +41,13 @@ $(document).ready(function ($) {
             success: function (result) {
                 if (result.success) {
                     $("#endpointRoleModal").modal("hide");
-                    toastMessage(5000, "success", "Rol Atama Başarıyla Gerçekleşti")
+                    toastMessage(3000, "success", "Tebrikler,","Rol Atama Başarıyla Gerçekleşti");
                 } else {
-                    toastMessage(3000, "error", "Rol Atama İşlemi Yapılamadı!")
+                    toastMessage(3000, "error", "Hata","Rol Atama İşlemi Yapılamadı!");
                 }
             },
             error: function (errormessage) {
-                toastMessage(3000, "error", "Rol Atama İşlemi Yapılamadı!")
+                toastMessage(3000, "error", "Hata","Rol Atama İşlemi Yapılamadı!");
             }
         });
         return false;
@@ -84,19 +84,19 @@ function getRolesByEndpointId(Id) {
                 $('#endpointRoleModal .modal-body').html(html);
                 $('#endpointRoleModal').modal('show');
             } else {
-                toastMessage(3000, "error", "Roller Getirilemedi")
+                toastMessage(3000, "error", "Hata","Roller Getirilemedi");
             }
 
         },
         error: function (errormessage) {
-            toastMessage(3000, "error", "Roller Getirilemedi")
+            toastMessage(3000, "error", "Hata","Roller Getirilemedi");
         }
     });
     return false;
 }
 
-//Action Message
-function toastMessage(time, icon, message) {
+//Toast Message
+function toastMessage(time, icon,title,text) {
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -109,9 +109,9 @@ function toastMessage(time, icon, message) {
             toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
     })
-
     Toast.fire({
         icon: icon,
-        title: message,
+        title: title,
+        text: text
     })
 }

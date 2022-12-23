@@ -17,7 +17,7 @@
                         {
                             <div class="row">
                                 <input asp-for="@ip.Id" id="ipID@(ip.Id)" class="form-control" type="hidden"/>
-                                <div class="col-8">
+                                <div class="col-9">
                                     <div class="custom-control custom-switch custom-control-inline">
                                         <input class="custom-control-input" type="checkbox" id="ipHasAssign@(ip.Id)" data-id="@ip.Id"
                                            @(ip.TobeAssignedAreaName!=null ? ("data-areaname=" + ip.TobeAssignedAreaName) : null)
@@ -27,7 +27,7 @@
                                         <label class="custom-control-label" for="ipHasAssign@(ip.Id)">@ip.RangeStart-@ip.RangeEnd</label>
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-3">
                                     <label id="ipListType@(ip.Id)" class="control-label" asp-for="@ip.IpListType">@ip.IpListType</label>
                                 </div>
                             </div>

@@ -150,14 +150,14 @@
         <partial name="PartialViews/_RoleModalPartial" />
     </div>
     @section Scripts {
-        <script src="~/lib/datatables/js/datatables.min.js"></script>
-        <script>
-            var app = app || {};
-            app.Urls = app.Urls || {};
-            app.ToastMessages = app.ToastMessages || {};
-            app.ToastMessages.registerMessage = '@TempData["RegisterSuccess"]';
-            app.ToastMessages.editProfileMessage = '@TempData["EditProfileSuccess"]';
-            app.ToastMessages.editPasswordMessage = '@TempData["EditPasswordSuccess"]';
-        </script>
-    <script src="~/admin/js/UserOperation/UserTable.js"></script>
+    <script src="~/lib/datatables/js/datatables.min.js"></script>
+    <script asp-append-version="true">
+        var app = app || {};
+        app.Urls = app.Urls || {};
+        app.ToastMessages = app.ToastMessages || {};
+        app.ToastMessages.registerMessage = '@TempData["RegisterSuccess"]';
+        app.ToastMessages.editProfileMessage = '@TempData["EditProfileSuccess"]';
+        app.ToastMessages.editPasswordMessage = '@TempData["EditPasswordSuccess"]';
+    </script>
+    <script src="~/admin/js/UserOperation/UserTable.js" asp-append-version="true"></script>
     }
