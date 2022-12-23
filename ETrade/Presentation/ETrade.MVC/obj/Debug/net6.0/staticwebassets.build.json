@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "j3AYaed9wiopktx5Dtq0v0Td2trTfQdDaW41tkozZEU=",
+  "Hash": "9A63dqvsPNqhe6wmAybHm8ili1YR3z7A2af5ddEpuFA=",
   "Source": "ETrade.MVC",
   "BasePath": "_content/ETrade.MVC",
   "Mode": "Default",
@@ -1683,12 +1683,12 @@
       "OriginalItemSpec": "wwwroot/admin/images/userimages/3/profil.jpg"
     },
     {
-      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/Account/account.js",
+      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/account/account.js",
       "SourceId": "ETrade.MVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/",
       "BasePath": "_content/ETrade.MVC",
-      "RelativePath": "admin/js/Account/account.js",
+      "RelativePath": "admin/js/account/account.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1697,15 +1697,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/admin/js/Account/account.js"
+      "OriginalItemSpec": "wwwroot/admin/js/account/account.js"
     },
     {
-      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/Address/address.js",
+      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/address/address.js",
       "SourceId": "ETrade.MVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/",
       "BasePath": "_content/ETrade.MVC",
-      "RelativePath": "admin/js/Address/address.js",
+      "RelativePath": "admin/js/address/address.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1714,7 +1714,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/admin/js/Address/address.js"
+      "OriginalItemSpec": "wwwroot/admin/js/address/address.js"
     },
     {
       "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/admin.js",
@@ -1734,12 +1734,12 @@
       "OriginalItemSpec": "wwwroot/admin/js/admin.js"
     },
     {
-      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/AdminLayout/adminlayout.js",
+      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/adminlayout/adminlayout.js",
       "SourceId": "ETrade.MVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/",
       "BasePath": "_content/ETrade.MVC",
-      "RelativePath": "admin/js/AdminLayout/adminlayout.js",
+      "RelativePath": "admin/js/adminlayout/adminlayout.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1748,15 +1748,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/admin/js/AdminLayout/adminlayout.js"
+      "OriginalItemSpec": "wwwroot/admin/js/adminlayout/adminlayout.js"
     },
     {
-      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/AuthorizeEndpoint/AuthorizeEndpointForAssignIp.js",
+      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/authorizeendpoint/authorizeendpointforassignip.js",
       "SourceId": "ETrade.MVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/",
       "BasePath": "_content/ETrade.MVC",
-      "RelativePath": "admin/js/AuthorizeEndpoint/AuthorizeEndpointForAssignIp.js",
+      "RelativePath": "admin/js/authorizeendpoint/authorizeendpointforassignip.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1765,15 +1765,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/admin/js/AuthorizeEndpoint/AuthorizeEndpointForAssignIp.js"
+      "OriginalItemSpec": "wwwroot/admin/js/authorizeendpoint/authorizeendpointforassignip.js"
     },
     {
-      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/AuthorizeEndpoint/AuthorizeEndpointForAssignRole.js",
+      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/authorizeendpoint/authorizeendpointforassignrole.js",
       "SourceId": "ETrade.MVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/",
       "BasePath": "_content/ETrade.MVC",
-      "RelativePath": "admin/js/AuthorizeEndpoint/AuthorizeEndpointForAssignRole.js",
+      "RelativePath": "admin/js/authorizeendpoint/authorizeendpointforassignrole.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1782,15 +1782,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/admin/js/AuthorizeEndpoint/AuthorizeEndpointForAssignRole.js"
+      "OriginalItemSpec": "wwwroot/admin/js/authorizeendpoint/authorizeendpointforassignrole.js"
     },
     {
-      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/DeletedAccount/DeletedUserTable.js",
+      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/deletedaccount/deletedusertable.js",
       "SourceId": "ETrade.MVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/",
       "BasePath": "_content/ETrade.MVC",
-      "RelativePath": "admin/js/DeletedAccount/DeletedUserTable.js",
+      "RelativePath": "admin/js/deletedaccount/deletedusertable.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1799,15 +1799,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/admin/js/DeletedAccount/DeletedUserTable.js"
+      "OriginalItemSpec": "wwwroot/admin/js/deletedaccount/deletedusertable.js"
     },
     {
-      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/IpOperation/IpTable.js",
+      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/ipoperation/iptable.js",
       "SourceId": "ETrade.MVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/",
       "BasePath": "_content/ETrade.MVC",
-      "RelativePath": "admin/js/IpOperation/IpTable.js",
+      "RelativePath": "admin/js/ipoperation/iptable.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1816,15 +1816,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/admin/js/IpOperation/IpTable.js"
+      "OriginalItemSpec": "wwwroot/admin/js/ipoperation/iptable.js"
     },
     {
-      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/RoleOperation/RoleTable.js",
+      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/roleoperation/roletable.js",
       "SourceId": "ETrade.MVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/",
       "BasePath": "_content/ETrade.MVC",
-      "RelativePath": "admin/js/RoleOperation/RoleTable.js",
+      "RelativePath": "admin/js/roleoperation/roletable.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1833,15 +1833,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/admin/js/RoleOperation/RoleTable.js"
+      "OriginalItemSpec": "wwwroot/admin/js/roleoperation/roletable.js"
     },
     {
-      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/RoleOperation/UsersOfTheRoleTable.js",
+      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/roleoperation/usersoftheroletable.js",
       "SourceId": "ETrade.MVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/",
       "BasePath": "_content/ETrade.MVC",
-      "RelativePath": "admin/js/RoleOperation/UsersOfTheRoleTable.js",
+      "RelativePath": "admin/js/roleoperation/usersoftheroletable.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1850,15 +1850,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/admin/js/RoleOperation/UsersOfTheRoleTable.js"
+      "OriginalItemSpec": "wwwroot/admin/js/roleoperation/usersoftheroletable.js"
     },
     {
-      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/UserImage/userImage.js",
+      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/userimage/userimage.js",
       "SourceId": "ETrade.MVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/",
       "BasePath": "_content/ETrade.MVC",
-      "RelativePath": "admin/js/UserImage/userImage.js",
+      "RelativePath": "admin/js/userimage/userimage.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1867,15 +1867,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/admin/js/UserImage/userImage.js"
+      "OriginalItemSpec": "wwwroot/admin/js/userimage/userimage.js"
     },
     {
-      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/UserOperation/UserTable.js",
+      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/js/useroperation/usertable.js",
       "SourceId": "ETrade.MVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/",
       "BasePath": "_content/ETrade.MVC",
-      "RelativePath": "admin/js/UserOperation/UserTable.js",
+      "RelativePath": "admin/js/useroperation/usertable.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1884,7 +1884,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/admin/js/UserOperation/UserTable.js"
+      "OriginalItemSpec": "wwwroot/admin/js/useroperation/usertable.js"
     },
     {
       "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/admin/pages/charts-chartjs.html",
@@ -12852,12 +12852,12 @@
       "OriginalItemSpec": "wwwroot/js/bootstrap.min.js"
     },
     {
-      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/js/Common/alllayouts.js",
+      "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/js/common/alllayouts.js",
       "SourceId": "ETrade.MVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/",
       "BasePath": "_content/ETrade.MVC",
-      "RelativePath": "js/Common/alllayouts.js",
+      "RelativePath": "js/common/alllayouts.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -12866,7 +12866,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/js/Common/alllayouts.js"
+      "OriginalItemSpec": "wwwroot/js/common/alllayouts.js"
     },
     {
       "Identity": "/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Presentation/ETrade.MVC/wwwroot/js/gijgo/gijgo.min.js",
