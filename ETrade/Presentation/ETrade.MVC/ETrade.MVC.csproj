@@ -2206,6 +2206,14 @@
       <_ContentIncludedByDefault Remove="wwwroot\admin\fonts\fontawesome-free-6.2.1-web\webfonts\fa-solid-900.woff2" />
       <_ContentIncludedByDefault Remove="wwwroot\admin\fonts\fontawesome-free-6.2.1-web\webfonts\fa-v4compatibility.ttf" />
       <_ContentIncludedByDefault Remove="wwwroot\admin\fonts\fontawesome-free-6.2.1-web\webfonts\fa-v4compatibility.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\gijgo\gijgo.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\fonts\gijgo-material.eot" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\fonts\gijgo-material.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\fonts\gijgo-material.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\fonts\gijgo-material.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap-select\css\bootstrap-select.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap-select\js\bootstrap-select.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap-select\js\bootstrap-select.min.js.map" />
     </ItemGroup>
 
     <ItemGroup>

@@ -29,8 +29,13 @@
           padding: 16px 0 16px;
           font-size: 15px;
       }
+      .select2 {
+        width:100% !important;
+      }
    </style>
     <link href="~/lib/fancybox/css/jquery.fancybox.css" rel="stylesheet"/>
+    <link href="~/lib/select2/css/select2.min.css" rel="stylesheet"/>
+    <!-- <link href="~/lib/select2/css/select2-bootstrap4.css" rel="stylesheet"/>-->
 }
 
 <div class="breadcrumbs">
@@ -192,8 +197,9 @@
 </div> <!-- .content -->
 
 @section Scripts {
-    <script src="~/js/inputmask/jquery.inputmask.min.js"></script>
+    <script src="~/lib/inputmask/jquery.inputmask.min.js"></script>
     <script src="~/lib/fancybox/js/jquery.fancybox.min.js"></script>
+    <script src="~/lib/select2/js/select2.min.js"></script>
     <script src="~/admin/js/userimage/userimage.js" asp-append-version="true"></script>
     <script asp-append-version="true">
             var app = app || {};

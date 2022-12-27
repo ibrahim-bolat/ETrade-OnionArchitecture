@@ -36,7 +36,7 @@ $(document).ready(function ($) {
             }
         });
     });
-
+    
     //GetAllNeighborhoodsOrVillagesByDistrictId
     $(".addressForm").on('change', '#districtId', function () {
         $("#neighborhoodOrVillageId").empty();
@@ -89,6 +89,21 @@ $(document).ready(function ($) {
             }
         });
     });
+
+    // search city dropdownlist
+    $("#cityId").select2();
+    
+    // search district dropdownlist
+    $("#districtId").select2();
+    
+    // search neighborhood or village dropdownlist
+    $("#neighborhoodOrVillageId").select2();
+    
+    // search street dropdownlist
+    $("#streetId").select2();
+    
+
+    
     
     //Address Form Delete
     $("#addressdeletebutton").click(function () {

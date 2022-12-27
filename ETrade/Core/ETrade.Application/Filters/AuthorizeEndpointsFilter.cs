@@ -99,8 +99,8 @@ public class AuthorizeEndpointsFilter : IAsyncActionFilter
     {
         if (endpoint.IpAddresses != null)
         {
-            List<IpAddress> whiteList = endpoint.IpAddresses.Where(i => i.IpListType == IpListType.WhiteList).ToList();
-            List<IpAddress> blackList = endpoint.IpAddresses.Where(i => i.IpListType == IpListType.BlackList).ToList();
+            List<IpAddress> whiteList = endpoint.IpAddresses.Where(i => i.IpListType == IpListType.WhiteList && i.IsActive).ToList();
+            List<IpAddress> blackList = endpoint.IpAddresses.Where(i => i.IpListType == IpListType.BlackList && i.IsActive).ToList();
             if (whiteList.Count != 0 && blackList.Count != 0)
             {
                 if (whiteList.Any(i =>
