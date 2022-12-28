@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using ETrade.Application.DTOs.Base;
 
-namespace ETrade.Application.Features.Accounts.DTOs;
+namespace ETrade.Application.DTOs;
 
 public class EditPasswordDto:BaseDto
         {

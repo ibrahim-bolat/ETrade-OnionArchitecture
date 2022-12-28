@@ -3,9 +3,12 @@ using ETrade.Application.Features.UserOperations.Commands.CreateUserCommand;
 using ETrade.Application.Features.UserOperations.Commands.SetDeletedUserCommand;
 using ETrade.Application.Constants;
 using ETrade.Application.CustomAttributes;
+using ETrade.Application.DTOs;
 using ETrade.Application.DTOs.Common;
+using ETrade.Application.Features.UserOperations.Commands.EditPasswordUserCommand;
 using ETrade.Application.Features.UserOperations.DTOs;
 using ETrade.Application.Features.UserOperations.Queries.GetActiveUserListQuery;
+using ETrade.Application.Features.UserOperations.Queries.GetByIdForEditPasswordUserQuery;
 using ETrade.Application.Features.UserOperations.Queries.GetByIdForUserSummaryQuery;
 using ETrade.Application.Features.UserOperations.Queries.GetByIdUserRoleListQuery;
 using ETrade.Domain.Enums;
@@ -172,5 +175,55 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
                 return RedirectToAction("Index", "Error" ,new { area = "", statusCode = 400});
             }
             return Json(new { success = false });
+        }
+        
+        [HttpGet]
+        [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.UserOperation, EndpointType = EndpointType.Reading, Definition = "Get By Id Edit Password")]
+        public async Task<IActionResult> EditPassword(int id)
+        {
+            var dresult = await _mediator.Send(new GetByIdForEditPasswordUserQueryRequest()
+            {
+                Id = id.ToString()
+            });
+            if (dresult.Result.ResultStatus == ResultStatus.Success)
+            {
+                return PartialView("PartialViews/_EditPasswordModalPartial",dresult.Result.Data);
+            }
+            return RedirectToAction("Index", "Error" ,new { area = "", statusCode = 400});
+        }
+        
+        [HttpPost]
+        [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.UserOperation, EndpointType = EndpointType.Updating, Definition = "Edit Password")]
+        public async Task<IActionResult> EditPassword(EditPasswordDto editPasswordDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var dresult = await _mediator.Send(new EditPasswordUserCommandRequest()
+                {
+                    EditPasswordDto = editPasswordDto,
+                });
+                if (dresult.Result.ResultStatus == ResultStatus.Success)
+                {
+                    return Json(new { success = true });
+                }
+                if (dresult.Result.ResultStatus == ResultStatus.Error &&
+                    dresult.Result.Message.Equals(Messages.UserNotActive))
+                {
+                    ModelState.AddModelError("UserNotActive", Messages.UserNotActive);
+                    return PartialView("PartialViews/_EditPasswordModalPartial",editPasswordDto);
+                }
+                if (dresult.Result.ResultStatus == ResultStatus.Error &&
+                    dresult.Result.Message.Equals(Messages.UserNotFound))
+                {
+                    ModelState.AddModelError("UserNotFound", Messages.UserNotFound);
+                    return PartialView("PartialViews/_EditPasswordModalPartial",editPasswordDto);
+                }
+                if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.IdentityErrorList != null)
+                {
+                    dresult.Result.IdentityErrorList.ForEach(e => ModelState.AddModelError(e.Code, e.Description));
+                    return PartialView("PartialViews/_EditPasswordModalPartial",editPasswordDto);
+                }
+            }
+            return PartialView("PartialViews/_EditPasswordModalPartial",editPasswordDto);
         }
     }

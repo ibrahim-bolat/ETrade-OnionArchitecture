@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace ETrade.Application.Features.Accounts.Queries.GetByIdForEditPasswordUserQuery;
+namespace ETrade.Application.Features.UserOperations.Queries.GetByIdForEditPasswordUserQuery;
 
 public class GetByIdForEditPasswordUserQueryRequest:IRequest<GetByIdForEditPasswordUserQueryResponse>
 {

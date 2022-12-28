@@ -1,7 +1,7 @@
 using ETrade.Application.DTOs;
 using MediatR;
 
-namespace ETrade.Application.Features.Accounts.Commands.EditPasswordUserCommand;
+namespace ETrade.Application.Features.UserOperations.Commands.EditPasswordUserCommand;
 
 public class EditPasswordUserCommandRequest:IRequest<EditPasswordUserCommandResponse>
 {

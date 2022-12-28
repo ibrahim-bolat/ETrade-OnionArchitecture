@@ -1,4 +1,5 @@
 using AutoMapper;
+using ETrade.Application.DTOs;
 using ETrade.Application.Features.UserOperations.DTOs;
 using ETrade.Domain.Entities.Identity;
 
@@ -10,5 +11,6 @@ public class UserProfile:Profile
     {
         CreateMap<AppUser, CreateUserDto>().ReverseMap();
         CreateMap<AppUser, UserSummaryDto>().ReverseMap();
+        CreateMap<AppUser, EditPasswordDto>().ReverseMap();
     }
 }

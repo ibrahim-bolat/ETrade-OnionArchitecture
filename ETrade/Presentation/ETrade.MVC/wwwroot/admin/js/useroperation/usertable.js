@@ -42,7 +42,7 @@ $(document).ready(function ($) {
                     return '<a class="btn btn-success mr-2" onclick="return getRole(' + data + ')"><i class="fa fa-tasks">Rol Ata</i></a>' +
                         '<a class="btn btn-info mr-2" href="Account/Profile/' + data + '"><i class="fa fa-info-circle">Detay</i></a>' +
                         '<a class="btn btn-secondary mr-2" href="Account/EditProfile/'+data+'"><i class="fa fa-pencil-square-o">Profil Güncelle</i></a>' +
-                        '<a class="btn btn-warning mr-2" href="Account/EditPassword/'+data+'"><i class="fa fa-pencil-square-o">Şifre Güncelle</i></a>' +
+                        '<a class="btn btn-warning mr-2 editPasswordButton" data-userid="'+data+'"><i class="fa fa-pencil-square-o">Şifre Güncelle</i></a>' +
                         '<a class="btn btn-danger" onclick="getByIdforDelete(' + data + ')"><i class="fa fa-trash-o">Sil</i></a>';
                 }
             }
@@ -159,6 +159,49 @@ $(document).ready(function ($) {
         return false;
     });
 
+    //Get EditPasswordModal
+    $('#userTable').on('click', '.editPasswordButton', function (e) {
+        e.preventDefault();
+        var Id = $(this).data("userid");
+        $.ajax({
+            url: '/Admin/UserOperation/EditPassword',
+            type: 'GET',
+            data: { "Id": Id},
+            dataType: 'html',
+            success: function (modal) {
+                $("#editPasswordModalPartial").html(modal);
+                $("#editPasswordModal").modal("show");
+            },
+            error: function (errormessage) {
+                toastMessage(3000, "error", "Hata","Kullanıcı Bilgisi Getirilemedi");
+            }
+        });
+        return false;
+    });
+
+    //Save EditPasswordModal
+    $('#editPasswordModalPartial').on('submit', '#editPasswordModalForm', function () {
+        var data = $(this).serialize();
+        $.ajax({
+            url: "/Admin/UserOperation/EditPassword",
+            type: "POST",
+            data: data,
+            success: function (result) {
+                if (result.success) {
+                    $('#editPasswordModal').modal('hide');
+                    toastMessage(3000, "success", "Tebrikler","Şifre Başarıyla Güncellendi.");
+                } else {
+                    var mytag=$('<div></div>').html(result);
+                    $('#editPasswordModalFormModalBody').html(mytag.find(".modal-body").html());
+                }
+            },
+            error: function (errormessage) {
+                toastMessage(3000, "error", "Hata","Şifre Güncellenemedi");
+            }
+        });
+        return false;
+    });
+    
     //RoleModal Save
     $('#roleModalSave').click( function (e) {
         var roleIds = [];
@@ -344,6 +387,7 @@ function clearDeleteModalTextBox() {
     $('#deleteEmail').css('border-color', 'lightgrey');
 
 }
+
 
 //Disable Create Modal Form  Entire TextBox
 function disabledCreateModalTextBox(value = true) {

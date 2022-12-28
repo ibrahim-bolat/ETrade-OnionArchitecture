@@ -1,7 +1,7 @@
-using ETrade.Application.Features.Accounts.DTOs;
+using ETrade.Application.DTOs;
 using FluentValidation;
 
-namespace ETrade.Application.Features.Accounts.Validations;
+namespace ETrade.Application.Validations;
 
 public class EditPasswordDtoValidator:AbstractValidator<EditPasswordDto>
 {
@@ -15,9 +15,9 @@ public class EditPasswordDtoValidator:AbstractValidator<EditPasswordDto>
             
         RuleFor(x => x.UserName)
             .NotNull()
-            .WithMessage("Lütfen emaili boş geçmeyiniz...")
+            .WithMessage("Lütfen kullanıcı adını boş geçmeyiniz...")
             .NotEmpty()
-            .WithMessage("Lütfen emaili boş geçmeyiniz...")
+            .WithMessage("Lütfen kullanıcı adını boş geçmeyiniz...")
             .MaximumLength(30)
             .WithMessage("En fazla 30 karakter girebilirsiniz...");
         

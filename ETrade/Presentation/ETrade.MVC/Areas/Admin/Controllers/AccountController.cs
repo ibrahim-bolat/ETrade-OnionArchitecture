@@ -7,12 +7,13 @@ using ETrade.Application.Features.Accounts.Commands.UpdatePasswordUserCommand;
 using ETrade.Application.Features.Accounts.Commands.UpdateUserCommand;
 using ETrade.Application.Constants;
 using ETrade.Application.CustomAttributes;
+using ETrade.Application.DTOs;
 using ETrade.Application.Features.Accounts.Commands.ExternalLoginUserCommand;
 using ETrade.Application.Features.Accounts.DTOs;
 using ETrade.Application.Features.Accounts.Queries.ForgetPasswordUserQuery;
 using ETrade.Application.Features.Accounts.Queries.GetByIdForDetailProfileUserQuery;
-using ETrade.Application.Features.Accounts.Queries.GetByIdForEditPasswordUserQuery;
 using ETrade.Application.Features.Accounts.Queries.GetByIdUserQuery;
+using ETrade.Application.Features.Accounts.Queries.GetEditPasswordAccountByIdQuery;
 using ETrade.Application.Features.Accounts.Queries.GetExternalLoginAuthenticationPropertiesQuery;
 using ETrade.Application.Features.Accounts.Queries.LogoutUserQuery;
 using ETrade.Application.Features.Accounts.Queries.VerifyTokenUserQuery;
@@ -358,7 +359,7 @@ public class AccountController : Controller
         Definition = "Get By Id User for Edit Password")]
     public async Task<IActionResult> EditPassword(int id)
     {
-        var dresult = await _mediator.Send(new GetByIdForEditPasswordUserQueryRequest()
+        var dresult = await _mediator.Send(new GetEditPasswordAccountByIdQueryRequest()
         {
             Id = id.ToString()
         });
@@ -366,7 +367,6 @@ public class AccountController : Controller
         {
             return View(dresult.Result.Data);
         }
-
         return RedirectToAction("Index", "Error", new { area = "", statusCode = 400 });
     }
 

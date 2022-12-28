@@ -1,13 +1,13 @@
 using AutoMapper;
 using ETrade.Application.Constants;
-using ETrade.Application.Features.Accounts.DTOs;
+using ETrade.Application.DTOs;
 using ETrade.Application.Wrappers.Concrete;
 using ETrade.Domain.Entities.Identity;
 using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace ETrade.Application.Features.Accounts.Queries.GetByIdForEditPasswordUserQuery;
+namespace ETrade.Application.Features.UserOperations.Queries.GetByIdForEditPasswordUserQuery;
 
 public class GetByIdForEditPasswordUserQueryHandler:IRequestHandler<GetByIdForEditPasswordUserQueryRequest,GetByIdForEditPasswordUserQueryResponse>
 {
