@@ -1,13 +1,11 @@
-using System.Security.Claims;
 using ETrade.Application.Features.Accounts.Commands.ConfirmEmailUserCommand;
-using ETrade.Application.Features.Accounts.Commands.EditPasswordUserCommand;
 using ETrade.Application.Features.Accounts.Commands.LoginUserCommand;
 using ETrade.Application.Features.Accounts.Commands.RegisterUserCommand;
 using ETrade.Application.Features.Accounts.Commands.UpdatePasswordUserCommand;
 using ETrade.Application.Features.Accounts.Commands.UpdateUserCommand;
 using ETrade.Application.Constants;
 using ETrade.Application.CustomAttributes;
-using ETrade.Application.DTOs;
+using ETrade.Application.Features.Accounts.Commands.EditPasswordAccountCommand;
 using ETrade.Application.Features.Accounts.Commands.ExternalLoginUserCommand;
 using ETrade.Application.Features.Accounts.DTOs;
 using ETrade.Application.Features.Accounts.Queries.ForgetPasswordUserQuery;
@@ -356,8 +354,8 @@ public class AccountController : Controller
 
     [HttpGet]
     [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Account, EndpointType = EndpointType.Reading,
-        Definition = "Get By Id User for Edit Password")]
-    public async Task<IActionResult> EditPassword(int id)
+        Definition = "Get Edit Password Account By Id")]
+    public async Task<IActionResult> EditPasswordAccount(int id)
     {
         var dresult = await _mediator.Send(new GetEditPasswordAccountByIdQueryRequest()
         {
@@ -372,43 +370,43 @@ public class AccountController : Controller
 
     [HttpPost]
     [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.Account, EndpointType = EndpointType.Updating,
-        Definition = "Edit Password")]
-    public async Task<IActionResult> EditPassword(EditPasswordDto editPasswordDto)
+        Definition = "Edit Password Account")]
+    public async Task<IActionResult> EditPasswordAccount(EditPasswordAccountDto editPasswordAccountDto)
     {
         if (ModelState.IsValid)
         {
-            var dresult = await _mediator.Send(new EditPasswordUserCommandRequest()
+            var dresult = await _mediator.Send(new EditPasswordAccountCommandRequest()
             {
-                EditPasswordDto = editPasswordDto,
+                EditPasswordAccountDto = editPasswordAccountDto,
             });
             if (dresult.Result.ResultStatus == ResultStatus.Success)
             {
                 TempData["EditPasswordSuccess"] = true;
-                return RedirectToAction("Index", "UserOperation", new { area = "Admin" });
+                return View(editPasswordAccountDto);
             }
 
             if (dresult.Result.ResultStatus == ResultStatus.Error &&
                 dresult.Result.Message.Equals(Messages.UserNotActive))
             {
                 ModelState.AddModelError("UserNotActive", Messages.UserNotActive);
-                return View(editPasswordDto);
+                return View(editPasswordAccountDto);
             }
 
             if (dresult.Result.ResultStatus == ResultStatus.Error &&
                 dresult.Result.Message.Equals(Messages.UserNotFound))
             {
                 ModelState.AddModelError("UserNotFound", Messages.UserNotFound);
-                return View(editPasswordDto);
+                return View(editPasswordAccountDto);
             }
 
             if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.IdentityErrorList != null)
             {
                 dresult.Result.IdentityErrorList.ForEach(e => ModelState.AddModelError(e.Code, e.Description));
-                return View(editPasswordDto);
+                return View(editPasswordAccountDto);
             }
         }
 
-        return View(editPasswordDto);
+        return View(editPasswordAccountDto);
     }
 
 

@@ -26,6 +26,7 @@
       <Folder Include="Features\UserOperations\Constants" />
       <Folder Include="Helpers" />
       <Folder Include="Model\ViewModels" />
+      <Folder Include="Validations" />
     </ItemGroup>
 
     <ItemGroup>

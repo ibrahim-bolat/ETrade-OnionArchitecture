@@ -1,11 +1,11 @@
-using ETrade.Application.DTOs;
+using ETrade.Application.Features.UserOperations.DTOs;
 using FluentValidation;
 
-namespace ETrade.Application.Validations;
+namespace ETrade.Application.Features.UserOperations.Validations;
 
-public class EditPasswordDtoValidator:AbstractValidator<EditPasswordDto>
+public class EditPasswordUserDtoValidator:AbstractValidator<EditPasswordUserDto>
 {
-    public EditPasswordDtoValidator()
+    public EditPasswordUserDtoValidator()
     {
         RuleFor(x => x.Id)
             .NotNull()

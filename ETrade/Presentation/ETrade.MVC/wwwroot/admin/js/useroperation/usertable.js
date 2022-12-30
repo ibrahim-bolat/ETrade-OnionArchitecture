@@ -164,7 +164,7 @@ $(document).ready(function ($) {
         e.preventDefault();
         var Id = $(this).data("userid");
         $.ajax({
-            url: '/Admin/UserOperation/EditPassword',
+            url: '/Admin/UserOperation/EditPasswordUser',
             type: 'GET',
             data: { "Id": Id},
             dataType: 'html',
@@ -183,7 +183,7 @@ $(document).ready(function ($) {
     $('#editPasswordModalPartial').on('submit', '#editPasswordModalForm', function () {
         var data = $(this).serialize();
         $.ajax({
-            url: "/Admin/UserOperation/EditPassword",
+            url: "/Admin/UserOperation/EditPasswordUser",
             type: "POST",
             data: data,
             success: function (result) {
@@ -248,11 +248,6 @@ $(document).ready(function ($) {
         toastMessage(3000,"success","Kullanıcı Güncellendi.",
             "Kullanıcı Güncelleme İşlemi Başarıyla Gerçekleştirildi.");
     }
-    if(app.ToastMessages.editPasswordMessage==="True"){
-        toastMessage(3000,"success","Şifre Güncellendi.",
-            "Şifre Güncelleme İşlemi Başarıyla Gerçekleştirildi.");
-    }
-
 });
 
 //Get Role By Id For Update

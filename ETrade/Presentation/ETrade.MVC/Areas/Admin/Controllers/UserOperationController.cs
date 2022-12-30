@@ -3,14 +3,13 @@ using ETrade.Application.Features.UserOperations.Commands.CreateUserCommand;
 using ETrade.Application.Features.UserOperations.Commands.SetDeletedUserCommand;
 using ETrade.Application.Constants;
 using ETrade.Application.CustomAttributes;
-using ETrade.Application.DTOs;
 using ETrade.Application.DTOs.Common;
 using ETrade.Application.Features.UserOperations.Commands.EditPasswordUserCommand;
 using ETrade.Application.Features.UserOperations.DTOs;
 using ETrade.Application.Features.UserOperations.Queries.GetActiveUserListQuery;
-using ETrade.Application.Features.UserOperations.Queries.GetByIdForEditPasswordUserQuery;
 using ETrade.Application.Features.UserOperations.Queries.GetByIdForUserSummaryQuery;
 using ETrade.Application.Features.UserOperations.Queries.GetByIdUserRoleListQuery;
+using ETrade.Application.Features.UserOperations.Queries.GetEditPasswordUserByIdQuery;
 using ETrade.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -178,10 +177,10 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
         
         [HttpGet]
-        [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.UserOperation, EndpointType = EndpointType.Reading, Definition = "Get By Id Edit Password")]
-        public async Task<IActionResult> EditPassword(int id)
+        [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.UserOperation, EndpointType = EndpointType.Reading, Definition = "Get Edit Password User By Id")]
+        public async Task<IActionResult> EditPasswordUser(int id)
         {
-            var dresult = await _mediator.Send(new GetByIdForEditPasswordUserQueryRequest()
+            var dresult = await _mediator.Send(new GetEditPasswordUserByIdQueryRequest()
             {
                 Id = id.ToString()
             });
@@ -193,14 +192,14 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
         }
         
         [HttpPost]
-        [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.UserOperation, EndpointType = EndpointType.Updating, Definition = "Edit Password")]
-        public async Task<IActionResult> EditPassword(EditPasswordDto editPasswordDto)
+        [AuthorizeEndpoint(Menu = AuthorizeEndpointConstants.UserOperation, EndpointType = EndpointType.Updating, Definition = "Edit Password User")]
+        public async Task<IActionResult> EditPasswordUser(EditPasswordUserDto editPasswordUserDto)
         {
             if (ModelState.IsValid)
             {
                 var dresult = await _mediator.Send(new EditPasswordUserCommandRequest()
                 {
-                    EditPasswordDto = editPasswordDto,
+                    EditPasswordUserDto = editPasswordUserDto,
                 });
                 if (dresult.Result.ResultStatus == ResultStatus.Success)
                 {
@@ -210,20 +209,20 @@ namespace ETrade.MVC.Areas.Admin.Controllers;
                     dresult.Result.Message.Equals(Messages.UserNotActive))
                 {
                     ModelState.AddModelError("UserNotActive", Messages.UserNotActive);
-                    return PartialView("PartialViews/_EditPasswordModalPartial",editPasswordDto);
+                    return PartialView("PartialViews/_EditPasswordModalPartial",editPasswordUserDto);
                 }
                 if (dresult.Result.ResultStatus == ResultStatus.Error &&
                     dresult.Result.Message.Equals(Messages.UserNotFound))
                 {
                     ModelState.AddModelError("UserNotFound", Messages.UserNotFound);
-                    return PartialView("PartialViews/_EditPasswordModalPartial",editPasswordDto);
+                    return PartialView("PartialViews/_EditPasswordModalPartial",editPasswordUserDto);
                 }
                 if (dresult.Result.ResultStatus == ResultStatus.Error && dresult.Result.IdentityErrorList != null)
                 {
                     dresult.Result.IdentityErrorList.ForEach(e => ModelState.AddModelError(e.Code, e.Description));
-                    return PartialView("PartialViews/_EditPasswordModalPartial",editPasswordDto);
+                    return PartialView("PartialViews/_EditPasswordModalPartial",editPasswordUserDto);
                 }
             }
-            return PartialView("PartialViews/_EditPasswordModalPartial",editPasswordDto);
+            return PartialView("PartialViews/_EditPasswordModalPartial",editPasswordUserDto);
         }
     }

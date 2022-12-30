@@ -1,6 +1,7 @@
 using AutoMapper;
 using ETrade.Application.Constants;
 using ETrade.Application.DTOs;
+using ETrade.Application.Features.Accounts.DTOs;
 using ETrade.Application.Wrappers.Concrete;
 using ETrade.Domain.Entities.Identity;
 using ETrade.Domain.Enums;
@@ -33,19 +34,19 @@ public class GetEditPasswordAccountByIdQueryHandler:IRequestHandler<GetEditPassw
             {
                 if (user.IsActive)
                 {
-                    EditPasswordDto editPasswordDto = _mapper.Map<EditPasswordDto>(user);
+                    EditPasswordAccountDto editPasswordAccountDto = _mapper.Map<EditPasswordAccountDto>(user);
                     return new GetEditPasswordAccountByIdQueryResponse
                     {
-                        Result = new DataResult<EditPasswordDto>(ResultStatus.Success,editPasswordDto)
+                        Result = new DataResult<EditPasswordAccountDto>(ResultStatus.Success,editPasswordAccountDto)
                     };
                 }
                 return new GetEditPasswordAccountByIdQueryResponse{
-                    Result = new DataResult<EditPasswordDto>(ResultStatus.Error, Messages.UserNotActive,null)
+                    Result = new DataResult<EditPasswordAccountDto>(ResultStatus.Error, Messages.UserNotActive,null)
                 };
             }
         }
         return new GetEditPasswordAccountByIdQueryResponse{
-            Result = new DataResult<EditPasswordDto>(ResultStatus.Error, Messages.UserNotFound,null)
+            Result = new DataResult<EditPasswordAccountDto>(ResultStatus.Error, Messages.UserNotFound,null)
         };
     }
 }

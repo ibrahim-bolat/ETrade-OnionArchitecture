@@ -4,6 +4,11 @@ $(document).ready(function ($) {
     <!-- Phone Input Mask -->
     $("#userphonemasc").inputmask("+\\90(999)999-99-99");
 
+    <!-- EditPasswordAccount -->
+    if(app.ToastMessages.editPasswordMessage==="True"){
+        toastMessage(3000,"success","Şifre Güncellendi.",
+            "Şifre Güncelleme İşlemi Başarıyla Gerçekleştirildi.");
+    }
     <!-- Forget Pass -->
     if(app.ToastMessages.emailSendMessage==="True"){
         toastMessage(3000,"success","Doğrulama Maili Gönderildi.",
@@ -31,6 +36,17 @@ $(document).ready(function ($) {
         toastMessage(3000,"error","Google ile Giriş Hatalı",
             "Google ile Giriş İşleminiz Başarısız Oldu!");
     }
+    <!-- Profile -->
+    if(app.ToastMessages.updateAddressMessage==="True"){
+        toastMessage(3000,"success","Tebrikler",
+            "Adres Başarıyla Güncellendi.");
+    }
+
+    <!-- UpdatePassword -->
+    if(app.ToastMessages.updatePasswordMessage==="False"){
+        toastMessage(3000,"error","Hata! Şifre Güncellenemedi!!!",
+            "Şifreyi güncellerken beklenmeyen hatayla karşılaşıldı.Kurallara uygun şifre oluşturmayı deneyiniz!");
+    }
     
     $(".externallogin").click(function (e) {
         e.preventDefault();
@@ -46,19 +62,7 @@ $(document).ready(function ($) {
         }
         window.location.href = app.Urls.externalLoginUrl+'?providerName='+ providerName + '&isPersistent=' + isPersistent+'&returnUrl='+returnUrl;
     });
-
-    <!-- Profile -->
-    if(app.ToastMessages.updateAddressMessage==="True"){
-        toastMessage(3000,"success","Tebrikler",
-            "Adres Başarıyla Güncellendi.");
-    }
-
-    <!-- UpdatePassword -->
-    if(app.ToastMessages.updatePasswordMessage==="False"){
-        toastMessage(3000,"error","Hata! Şifre Güncellenemedi!!!",
-            "Şifreyi güncellerken beklenmeyen hatayla karşılaşıldı.Kurallara uygun şifre oluşturmayı deneyiniz!");
-    }
-
+    
     <!-- Toast Message -->
     function toastMessage(time, icon,title,text) {
         const Toast = Swal.mixin({

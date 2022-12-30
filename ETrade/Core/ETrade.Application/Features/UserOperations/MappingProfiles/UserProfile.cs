@@ -11,6 +11,6 @@ public class UserProfile:Profile
     {
         CreateMap<AppUser, CreateUserDto>().ReverseMap();
         CreateMap<AppUser, UserSummaryDto>().ReverseMap();
-        CreateMap<AppUser, EditPasswordDto>().ReverseMap();
+        CreateMap<AppUser, EditPasswordUserDto>().ReverseMap();
     }
 }
