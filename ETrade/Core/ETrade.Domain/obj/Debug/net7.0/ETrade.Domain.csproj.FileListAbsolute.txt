@@ -1,0 +1,12 @@
+/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Core/ETrade.Domain/bin/Debug/net7.0/ETrade.Domain.deps.json
+/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Core/ETrade.Domain/bin/Debug/net7.0/ETrade.Domain.dll
+/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Core/ETrade.Domain/bin/Debug/net7.0/ETrade.Domain.pdb
+/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Core/ETrade.Domain/obj/Debug/net7.0/ETrade.Domain.csproj.AssemblyReference.cache
+/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Core/ETrade.Domain/obj/Debug/net7.0/ETrade.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Core/ETrade.Domain/obj/Debug/net7.0/ETrade.Domain.AssemblyInfoInputs.cache
+/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Core/ETrade.Domain/obj/Debug/net7.0/ETrade.Domain.AssemblyInfo.cs
+/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Core/ETrade.Domain/obj/Debug/net7.0/ETrade.Domain.csproj.CoreCompileInputs.cache
+/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Core/ETrade.Domain/obj/Debug/net7.0/ETrade.Domain.dll
+/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Core/ETrade.Domain/obj/Debug/net7.0/refint/ETrade.Domain.dll
+/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Core/ETrade.Domain/obj/Debug/net7.0/ETrade.Domain.pdb
+/home/ibrahim.bolat/RiderProjects/Repos/ETrade-OnionArchitecture/ETrade-OnionArchitecture/ETrade/Core/ETrade.Domain/obj/Debug/net7.0/ref/ETrade.Domain.dll

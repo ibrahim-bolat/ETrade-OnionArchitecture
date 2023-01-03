@@ -1,4 +1,6 @@
 using System.Text.Json.Serialization;
+using ETrade.Application.Model;
+using ETrade.MVC.Configurations.RateLimit;
 using ETrade.MVC.Configurations.SeriLog;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.HttpLogging;
@@ -104,6 +106,13 @@ public static class ServiceRegistration
             logging.MediaTypeOptions.AddText("application/javascript");
             logging.RequestBodyLogLimit = 4096;
             logging.ResponseBodyLogLimit = 4096;
+        });
+        
+        //configure RateLimitSettings
+        serviceCollection.Configure<RateLimitSettings>(configuration.GetSection("RateLimitSettings"));
+        serviceCollection.AddRateLimiter(options =>
+        {
+            options.AddPolicy<string, CustomRateLimitPolicy>("CustomRateLimitPolicy");
         });
     }
 }

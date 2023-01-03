@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <Nullable>disable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>02c0bd63-58b4-47b9-9edd-d84fbeaba098</UserSecretsId>
@@ -13,18 +13,18 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="AspNetCoreRateLimit" Version="4.0.2" />
-      <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="6.0.7" />
-      <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.7" />
-      <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.7" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.7">
+      <PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="7.0.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
-      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-      <PackageReference Include="Serilog.AspNetCore" Version="6.0.1" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+      <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
       <PackageReference Include="Serilog.Sinks.PostgreSQL" Version="2.3.0" />
     </ItemGroup>
 

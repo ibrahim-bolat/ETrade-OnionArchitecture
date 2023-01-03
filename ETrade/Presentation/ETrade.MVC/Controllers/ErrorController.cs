@@ -1,10 +1,12 @@
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace ETrade.MVC.Controllers;
 
 [AllowAnonymous]
+[DisableRateLimiting]
 public class ErrorController : Controller
 {
     public IActionResult Index(int statusCode,string errorTitle=null, string errorMessage=null)

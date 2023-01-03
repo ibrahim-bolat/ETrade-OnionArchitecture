@@ -19,15 +19,10 @@ builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddPresentationServices(builder.Configuration,builder.Host);
 
-// Add Rate Limiting
-// builder.Services.AddRateLimiting(builder.Configuration);
 
 var app = builder.Build();
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-
-// Use Rate Limiting
-//app.UseRateLimiting();
 
 
 if (!app.Environment.IsDevelopment())
@@ -61,14 +56,15 @@ await app.AuthorizeEndpointsMigrateAsync(typeof(Program));
 // Add user_name info to serilog LogContext
 //app.AddUserIdtoSeriLogContext();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-        name: "Admin",
-        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-    endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
-});
+// Use Rate Limiting
+//app.UseRateLimiter();
 
+app.MapControllerRoute(
+    name: "Admin",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}")
+    .RequireRateLimiting("CustomRateLimitPolicy");
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}")
+    .RequireRateLimiting("CustomRateLimitPolicy");
 app.Run();
