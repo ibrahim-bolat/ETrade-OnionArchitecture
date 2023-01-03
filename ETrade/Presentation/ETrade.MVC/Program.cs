@@ -57,7 +57,7 @@ await app.AuthorizeEndpointsMigrateAsync(typeof(Program));
 //app.AddUserIdtoSeriLogContext();
 
 // Use Rate Limiting
-//app.UseRateLimiter();
+app.UseRateLimiter();
 
 app.MapControllerRoute(
     name: "Admin",

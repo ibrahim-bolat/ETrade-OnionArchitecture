@@ -2,24 +2,6 @@
   "version": 3,
   "targets": {
     "net7.0": {
-      "AspNetCoreRateLimit/5.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.Caching.Abstractions": "6.0.0",
-          "Microsoft.Extensions.Logging.Abstractions": "6.0.3",
-          "Microsoft.Extensions.Options": "6.0.0",
-          "Newtonsoft.Json": "13.0.2"
-        },
-        "compile": {
-          "lib/net6.0/AspNetCoreRateLimit.dll": {}
-        },
-        "runtime": {
-          "lib/net6.0/AspNetCoreRateLimit.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
-      },
       "AutoMapper/12.0.0": {
         "type": "package",
         "dependencies": {
@@ -1943,18 +1925,6 @@
     }
   },
   "libraries": {
-    "AspNetCoreRateLimit/5.0.0": {
-      "sha512": "6fq9+o1maGADUmpK/PvcF0DtXW2+7bSkIL7MDIo/agbIHKN8XkMQF4oze60DO731WaQmHmK260hB30FwPzCmEg==",
-      "type": "package",
-      "path": "aspnetcoreratelimit/5.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "aspnetcoreratelimit.5.0.0.nupkg.sha512",
-        "aspnetcoreratelimit.nuspec",
-        "lib/net6.0/AspNetCoreRateLimit.dll"
-      ]
-    },
     "AutoMapper/12.0.0": {
       "sha512": "0Rmg0zI5AFu1O/y//o9VGyhxKjhggWpk9mOA1tp0DEVx40c61bs+lnQv+0jUq8XbniF7FKgIVvI1perqiMtLrA==",
       "type": "package",
@@ -5217,7 +5187,6 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "AspNetCoreRateLimit >= 5.0.0",
       "ETrade.Application >= 1.0.0",
       "ETrade.Infrastructure >= 1.0.0",
       "ETrade.Persistence >= 1.0.0",
@@ -5279,10 +5248,6 @@
       "net7.0": {
         "targetAlias": "net7.0",
         "dependencies": {
-          "AspNetCoreRateLimit": {
-            "target": "Package",
-            "version": "[5.0.0, )"
-          },
           "Microsoft.AspNetCore.Authentication.Facebook": {
             "target": "Package",
             "version": "[7.0.0, )"

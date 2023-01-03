@@ -1,3 +1,4 @@
+using System.Net;
 using System.Text.Json.Serialization;
 using ETrade.Application.Model;
 using ETrade.MVC.Configurations.RateLimit;
@@ -112,7 +113,7 @@ public static class ServiceRegistration
         serviceCollection.Configure<RateLimitSettings>(configuration.GetSection("RateLimitSettings"));
         serviceCollection.AddRateLimiter(options =>
         {
-            options.AddPolicy<string, CustomRateLimitPolicy>("CustomRateLimitPolicy");
+            options.AddPolicy<IPAddress, CustomRateLimitPolicy>("CustomRateLimitPolicy");
         });
     }
 }
