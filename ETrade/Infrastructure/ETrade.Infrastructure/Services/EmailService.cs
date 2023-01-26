@@ -9,9 +9,9 @@ public class EmailService:IEmailService
     {
         private readonly MailSettings _mailSettings;
         
-        public EmailService(IOptions<MailSettings> options)
+        public EmailService(IOptionsMonitor<MailSettings> options)
         {
-            _mailSettings = options.Value;
+            _mailSettings = options.CurrentValue;
         }
         public bool SendEmail(MailRequest mailRequest)
         {

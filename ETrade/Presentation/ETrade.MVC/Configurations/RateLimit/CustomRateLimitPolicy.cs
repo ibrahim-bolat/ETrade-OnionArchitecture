@@ -9,9 +9,9 @@ namespace ETrade.MVC.Configurations.RateLimit;
 public class CustomRateLimitPolicy : IRateLimiterPolicy<IPAddress>
 {
     private readonly RateLimitSettings _rateLimitSettings;
-    public CustomRateLimitPolicy(IOptions<RateLimitSettings> options)
+    public CustomRateLimitPolicy(IOptionsMonitor<RateLimitSettings> options)
     {
-        _rateLimitSettings = options.Value;
+        _rateLimitSettings = options.CurrentValue;
     }
     public RateLimitPartition<IPAddress> GetPartition(HttpContext httpContext)
     {
